@@ -1,0 +1,180 @@
+
+	    Standards of Fundamental Astronomy (SOFA)
+	    =========================================
+
+
+Topics
+------
+
+  1. Introduction
+  2. License
+  3. Install
+  4. Usage
+  5. How to
+  A. Credits
+  B. Bugs
+  C. Resources
+
+
+1. Introduction
+---------------
+
+The SOFA  Collection consists of  two libraries of  routines, one
+coded in  Fortran 77 the  other in ANSI C.   There is a  suite of
+vector/matrix routines  and various  utilities that  underpin the
+astronomy algorithms, which include routines for the following:
+
+* Calendars
+
+* Time Scales
+
+* Earth rotation and sidereal time
+
+* Ephemerides (medium precision)
+
+* Geocentric/geodetic transformations
+
+* Precession, nutation, polar motion
+
+* Star space motion
+
+* Star catalogue conversion
+
+  This  package makes  use of  the  GNU Autotools  to allow  easy
+distribution and installation of SOFA; this package is *not* part
+of the original SOFA distribution.
+
+  *NOTE* The  last time  the maintainer  bothered to  update this
+paragraph   he  had   included   the   SOFA  libraries   version:
+"SOFA-Issue: 2012-03-01".
+
+  *NOTE* The maintainer supports  only the GNU infrastructure and
+tests only on a GNU+Linux system.
+
+
+2. License
+----------
+
+See the COPYING file included in the distribution.
+
+
+3. Install
+----------
+
+If we have  a proper release tarball, we unpack  the archive then
+do:
+
+    $ cd atsofa
+    $ mkdir build
+    $ cd build
+
+to inspect the available configuration options:
+
+    $ ../configure --help
+
+then do it:
+
+    $ ../configure [options]
+    $ make
+    $ make check
+    $ make install
+
+  To build  the code  from a repository  checkout, we  must first
+install the GNU Autotools.  The  we run the following script from
+the top source directory of ATSOFA:
+
+    $ sh autogen.sh
+
+we  should now  see  the executable  "configure"  script and  the
+"Makefile.in" file.   From now on  everything is the same  as for
+building from a proper release tarball.
+
+  The  Makefile  supports  the DESTDIR  environment  variable  to
+install files in a temporary  location, example: to see what will
+happen:
+
+    $ make -n install DESTDIR=/tmp/marco/atsofa
+
+to really do it:
+
+    $ make install DESTDIR=/tmp/marco/atsofa
+
+
+4. Usage
+--------
+
+Read the original documentation of SOFA.
+
+
+5. How to
+---------
+
+Here is an overview of how  to repackage SOFA.  The original SOFA
+libraries come in 2 archives, one  for the C language version and
+one for the Fortran language.
+
+* Both archives  have a "doc" subdirectory  holding documentation
+  file.  Take one  of these directories and copy  the contents in
+  the "doc" subdirectory of ATSOFA.
+
+* C source  files (both  .c and  .h) go  unchanged under  the "c"
+  subdirectory of ATSOFA.
+
+* Fortran source files go  unchanged under the "f77" subdirectory
+  of ATSOFA.
+
+* C source files must be explicitly listed in "c/Makefile.am", as
+  is already shown.
+
+* Fortran   source   files   must   be   explicitly   listed   in
+  "f77/Makefile.am", as is already shown.
+
+
+A. Credits
+----------
+
+Software  Routines from  the  IAU SOFA  Collection are  included.
+Copyright  (C)  International  Astronomical  Union  Standards  of
+Fundamental Astronomy (http://www.iausofa.org).
+
+  Packaging with  the GNU Autotools  is by Marco Maggi.   If this
+package exists it's because of  the great GNU software tools that
+he uses all the time.
+
+
+B. Bugs
+-------
+
+Bug  reports are  appreciated,  register them  at the  Issue
+tracker at Github:
+
+	  <http://github.com/marcomaggi/atsofa/issues>
+
+
+C. Resources
+------------
+
+The GNU Project software can be found here:
+
+		   <http://www.gnu.org/>
+
+  The latest version of this  package can be downloaded from
+Google Code:
+
+    <http://code.google.com/p/libtoolisations/downloads/list>
+
+development takes place at:
+
+	     <http://github.com/marcomaggi/atsofa/>
+
+  The  SOFA libraries  along  with  documentation and  other
+goodies can be found at:
+
+		    <http://www.iausofa.org/>
+
+
+### end of file
+# Local Variables:
+# mode: text
+# fill-column: 65
+# End:
