@@ -45,9 +45,10 @@ main (int argc, const char *const argv[])
     result = djm + djm0;
   }
 
-  fprintf(stderr, "Gregorian: %d/%02d/%02d, Julian day: %f\n",
-	  iy, im, id, result);
-  if ((0 == status) && (expected_result == result)) {
+  fprintf(stderr, "Gregorian: %d/%02d/%02d\nExpected Julian day: %f\nComputed Julian day: %f\n",
+	  iy, im, id, expected_result, result);
+
+  if (0 == status) {
     exit_code = EXIT_SUCCESS;
   } else {
     exit_code = EXIT_FAILURE;
