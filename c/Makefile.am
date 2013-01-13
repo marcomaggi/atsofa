@@ -1,10 +1,12 @@
 ## Process this file with automake to produce Makefile.in
 
-include_HEADERS		= sofa.h sofam.h
+AM_CFLAGS = -Wall
 
+if WANT_CLIB
 lib_LTLIBRARIES		= libsofac.la
+endif
 libsofac_la_LDFLAGS	= -version-info 1:0:0
-#libsofac_la_LIBADD	= ../f77/libsofaf.la
+include_HEADERS		= sofa.h sofam.h
 libsofac_la_SOURCES	= \
 	a2af.c		a2tf.c		af2a.c		\
 	anp.c		anpm.c		bi00.c		\

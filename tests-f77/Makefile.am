@@ -2,8 +2,10 @@
 
 #AM_CPPFLAGS	= -I$(top_srcdir)/f77
 
+if WANT_FLIB
 check_PROGRAMS	= \
 	cal2jd
+endif
 
 LDADD		= ../f77/libsofaf.la
 TESTS		= $(check_PROGRAMS)

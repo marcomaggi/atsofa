@@ -1,6 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 
+AM_FFLAGS = -Wall
+
+if WANT_FLIB
 lib_LTLIBRARIES		= libsofaf.la
+endif
 libsofaf_la_LDFLAGS	= -version-info 1:0:0
 libsofaf_la_SOURCES	= \
 	a2af.for	a2tf.for	af2a.for	\

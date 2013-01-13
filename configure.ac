@@ -16,6 +16,29 @@ LT_PREREQ([2.2])
 LT_INIT
 AM_MAINTAINER_MODE
 
+dnl Options
+AC_MSG_CHECKING([whether to enable building the C library])
+AC_ARG_ENABLE([clib],
+  [AS_HELP_STRING([--enable-clib],[enable building the C library (default: yes)])],
+  [if test x$withval = xyes
+   then atsofa_clib=yes
+   else atsofa_clib=no
+   fi],
+  [atsofa_clib=yes])
+AC_MSG_RESULT([$atsofa_clib])
+AM_CONDITIONAL([WANT_CLIB],[test x$atsofa_clib = xyes])
+
+AC_MSG_CHECKING([whether to enable building the Fortran 77 library])
+AC_ARG_ENABLE([flib],
+  [AS_HELP_STRING([--enable-flib],[enable building the Fortran 77 library (default: yes)])],
+  [if test x$withval = xyes
+   then atsofa_flib=yes
+   else atsofa_flib=no
+   fi],
+  [atsofa_flib=yes])
+AC_MSG_RESULT([$atsofa_flib])
+AM_CONDITIONAL([WANT_FLIB],[test x$atsofa_flib = xyes])
+
 dnl Checks for programs.
 AC_LANG([Fortran 77])
 AC_PROG_F77

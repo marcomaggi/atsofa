@@ -58,7 +58,6 @@
       else
          exit_code = 1
       end if
-c      stop
       call exit (exit_code)
       end
 
