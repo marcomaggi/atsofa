@@ -4,7 +4,7 @@ AM_CPPFLAGS	= -I$(top_srcdir)/c
 
 if WANT_CLIB
 check_PROGRAMS	= \
-	cal2jd
+	iaucal2jd
 endif
 
 LDADD		= ../c/libsofac.la
