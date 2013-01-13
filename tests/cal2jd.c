@@ -5,7 +5,9 @@
 
   Abstract
 
-	Test conversion Gregorian Calendar to Julian Date.
+	Test conversion  Gregorian Calendar to Julian  Date.  The Julian
+	Date is  the interval  of time  in days and  fractions of  a day
+	since -4714-11-24T12:00:00Z (November 24, -4714 at noon, UTC).
 
   Copyright (C) 2013 Marco Maggi <marco.maggi-ipsu@poste.it>
 
@@ -21,7 +23,7 @@ main (int argc, const char *const argv[])
 {
   int		exit_code	= EXIT_FAILURE;
   double	result		= 0.0;
-  double	expected_result = 2456306.0;
+  double	expected_result = 2456306.0; /* Julian day number at 12:00. */
 
   /* Input */
   int		iy;	/* Year in Gregorian calendar. */
@@ -36,19 +38,19 @@ main (int argc, const char *const argv[])
 			    -2 = bad month  (JD not computed)
 			    -3 = bad day    (JD computed) */
 
-  iy = 2012;
+  iy = 2013;
   im = 1;
   id = 13;
 
   status = iauCal2jd(iy, im, id, &djm0, &djm);
   if (0 == status) {
-    result = djm + djm0;
+    result = djm + djm0 + 0.5;
   }
 
   fprintf(stderr, "Gregorian: %d/%02d/%02d\nExpected Julian day: %f\nComputed Julian day: %f\n",
 	  iy, im, id, expected_result, result);
 
-  if (0 == status) {
+  if ((0 == status) && (expected_result == result)) {
     exit_code = EXIT_SUCCESS;
   } else {
     exit_code = EXIT_FAILURE;
