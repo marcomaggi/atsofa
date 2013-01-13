@@ -36,8 +36,10 @@ AC_PROG_MAKE_SET
 dnl Checks for header files.
 AC_HEADER_STDC
 
-dnl AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile c/Makefile f77/Makefile])
+dnl Checks for libraries.
+AC_CHECK_LIB([m],[sin])
+
+AC_CONFIG_FILES([Makefile c/Makefile f77/Makefile tests/Makefile])
 AC_OUTPUT
 
 dnl end of file
