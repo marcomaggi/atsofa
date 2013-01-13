@@ -18,7 +18,6 @@ AM_MAINTAINER_MODE
 
 dnl Checks for programs.
 AC_LANG([Fortran 77])
-
 AC_PROG_F77
 AC_PROG_F77_C_O
 AC_F77_LIBRARY_LDFLAGS
@@ -39,7 +38,7 @@ AC_HEADER_STDC
 dnl Checks for libraries.
 AC_CHECK_LIB([m],[sin])
 
-AC_CONFIG_FILES([Makefile c/Makefile f77/Makefile tests/Makefile])
+AC_CONFIG_FILES([Makefile c/Makefile f77/Makefile tests-c/Makefile tests-f77/Makefile])
 AC_OUTPUT
 
 dnl end of file
