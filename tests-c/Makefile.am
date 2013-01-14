@@ -4,8 +4,7 @@ AM_CPPFLAGS	= -I$(top_srcdir)/c
 AM_CFLAGS	= -Wall
 
 if WANT_CLIB
-check_PROGRAMS	= \
-	iaucal2jd
+check_PROGRAMS	= iaucal2jd t_sofa_c
 endif
 
 LDADD		= ../c/libsofac.la

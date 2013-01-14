@@ -64,7 +64,7 @@ libsofaf_la_SOURCES	= \
 	tcbtdb.for	tcgtt.for	tdbtcb.for	\
 	tdbtt.for	tf2a.for	tf2d.for	\
 	tr.for		trxp.for	trxpv.for	\
-	t_sofa_f.for	tttai.for	tttcg.for	\
+			tttai.for	tttcg.for	\
 	tttdb.for	ttut1.for	ut1tai.for	\
 	ut1tt.for	ut1utc.for	utctai.for	\
 	utcut1.for	xy06.for	xys00a.for	\

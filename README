@@ -118,10 +118,12 @@ one for the Fortran language.
   the "doc" subdirectory of ATSOFA.
 
 * C source  files (both  .c and  .h) go  unchanged under  the "c"
-  subdirectory of ATSOFA.
+  subdirectory  of ATSOFA,  with  the  exception of  "t_sofa_c.c"
+  which is the test file and goes under "test-c".
 
 * Fortran source files go  unchanged under the "f77" subdirectory
-  of ATSOFA.
+  of ATSOFA,  with the exception  of "t_sofa_f.for" which  is the
+  test file and goes under "test-f77".
 
 * C source files must be explicitly listed in "c/Makefile.am", as
   is already shown.

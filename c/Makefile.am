@@ -64,7 +64,7 @@ libsofac_la_SOURCES	= \
 	taiut1.c	taiutc.c	tcbtdb.c	\
 	tcgtt.c		tdbtcb.c	tdbtt.c		\
 	tf2a.c		tf2d.c		tr.c		\
-	trxp.c		trxpv.c		t_sofa_c.c	\
+	trxp.c		trxpv.c				\
 	tttai.c		tttcg.c		tttdb.c		\
 	ttut1.c		ut1tai.c	ut1tt.c		\
 	ut1utc.c	utctai.c	utcut1.c	\

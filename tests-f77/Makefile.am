@@ -3,11 +3,11 @@
 AM_FFLAGS	= -Wall
 
 if WANT_FLIB
-check_PROGRAMS	= \
-	cal2jd
+check_PROGRAMS	= cal2jd t_sofa_f
 endif
 
 cal2jd_SOURCES	= cal2jd.f
+t_sofa_f_SOURCES= t_sofa_f.for
 
 LDADD		= ../f77/libsofaf.la
 TESTS		= $(check_PROGRAMS)
