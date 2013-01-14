@@ -1,5 +1,5 @@
 * Part of: ATSOFA
-* Contents: test for the function "cal2jd"
+* Contents: test for the function "iau_CAL2JD()"
 * Date: Sun Jan 13, 2013
 *
 * Abstract
@@ -12,7 +12,7 @@
 *
 * See the COPYING file for copying permissions.
 
-      program cal2jd_f
+      program main
       implicit none
 
       integer exit_code
@@ -48,7 +48,7 @@
       im = 1
       id = 13
 
-      call cal2jd(iy, im, id, djm0, djm, status)
+      call iau_CAL2JD(iy, im, id, djm0, djm, status)
       if (0.EQ.status) then
          result = djm + djm0 + 0.5
       end if

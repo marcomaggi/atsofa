@@ -1,6 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 AM_CPPFLAGS	= -I$(top_srcdir)/c
+AM_CFLAGS	= -Wall
 
 if WANT_CLIB
 check_PROGRAMS	= \
