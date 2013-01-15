@@ -1804,448 +1804,652 @@ by testing for @code{ihmsf[0]=24} and setting @code{ihmsf(0-3)} to zero.
 @end enumerate
 @end deftypefun
 
-@c @ignore
 
-@deftypefun int iauAf2a (char s, int ideg, int iamin, double asec, double *rad)
+@deftypefun int iauAf2a (char @var{s}, int @var{ideg}, int @var{iamin}, double @var{asec}, double * @var{rad})
 Convert degrees, arcminutes, arcseconds to radians.
 
-This function is part of the International Astronomical Union's
-SOFA (Standards of Fundamental Astronomy) software collection.
-
-Status:  support function.
+Status: support function.
 
 Given:
-   s         char    sign:  '-' = negative, otherwise positive
-   ideg      int     degrees
-   iamin     int     arcminutes
-   asec      double  arcseconds
+
+@example
+s         char    sign:  '-' = negative, otherwise positive
+ideg      int     degrees
+iamin     int     arcminutes
+asec      double  arcseconds
+@end example
 
 Returned:
-   rad       double  angle in radians
+
+@example
+rad       double  angle in radians
+@end example
 
 Returned (function value):
-             int     status:  0 = OK
-                              1 = ideg outside range 0-359
-                              2 = iamin outside range 0-59
-                              3 = asec outside range 0-59.999...
+
+@example
+int     status:  0 = OK
+                 1 = ideg outside range 0-359
+                 2 = iamin outside range 0-59
+                 3 = asec outside range 0-59.999...
+@end example
 
 Notes:
 
-1)  The result is computed even if any of the range checks fail.
+@enumerate
+@item
+The result is computed even if any of the range checks fail.
 
-2)  Negative ideg, iamin and/or asec produce a warning status, but
-    the absolute value is used in the conversion.
+@item
+Negative @var{ideg}, @var{iamin} and/or @var{asec} produce a warning
+status, but the absolute value is used in the conversion.
 
-3)  If there are multiple errors, the status value reflects only the
-    first, the smallest taking precedence.
+@item
+If there are multiple errors, the status value reflects only the first,
+the smallest taking precedence.
+@end enumerate
 @end deftypefun
 
 
-@deftypefun double iauAnp (double a)
-Normalize angle into the range 0 <= a < 2pi.
+@deftypefun double iauAnp (double @var{a})
+Normalize angle into the range @code{0 <= @var{a} < 2pi}.
+
 Status:  vector/matrix support function.
 
 Given:
-   a        double     angle (radians)
+
+@example
+a        double     angle (radians)
+@end example
 
 Returned (function value):
-            double     angle in range 0-2pi
+
+@example
+double     angle in range 0-2pi
+@end example
 @end deftypefun
 
 
-@deftypefun double iauAnpm (double a)
-Normalize angle into the range -pi <= a < +pi.
-Status:  vector/matrix support function.
+@deftypefun double iauAnpm (double @var{a})
+Normalize angle into the range @code{-pi <= @var{a} < +pi}.
+
+Status: vector/matrix support function.
 
 Given:
-   a        double     angle (radians)
+
+@example
+a        double     angle (radians)
+@end example
 
 Returned (function value):
-            double     angle in range +/-pi
+
+@example
+double     angle in range +/-pi
+@end example
 @end deftypefun
 
 
-@deftypefun void iauBi00 (double *dpsibi, double *depsbi, double *dra)
-Frame bias components of IAU 2000 precession-nutation models (part
-of MHB2000 with additions).
-Status:  canonical model.
+@deftypefun void iauBi00 (double * @var{dpsibi}, double * @var{depsbi}, double * @var{dra})
+Frame bias components of IAU 2000 precession--nutation models (part of
+MHB2000 with additions).
+
+Status: canonical model.
 
 Returned:
-   dpsibi,depsbi  double  longitude and obliquity corrections
-   dra            double  the ICRS RA of the J2000.0 mean equinox
+
+@example
+dpsibi,depsbi  double  longitude and obliquity corrections
+dra            double  the ICRS RA of the J2000.0 mean equinox
+@end example
 
 Notes:
 
-1) The frame bias corrections in longitude and obliquity (radians)
-   are required in order to correct for the offset between the GCRS
-   pole and the mean J2000.0 pole.  They define, with respect to the
-   GCRS frame, a J2000.0 mean pole that is consistent with the rest
-   of the IAU 2000A precession-nutation model.
+@enumerate
+@item
+The frame bias corrections in longitude and obliquity (radians) are
+required in order to correct for the offset between the GCRS pole and
+the mean J2000.0 pole.  They define, with respect to the GCRS frame, a
+J2000.0 mean pole that is consistent with the rest of the IAU 2000A
+precession--nutation model.
 
-2) In addition to the displacement of the pole, the complete
-   description of the frame bias requires also an offset in right
-   ascension.  This is not part of the IAU 2000A model, and is from
-   Chapront et al. (2002).  It is returned in radians.
+@item
+In addition to the displacement of the pole, the complete description of
+the frame bias requires also an offset in right ascension.  This is not
+part of the IAU 2000A model, and is from Chapront et al. (2002).  It is
+returned in radians.
 
-3) This is a supplemented implementation of one aspect of the IAU
-   2000A nutation model, formally adopted by the IAU General
-   Assembly in 2000, namely MHB2000 (Mathews et al. 2002).
+@item
+This is a supplemented implementation of one aspect of the IAU 2000A
+nutation model, formally adopted by the IAU General Assembly in 2000,
+namely MHB2000 (Mathews et al. 2002).
+@end enumerate
 
 References:
 
-   Chapront, J., Chapront-Touze, M. & Francou, G., Astron.
-   Astrophys., 387, 700, 2002.
+@itemize
+@item
+Chapront, J., Chapront-Touze, M. & Francou, G., Astron.
+Astrophys., 387, 700, 2002.
 
-   Mathews, P.M., Herring, T.A., Buffet, B.A., "Modeling of nutation
-   and precession   New nutation series for nonrigid Earth and
-   insights into the Earth's interior", J.Geophys.Res., 107, B4,
-   2002.  The MHB2000 code itself was obtained on 9th September 2002
-   from ftp://maia.usno.navy.mil/conv2000/chapter5/IAU2000A.
+@item
+Mathews, P.M., Herring, T.A., Buffet, B.A., ``Modeling of nutation and
+precession New nutation series for nonrigid Earth and insights into the
+Earth's interior'', J.Geophys.Res., 107, B4, 2002.  The MHB2000 code
+itself was obtained on 9th September 2002 from:
+
+@center @url{ftp://maia.usno.navy.mil/conv2000/chapter5/IAU2000A}
+@end itemize
 @end deftypefun
 
 
-@deftypefun void iauBp00 (double date1, double date2, double rb[3][3], double rp[3][3], double rbp[3][3])
+@deftypefun void iauBp00 (double @var{date1}, double @var{date2}, double @var{rb}[3][3], double @var{rp}[3][3], double @var{rbp}[3][3])
 Frame bias and precession, IAU 2000.
-Status:  canonical model.
+
+Status: canonical model.
 
 Given:
-   date1,date2  double         TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double         TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rb           double[3][3]   frame bias matrix (Note 2)
-   rp           double[3][3]   precession matrix (Note 3)
-   rbp          double[3][3]   bias-precession matrix (Note 4)
+@example
+rb           double[3][3]   frame bias matrix (Note 2)
+rp           double[3][3]   precession matrix (Note 3)
+rbp          double[3][3]   bias-precession matrix (Note 4)
+@end example
 
 Notes:
 
-1) The TT date date1+date2 is a Julian Date, apportioned in any
-   convenient way between the two arguments.  For example,
-   JD(TT)=2450123.7 could be expressed in any of these ways,
-   among others:
+@enumerate
+@item
+The TT date @code{@var{date1} + @var{date2}} is a Julian Date,
+apportioned in any convenient way between the two arguments.  For
+example, @code{JD(TT) = 2450123.7} could be expressed in any of these
+ways, among others:
 
-           date1         date2
+@example
+    date1         date2
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable.  The J2000 method is best matched to the way
-   the argument is handled internally and will deliver the
-   optimum resolution.  The MJD method and the date & time methods
-   are both good compromises between resolution and convenience.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.
 
-2) The matrix rb transforms vectors from GCRS to mean J2000.0 by
-   applying frame bias.
+@item
+The matrix @var{rb} transforms vectors from GCRS to mean J2000.0 by
+applying frame bias.
 
-3) The matrix rp transforms vectors from J2000.0 mean equator and
-   equinox to mean equator and equinox of date by applying
-   precession.
+@item
+The matrix @var{rp} transforms vectors from J2000.0 mean equator and
+equinox to mean equator and equinox of date by applying precession.
 
-4) The matrix rbp transforms vectors from GCRS to mean equator and
-   equinox of date by applying frame bias then precession.  It is
-   the product rp x rb.
+@item
+The matrix @var{rbp} transforms vectors from GCRS to mean equator and
+equinox of date by applying frame bias then precession.  It is the
+product @code{@var{rp} * @var{rb}}.
 
-5) It is permissible to re-use the same array in the returned
-   arguments.  The arrays are filled in the order given.
+@item
+It is permissible to reuse the same array in the returned arguments.
+The arrays are filled in the order given.
+@end enumerate
 
 Called:
-   iauBi00      frame bias components, IAU 2000
-   iauPr00      IAU 2000 precession adjustments
-   iauIr        initialize r-matrix to identity
-   iauRx        rotate around X-axis
-   iauRy        rotate around Y-axis
-   iauRz        rotate around Z-axis
-   iauCr        copy r-matrix
-   iauRxr       product of two r-matrices
+
+@table @code
+@item iauBi00
+Frame bias components, IAU 2000.
+
+@item iauPr00
+IAU 2000 precession adjustments.
+
+@item iauIr
+Initialize @code{r}-matrix to identity.
+
+@item iauRx
+Rotate around @math{x}-axis.
+
+@item iauRy
+Rotate around @math{y}-axis.
+
+@item iauRz
+Rotate around @math{z}-axis.
+
+@item iauCr
+Copy @code{r}-matrix.
+
+@item iauRxr
+Product of two @code{r}-matrices.
+@end table
 
 Reference:
-   "Expressions for the Celestial Intermediate Pole and Celestial
-   Ephemeris Origin consistent with the IAU 2000A precession-
-   nutation model", Astron.Astrophys. 400, 1145-1154 (2003)
 
-   n.b. The celestial ephemeris origin (CEO) was renamed "celestial
-        intermediate origin" (CIO) by IAU 2006 Resolution 2.
+@itemize
+@item
+``Expressions for the Celestial Intermediate Pole and Celestial
+Ephemeris Origin consistent with the IAU 2000A precession--nutation
+model'', Astron.Astrophys. 400, 1145-1154 (2003).
+
+@quotation
+n.b. The celestial ephemeris origin (CEO) was renamed ``celestial
+intermediate origin'' (CIO) by IAU 2006 Resolution 2.
+@end quotation
+@end itemize
 @end deftypefun
 
 
-@deftypefun void iauBp06 (double date1, double date2, double rb[3][3], double rp[3][3], double rbp[3][3])
+@deftypefun void iauBp06 (double @var{date1}, double @var{date2}, double @var{rb}[3][3], double @var{rp}[3][3], double @var{rbp}[3][3])
 Frame bias and precession, IAU 2006.
-Status:  support function.
+
+Status: support function.
 
 Given:
-   date1,date2  double         TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double         TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rb           double[3][3]   frame bias matrix (Note 2)
-   rp           double[3][3]   precession matrix (Note 3)
-   rbp          double[3][3]   bias-precession matrix (Note 4)
+
+@example
+rb           double[3][3]   frame bias matrix (Note 2)
+rp           double[3][3]   precession matrix (Note 3)
+rbp          double[3][3]   bias-precession matrix (Note 4)
+@end example
 
 Notes:
 
-1) The TT date date1+date2 is a Julian Date, apportioned in any
-   convenient way between the two arguments.  For example,
-   JD(TT)=2450123.7 could be expressed in any of these ways,
-   among others:
+@enumerate
+@item
+The TT date @code{@var{date1} + @var{date2}} is a Julian Date,
+apportioned in any convenient way between the two arguments.  For
+example, @code{JD(TT) = 2450123.7} could be expressed in any of these
+ways, among others:
 
-           date1         date2
+@example
+    date1         date2
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable.  The J2000 method is best matched to the way
-   the argument is handled internally and will deliver the
-   optimum resolution.  The MJD method and the date & time methods
-   are both good compromises between resolution and convenience.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.
 
-2) The matrix rb transforms vectors from GCRS to mean J2000.0 by
-   applying frame bias.
+@item
+The matrix @var{rb} transforms vectors from GCRS to mean J2000.0 by
+applying frame bias.
 
-3) The matrix rp transforms vectors from mean J2000.0 to mean of
-   date by applying precession.
+@item
+The matrix @var{rp} transforms vectors from mean J2000.0 to mean of date
+by applying precession.
 
-4) The matrix rbp transforms vectors from GCRS to mean of date by
-   applying frame bias then precession.  It is the product rp x rb.
+@item
+The matrix @var{rbp} transforms vectors from GCRS to mean of date by
+applying frame bias then precession.  It is the product @code{@var{rp} *
+@var{rb}}.
+@end enumerate
 
 Called:
-   iauPfw06     bias-precession F-W angles, IAU 2006
-   iauFw2m      F-W angles to r-matrix
-   iauPmat06    PB matrix, IAU 2006
-   iauTr        transpose r-matrix
-   iauRxr       product of two r-matrices
+
+@table @code
+@item iauPfw06
+Bias--precession F-W angles, IAU 2006.
+
+@item iauFw2m
+F-W angles to @code{r}-matrix.
+
+@item iauPmat06
+PB matrix, IAU 2006.
+
+@item iauTr
+Transpose @code{r}-matrix.
+
+@item iauRxr
+Product of two @code{r}-matrices.
+@end table
 
 References:
 
-   Capitaine, N. & Wallace, P.T., 2006, Astron.Astrophys. 450, 855
+@itemize
+Capitaine, N. & Wallace, P.T., 2006, Astron.Astrophys. 450, 855.
 
-   Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981
+@item
+Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
+@end itemize
 @end deftypefun
 
 
-@deftypefun void iauBpn2xy (double rbpn[3][3], double *x, double *y)
-Extract from the bias-precession-nutation matrix the X,Y coordinates
-of the Celestial Intermediate Pole.
+@deftypefun void iauBpn2xy (double @var{rbpn}[3][3], double * @var{x}, double * @var{y})
+Extract from the bias--precession--nutation matrix the @math{x},
+@math{y} coordinates of the Celestial Intermediate Pole.
+
 Status:  support function.
 
 Given:
-   rbpn      double[3][3]  celestial-to-true matrix (Note 1)
+
+@example
+rbpn      double[3][3]  celestial-to-true matrix (Note 1)
+@end example
 
 Returned:
-   x,y       double        Celestial Intermediate Pole (Note 2)
+
+@example
+x,y       double        Celestial Intermediate Pole (Note 2)
+@end example
 
 Notes:
 
-1) The matrix rbpn transforms vectors from GCRS to true equator (and
-   CIO or equinox) of date, and therefore the Celestial Intermediate
-   Pole unit vector is the bottom row of the matrix.
+@enumerate
+@item
+The matrix rbpn transforms vectors from GCRS to true equator (and CIO or
+equinox) of date, and therefore the Celestial Intermediate Pole unit
+vector is the bottom row of the matrix.
 
-2) The arguments x,y are components of the Celestial Intermediate
-   Pole unit vector in the Geocentric Celestial Reference System.
+@item
+The arguments @var{x}, @var{y} are components of the Celestial
+Intermediate Pole unit vector in the Geocentric Celestial Reference
+System.
+@end enumerate
 
 Reference:
 
-   "Expressions for the Celestial Intermediate Pole and Celestial
-   Ephemeris Origin consistent with the IAU 2000A precession-
-   nutation model", Astron.Astrophys. 400, 1145-1154
-   (2003)
+@itemize
+@item
+``Expressions for the Celestial Intermediate Pole and Celestial
+Ephemeris Origin consistent with the IAU 2000A precession--nutation
+model'', Astron.Astrophys. 400, 1145-1154 (2003)
 
-   n.b. The celestial ephemeris origin (CEO) was renamed "celestial
-        intermediate origin" (CIO) by IAU 2006 Resolution 2.
+@quotation
+n.b. The celestial ephemeris origin (CEO) was renamed "celestial
+intermediate origin" (CIO) by IAU 2006 Resolution 2.
+@end quotation
+@end itemize
 @end deftypefun
 
 
-@deftypefun void iauC2i00a (double date1, double date2, double rc2i[3][3])
-Form the celestial-to-intermediate matrix for a given date using the
+@deftypefun void iauC2i00a (double @var{date1}, double @var{date2}, double @var{rc2i}[3][3])
+Form the celestial--to--intermediate matrix for a given date using the
 IAU 2000A precession-nutation model.
-Status:  support function.
+
+Status: support function.
 
 Given:
-   date1,date2 double       TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2 double       TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rc2i        double[3][3] celestial-to-intermediate matrix (Note 2)
+
+@example
+rc2i        double[3][3] celestial-to-intermediate matrix (Note 2)
+@end example
 
 Notes:
 
-1) The TT date date1+date2 is a Julian Date, apportioned in any
-   convenient way between the two arguments.  For example,
-   JD(TT)=2450123.7 could be expressed in any of these ways,
-   among others:
+@enumerate
+@item
+The TT date @code{@var{date1} + @var{date2}} is a Julian Date,
+apportioned in any convenient way between the two arguments.  For
+example, @code{JD(TT) = 2450123.7} could be expressed in any of these
+ways, among others:
 
-          date1          date2
+@example
+   date1          date2
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable.  The J2000 method is best matched to the way
-   the argument is handled internally and will deliver the
-   optimum resolution.  The MJD method and the date & time methods
-   are both good compromises between resolution and convenience.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.
 
-2) The matrix rc2i is the first stage in the transformation from
-   celestial to terrestrial coordinates:
+@item
+The matrix @var{rc2i} is the first stage in the transformation from
+celestial to terrestrial coordinates:
 
-      [TRS]  =  RPOM * R_3(ERA) * rc2i * [CRS]
+@example
+[TRS] = RPOM * R_3(ERA) * rc2i * [CRS]
+      = rc2t * [CRS]
+@end example
 
-             =  rc2t * [CRS]
+@noindent
+where @code{[CRS]} is a vector in the Geocentric Celestial Reference
+System and @code{[TRS]} is a vector in the International Terrestrial
+Reference System (see IERS Conventions 2003), ERA is the Earth Rotation
+Angle and RPOM is the polar motion matrix.
 
-   where [CRS] is a vector in the Geocentric Celestial Reference
-   System and [TRS] is a vector in the International Terrestrial
-   Reference System (see IERS Conventions 2003), ERA is the Earth
-   Rotation Angle and RPOM is the polar motion matrix.
-
-3) A faster, but slightly less accurate result (about 1 mas), can be
-   obtained by using instead the iauC2i00b function.
+@item
+A faster, but slightly less accurate result (about @math{1} mas), can be
+obtained by using instead the @code{iauC2i00b} function.
+@end enumerate
 
 Called:
-   iauPnm00a    classical NPB matrix, IAU 2000A
-   iauC2ibpn    celestial-to-intermediate matrix, given NPB matrix
+
+@table @code
+@item iauPnm00a
+Classical NPB matrix, IAU 2000A.
+
+@item iauC2ibpn
+Celestial--to--intermediate matrix, given NPB matrix.
+@end table
 
 References:
 
-   "Expressions for the Celestial Intermediate Pole and Celestial
-   Ephemeris Origin consistent with the IAU 2000A precession-
-   nutation model", Astron.Astrophys. 400, 1145-1154
-   (2003)
+@itemize
+@item
+``Expressions for the Celestial Intermediate Pole and Celestial
+Ephemeris Origin consistent with the IAU 2000A precession--nutation
+model'', Astron.Astrophys. 400, 1145-1154 (2003)
 
-   n.b. The celestial ephemeris origin (CEO) was renamed "celestial
-        intermediate origin" (CIO) by IAU 2006 Resolution 2.
+@quotation
+n.b. The celestial ephemeris origin (CEO) was renamed ``celestial
+intermediate originW'' (CIO) by IAU 2006 Resolution 2.
+@end quotation
 
-   McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003),
-   IERS Technical Note No. 32, BKG (2004)
+@item
+McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
+Technical Note No. 32, BKG (2004).
+@end itemize
 @end deftypefun
 
 
-@deftypefun void iauC2i00b (double date1, double date2, double rc2i[3][3])
-Form the celestial-to-intermediate matrix for a given date using the
+@deftypefun void iauC2i00b (double @var{date1}, double @var{date2}, double @var{rc2i}[3][3])
+Form the celestial--to--intermediate matrix for a given date using the
 IAU 2000B precession-nutation model.
-Status:  support function.
+
+Status: support function.
 
 Given:
-   date1,date2 double       TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2 double       TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rc2i        double[3][3] celestial-to-intermediate matrix (Note 2)
+
+@example
+rc2i        double[3][3] celestial-to-intermediate matrix (Note 2)
+@end example
 
 Notes:
 
-1) The TT date date1+date2 is a Julian Date, apportioned in any
-   convenient way between the two arguments.  For example,
-   JD(TT)=2450123.7 could be expressed in any of these ways,
-   among others:
+@enumerate
+@item
+The TT date date1+date2 is a Julian Date, apportioned in any convenient
+way between the two arguments.  For example, @code{JD(TT) = 2450123.7}
+could be expressed in any of these ways, among others:
 
-          date1          date2
+@example
+   date1          date2
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable.  The J2000 method is best matched to the way
-   the argument is handled internally and will deliver the
-   optimum resolution.  The MJD method and the date & time methods
-   are both good compromises between resolution and convenience.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.
 
-2) The matrix rc2i is the first stage in the transformation from
-   celestial to terrestrial coordinates:
+@item
+The matrix @var{rc2i} is the first stage in the transformation from
+celestial to terrestrial coordinates:
 
-      [TRS]  =  RPOM * R_3(ERA) * rc2i * [CRS]
+@example
+[TRS] = RPOM * R_3(ERA) * rc2i * [CRS]
+      = rc2t * [CRS]
+@end example
 
-             =  rc2t * [CRS]
+@noindent
+where @code{[CRS]} is a vector in the Geocentric Celestial Reference
+System and @code{[TRS]} is a vector in the International Terrestrial
+Reference System (see IERS Conventions 2003), ERA is the Earth Rotation
+Angle and RPOM is the polar motion matrix.
 
-   where [CRS] is a vector in the Geocentric Celestial Reference
-   System and [TRS] is a vector in the International Terrestrial
-   Reference System (see IERS Conventions 2003), ERA is the Earth
-   Rotation Angle and RPOM is the polar motion matrix.
-
-3) The present function is faster, but slightly less accurate (about
-   1 mas), than the iauC2i00a function.
+@item
+The present function is faster, but slightly less accurate (about
+@math{1} mas), than the @code{iauC2i00a} function.
+@end enumerate
 
 Called:
-   iauPnm00b    classical NPB matrix, IAU 2000B
-   iauC2ibpn    celestial-to-intermediate matrix, given NPB matrix
+
+@table @code
+@item iauPnm00b
+Classical NPB matrix, IAU 2000B.
+
+@item iauC2ibpn
+Celestial--to--intermediate matrix, given NPB matrix.
+@end table
 
 References:
 
-   "Expressions for the Celestial Intermediate Pole and Celestial
-   Ephemeris Origin consistent with the IAU 2000A precession-
-   nutation model", Astron.Astrophys. 400, 1145-1154
-   (2003)
+@itemize
+@item
+``Expressions for the Celestial Intermediate Pole and Celestial
+Ephemeris Origin consistent with the IAU 2000A precession-nutation
+model'', Astron.Astrophys. 400, 1145-1154 (2003)
 
-   n.b. The celestial ephemeris origin (CEO) was renamed "celestial
-        intermediate origin" (CIO) by IAU 2006 Resolution 2.
+@quotation
+n.b. The celestial ephemeris origin (CEO) was renamed ``celestial
+intermediate origin'' (CIO) by IAU 2006 Resolution 2.
+@end quotation
 
-   McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003),
-   IERS Technical Note No. 32, BKG (2004)
+@item
+McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
+Technical Note No. 32, BKG (2004)
+@end itemize
 @end deftypefun
 
 
-@deftypefun void iauC2i06a (double date1, double date2, double rc2i[3][3])
-Form the celestial-to-intermediate matrix for a given date using the
+@deftypefun void iauC2i06a (double @var{date1}, double @var{date2}, double @var{rc2i}[3][3])
+Form the celestial--to--intermediate matrix for a given date using the
 IAU 2006 precession and IAU 2000A nutation models.
-Status:  support function.
+
+Status: support function.
 
 Given:
-   date1,date2 double       TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2 double       TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rc2i        double[3][3] celestial-to-intermediate matrix (Note 2)
+
+@example
+rc2i        double[3][3] celestial-to-intermediate matrix (Note 2)
+@end example
 
 Notes:
 
-1) The TT date date1+date2 is a Julian Date, apportioned in any
-   convenient way between the two arguments.  For example,
-   JD(TT)=2450123.7 could be expressed in any of these ways,
-   among others:
+@enumerate
+@item
+The TT date @code{@var{date1} + @var{date2}} is a Julian Date,
+apportioned in any convenient way between the two arguments.  For
+example, @code{JD(TT) = 2450123.7} could be expressed in any of these
+ways, among others:
 
-          date1          date2
+@example
+   date1          date2
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable.  The J2000 method is best matched to the way
-   the argument is handled internally and will deliver the
-   optimum resolution.  The MJD method and the date & time methods
-   are both good compromises between resolution and convenience.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.
 
-2) The matrix rc2i is the first stage in the transformation from
-   celestial to terrestrial coordinates:
+@item
+The matrix @var{rc2i} is the first stage in the transformation from
+celestial to terrestrial coordinates:
 
-      [TRS]  =  RPOM * R_3(ERA) * rc2i * [CRS]
+@example
+[TRS] = RPOM * R_3(ERA) * rc2i * [CRS]
+      = RC2T * [CRS]
+@end example
 
-             =  RC2T * [CRS]
-
-   where [CRS] is a vector in the Geocentric Celestial Reference
-   System and [TRS] is a vector in the International Terrestrial
-   Reference System (see IERS Conventions 2003), ERA is the Earth
-   Rotation Angle and RPOM is the polar motion matrix.
+@noindent
+where @code{[CRS]} is a vector in the Geocentric Celestial Reference
+System and @code{[TRS]} is a vector in the International Terrestrial
+Reference System (see IERS Conventions 2003), ERA is the Earth Rotation
+Angle and RPOM is the polar motion matrix.
+@end enumerate
 
 Called:
-   iauPnm06a    classical NPB matrix, IAU 2006/2000A
-   iauBpn2xy    extract CIP X,Y coordinates from NPB matrix
-   iauS06       the CIO locator s, Given X,Y, IAU 2006
-   iauC2ixys    celestial-to-intermediate matrix, Given X,Y and s
+
+@table @code
+@item iauPnm06a
+Classical NPB matrix, IAU 2006/2000A.
+
+@item iauBpn2xy
+Extract CIP X,Y coordinates from NPB matrix.
+
+@item iauS06
+The CIO locator s, Given X,Y, IAU 2006.
+
+@item iauC2ixys
+Celestial--to--intermediate matrix, Given X,Y and s.
+@end table
 
 References:
 
-   McCarthy, D. D., Petit, G. (eds.), 2004, IERS Conventions (2003),
-   IERS Technical Note No. 32, BKG
+@itemize
+@item
+McCarthy, D. D., Petit, G. (eds.), 2004, IERS Conventions (2003), IERS
+Technical Note No. 32, BKG
+@end itemize
 @end deftypefun
 
 
@@ -10448,8 +10652,6 @@ Status:  vector/matrix support function.
 Returned:
    r        double[3][3]    r-matrix
 @end deftypefun
-
-@c @end ignore
 
 @c page
 @node consts fortran
