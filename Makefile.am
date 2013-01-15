@@ -2,7 +2,7 @@
 
 ACLOCAL_MFLAGS		= -I m4
 AUTOMAKE_OPTIONS	= foreign
-SUBDIRS			= c f77 tests-c tests-f77
+SUBDIRS			= c f77 tests-c tests-f77 doc
 EXTRA_DIST		= INSTALL
 dist_doc_DATA		= README COPYING
 

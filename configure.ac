@@ -61,7 +61,12 @@ AC_HEADER_STDC
 dnl Checks for libraries.
 AC_CHECK_LIB([m],[sin])
 
-AC_CONFIG_FILES([Makefile c/Makefile f77/Makefile tests-c/Makefile tests-f77/Makefile])
+AC_CONFIG_FILES([Makefile
+                 c/Makefile
+                 f77/Makefile
+                 tests-c/Makefile
+                 tests-f77/Makefile
+                 doc/Makefile])
 AC_OUTPUT
 
 dnl end of file

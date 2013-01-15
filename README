@@ -19,10 +19,11 @@ Topics
 1. Introduction
 ---------------
 
-The SOFA  Collection consists of  two libraries of  routines, one
-coded in  Fortran 77 the  other in ANSI C.   There is a  suite of
-vector/matrix routines  and various  utilities that  underpin the
-astronomy algorithms, which include routines for the following:
+The International  Astronomical Union's SOFA  Collection consists
+of two libraries  of routines, one coded in Fortran  77 the other
+in  ANSI C.   There  is  a suite  of  vector/matrix routines  and
+various utilities  that underpin the astronomy  algorithms, which
+include routines for the following:
 
 * Calendars
 
@@ -41,8 +42,14 @@ astronomy algorithms, which include routines for the following:
 * Star catalogue conversion
 
   This  package makes  use of  the  GNU Autotools  to allow  easy
-distribution and installation of SOFA; this package is *not* part
-of the original SOFA distribution.
+distribution and installation of SOFA.
+
+  ATSOFA is  neither distributed,  supported nor endorsed  by the
+International Astronomical Union.  Any use of this pacakge should
+comply with SOFA's license and terms of use.  Especially, but not
+exclusively,  any published  work  or  commercial products  which
+includes results achieved by  using ATSOFA shall acknowledge that
+the SOFA software was used in obtaining those results.
 
   *NOTE* The  last time  the maintainer  bothered to  update this
 paragraph   he  had   included   the   SOFA  libraries   version:

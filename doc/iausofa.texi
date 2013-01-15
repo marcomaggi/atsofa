@@ -1,0 +1,327 @@
+\input texinfo.tex
+@c %**start of header
+@setfilename iausofa.info
+@settitle Standards of Fundamental Astronomy
+@c %**end of header
+
+@include version.texi
+@include macros.texi
+
+@macro sofa{}
+@acronym{SOFA}
+@end macro
+
+@c page
+@c ------------------------------------------------------------
+@c Values.
+@c ------------------------------------------------------------
+
+@set TITLE                      Standards of Fundamental Astronomy
+
+@c To be used as @value{PACKAGE} whenever we need to include the full
+@c name of this package.
+@set PACKAGE                    ATSOFA
+
+@c To be used as @value{PACKAGE} whenever we need to include the
+@c nickname of the project: the name that is used to compose the
+@c distribution tarball or the web address.
+@set PACKAGE_NICKNAME           atsofa
+
+@c To be used as @value{AUTHOR} whenever we need to include the list of
+@c authors of this document.
+@set AUTHOR                     Marco Maggi
+
+@c To be used as @value{AUTHOR_EMAIL} whenever we need to include the
+@c email of the *single* author of this document.
+@set AUTHOR_EMAIL               @email{marco.maggi-ipsu@@poste.it}
+
+@c page
+@c ------------------------------------------------------------
+@c Copyright notice.
+@c ------------------------------------------------------------
+
+@copying
+This document describes version @value{VERSION} of @value{PACKAGE}, the
+International Astronomical Union's @sofa{} Collection of libraries
+repackaged using the @gnu{} Autotools.
+
+@value{PACKAGE} is neither distributed, supported nor endorsed by the
+International Astronomical Union.  Any use of this pacakge should comply
+with @sofa{}'s license and terms of use.  Especially, but not
+exclusively, any published work or commercial products which includes
+results achieved by using @value{PACKAGE} shall acknowledge that the
+@sofa{} software was used in obtaining those results.
+
+The package is distributed under the terms of the International
+Astronomical Union's @sofa{} license and its development takes place at:
+
+@center @url{http://github.com/marcomaggi/@value{PACKAGE_NICKNAME}}
+
+@noindent
+proper release tarballs are available from:
+
+@center @url{http://code.google.com/p/libtoolisations/downloads/list}
+
+@noindent
+Copyright @copyright{} International Astronomical Union Standards of
+Fundamental Astronomy (@url{http://www.iausofa.org}).
+
+The repackaging into @value{PACKAGE} is by @value{AUTHOR}
+@value{AUTHOR_EMAIL}.
+@end copying
+
+@c page
+@c ------------------------------------------------------------
+@c Headers.
+@c ------------------------------------------------------------
+
+@titlepage
+@title @value{TITLE}
+@subtitle Revision @value{VERSION}
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@c ------------------------------------------------------------
+
+@ifinfo
+@dircategory Development
+@direntry
+* iausofa: (iausofa).           @value{TITLE}.
+@end direntry
+@end ifinfo
+
+@c ------------------------------------------------------------
+
+@ignore
+@syncodeindex tp cp
+@syncodeindex vr cp
+@syncodeindex fn cp
+@end ignore
+
+@c page
+@ifnottex
+@node Top
+@top @value{TITLE}
+
+@insertcopying
+
+@menu
+* overview::                    Overview of the package.
+
+Appendices
+
+* license::                     Package license.
+* references::                  Bibliography and references.
+
+Indexes
+
+* concept index::               An entry for each concept.
+* function index::              An entry for each function.
+* variable index::              An entry for each variable.
+* type index::                  An entry for each type.
+@end menu
+@end ifnottex
+
+@c page
+@node overview
+@chapter Overview of the package
+
+
+The International Astronomical Union's @sofa{} Collection consists of
+two libraries of routines, one coded in Fortran 77 the other in
+@acronym{ANSI} C.  There is a suite of vector/matrix routines and
+various utilities that underpin the astronomy algorithms, which include
+routines for the following:
+
+@itemize
+@item
+Calendars.
+
+@item
+Time Scales.
+
+@item
+Earth rotation and sidereal time.
+
+@item
+Ephemerides (medium precision).
+
+@item
+Geocentric/geodetic transformations.
+
+@item
+Precession, nutation, polar motion.
+
+@item
+Star space motion.
+
+@item
+Star catalogue conversion.
+@end itemize
+
+This package makes use of the @gnu{} Autotools to allow easy
+distribution and installation of @sofa{}.
+
+@value{PACKAGE} is neither distributed, supported nor endorsed by the
+International Astronomical Union.  Any use of this pacakge should comply
+with @sofa{}'s license and terms of use.  Especially, but not
+exclusively, any published work or commercial products which includes
+results achieved by using @value{PACKAGE} shall acknowledge that the
+@sofa{} software was used in obtaining those results.
+
+
+@c page
+@node license
+@appendix Package license
+
+
+The copyright of the @sofa{} Software belongs to the Standards Of
+Fundamental Astronomy Board of the International Astronomical Union.
+
+@c ------------------------------------------------------------
+
+@appendixsec @sofa{} Software License
+
+By using this software you accept the following six terms and conditions
+which apply to its use.
+
+@enumerate
+@item
+The Software is owned by the @acronym{IAU} @sofa{} Board (``@sofa{}'').
+
+@item
+Permission is granted to anyone to use the @sofa{} software for any
+purpose, including commercial applications, free of charge and without
+payment of royalties, subject to the conditions and restrictions listed
+below.
+
+@item
+You (the user) may copy and distribute @sofa{} source code to others,
+and use and adapt its code and algorithms in your own software, on a
+world--wide, royalty--free basis.  That portion of your distribution
+that does not consist of intact and unchanged copies of @sofa{} source
+code files is a ``derived work'' that must comply with the following
+requirements:
+
+@itemize a
+@item
+Your work shall be marked or carry a statement that it (i) uses routines
+and computations derived by you from software provided by @sofa{} under
+license to you; and (ii) does not itself constitute software provided by
+and/or endorsed by @sofa{}.
+
+@item
+The source code of your derived work must contain descriptions of how
+the derived work is based upon, contains and/or differs from the
+original @sofa{} software.
+
+@item
+The names of all routines in your derived work shall not include the
+prefix @code{iau} or @code{sofa} or trivial modifications thereof such
+as changes of case.
+
+@item
+The origin of the @sofa{} components of your derived work must not be
+misrepresented; you must not claim that you wrote the original software,
+nor file a patent application for @sofa{} software or algorithms
+embedded in the @sofa{} software.
+
+@item
+These requirements must be reproduced intact in any source distribution
+and shall apply to anyone to whom you have granted a further right to
+modify the source code of your derived work.
+@end itemize
+
+Note that, as originally distributed, the @sofa{} software is intended
+to be a definitive implementation of the @acronym{IAU} standards, and
+consequently third--party modifications are discouraged.  All
+variations, no matter how minor, must be explicitly marked as such, as
+explained above.
+
+@item
+You shall not cause the @sofa{} software to be brought into disrepute,
+either by misuse, or use for inappropriate tasks, or by inappropriate
+modification.
+
+@item
+The @sofa{} software is provided ``as is'' and @sofa{} makes no warranty
+as to its use or performance.  @sofa{} does not and cannot warrant the
+performance or results which the user may obtain by using the @sofa{}
+software.  @sofa{} makes no warranties, express or implied, as to
+non-infringement of third party rights, merchantability, or fitness for
+any particular purpose.  In no event will @sofa{} be liable to the user
+for any consequential, incidental, or special damages, including any
+lost profits or lost savings, even if a @sofa{} representative has been
+advised of such damages, or for any claim by any third party.
+
+@item
+The provision of any version of the @sofa{} software under the terms and
+conditions specified herein does not imply that future versions will
+also be made available under the same terms and conditions.
+@end enumerate
+
+Correspondence concerning @sofa{} software should be addressed as follows:
+
+@itemize
+@item
+By e-mail: @email{sofa@@ukho.gov.uk}.
+
+@item
+By post:
+
+@quotation
+IAU @sofa{} Center@*
+HM Nautical Almanac Office@*
+UK Hydrographic Office@*
+Admiralty Way@*
+Taunton, TA1 2DN@*
+United Kingdom
+@end quotation
+@end itemize
+
+@c ------------------------------------------------------------
+
+@appendixsec Acknowledgement & Citation for @sofa{}
+
+If your use of @sofa{} results in a publication, presentation or
+product, please include a citation.  Evidence of your use of the @sofa{}
+libraries is necessary to ensure continuing support of the initiative.
+
+The following is a suitable form of words: ``Software Routines from the
+IAU @sofa{} Collection were used.  Copyright @copyright{} International
+Astronomical Union Standards of Fundamental Astronomy
+(@url{http://www.iausofa.org})''.
+
+@c page
+@node references
+@appendix Bibliography and references
+
+
+
+@c page
+@node concept index
+@appendix An entry for each concept
+
+@printindex cp
+
+@node function index
+@appendix An entry for each function.
+
+@printindex fn
+
+@node variable index
+@appendix An entry for each variable.
+
+@printindex vr
+
+@node type index
+@appendix An entry for each type.
+
+@printindex tp
+
+@contents
+@bye
+
+@c end of file
