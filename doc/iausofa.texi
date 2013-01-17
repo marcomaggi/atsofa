@@ -3038,7 +3038,7 @@ angle and @code{RPOM} is the polar motion matrix.
 
 Called:
 
-@table
+@table @code
 @item iauC2i06a
 Celestial--to--intermediate matrix, IAU 2006/2000A.
 
@@ -4667,20 +4667,27 @@ Seidelmann (ed), University Science Books (1992), p220.
 @end deftypefun
 
 @c ------------------------------------------------------------
-@c SONO ARRIVATO QUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 @deftypefun double iauEo06a (double @vari{date}, double @varii{date})
 Equation of the origins, IAU 2006 precession and IAU 2000A nutation.
+
 Status:  support function.
 
 Given:
-   date1,date2  double    TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double    TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned (function value):
-                double    equation of the origins in radians
+
+@example
+             double    equation of the origins in radians
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -4703,287 +4710,395 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The equation of the origins is the distance between the true
-   equinox and the celestial intermediate origin and, equivalently,
-   the difference between Earth rotation angle and Greenwich
-   apparent sidereal time (ERA-GST).  It comprises the precession
-   (since J2000.0) in right ascension plus the equation of the
-   equinoxes (including the small correction terms).
+@item
+The equation of the origins is the distance between the true equinox and
+the celestial intermediate origin and, equivalently, the difference
+between Earth rotation angle and Greenwich apparent sidereal time
+(ERA-GST).  It comprises the precession (since J2000.0) in right
+ascension plus the equation of the equinoxes (including the small
+correction terms).
+@end enumerate
 
 Called:
-   iauPnm06a    classical NPB matrix, IAU 2006/2000A
-   iauBpn2xy    extract CIP X,Y coordinates from NPB matrix
-   iauS06       the CIO locator s, given X,Y, IAU 2006
-   iauEors      equation of the origins, Given NPB matrix and s
+
+@table @code
+@item iauPnm06a
+Classical NPB matrix, IAU 2006/2000A.
+
+@item iauBpn2xy
+Extract CIP X,Y coordinates from NPB matrix.
+
+@item iauS06
+The CIO locator s, given X,Y, IAU 2006.
+
+@item iauEors
+Equation of the origins, Given NPB matrix and s.
+@end table
 
 References:
 
+@itemize
 @item
 Capitaine, N. & Wallace, P.T., 2006, Astron.Astrophys. 450, 855
 
 @item
 Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauEors (double @var{rnpb}[3][3], double @var{s})
-Equation of the origins, given the classical NPB matrix and the
-quantity s.
+Equation of the origins, given the classical NPB matrix and the quantity
+@var{s}.
+
 Status:  support function.
 
 Given:
-   rnpb  double[3][3]  classical nutation x precession x bias matrix
-   s     double        the quantity s (the CIO locator)
+@example
+rnpb  double[3][3]  classical nutation x precession x bias matrix
+s     double        the quantity s (the CIO locator)
+@end example
 
 Returned (function value):
-         double        the equation of the origins in radians.
+
+@example
+      double        the equation of the origins in radians.
+@end example
 
 Notes:
 
-1)  The equation of the origins is the distance between the true
-    equinox and the celestial intermediate origin and, equivalently,
-    the difference between Earth rotation angle and Greenwich
-    apparent sidereal time (ERA-GST).  It comprises the precession
-    (since J2000.0) in right ascension plus the equation of the
-    equinoxes (including the small correction terms).
+@enumerate
+@item
+The equation of the origins is the distance between the true equinox and
+the celestial intermediate origin and, equivalently, the difference
+between Earth rotation angle and Greenwich apparent sidereal time
+(ERA-GST).  It comprises the precession (since J2000.0) in right
+ascension plus the equation of the equinoxes (including the small
+correction terms).
 
-2)  The algorithm is from Wallace & Capitaine (2006).
+@item
+The algorithm is from Wallace & Capitaine (2006).
+@end enumerate
 
- References:
+References:
 
+@itemize
 @item
 Capitaine, N. & Wallace, P.T., 2006, Astron.Astrophys. 450, 855
 
-   Wallace, P. & Capitaine, N., 2006, Astron.Astrophys. 459, 981
+@item
+Wallace, P. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
-@deftypefun double @var{iauEpb} (double @var{dj1}, double @var{dj2})
+@deftypefun double iauEpb (double @var{dj1}, double @var{dj2})
 Julian Date to Besselian Epoch.
+
 Status:  support function.
 
 Given:
-   dj1,dj2    double     Julian Date (see note)
+
+@example
+dj1,dj2    double     Julian Date (see note)
+@end example
 
 Returned (function value):
-              double     Besselian Epoch.
+
+@example
+           double     Besselian Epoch.
+@end example
 
 Note:
 
-   The Julian Date is supplied in two pieces, in the usual SOFA
-   manner, which is designed to preserve time resolution.  The
-   Julian Date is available as a single number by adding dj1 and
-   dj2.  The maximum resolution is achieved if dj1 is 2451545D0
-   (J2000.0).
+@enumerate
+@item
+The Julian Date is supplied in two pieces, in the usual @sofa{} manner,
+which is designed to preserve time resolution.  The Julian Date is
+available as a single number by adding @var{dj1} and @var{dj2}.  The
+maximum resolution is achieved if @var{dj1} is 2451545D0 (J2000.0).
+@end enumerate
 
 Reference:
 
-   Lieske,J.H., 1979. Astron.Astrophys.,73,282.
+@itemize
+@item
+Lieske,J.H., 1979. Astron.Astrophys.,73,282.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauEpb2jd (double @var{epb}, double * @var{djm0}, double * @var{djm})
 Besselian Epoch to Julian Date.
+
 Status:  support function.
 
 Given:
-   epb      double    Besselian Epoch (e.g. 1957.3D0)
+
+@example
+epb      double    Besselian Epoch (e.g. 1957.3D0)
+@end example
 
 Returned:
-   djm0     double    MJD zero-point: always 2400000.5
-   djm      double    Modified Julian Date
+
+@example
+djm0     double    MJD zero-point: always 2400000.5
+djm      double    Modified Julian Date
+@end example
 
 Note:
 
-   The Julian Date is returned in two pieces, in the usual SOFA
-   manner, which is designed to preserve time resolution.  The
-   Julian Date is available as a single number by adding djm0 and
-   djm.
+@enumerate
+@item
+The Julian Date is returned in two pieces, in the usual @sofa{} manner,
+which is designed to preserve time resolution.  The Julian Date is
+available as a single number by adding @var{djm0} and @var{djm}.
+@end enumerate
 
 Reference:
 
-   Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
+@itemize
+@item
+Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauEpj (double @var{dj1}, double @var{dj2})
 Julian Date to Julian Epoch.
+
 Status:  support function.
 
 Given:
-   dj1,dj2    double     Julian Date (see note)
+
+@example
+dj1,dj2    double     Julian Date (see note)
+@end example
 
 Returned (function value):
-              double     Julian Epoch
+
+@example
+           double     Julian Epoch
+@end example
 
 Note:
 
-   The Julian Date is supplied in two pieces, in the usual SOFA
-   manner, which is designed to preserve time resolution.  The
-   Julian Date is available as a single number by adding dj1 and
-   dj2.  The maximum resolution is achieved if dj1 is 2451545D0
-   (J2000.0).
+@enumerate
+@item
+The Julian Date is supplied in two pieces, in the usual @sofa{} manner,
+which is designed to preserve time resolution.  The Julian Date is
+available as a single number by adding @var{dj1} and @var{dj2}.  The
+maximum resolution is achieved if @var{dj1} is 2451545D0 (J2000.0).
+@end enumerate
 
 Reference:
 
-   Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
+@itemize
+@item
+Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauEpj2jd (double @var{epj}, double * @var{djm0}, double * @var{djm})
 Julian Epoch to Julian Date.
+
 Status:  support function.
 
 Given:
-   epj      double    Julian Epoch (e.g. 1996.8D0)
+
+@example
+epj      double    Julian Epoch (e.g. 1996.8D0)
+@end example
 
 Returned:
-   djm0     double    MJD zero-point: always 2400000.5
-   djm      double    Modified Julian Date
+
+@example
+djm0     double    MJD zero-point: always 2400000.5
+djm      double    Modified Julian Date
+@end example
 
 Note:
 
-   The Julian Date is returned in two pieces, in the usual SOFA
-   manner, which is designed to preserve time resolution.  The
-   Julian Date is available as a single number by adding djm0 and
-   djm.
+@enumerate
+@item
+The Julian Date is returned in two pieces, in the usual SOFA manner,
+which is designed to preserve time resolution.  The Julian Date is
+available as a single number by adding @var{djm0} and @var{djm}.
+@end enumerate
 
 Reference:
 
-   Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
+@itemize
+@item
+Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauEpv00 (double @vari{date}, double @varii{date}, double @var{pvh}[2][3], double @var{pvb}[2][3])
-Earth position and velocity, heliocentric and barycentric, with
-respect to the Barycentric Celestial Reference System.
+Earth position and velocity, heliocentric and barycentric, with respect
+to the Barycentric Celestial Reference System.
+
 Status:  support function.
 
 Given:
-   date1,date2  double        TDB date (Note 1)
+
+@example
+date1,date2  double        TDB date (Note 1)
+@end example
 
 Returned:
-   pvh          double[2][3]  heliocentric Earth position/velocity
-   pvb          double[2][3]  barycentric Earth position/velocity
+
+@example
+pvh          double[2][3]  heliocentric Earth position/velocity
+pvb          double[2][3]  barycentric Earth position/velocity
+@end example
 
 Returned (function value):
-                int           status: 0 = OK
-                                     +1 = warning: date outside
-                                          the range 1900-2100 AD
+
+@example
+int           status: 0 = OK
+                     +1 = warning: date outside
+                          the range 1900-2100 AD
+@end example
 
 Notes:
 
-1) The TDB date date1+date2 is a Julian Date, apportioned in any
-   convenient way between the two arguments.  For example,
-   JD(TDB)=2450123.7 could be expressed in any of these ways, among
-   others:
-
-          date1          date2
-
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
-
-   The JD method is the most natural and convenient to use in cases
-   where the loss of several decimal digits of resolution is
-   acceptable.  The J2000 method is best matched to the way the
-   argument is handled internally and will deliver the optimum
-   resolution.  The MJD method and the date & time methods are both
-   good compromises between resolution and convenience.  However,
-   the accuracy of the result is more likely to be limited by the
-   algorithm itself than the way the date has been expressed.
-
-   n.b. TT can be used instead of TDB in most applications.
-
-2) On return, the arrays pvh and pvb contain the following:
+@enumerate
+@item
+The TDB date @code{@vari{date} + @varii{date}} is a Julian Date,
+apportioned in any convenient way between the two arguments.  For
+example, @code{JD(TDB) = 2450123.7} could be expressed in any of these
+ways, among others:
 
 @example
-      pvh[0][0]  x       @}
-      pvh[0][1]  y       @} heliocentric position, AU
-      pvh[0][2]  z       @}
+   date1          date2
 
-      pvh[1][0]  xdot    @}
-      pvh[1][1]  ydot    @} heliocentric velocity, AU/d
-      pvh[1][2]  zdot    @}
-
-      pvb[0][0]  x       @}
-      pvb[0][1]  y       @} barycentric position, AU
-      pvb[0][2]  z       @}
-
-      pvb[1][0]  xdot    @}
-      pvb[1][1]  ydot    @} barycentric velocity, AU/d
-      pvb[1][2]  zdot    @}
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
 @end example
 
-   The vectors are with respect to the Barycentric Celestial
-   Reference System.  The time unit is one day in TDB.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.  However, the accuracy of the result is more likely to be
+limited by the algorithm itself than the way the date has been
+expressed.
 
-3) The function is a SIMPLIFIED SOLUTION from the planetary theory
-   VSOP2000 (X. Moisson, P. Bretagnon, 2001, Celes. Mechanics &
-   Dyn. Astron., 80, 3/4, 205-213) and is an adaptation of original
-   Fortran code supplied by P. Bretagnon (private comm., 2000).
+@quotation
+n.b. TT can be used instead of TDB in most applications.
+@end quotation
 
-4) Comparisons over the time span 1900-2100 with this simplified
-   solution and the JPL DE405 ephemeris give the following results:
+@item
+On return, the arrays @var{pvh} and @var{pvb} contain the following:
 
-                              RMS    max
-         Heliocentric:
-            position error    3.7   11.2   km
-            velocity error    1.4    5.0   mm/s
+@example
+pvh[0][0]  x       @}
+pvh[0][1]  y       @} heliocentric position, AU
+pvh[0][2]  z       @}
 
-         Barycentric:
-            position error    4.6   13.4   km
-            velocity error    1.4    4.9   mm/s
+pvh[1][0]  xdot    @}
+pvh[1][1]  ydot    @} heliocentric velocity, AU/d
+pvh[1][2]  zdot    @}
 
-   Comparisons with the JPL DE406 ephemeris show that by 1800 and
-   2200 the position errors are approximately double their 1900-2100
-   size.  By 1500 and 2500 the deterioration is a factor of 10 and
-   by 1000 and 3000 a factor of 60.  The velocity accuracy falls off
-   at about half that rate.
+pvb[0][0]  x       @}
+pvb[0][1]  y       @} barycentric position, AU
+pvb[0][2]  z       @}
 
-5) It is permissible to use the same array for pvh and pvb, which
-   will receive the barycentric values.
+pvb[1][0]  xdot    @}
+pvb[1][1]  ydot    @} barycentric velocity, AU/d
+pvb[1][2]  zdot    @}
+@end example
+
+The vectors are with respect to the Barycentric Celestial Reference
+System.  The time unit is one day in TDB.
+
+@item
+The function is a @strong{simplified solution} from the planetary theory
+VSOP2000 (X. Moisson, P. Bretagnon, 2001, Celes. Mechanics &
+Dyn. Astron., 80, 3/4, 205-213) and is an adaptation of original Fortran
+code supplied by P. Bretagnon (private comm., 2000).
+
+@item
+Comparisons over the time span 1900-2100 with this simplified solution
+and the JPL DE405 ephemeris give the following results:
+
+@example
+                     RMS    max
+Heliocentric:
+   position error    3.7   11.2   km
+   velocity error    1.4    5.0   mm/s
+
+Barycentric:
+   position error    4.6   13.4   km
+   velocity error    1.4    4.9   mm/s
+@end example
+
+Comparisons with the JPL DE406 ephemeris show that by 1800 and 2200 the
+position errors are approximately double their 1900-2100 size.  By 1500
+and 2500 the deterioration is a factor of 10 and by 1000 and 3000 a
+factor of 60.  The velocity accuracy falls off at about half that rate.
+
+@item
+It is permissible to use the same array for pvh and pvb, which will
+receive the barycentric values.
+@end enumerate
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauEqeq94 (double @vari{date}, double @varii{date})
 Equation of the equinoxes, IAU 1994 model.
-Status:  canonical model.
+
+Status: canonical model.
 
 Given:
-   date1,date2   double     TDB date (Note 1)
+
+@example
+date1,date2   double     TDB date (Note 1)
+@end example
 
 Returned (function value):
-                 double     equation of the equinoxes (Note 2)
+
+@example
+              double     equation of the equinoxes (Note 2)
+@end example
 
 Notes:
 
-1) The date date1+date2 is a Julian Date, apportioned in any
-   convenient way between the two arguments.  For example,
-   JD(TT)=2450123.7 could be expressed in any of these ways,
-   among others:
+@enumerate
+@item
+The date @code{@vari{date} @varii{date}} is a Julian Date, apportioned
+in any convenient way between the two arguments.  For example,
+@code{JD(TT) = 2450123.7} could be expressed in any of these ways, among
+others:
 
-          date1          date2
+@example
+   date1          date2
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable.  The J2000 method is best matched to the way
-   the argument is handled internally and will deliver the
-   optimum resolution.  The MJD method and the date & time methods
-   are both good compromises between resolution and convenience.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.
 
 @item
 The result, which is in radians, operates in the following sense:
@@ -4991,161 +5106,226 @@ The result, which is in radians, operates in the following sense:
 @example
 Greenwich apparent ST = GMST + equation of the equinoxes
 @end example
+@end enumerate
 
 Called:
-   iauNut80     nutation, IAU 1980
+
+@table @code
+@item iauNut80
+Nutation, IAU 1980.
+
 @item iauObl80
 Mean obliquity, IAU 1980.
-
+@end table
 
 References:
 
-   IAU Resolution C7, Recommendation 3 (1994).
+@itemize
+@item
+IAU Resolution C7, Recommendation 3 (1994).
 
-   Capitaine, N. & Gontier, A.-M., 1993, Astron. Astrophys., 275,
-   645-650.
+@item
+Capitaine, N. & Gontier, A.-M., 1993, Astron. Astrophys., 275, 645-650.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauEra00 (double @var{dj1}, double @var{dj2})
 Earth rotation angle (IAU 2000 model).
+
 Status:  canonical model.
 
 Given:
-   dj1,dj2   double    UT1 as a 2-part Julian Date (see note)
+
+@example
+dj1,dj2   double    UT1 as a 2-part Julian Date (see note)
+@end example
 
 Returned (function value):
-             double    Earth rotation angle (radians), range 0-2pi
+
+@example
+double    Earth rotation angle (radians), range 0-2pi
+@end example
 
 Notes:
 
-1) The UT1 date dj1+dj2 is a Julian Date, apportioned in any
-   convenient way between the arguments dj1 and dj2.  For example,
-   JD(UT1)=2450123.7 could be expressed in any of these ways,
-   among others:
+@enumerate
+@item
+The UT1 date @code{@var{dj1} + @var{dj2}} is a Julian Date, apportioned
+in any convenient way between the arguments @var{dj1} and @var{dj2}.
+For example, @code{JD(UT1) = 2450123.7} could be expressed in any of
+these ways, among others:
 
-           dj1            dj2
+@example
+    dj1            dj2
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable.  The J2000 and MJD methods are good compromises
-   between resolution and convenience.  The date & time method is
-   best matched to the algorithm used:  maximum precision is
-   delivered when the dj1 argument is for 0hrs UT1 on the day in
-   question and the dj2 argument lies in the range 0 to 1, or vice
-   versa.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 and MJD methods are good compromises between resolution and
+convenience.  The date & time method is best matched to the algorithm
+used: maximum precision is delivered when the @var{dj1} argument is for
+0hrs UT1 on the day in question and the @var{dj2} argument lies in the
+range 0 to 1, or vice versa.
 
-2) The algorithm is adapted from Expression 22 of Capitaine et al.
-   2000.  The time argument has been expressed in days directly,
-   and, to retain precision, integer contributions have been
-   eliminated.  The same formulation is given in IERS Conventions
-   (2003), Chap. 5, Eq. 14.
+@item
+The algorithm is adapted from Expression 22 of Capitaine et al.  2000.
+The time argument has been expressed in days directly, and, to retain
+precision, integer contributions have been eliminated.  The same
+formulation is given in IERS Conventions (2003), Chap. 5, Eq. 14.
+@end enumerate
 
 Called:
-   iauAnp       normalize angle into range 0 to 2pi
+
+@table @code
+@item iauAnp
+Normalize angle into range 0 to 2pi.
+@end table
 
 References:
 
-   Capitaine N., Guinot B. and McCarthy D.D, 2000, Astron.
-   Astrophys., 355, 398-405.
+@itemize
+@item
+Capitaine N., Guinot B. and McCarthy D.D, 2000, Astron.  Astrophys.,
+355, 398-405.
 
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFad03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-mean elongation of the Moon from the Sun.
+Fundamental argument, IERS Conventions (2003): mean elongation of the
+Moon from the Sun.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned (function value):
-         double    D, radians (Note 2)
+
+@example
+      double    D, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Though @var{t} is strictly TDB, it is usually more convenient to use TT,
+which makes no significant difference.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   is from Simon et al. (1994).
+@item
+The expression used is as adopted in IERS Conventions (2003) and is from
+Simon et al. (1994).
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFae03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-mean longitude of Earth.
+Fundamental argument, IERS Conventions (2003): mean longitude of Earth.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned (function value):
-         double    mean longitude of Earth, radians (Note 2)
+
+@example
+      double    mean longitude of Earth, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Though @var{t} is strictly TDB, it is usually more convenient to use TT,
+which makes no significant difference.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   comes from Souchay et al. (1999) after Simon et al. (1994).
+@item
+The expression used is as adopted in IERS Conventions (2003) and comes
+from Souchay et al. (1999) after Simon et al. (1994).
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 
-   Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M. 1999,
-   Astron.Astrophys.Supp.Ser. 135, 111
+@item
+Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
+Astron.Astrophys.Supp.Ser. 135, 111.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFaf03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-mean longitude of the Moon minus mean longitude of the ascending
-node.
+Fundamental argument, IERS Conventions (2003): mean longitude of the
+Moon minus mean longitude of the ascending node.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
+
 
 Returned (function value):
-         double    F, radians (Note 2)
+
+@example
+      double    F, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Though @var{t} is strictly TDB, it is usually more convenient to use TT,
+which makes no significant difference.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   is from Simon et al. (1994).
+@item
+The expression used is as adopted in IERS Conventions (2003) and is from
+Simon et al. (1994).
+@end enumerate
 
 References:
 
@@ -5153,172 +5333,243 @@ References:
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFaju03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-mean longitude of Jupiter.
+Fundamental argument, IERS Conventions (2003): mean longitude of
+Jupiter.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned (function value):
-         double    mean longitude of Jupiter, radians (Note 2)
+
+@example
+      double    mean longitude of Jupiter, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
+Astron.Astrophys.Supp.Ser. 135, 111.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   comes from Souchay et al. (1999) after Simon et al. (1994).
+@item
+The expression used is as adopted in IERS Conventions (2003) and comes
+from Souchay et al. (1999) after Simon et al. (1994).
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 
-   Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M. 1999,
-   Astron.Astrophys.Supp.Ser. 135, 111
+@item
+Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
+Astron.Astrophys.Supp.Ser. 135, 111.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFal03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-mean anomaly of the Moon.
+Fundamental argument, IERS Conventions (2003): mean anomaly of the Moon.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned (function value):
-         double    l, radians (Note 2)
+
+@example
+      double    l, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
+Astron.Astrophys.Supp.Ser. 135, 111.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   is from Simon et al. (1994).
+@item
+Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
+Astron.Astrophys.Supp.Ser. 135, 111.
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFalp03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-mean anomaly of the Sun.
+Fundamental argument, IERS Conventions (2003): mean anomaly of the Sun.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned (function value):
-         double    l', radians (Note 2)
+
+@example
+      double    l', radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Though @var{t} is strictly TDB, it is usually more convenient to use TT,
+which makes no significant difference.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   is from Simon et al. (1994).
+@item
+The expression used is as adopted in IERS Conventions (2003) and is from
+Simon et al. (1994).
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFama03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-mean longitude of Mars.
+Fundamental argument, IERS Conventions (2003): mean longitude of Mars.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned (function value):
-         double    mean longitude of Mars, radians (Note 2)
+
+@example
+      double    mean longitude of Mars, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Though @var{t} is strictly TDB, it is usually more convenient to use TT,
+which makes no significant difference.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   comes from Souchay et al. (1999) after Simon et al. (1994).
+@item
+The expression used is as adopted in IERS Conventions (2003) and comes
+from Souchay et al. (1999) after Simon et al. (1994).
+@end enumerate
 
 References:
 
+@enumerate
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 
-   Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M. 1999,
-   Astron.Astrophys.Supp.Ser. 135, 111
+@item
+Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
+Astron.Astrophys.Supp.Ser. 135, 111.
+@end enumerate
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFame03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-mean longitude of Mercury.
+Fundamental argument, IERS Conventions (2003): mean longitude of
+Mercury.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned (function value):
-         double    mean longitude of Mercury, radians (Note 2)
+
+@example
+      double    mean longitude of Mercury, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Though @var{t} is strictly TDB, it is usually more convenient to use TT,
+which makes no significant difference.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   comes from Souchay et al. (1999) after Simon et al. (1994).
+@item
+The expression used is as adopted in IERS Conventions (2003) and comes
+from Souchay et al. (1999) after Simon et al. (1994).
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 
-   Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M. 1999,
-   Astron.Astrophys.Supp.Ser. 135, 111
+@item
+Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
+Astron.Astrophys.Supp.Ser. 135, 111.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -5329,276 +5580,405 @@ mean longitude of Neptune.
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned (function value):
-         double    mean longitude of Neptune, radians (Note 2)
+
+@example
+      double    mean longitude of Neptune, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Though @var{t} is strictly TDB, it is usually more convenient to use TT,
+which makes no significant difference.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   is adapted from Simon et al. (1994).
+@teim
+The expression used is as adopted in IERS Conventions (2003) and is
+adapted from Simon et al. (1994).
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFaom03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-mean longitude of the Moon's ascending node.
+Fundamental argument, IERS Conventions (2003): mean longitude of the
+Moon's ascending node.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned (function value):
-         double    Omega, radians (Note 2)
+
+@example
+      double    Omega, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Though @var{t} is strictly TDB, it is usually more convenient to use TT,
+which makes no significant difference.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   is from Simon et al. (1994).
+@item
+The expression used is as adopted in IERS Conventions (2003) and is from
+Simon et al. (1994).
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFapa03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-general accumulated precession in longitude.
+Fundamental argument, IERS Conventions (2003): general accumulated
+precession in longitude.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned (function value):
-         double    general precession in longitude, radians (Note 2)
+
+@example
+      double    general precession in longitude, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Though @var{t} is strictly TDB, it is usually more convenient to use TT,
+which makes no significant difference.
 
-2) The expression used is as adopted in IERS Conventions (2003).  It
-   is taken from Kinoshita & Souchay (1990) and comes originally
-   from Lieske et al. (1977).
+@item
+The expression used is as adopted in IERS Conventions (2003).  It is
+taken from Kinoshita & Souchay (1990) and comes originally from Lieske
+et al. (1977).
+@end enumerate
 
 References:
 
-   Kinoshita, H. and Souchay J. 1990, Celest.Mech. and Dyn.Astron.
-   48, 187
+@itemize
+@item
+Kinoshita, H. and Souchay J. 1990, Celest.Mech. and Dyn.Astron.  48, 187.
 
-   Lieske, J.H., Lederle, T., Fricke, W. & Morando, B. 1977,
-   Astron.Astrophys. 58, 1-16
+@item
+Lieske, J.H., Lederle, T., Fricke, W. & Morando, B. 1977,
+Astron.Astrophys. 58, 1-16.
 
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFasa03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-mean longitude of Saturn.
+Fundamental argument, IERS Conventions (2003): mean longitude of Saturn.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned (function value):
-         double    mean longitude of Saturn, radians (Note 2)
+
+@example
+      double    mean longitude of Saturn, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Though @var{t} is strictly TDB, it is usually more convenient to use TT,
+which makes no significant difference.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   comes from Souchay et al. (1999) after Simon et al. (1994).
+@item
+The expression used is as adopted in IERS Conventions (2003) and comes
+from Souchay et al. (1999) after Simon et al. (1994).
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 
-   Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M. 1999,
-   Astron.Astrophys.Supp.Ser. 135, 111
+@item
+Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
+Astron.Astrophys.Supp.Ser. 135, 111.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFaur03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-mean longitude of Uranus.
+Fundamental argument, IERS Conventions (2003): mean longitude of Uranus.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned  (function value):
-         double    mean longitude of Uranus, radians (Note 2)
+
+@example
+      double    mean longitude of Uranus, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Though @var{t} is strictly TDB, it is usually more convenient to use TT,
+which makes no significant difference.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   is adapted from Simon et al. (1994).
+@item
+The expression used is as adopted in IERS Conventions (2003) and is
+adapted from Simon et al. (1994).
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauFave03 (double @var{t})
-Fundamental argument, IERS Conventions (2003):
-mean longitude of Venus.
+Fundamental argument, IERS Conventions (2003): mean longitude of Venus.
+
 Status:  canonical model.
 
 Given:
-   t     double    TDB, Julian centuries since J2000.0 (Note 1)
+
+@example
+t     double    TDB, Julian centuries since J2000.0 (Note 1)
+@end example
 
 Returned (function value):
-         double    mean longitude of Venus, radians (Note 2)
+
+@example
+      double    mean longitude of Venus, radians (Note 2)
+@end example
 
 Notes:
 
-1) Though t is strictly TDB, it is usually more convenient to use
-   TT, which makes no significant difference.
+@enumerate
+@item
+Though @var{t} is strictly TDB, it is usually more convenient to use TT,
+which makes no significant difference.
 
-2) The expression used is as adopted in IERS Conventions (2003) and
-   comes from Souchay et al. (1999) after Simon et al. (1994).
+@item
+The expression used is as adopted in IERS Conventions (2003) and comes
+from Souchay et al. (1999) after Simon et al. (1994).
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 
-   Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M. 1999,
-   Astron.Astrophys.Supp.Ser. 135, 111
+@item
+Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
+Astron.Astrophys.Supp.Ser. 135, 111.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauFk52h (double @var{r5}, double @var{d5}, double @var{dr5}, double @var{dd5}, double @var{px5}, double @var{rv5}, double * @var{rh}, double * @var{dh}, double * @var{drh}, double * @var{ddh}, double * @var{pxh}, double * @var{rvh})
 Transform FK5 (J2000.0) star data into the Hipparcos system.
+
 Status:  support function.
 
 Given (all FK5, equinox J2000.0, epoch J2000.0):
-   r5      double    RA (radians)
-   d5      double    Dec (radians)
-   dr5     double    proper motion in RA (dRA/dt, rad/Jyear)
-   dd5     double    proper motion in Dec (dDec/dt, rad/Jyear)
-   px5     double    parallax (arcsec)
-   rv5     double    radial velocity (km/s, positive = receding)
+
+@example
+r5      double    RA (radians)
+d5      double    Dec (radians)
+dr5     double    proper motion in RA (dRA/dt, rad/Jyear)
+dd5     double    proper motion in Dec (dDec/dt, rad/Jyear)
+px5     double    parallax (arcsec)
+rv5     double    radial velocity (km/s, positive = receding)
+@end example
 
 Returned (all Hipparcos, epoch J2000.0):
-   rh      double    RA (radians)
-   dh      double    Dec (radians)
-   drh     double    proper motion in RA (dRA/dt, rad/Jyear)
-   ddh     double    proper motion in Dec (dDec/dt, rad/Jyear)
-   pxh     double    parallax (arcsec)
-   rvh     double    radial velocity (km/s, positive = receding)
+
+@example
+rh      double    RA (radians)
+dh      double    Dec (radians)
+drh     double    proper motion in RA (dRA/dt, rad/Jyear)
+ddh     double    proper motion in Dec (dDec/dt, rad/Jyear)
+pxh     double    parallax (arcsec)
+rvh     double    radial velocity (km/s, positive = receding)
+@end example
 
 Notes:
 
-1) This function transforms FK5 star positions and proper motions
-   into the system of the Hipparcos catalog.
+@enumerate
+@item
+This function transforms FK5 star positions and proper motions into the
+system of the Hipparcos catalog.
 
-2) The proper motions in RA are dRA/dt rather than
-   cos(Dec)*dRA/dt, and are per year rather than per century.
+@item
+The proper motions in RA are @code{dRA/dt} rather than @code{cos(Dec) *
+dRA/dt}, and are per year rather than per century.
 
-3) The FK5 to Hipparcos transformation is modeled as a pure
-   rotation and spin;  zonal errors in the FK5 catalog are not
-   taken into account.
+@item
+The FK5 to Hipparcos transformation is modeled as a pure rotation and
+spin; zonal errors in the FK5 catalog are not taken into account.
 
-4) See also iauH2fk5, iauFk5hz, iauHfk5z.
+@item
+See also @code{iauH2fk5}, @code{iauFk5hz}, @code{iauHfk5z}.
+@end enumerate
 
 Called:
-   iauStarpv    star catalog data to space motion pv-vector
-   iauFk5hip    FK5 to Hipparcos rotation and spin
-   iauRxp       product of r-matrix and p-vector
-   iauPxp       vector product of two p-vectors
-   iauPpp       p-vector plus p-vector
-   iauPvstar    space motion pv-vector to star catalog data
+
+@table @code
+@item iauStarpv
+Star catalog data to space motion @code{pv}-vector.
+
+@item iauFk5hip
+FK5 to Hipparcos rotation and spin.
+
+@item iauRxp
+Product of @code{r}-matrix and @code{p}-vector.
+
+@item iauPxp
+Vector product of two @code{p}-vectors.
+
+@item iauPpp
+@code{p}-vector plus @code{p}-vector.
+
+@item iauPvstar
+Space motion @code{pv}-vector to star catalog data.
+@end table
 
 Reference:
 
-   F.Mignard & M.Froeschle, Astron. Astrophys. 354, 732-739 (2000).
+@itemize
+@item
+F.Mignard & M.Froeschle, Astron. Astrophys. 354, 732-739 (2000).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauFk5hip (double @var{r5h}[3][3], double @var{s5h}[3])
 FK5 to Hipparcos rotation and spin.
+
 Status:  support function.
 
 Returned:
-   r5h   double[3][3]  r-matrix: FK5 rotation wrt Hipparcos (Note 2)
-   s5h   double[3]     r-vector: FK5 spin wrt Hipparcos (Note 3)
+
+@example
+r5h   double[3][3]  r-matrix: FK5 rotation wrt Hipparcos (Note 2)
+s5h   double[3]     r-vector: FK5 spin wrt Hipparcos (Note 3)
+@end example
 
 Notes:
 
-1) This function models the FK5 to Hipparcos transformation as a
-   pure rotation and spin;  zonal errors in the FK5 catalogue are
-   not taken into account.
+@enumerate
+@item
+This function models the FK5 to Hipparcos transformation as a pure
+rotation and spin; zonal errors in the FK5 catalogue are not taken into
+account.
 
-2) The r-matrix r5h operates in the sense:
+@item
+The @code{r}-matrix @var{r5h} operates in the sense:
 
-         P_Hipparcos = r5h x P_FK5
+@example
+P_Hipparcos = r5h x P_FK5
+@end example
 
-   where P_FK5 is a p-vector in the FK5 frame, and P_Hipparcos is
-   the equivalent Hipparcos p-vector.
+@noindent
+where @code{P_FK5} is a @code{p}-vector in the FK5 frame, and
+@code{P_Hipparcos} is the equivalent Hipparcos @code{p}-vector.
 
-3) The r-vector s5h represents the time derivative of the FK5 to
-   Hipparcos rotation.  The units are radians per year (Julian,
-   TDB).
+@item
+The @code{r}-vector @var{s5h} represents the time derivative of the FK5
+to Hipparcos rotation.  The units are radians per year (Julian, TDB).
+@end enumerate
 
 Called:
-   iauRv2m      r-vector to r-matrix
+
+@table @code
+@item iauRv2m
+@code{r}-vector to @code{r}-matrix.
+@end table
 
 Reference:
 
-   F.Mignard & M.Froeschle, Astron. Astrophys. 354, 732-739 (2000).
+@itemize
+@item
+F.Mignard & M.Froeschle, Astron. Astrophys. 354, 732-739 (2000).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -5606,177 +5986,275 @@ Reference:
 @deftypefun void iauFk5hz (double @var{r5}, double @var{d5}, double @vari{date}, double @varii{date}, double * @var{rh}, double * @var{dh})
 Transform an FK5 (J2000.0) star position into the system of the
 Hipparcos catalogue, assuming zero Hipparcos proper motion.
+
 Status:  support function.
 
 Given:
-   r5           double   FK5 RA (radians), equinox J2000.0, at date
-   d5           double   FK5 Dec (radians), equinox J2000.0, at date
-   date1,date2  double   TDB date (Notes 1,2)
+
+@example
+r5           double   FK5 RA (radians), equinox J2000.0, at date
+d5           double   FK5 Dec (radians), equinox J2000.0, at date
+date1,date2  double   TDB date (Notes 1,2)
+@end example
 
 Returned:
-   rh           double   Hipparcos RA (radians)
-   dh           double   Hipparcos Dec (radians)
+
+@example
+rh           double   Hipparcos RA (radians)
+dh           double   Hipparcos Dec (radians)
+@end example
 
 Notes:
 
-1) This function converts a star position from the FK5 system to
-   the Hipparcos system, in such a way that the Hipparcos proper
-   motion is zero.  Because such a star has, in general, a non-zero
-   proper motion in the FK5 system, the function requires the date
-   at which the position in the FK5 system was determined.
+@enumerate
+@item
+This function converts a star position from the FK5 system to the
+Hipparcos system, in such a way that the Hipparcos proper motion is
+zero.  Because such a star has, in general, a non-zero proper motion in
+the FK5 system, the function requires the date at which the position in
+the FK5 system was determined.
 
-2) The TT date date1+date2 is a Julian Date, apportioned in any
-   convenient way between the two arguments.  For example,
-   JD(TT)=2450123.7 could be expressed in any of these ways,
-   among others:
+@item
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
+apportioned in any convenient way between the two arguments.  For
+example, @code{JD(TT) = 2450123.7} could be expressed in any of these
+ways, among others:
 
-          date1          date2
+@example
+   date1          date2
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable.  The J2000 method is best matched to the way
-   the argument is handled internally and will deliver the
-   optimum resolution.  The MJD method and the date & time methods
-   are both good compromises between resolution and convenience.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.
 
-3) The FK5 to Hipparcos transformation is modeled as a pure
-   rotation and spin;  zonal errors in the FK5 catalogue are not
-   taken into account.
+@item
+The FK5 to Hipparcos transformation is modeled as a pure rotation and
+spin; zonal errors in the FK5 catalogue are not taken into account.
 
-4) The position returned by this function is in the Hipparcos
-   reference system but at date date1+date2.
+@item
+The position returned by this function is in the Hipparcos reference
+system but at date date1+date2.
 
-5) See also iauFk52h, iauH2fk5, iauHfk5z.
+@item
+See also @code{iauFk52h}, @code{iauH2fk5}, @code{iauHfk5z}.
+@end enumerate
 
 Called:
-   iauS2c       spherical coordinates to unit vector
-   iauFk5hip    FK5 to Hipparcos rotation and spin
-   iauSxp       multiply p-vector by scalar
-   iauRv2m      r-vector to r-matrix
-   iauTrxp      product of transpose of r-matrix and p-vector
-   iauPxp       vector product of two p-vectors
-   iauC2s       p-vector to spherical
-   iauAnp       normalize angle into range 0 to 2pi
+
+@table @code
+@item iauS2c
+Spherical coordinates to unit vector.
+
+@item iauFk5hip
+FK5 to Hipparcos rotation and spin.
+
+@item iauSxp
+Multiply @code{p}-vector by scalar.
+
+@item iauRv2m
+@code{r}-vector to @code{r}-matrix.
+
+@item iauTrxp
+Product of transpose of @code{r}-matrix and @code{p}-vector.
+
+@item iauPxp
+Vector product of two @code{p}-vectors.
+
+@item iauC2s
+@code{p}-vector to spherical.
+
+@item iauAnp
+Normalize angle into range 0 to 2pi.
+@end table
 
 Reference:
 
-   F.Mignard & M.Froeschle, 2000, Astron.Astrophys. 354, 732-739.
+@itemize
+@item
+F.Mignard & M.Froeschle, 2000, Astron.Astrophys. 354, 732-739.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauFw2m (double @var{gamb}, double @var{phib}, double @var{psi}, double @var{eps}, double r[3][3])
-Form rotation matrix given the Fukushima-Williams angles.
+Form rotation matrix given the Fukushima--Williams angles.
+
 Status:  support function.
 
 Given:
-   gamb     double         F-W angle gamma_bar (radians)
-   phib     double         F-W angle phi_bar (radians)
-   psi      double         F-W angle psi (radians)
-   eps      double         F-W angle epsilon (radians)
+
+@example
+gamb     double         F-W angle gamma_bar (radians)
+phib     double         F-W angle phi_bar (radians)
+psi      double         F-W angle psi (radians)
+eps      double         F-W angle epsilon (radians)
+@end example
 
 Returned:
-   r        double[3][3]   rotation matrix
+
+@example
+r        double[3][3]   rotation matrix
+@end example
 
 Notes:
 
-1) Naming the following points:
+@enumerate
+@item
+Naming the following points:
 
-         e = J2000.0 ecliptic pole,
-         p = GCRS pole,
-         E = ecliptic pole of date,
-   and   P = CIP,
+@example
+e = J2000.0 ecliptic pole,
+p = GCRS pole,
+E = ecliptic pole of date,
+P = CIP,
+@end example
 
-   the four Fukushima-Williams angles are as follows:
+@noindent
+the four Fukushima--Williams angles are as follows:
 
-      gamb = gamma = epE
-      phib = phi = pE
-      psi = psi = pEP
-      eps = epsilon = EP
+@example
+gamb = gamma   = epE
+phib = phi     = pE
+psi  = psi     = pEP
+eps  = epsilon = EP
+@end example
 
-2) The matrix representing the combined effects of frame bias,
-   precession and nutation is:
+@item
+The matrix representing the combined effects of frame bias, precession
+and nutation is:
 
-      NxPxB = R_1(-eps).R_3(-psi).R_1(phib).R_3(gamb)
+@example
+NxPxB = R_1(-eps).R_3(-psi).R_1(phib).R_3(gamb)
+@end example
 
-3) Three different matrices can be constructed, depending on the
-   supplied angles:
+@item
+Three different matrices can be constructed, depending on the supplied
+angles:
 
-   o  To obtain the nutation x precession x frame bias matrix,
-      generate the four precession angles, generate the nutation
-      components and add them to the psi_bar and epsilon_A angles,
-      and call the present function.
+@itemize
+@item
+To obtain the nutation x precession x frame bias matrix, generate the
+four precession angles, generate the nutation components and add them to
+the psi_bar and epsilon_A angles, and call the present function.
 
-   o  To obtain the precession x frame bias matrix, generate the
-      four precession angles and call the present function.
+@item
+To obtain the precession x frame bias matrix, generate the four
+precession angles and call the present function.
 
-   o  To obtain the frame bias matrix, generate the four precession
-      angles for date J2000.0 and call the present function.
+@item
+To obtain the frame bias matrix, generate the four precession angles for
+date J2000.0 and call the present function.
+@end itemize
 
-   The nutation-only and precession-only matrices can if necessary
-   be obtained by combining these three appropriately.
+The nutation--only and precession--only matrices can if necessary be
+obtained by combining these three appropriately.
+@end enumerate
 
 Called:
-   iauIr        initialize r-matrix to identity
+
+@table
+@item iauIr
+Initialize @code{r}-matrix to identity.
+
 @item iauRz
 Rotate around @math{Z}-axis.
-   iauRx        rotate around X-axis
+
+@item iauRx
+Rotate around @math{X}-axis.
+@end table
 
 Reference:
 
-   Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351
+@itemize
+@item
+Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauFw2xy (double @var{gamb}, double @var{phib}, double @var{psi}, double @var{eps}, double * @var{x}, double * @var{y})
-CIP X,Y given Fukushima-Williams bias--precession--nutation angles.
+CIP X,Y given Fukushima--Williams bias--precession--nutation angles.
+
 Status:  support function.
 
 Given:
-   gamb     double    F-W angle gamma_bar (radians)
-   phib     double    F-W angle phi_bar (radians)
-   psi      double    F-W angle psi (radians)
-   eps      double    F-W angle epsilon (radians)
+
+@example
+gamb     double    F-W angle gamma_bar (radians)
+phib     double    F-W angle phi_bar (radians)
+psi      double    F-W angle psi (radians)
+eps      double    F-W angle epsilon (radians)
+@end example
 
 Returned:
-   x,y      double    CIP X,Y ("radians")
+
+@example
+x,y      double    CIP X,Y ("radians")
+@end example
 
 Notes:
 
-1) Naming the following points:
+@enumerate
+@item
+Naming the following points:
 
-         e = J2000.0 ecliptic pole,
-         p = GCRS pole
-         E = ecliptic pole of date,
-   and   P = CIP,
+@example
+e = J2000.0 ecliptic pole,
+p = GCRS pole
+E = ecliptic pole of date,
+P = CIP,
+@end example
 
-   the four Fukushima-Williams angles are as follows:
+@item
+the four Fukushima--Williams angles are as follows:
 
-      gamb = gamma = epE
-      phib = phi = pE
-      psi = psi = pEP
-      eps = epsilon = EP
+@example
+gamb = gamma   = epE
+phib = phi     = pE
+psi  = psi     = pEP
+eps  = epsilon = EP
+@end example
 
-2) The matrix representing the combined effects of frame bias,
-   precession and nutation is:
+@item
+The matrix representing the combined effects of frame bias, precession
+and nutation is:
 
-      NxPxB = R_1(-epsA).R_3(-psi).R_1(phib).R_3(gamb)
+@example
+NxPxB = R_1(-epsA).R_3(-psi).R_1(phib).R_3(gamb)
+@end example
 
-   X,Y are elements (3,1) and (3,2) of the matrix.
+@noindent
+@math{X},@math{Y} are elements @math{(3,1)} and @math{(3,2)} of the
+matrix.
+@end enumerate
 
 Called:
-   iauFw2m      F-W angles to r-matrix
-   iauBpn2xy    extract CIP X,Y coordinates from NPB matrix
+
+@table @code
+@item iauFw2m
+F-W angles to @code{r}-matrix.
+
+@item iauBpn2xy
+Extract CIP X,Y coordinates from NPB matrix.
+@end table
 
 Reference:
 
-   Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351
+@itemize
+@item
+Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -5785,25 +6263,34 @@ Reference:
 Transform geocentric coordinates to geodetic using the specified
 reference ellipsoid.
 
-
 Status:  canonical transformation.
 
 Given:
-   n       int        ellipsoid identifier (Note 1)
-   xyz     double[3]  geocentric vector (Note 2)
+
+@example
+n       int        ellipsoid identifier (Note 1)
+xyz     double[3]  geocentric vector (Note 2)
+@end example
 
 Returned:
-   elong   double     longitude (radians, east +ve)
-   phi     double     latitude (geodetic, radians, Note 3)
-   height  double     height above ellipsoid (geodetic, Notes 2,3)
+
+@example
+elong   double     longitude (radians, east +ve)
+phi     double     latitude (geodetic, radians, Note 3)
+height  double     height above ellipsoid (geodetic, Notes 2,3)
+@end example
 
 Returned (function value):
-          int         status:  0 = OK
-                              -1 = illegal identifier (Note 3)
-                              -2 = internal error (Note 3)
+
+@example
+int         status:  0 = OK
+                    -1 = illegal identifier (Note 3)
+                    -2 = internal error (Note 3)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The identifier @var{n} is a number that specifies the choice of
 reference ellipsoid.  The following are supported:
@@ -5819,74 +6306,102 @@ n    ellipsoid
 The @var{n} value has no significance outside the @sofa{} software.  For
 convenience, symbols WGS84 etc. are defined in @file{sofam.h}.
 
-2) The geocentric vector (xyz, given) and height (height, returned)
-   are in meters.
+@item
+The geocentric vector (xyz, given) and height (height, returned) are in
+meters.
 
-3) An error status -1 means that the identifier n is illegal.  An
-   error status -2 is theoretically impossible.  In all error cases,
-   phi and height are both set to -1e9.
+@item
+An error status -1 means that the identifier @var{n} is illegal.  An
+error status -2 is theoretically impossible.  In all error cases, phi
+and height are both set to -1e9.
 
-4) The inverse transformation is performed in the function iauGd2gc.
+@item
+The inverse transformation is performed in the function @code{iauGd2gc}.
+@end enumerate
 
 Called:
-   iauEform     Earth reference ellipsoids
-   iauGc2gde    geocentric to geodetic transformation, general
+
+@table @code
+@item iauEform
+Earth reference ellipsoids.
+
+@item iauGc2gde
+Geocentric to geodetic transformation, general.
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauGc2gde (double @var{a}, double @var{f}, double @var{xyz}[3], double * @var{elong}, double * @var{phi}, double * @var{height})
-Transform geocentric coordinates to geodetic for a reference
-ellipsoid of specified form.
-
+Transform geocentric coordinates to geodetic for a reference ellipsoid
+of specified form.
 
 Status:  support function.
 
 Given:
-   a       double     equatorial radius (Notes 2,4)
-   f       double     flattening (Note 3)
-   xyz     double[3]  geocentric vector (Note 4)
+
+@example
+a       double     equatorial radius (Notes 2,4)
+f       double     flattening (Note 3)
+xyz     double[3]  geocentric vector (Note 4)
+@end example
 
 Returned:
-   elong   double     longitude (radians, east +ve)
-   phi     double     latitude (geodetic, radians)
-   height  double     height above ellipsoid (geodetic, Note 4)
+
+@example
+elong   double     longitude (radians, east +ve)
+phi     double     latitude (geodetic, radians)
+height  double     height above ellipsoid (geodetic, Note 4)
+@end example
 
 Returned (function value):
-           int        status:  0 = OK
-                              -1 = illegal f
-                              -2 = illegal a
+
+@example
+int        status:  0 = OK
+                   -1 = illegal f
+                   -2 = illegal a
+@end example
 
 Notes:
 
-1) This function is based on the GCONV2H Fortran subroutine by
-   Toshio Fukushima (see reference).
+@enumerate
+@item
+This function is based on the GCONV2H Fortran subroutine by Toshio
+Fukushima (see reference).
 
-2) The equatorial radius, a, can be in any units, but meters is
-   the conventional choice.
+@item
+The equatorial radius, a, can be in any units, but meters is the
+conventional choice.
 
-3) The flattening, f, is (for the Earth) a value around 0.00335,
-   i.e. around 1/298.
+@item
+The flattening, f, is (for the Earth) a value around 0.00335,
+i.e. around 1/298.
 
-4) The equatorial radius, a, and the geocentric vector, xyz,
-   must be given in the same units, and determine the units of
-   the returned height, height.
+@item
+The equatorial radius, a, and the geocentric vector, xyz, must be given
+in the same units, and determine the units of the returned height,
+height.
 
-5) If an error occurs (status < 0), elong, phi and height are
-   unchanged.
+@item
+If an error occurs (status < 0), elong, phi and height are unchanged.
 
-6) The inverse transformation is performed in the function
-   iauGd2gce.
+@item
+The inverse transformation is performed in the function
+@code{iauGd2gce}.
 
-7) The transformation for a standard ellipsoid (such as WGS84) can
-   more conveniently be performed by calling iauGc2gd, which uses a
-   numerical code to identify the required A and F values.
+@item
+The transformation for a standard ellipsoid (such as WGS84) can more
+conveniently be performed by calling iauGc2gd, which uses a numerical
+code to identify the required A and F values.
+@end enumerate
 
 Reference:
 
-   Fukushima, T., "Transformation from Cartesian to geodetic
-   coordinates accelerated by Halley's method", J.Geodesy (2006)
-   79: 689-693
+@itemize
+@item
+Fukushima, T., ``Transformation from Cartesian to geodetic coordinates
+accelerated by Halley's method'', J.Geodesy (2006) 79: 689-693
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -5895,25 +6410,34 @@ Reference:
 Transform geodetic coordinates to geocentric using the specified
 reference ellipsoid.
 
-
-Status:  canonical transformation.
+Status: canonical transformation.
 
 Given:
-   n       int        ellipsoid identifier (Note 1)
-   elong   double     longitude (radians, east +ve)
-   phi     double     latitude (geodetic, radians, Note 3)
-   height  double     height above ellipsoid (geodetic, Notes 2,3)
+
+@example
+n       int        ellipsoid identifier (Note 1)
+elong   double     longitude (radians, east +ve)
+phi     double     latitude (geodetic, radians, Note 3)
+height  double     height above ellipsoid (geodetic, Notes 2,3)
+@end example
 
 Returned:
-   xyz     double[3]  geocentric vector (Note 2)
+
+@example
+xyz     double[3]  geocentric vector (Note 2)
+@end example
 
 Returned (function value):
-           int        status:  0 = OK
-                              -1 = illegal identifier (Note 3)
-                              -2 = illegal case (Note 3)
+
+@example
+int        status:  0 = OK
+                   -1 = illegal identifier (Note 3)
+                   -2 = illegal case (Note 3)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The identifier @var{n} is a number that specifies the choice of
 reference ellipsoid.  The following are supported:
@@ -5929,76 +6453,107 @@ n    ellipsoid
 The @var{n} value has no significance outside the @sofa{} software.  For
 convenience, symbols WGS84 etc. are defined in @file{sofam.h}.
 
-2) The height (height, given) and the geocentric vector (xyz,
-   returned) are in meters.
+@item
+The height (height, given) and the geocentric vector (xyz, returned) are
+in meters.
 
-3) No validation is performed on the arguments elong, phi and
-   height.  An error status -1 means that the identifier n is
-   illegal.  An error status -2 protects against cases that would
-   lead to arithmetic exceptions.  In all error cases, xyz is set
-   to zeros.
+@item
+No validation is performed on the arguments elong, phi and height.  An
+error status -1 means that the identifier n is illegal.  An error status
+-2 protects against cases that would lead to arithmetic exceptions.  In
+all error cases, xyz is set to zeros.
 
-4) The inverse transformation is performed in the function iauGc2gd.
+@item
+The inverse transformation is performed in the function @code{iauGc2gd}.
+@end enumerate
 
 Called:
-   iauEform     Earth reference ellipsoids
-   iauGd2gce    geodetic to geocentric transformation, general
-   iauZp        zero p-vector
+
+@table @code
+@item iauEform
+Earth reference ellipsoids.
+
+@item iauGd2gce
+Geodetic to geocentric transformation, general.
+
+@itemiauZp
+Zero @code{p}-vector.
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauGd2gce (double @var{a}, double @var{f}, double @var{elong}, double @var{phi}, double @var{height}, double @var{xyz}[3])
-Transform geodetic coordinates to geocentric for a reference
-ellipsoid of specified form.
-
+Transform geodetic coordinates to geocentric for a reference ellipsoid
+of specified form.
 
 Status:  support function.
 
 Given:
-   a       double     equatorial radius (Notes 1,4)
-   f       double     flattening (Notes 2,4)
-   elong   double     longitude (radians, east +ve)
-   phi     double     latitude (geodetic, radians, Note 4)
-   height  double     height above ellipsoid (geodetic, Notes 3,4)
+
+@example
+a       double     equatorial radius (Notes 1,4)
+f       double     flattening (Notes 2,4)
+elong   double     longitude (radians, east +ve)
+phi     double     latitude (geodetic, radians, Note 4)
+height  double     height above ellipsoid (geodetic, Notes 3,4)
+@end example
 
 Returned:
-   xyz     double[3]  geocentric vector (Note 3)
+
+@example
+xyz     double[3]  geocentric vector (Note 3)
+@end example
 
 Returned (function value):
-           int        status:  0 = OK
-                              -1 = illegal case (Note 4)
+
+@example
+int        status:  0 = OK
+                   -1 = illegal case (Note 4)
+@end example
+
 Notes:
 
-1) The equatorial radius, a, can be in any units, but meters is
-   the conventional choice.
+@enumerate
+@item
+The equatorial radius, a, can be in any units, but meters is the
+conventional choice.
 
-2) The flattening, f, is (for the Earth) a value around 0.00335,
-   i.e. around 1/298.
+@item
+The flattening, f, is (for the Earth) a value around 0.00335,
+i.e. around 1/298.
 
-3) The equatorial radius, a, and the height, height, must be
-   given in the same units, and determine the units of the
-   returned geocentric vector, xyz.
+@item
+The equatorial radius, a, and the height, height, must be given in the
+same units, and determine the units of the returned geocentric vector,
+xyz.
 
-4) No validation is performed on individual arguments.  The error
-   status -1 protects against (unrealistic) cases that would lead
-   to arithmetic exceptions.  If an error occurs, xyz is unchanged.
+@item
+No validation is performed on individual arguments.  The error status -1
+protects against (unrealistic) cases that would lead to arithmetic
+exceptions.  If an error occurs, xyz is unchanged.
 
-5) The inverse transformation is performed in the function
-   iauGc2gde.
+@item
+The inverse transformation is performed in the function
+@code{iauGc2gde}.
 
-6) The transformation for a standard ellipsoid (such as WGS84) can
-   more conveniently be performed by calling iauGd2gc,  which uses a
-   numerical code to identify the required a and f values.
+@item
+The transformation for a standard ellipsoid (such as WGS84) can more
+conveniently be performed by calling @code{iauGd2gc}, which uses a
+numerical code to identify the required a and f values.
+@end enumerate
 
 References:
 
-   Green, R.M., Spherical Astronomy, Cambridge University Press,
-   (1985) Section 4.5, p96.
+@itemize
+@item
+Green, R.M., Spherical Astronomy, Cambridge University Press, (1985)
+Section 4.5, p96.
 
-   Explanatory Supplement to the Astronomical Almanac,
-   P. Kenneth Seidelmann (ed), University Science Books (1992),
-   Section 4.22, p202.
+@item
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992), Section 4.22, p202.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -6006,62 +6561,80 @@ References:
 @deftypefun double iauGmst00 (double @var{uta}, double @var{utb}, double @var{tta}, double @var{ttb})
 Greenwich mean sidereal time (model consistent with IAU 2000
 resolutions).
+
 Status:  canonical model.
 
 Given:
-   uta,utb    double    UT1 as a 2-part Julian Date (Notes 1,2)
-   tta,ttb    double    TT as a 2-part Julian Date (Notes 1,2)
+
+@example
+uta,utb    double    UT1 as a 2-part Julian Date (Notes 1,2)
+tta,ttb    double    TT as a 2-part Julian Date (Notes 1,2)
+@end example
 
 Returned (function value):
-              double    Greenwich mean sidereal time (radians)
+
+@example
+           double    Greenwich mean sidereal time (radians)
+@end example
 
 Notes:
 
-1) The UT1 and TT dates uta+utb and tta+ttb respectively, are both
-   Julian Dates, apportioned in any convenient way between the
-   argument pairs.  For example, JD=2450123.7 could be expressed in
-   any of these ways, among others:
+@enumerate
+@item
+The UT1 and TT dates @code{@var{uta} + @var{utb}} and @code{@var{tta} +
+@var{ttb}} respectively, are both Julian Dates, apportioned in any
+convenient way between the argument pairs.  For example, @code{JD =
+2450123.7} could be expressed in any of these ways, among others:
 
-          Part A         Part B
+@example
+   Part A         Part B
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable (in the case of UT;  the TT is not at all critical
-   in this respect).  The J2000 and MJD methods are good compromises
-   between resolution and convenience.  For UT, the date & time
-   method is best matched to the algorithm that is used by the Earth
-   Rotation Angle function, called internally:  maximum precision is
-   delivered when the uta argument is for 0hrs UT1 on the day in
-   question and the utb argument lies in the range 0 to 1, or vice
-   versa.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable (in the
+case of UT; the TT is not at all critical in this respect).  The J2000
+and MJD methods are good compromises between resolution and convenience.
+For UT, the date & time method is best matched to the algorithm that is
+used by the Earth Rotation Angle function, called internally: maximum
+precision is delivered when the uta argument is for 0hrs UT1 on the day
+in question and the utb argument lies in the range 0 to 1, or vice
+versa.
 
-2) Both UT1 and TT are required, UT1 to predict the Earth rotation
-   and TT to predict the effects of precession.  If UT1 is used for
-   both purposes, errors of order 100 microarcseconds result.
+@item
+Both UT1 and TT are required, UT1 to predict the Earth rotation and TT
+to predict the effects of precession.  If UT1 is used for both purposes,
+errors of order 100 microarcseconds result.
 
-3) This GMST is compatible with the IAU 2000 resolutions and must be
-   used only in conjunction with other IAU 2000 compatible
-   components such as precession-nutation and equation of the
-   equinoxes.
+@item
+This GMST is compatible with the IAU 2000 resolutions and must be used
+only in conjunction with other IAU 2000 compatible components such as
+precession-nutation and equation of the equinoxes.
 
-4) The result is returned in the range 0 to 2pi.
+@item
+The result is returned in the range 0 to 2pi.
 
-5) The algorithm is from Capitaine et al. (2003) and IERS
-   Conventions 2003.
+@item
+The algorithm is from Capitaine et al. (2003) and IERS Conventions 2003.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauEra00
 Earth rotation angle, IAU 2000.
 
-   iauAnp       normalize angle into range 0 to 2pi
+@item iauAnp
+Normalize angle into range 0 to 2pi.
+@end table
 
 References:
 
+@itemize
 @item
 Capitaine, N., Wallace, P.T. and McCarthy, D.D., ``Expressions to
 implement the IAU 2000 definition of UT1'', Astronomy & Astrophysics,
@@ -6070,188 +6643,249 @@ implement the IAU 2000 definition of UT1'', Astronomy & Astrophysics,
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauGmst06 (double @var{uta}, double @var{utb}, double @var{tta}, double @var{ttb})
 Greenwich mean sidereal time (consistent with IAU 2006 precession).
+
 Status:  canonical model.
 
 Given:
-   uta,utb    double    UT1 as a 2-part Julian Date (Notes 1,2)
-   tta,ttb    double    TT as a 2-part Julian Date (Notes 1,2)
+
+@example
+uta,utb    double    UT1 as a 2-part Julian Date (Notes 1,2)
+tta,ttb    double    TT as a 2-part Julian Date (Notes 1,2)
+@end example
 
 Returned (function value):
-              double    Greenwich mean sidereal time (radians)
+
+@example
+           double    Greenwich mean sidereal time (radians)
+@end example
 
 Notes:
 
-1) The UT1 and TT dates uta+utb and tta+ttb respectively, are both
-   Julian Dates, apportioned in any convenient way between the
-   argument pairs.  For example, JD=2450123.7 could be expressed in
-   any of these ways, among others:
+@enumerate
+@item
+The UT1 and TT dates @code{@var{uta} + @var{utb}} and @code{@var{tta} +
+@var{ttb}} respectively, are both Julian Dates, apportioned in any
+convenient way between the argument pairs.  For example, @code{JD =
+2450123.7} could be expressed in any of these ways, among others:
 
-          Part A        Part B
+@example
+   Part A        Part B
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable (in the case of UT;  the TT is not at all critical
-   in this respect).  The J2000 and MJD methods are good compromises
-   between resolution and convenience.  For UT, the date & time
-   method is best matched to the algorithm that is used by the Earth
-   rotation angle function, called internally:  maximum precision is
-   delivered when the uta argument is for 0hrs UT1 on the day in
-   question and the utb argument lies in the range 0 to 1, or vice
-   versa.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable (in the
+case of UT; the TT is not at all critical in this respect).  The J2000
+and MJD methods are good compromises between resolution and convenience.
+For UT, the date & time method is best matched to the algorithm that is
+used by the Earth rotation angle function, called internally: maximum
+precision is delivered when the @var{uta} argument is for 0hrs UT1 on
+the day in question and the @var{utb} argument lies in the range
+@math{0} to @math{1}, or vice versa.
 
-2) Both UT1 and TT are required, UT1 to predict the Earth rotation
-   and TT to predict the effects of precession.  If UT1 is used for
-   both purposes, errors of order 100 microarcseconds result.
+@item
+Both UT1 and TT are required, UT1 to predict the Earth rotation and TT
+to predict the effects of precession.  If UT1 is used for both purposes,
+errors of order 100 microarcseconds result.
 
-3) This GMST is compatible with the IAU 2006 precession and must not
-   be used with other precession models.
+@item
+This GMST is compatible with the IAU 2006 precession and must not be
+used with other precession models.
 
-4) The result is returned in the range 0 to 2pi.
+@item
+The result is returned in the range 0 to 2pi.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauEra00
 Earth rotation angle, IAU 2000.
 
-   iauAnp       normalize angle into range 0 to 2pi
+@item iauAnp
+Normalize angle into range 0 to 2pi.
+@end table
 
 Reference:
 
-   Capitaine, N., Wallace, P.T. & Chapront, J., 2005,
-   Astron.Astrophys. 432, 355
+@itemize
+@item
+Capitaine, N., Wallace, P.T. & Chapront, J., 2005,
+Astron.Astrophys. 432, 355.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauGmst82 (double @var{dj1}, double @var{dj2})
 Universal Time to Greenwich mean sidereal time (IAU 1982 model).
+
 Status:  canonical model.
 
 Given:
-   dj1,dj2    double    UT1 Julian Date (see note)
+
+@example
+dj1,dj2    double    UT1 Julian Date (see note)
+@end example
 
 Returned (function value):
-              double    Greenwich mean sidereal time (radians)
+
+@example
+           double    Greenwich mean sidereal time (radians)
+@end example
 
 Notes:
 
-1) The UT1 date dj1+dj2 is a Julian Date, apportioned in any
-   convenient way between the arguments dj1 and dj2.  For example,
-   JD(UT1)=2450123.7 could be expressed in any of these ways,
-   among others:
+@enumerate
+@item
+The UT1 date @code{@var{dj1} + @var{dj2}} is a Julian Date, apportioned
+in any convenient way between the arguments @var{dj1} and @var{dj2}.
+For example, @code{JD(UT1) = 2450123.7} could be expressed in any of
+these ways, among others:
 
-           dj1            dj2
+@example
+    dj1            dj2
 
-       2450123.7D0        0D0        (JD method)
-        2451545D0      -1421.3D0     (J2000 method)
-       2400000.5D0     50123.2D0     (MJD method)
-       2450123.5D0       0.2D0       (date & time method)
+2450123.7D0        0D0        (JD method)
+ 2451545D0      -1421.3D0     (J2000 method)
+2400000.5D0     50123.2D0     (MJD method)
+2450123.5D0       0.2D0       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable.  The J2000 and MJD methods are good compromises
-   between resolution and convenience.  The date & time method is
-   best matched to the algorithm used:  maximum accuracy (or, at
-   least, minimum noise) is delivered when the dj1 argument is for
-   0hrs UT1 on the day in question and the dj2 argument lies in the
-   range 0 to 1, or vice versa.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 and MJD methods are good compromises between resolution and
+convenience.  The date & time method is best matched to the algorithm
+used: maximum accuracy (or, at least, minimum noise) is delivered when
+the @var{dj1} argument is for 0hrs UT1 on the day in question and the
+@var{dj2} argument lies in the range 0 to 1, or vice versa.
 
-2) The algorithm is based on the IAU 1982 expression.  This is
-   always described as giving the GMST at 0 hours UT1.  In fact, it
-   gives the difference between the GMST and the UT, the steady
-   4-minutes-per-day drawing-ahead of ST with respect to UT.  When
-   whole days are ignored, the expression happens to equal the GMST
-   at 0 hours UT1 each day.
+@item
+The algorithm is based on the IAU 1982 expression.  This is always
+described as giving the GMST at 0 hours UT1.  In fact, it gives the
+difference between the GMST and the UT, the steady 4--minutes--per--day
+drawing--ahead of ST with respect to UT.  When whole days are ignored,
+the expression happens to equal the GMST at 0 hours UT1 each day.
 
-3) In this function, the entire UT1 (the sum of the two arguments
-   dj1 and dj2) is used directly as the argument for the standard
-   formula, the constant term of which is adjusted by 12 hours to
-   take account of the noon phasing of Julian Date.  The UT1 is then
-   added, but omitting whole days to conserve accuracy.
+@item
+In this function, the entire UT1 (the sum of the two arguments @var{dj1}
+and @var{dj2}) is used directly as the argument for the standard
+formula, the constant term of which is adjusted by 12 hours to take
+account of the noon phasing of Julian Date.  The UT1 is then added, but
+omitting whole days to conserve accuracy.
+@end enumerate
 
 Called:
-   iauAnp       normalize angle into range 0 to 2pi
+
+@table @code
+@item iauAnp
+Normalize angle into range 0 to 2pi.
+@end table
 
 References:
 
-   Transactions of the International Astronomical Union,
-   XVIII B, 67 (1983).
+@itemize
+@item
+Transactions of the International Astronomical Union, XVIII B, 67
+(1983).
 
-   Aoki et al., Astron. Astrophys. 105, 359-361 (1982).
+@item
+Aoki et al., Astron. Astrophys. 105, 359-361 (1982).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauGst00a (double @var{uta}, double @var{utb}, double @var{tta}, double @var{ttb})
-Greenwich apparent sidereal time (consistent with IAU 2000
-resolutions).
+Greenwich apparent sidereal time (consistent with IAU 2000 resolutions).
+
 Status:  canonical model.
 
 Given:
-   uta,utb    double    UT1 as a 2-part Julian Date (Notes 1,2)
-   tta,ttb    double    TT as a 2-part Julian Date (Notes 1,2)
+
+@example
+uta,utb    double    UT1 as a 2-part Julian Date (Notes 1,2)
+tta,ttb    double    TT as a 2-part Julian Date (Notes 1,2)
+@end example
 
 Returned (function value):
-              double    Greenwich apparent sidereal time (radians)
+
+@example
+           double    Greenwich apparent sidereal time (radians)
+@end example
 
 Notes:
 
-1) The UT1 and TT dates uta+utb and tta+ttb respectively, are both
-   Julian Dates, apportioned in any convenient way between the
-   argument pairs.  For example, JD=2450123.7 could be expressed in
-   any of these ways, among others:
+@enumerate
+@item
+The UT1 and TT dates @code{@var{uta} + @var{utb}} and @code{@var{tta} +
+@var{ttb}} respectively, are both Julian Dates, apportioned in any
+convenient way between the argument pairs.  For example, @code{JD =
+2450123.7} could be expressed in any of these ways, among others:
 
-          Part A        Part B
+@example
+   Part A        Part B
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable (in the case of UT;  the TT is not at all critical
-   in this respect).  The J2000 and MJD methods are good compromises
-   between resolution and convenience.  For UT, the date & time
-   method is best matched to the algorithm that is used by the Earth
-   Rotation Angle function, called internally:  maximum precision is
-   delivered when the uta argument is for 0hrs UT1 on the day in
-   question and the utb argument lies in the range 0 to 1, or vice
-   versa.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable (in the
+case of UT; the TT is not at all critical in this respect).  The J2000
+and MJD methods are good compromises between resolution and convenience.
+For UT, the date & time method is best matched to the algorithm that is
+used by the Earth Rotation Angle function, called internally: maximum
+precision is delivered when the uta argument is for 0hrs UT1 on the day
+in question and the @var{utb} argument lies in the range 0 to 1, or vice
+versa.
 
-2) Both UT1 and TT are required, UT1 to predict the Earth rotation
-   and TT to predict the effects of precession-nutation.  If UT1 is
-   used for both purposes, errors of order 100 microarcseconds
-   result.
+@item
+Both UT1 and TT are required, UT1 to predict the Earth rotation and TT
+to predict the effects of precession--nutation.  If UT1 is used for both
+purposes, errors of order 100 microarcseconds result.
 
-3) This GAST is compatible with the IAU 2000 resolutions and must be
-   used only in conjunction with other IAU 2000 compatible
-   components such as precession-nutation.
+@item
+This GAST is compatible with the IAU 2000 resolutions and must be used
+only in conjunction with other IAU 2000 compatible components such as
+precession--nutation.
 
-4) The result is returned in the range 0 to 2pi.
+@item
+The result is returned in the range 0 to 2pi.
 
-5) The algorithm is from Capitaine et al. (2003) and IERS
-   Conventions 2003.
+@item
+The algorithm is from Capitaine et al. (2003) and IERS Conventions 2003.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauGmst00
 Greenwich mean sidereal time, IAU 2000.
 
-   iauEe00a     equation of the equinoxes, IAU 2000A
-   iauAnp       normalize angle into range 0 to 2pi
+@item iauEe00a
+Equation of the equinoxes, IAU 2000A.
+
+@item iauAnp
+Normalize angle into range 0 to 2pi.
+@end table
 
 References:
 
+@itemize
 @item
 Capitaine, N., Wallace, P.T. and McCarthy, D.D., ``Expressions to
 implement the IAU 2000 definition of UT1'', Astronomy & Astrophysics,
@@ -6260,9 +6894,11 @@ implement the IAU 2000 definition of UT1'', Astronomy & Astrophysics,
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
+@c SONO ARRIVATO QUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 @deftypefun double iauGst00b (double @var{uta}, double @var{utb})
 Greenwich apparent sidereal time (consistent with IAU 2000
@@ -6324,7 +6960,9 @@ Called:
 Greenwich mean sidereal time, IAU 2000.
 
    iauEe00b     equation of the equinoxes, IAU 2000B
-   iauAnp       normalize angle into range 0 to 2pi
+@item iauAnp
+Normalize angle into range 0 to 2pi.
+
 
 References:
 
@@ -6394,9 +7032,15 @@ Notes:
 4) The result is returned in the range 0 to 2pi.
 
 Called:
-   iauBpn2xy    extract CIP X,Y coordinates from NPB matrix
-   iauS06       the CIO locator s, given X,Y, IAU 2006
-   iauAnp       normalize angle into range 0 to 2pi
+@item iauBpn2xy
+Extract CIP X,Y coordinates from NPB matrix.
+
+@item iauS06
+The CIO locator s, given X,Y, IAU 2006.
+
+@item iauAnp
+Normalize angle into range 0 to 2pi.
+
 @item iauEra00
 Earth rotation angle, IAU 2000.
 
@@ -6459,7 +7103,9 @@ Notes:
 4) The result is returned in the range 0 to 2pi.
 
 Called:
-   iauPnm06a    classical NPB matrix, IAU 2006/2000A
+@item iauPnm06a
+Classical NPB matrix, IAU 2006/2000A.
+
    iauGst06     Greenwich apparent ST, IAU 2006, given NPB matrix
 
 Reference:
@@ -6519,7 +7165,9 @@ Notes:
 Called:
    iauGmst82    Greenwich mean sidereal time, IAU 1982
    iauEqeq94    equation of the equinoxes, IAU 1994
-   iauAnp       normalize angle into range 0 to 2pi
+@item iauAnp
+Normalize angle into range 0 to 2pi.
+
 
 References:
 
@@ -6566,18 +7214,32 @@ Notes:
 4) See also iauFk52h, iauFk5hz, iauHfk5z.
 
 Called:
-   iauStarpv    star catalog data to space motion pv-vector
-   iauFk5hip    FK5 to Hipparcos rotation and spin
-   iauRv2m      r-vector to r-matrix
-   iauRxp       product of r-matrix and p-vector
-   iauTrxp      product of transpose of r-matrix and p-vector
-   iauPxp       vector product of two p-vectors
+@item iauStarpv
+Star catalog data to space motion @code{pv}-vector.
+@item iauFk5hip
+FK5 to Hipparcos rotation and spin.
+
+@item iauRv2m
+@code{r}-vector to @code{r}-matrix.
+
+@item iauRxp
+Product of @code{r}-matrix and @code{p}-vector.
+
+@item iauTrxp
+Product of transpose of @code{r}-matrix and @code{p}-vector.
+
+@item iauPxp
+Vector product of two @code{p}-vectors.
+
    iauPmp       p-vector minus p-vector
-   iauPvstar    space motion pv-vector to star catalog data
+@item iauPvstar
+Space motion @code{pv}-vector to star catalog data.
+
 
 Reference:
 
-   F.Mignard & M.Froeschle, Astron. Astrophys. 354, 732-739 (2000).
+@item
+F.Mignard & M.Froeschle, Astron. Astrophys. 354, 732-739 (2000).
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -6640,21 +7302,36 @@ convenience.
 6) See also iauFk52h, iauH2fk5, iauFk5zhz.
 
 Called:
-   iauS2c       spherical coordinates to unit vector
-   iauFk5hip    FK5 to Hipparcos rotation and spin
-   iauRxp       product of r-matrix and p-vector
-   iauSxp       multiply p-vector by scalar
+@item iauS2c
+Spherical coordinates to unit vector.
+
+@item iauFk5hip
+FK5 to Hipparcos rotation and spin.
+
+@item iauRxp
+Product of @code{r}-matrix and @code{p}-vector.
+
+@item iauSxp
+Multiply @code{p}-vector by scalar.
+
 @item iauRxr
 Product of two @code{r}-matrices.
 
-   iauTrxp      product of transpose of r-matrix and p-vector
-   iauPxp       vector product of two p-vectors
+@item iauTrxp
+Product of transpose of @code{r}-matrix and @code{p}-vector.
+
+@item iauPxp
+Vector product of two @code{p}-vectors.
+
    iauPv2s      pv-vector to spherical
-   iauAnp       normalize angle into range 0 to 2pi
+@item iauAnp
+Normalize angle into range 0 to 2pi.
+
 
 Reference:
 
-   F.Mignard & M.Froeschle, 2000, Astron.Astrophys. 354, 732-739.
+@item
+F.Mignard & M.Froeschle, 2000, Astron.Astrophys. 354, 732-739.
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -6959,8 +7636,12 @@ Notes:
    respect to the mean equatorial triad of date.
 
 Called:
-   iauIr        initialize r-matrix to identity
-   iauRx        rotate around X-axis
+@item iauIr
+Initialize @code{r}-matrix to identity.
+
+@item iauRx
+Rotate around @math{X}-axis.
+
 @item iauRz
 Rotate around @math{Z}-axis.
 
@@ -7123,11 +7804,13 @@ References:
    107, B4.  The MHB_2000 code itself was obtained on 9th September
    2002 from ftp//maia.usno.navy.mil/conv2000/chapter5/IAU2000A.
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 
-   Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M. 1999,
-   Astron.Astrophys.Supp.Ser. 135, 111
+@item
+Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
+Astron.Astrophys.Supp.Ser. 135, 111.
 
    Wallace, P.T., "Software for Implementing the IAU 2000
    Resolutions", in IERS Workshop 5.1 (2002)
@@ -7321,11 +8004,13 @@ References:
    107, B4.  The MHB_2000 code itself was obtained on 9th September
    2002 from ftp//maia.usno.navy.mil/conv2000/chapter5/IAU2000A.
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 
-   Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M. 1999,
-   Astron.Astrophys.Supp.Ser. 135, 111
+@item
+Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
+Astron.Astrophys.Supp.Ser. 135, 111.
 
    Wallace, P.T., "Software for Implementing the IAU 2000
    Resolutions", in IERS Workshop 5.1 (2002)
@@ -7425,7 +8110,9 @@ convenience.
    respect to the mean equatorial triad of date.
 
 Called:
-   iauNut80     nutation, IAU 1980
+@item iauNut80
+Nutation, IAU 1980.
+
 @item iauObl80
 Mean obliquity, IAU 1980.
 
@@ -7473,7 +8160,8 @@ convenience.
 
 Reference:
 
-   Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351
+@item
+Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -7633,7 +8321,8 @@ convenience.
 
 Reference:
 
-   Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351
+@item
+Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
 
 Called:
    iauObl06     mean obliquity, IAU 2006
@@ -7655,7 +8344,9 @@ Called:
 @item iauCp
 Copy @code{p}-vector.
 
-   iauZp        zero p-vector
+@itemiauZp
+Zero @code{p}-vector.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -7679,7 +8370,9 @@ Notes:
 2) At either pole, zero theta is returned.
 
 Called:
-   iauC2s       p-vector to spherical
+@item iauC2s
+@code{p}-vector to spherical.
+
    iauPm        modulus of p-vector
 @end deftypefun
 
@@ -7714,7 +8407,9 @@ Notes:
 Called:
    iauPn        decompose p-vector into modulus and direction
    iauPm        modulus of p-vector
-   iauPxp       vector product of two p-vectors
+@item iauPxp
+Vector product of two @code{p}-vectors.
+
    iauPmp       p-vector minus p-vector
    iauPdp       scalar product of two p-vectors
 @end deftypefun
@@ -7891,7 +8586,8 @@ convenience.
 
 Reference:
 
-   Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351
+@item
+Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
 
 Called:
    iauObl06     mean obliquity, IAU 2006
@@ -8049,7 +8745,9 @@ Notes:
    which in turn takes precedence over the remote date warning.
 
 Called:
-   iauAnp       normalize angle into range 0 to 2pi
+@item iauAnp
+Normalize angle into range 0 to 2pi.
+
 
 Reference:  Simon, J.L, Bretagnon, P., Chapront, J.,
             Chapront-Touze, M., Francou, G., and Laskar, J.,
@@ -8165,7 +8863,8 @@ convenience.
 
 Called:
    iauPfw06     bias-precession F-W angles, IAU 2006
-   iauFw2m      F-W angles to r-matrix
+@item iauFw2m
+F-W angles to @code{r}-matrix.
 
 References:
 
@@ -8231,7 +8930,9 @@ convenience.
 
 Called:
    iauPrec76    accumulated precession angles, IAU 1976
-   iauIr        initialize r-matrix to identity
+@item iauIr
+Initialize @code{r}-matrix to identity.
+
 @item iauRz
 Rotate around @math{Z}-axis.
    iauRy        rotate around Y-axis
@@ -8240,8 +8941,11 @@ Copy @code{r}-matrix.
 
 References:
 
-   Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
-    equations (6) & (7), p283.
+@item
+Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
+
+@item
+Equations (6) & (7), p283.
 
    Kaplan,G.H., 1981. USNO circular no. 163, pA2.
 @end deftypefun
@@ -8287,8 +8991,12 @@ Notes:
 
 Called:
    iauPm        modulus of p-vector
-   iauZp        zero p-vector
-   iauSxp       multiply p-vector by scalar
+@itemiauZp
+Zero @code{p}-vector.
+
+@item iauSxp
+Multiply @code{p}-vector by scalar.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -8658,7 +9366,8 @@ Notes:
 
 Called:
    iauPfw06     bias-precession F-W angles, IAU 2006
-   iauFw2m      F-W angles to r-matrix
+@item iauFw2m
+F-W angles to @code{r}-matrix.
 @item iauCr
 Copy @code{r}-matrix.
    iauTr        transpose r-matrix
@@ -8911,7 +9620,8 @@ convenience.
 Called:
    iauPfw06     bias-precession F-W angles, IAU 2006
    iauNut06a    nutation, IAU 2006/2000A
-   iauFw2m      F-W angles to r-matrix
+@item iauFw2m
+F-W angles to @code{r}-matrix.
 
 Reference:
 
@@ -9005,11 +9715,15 @@ Notes:
    direction to a celestial source.
 
 Called:
-   iauIr        initialize r-matrix to identity
+@item iauIr
+Initialize @code{r}-matrix to identity.
+
 @item iauRz
 Rotate around @math{Z}-axis.
    iauRy        rotate around Y-axis
-   iauRx        rotate around X-axis
+@item iauRx
+Rotate around @math{X}-axis.
+
 
 Reference:
 
@@ -9054,8 +9768,12 @@ Note:
    It is permissible for any of a, b and apsb to be the same array.
 
 Called:
-   iauSxp       multiply p-vector by scalar
-   iauPpp       p-vector plus p-vector
+@item iauSxp
+Multiply @code{p}-vector by scalar.
+
+@item iauPpp
+@code{p}-vector plus @code{p}-vector.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -9319,7 +10037,9 @@ Note:
    arguments.
 
 Called:
-   iauPpp       p-vector plus p-vector
+@item iauPpp
+@code{p}-vector plus @code{p}-vector.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -9401,12 +10121,18 @@ Notes:
 Called:
    iauPn        decompose p-vector into modulus and direction
    iauPdp       scalar product of two p-vectors
-   iauSxp       multiply p-vector by scalar
+@item iauSxp
+Multiply @code{p}-vector by scalar.
+
    iauPmp       p-vector minus p-vector
    iauPm        modulus of p-vector
-   iauPpp       p-vector plus p-vector
+@item iauPpp
+@code{p}-vector plus @code{p}-vector.
+
    iauPv2s      pv-vector to spherical
-   iauAnp       normalize angle into range 0 to 2pi
+@item iauAnp
+Normalize angle into range 0 to 2pi.
+
 
 Reference:
 
@@ -9488,8 +10214,12 @@ Notes:
 
 Called:
    iauCpv       copy pv-vector
-   iauPxp       vector product of two p-vectors
-   iauPpp       p-vector plus p-vector
+@item iauPxp
+Vector product of two @code{p}-vectors.
+
+@item iauPpp
+@code{p}-vector plus @code{p}-vector.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -9631,7 +10361,9 @@ Note:
    It is permissible for pv and rpv to be the same array.
 
 Called:
-   iauRxp       product of r-matrix and p-vector
+@item iauRxp
+Product of @code{r}-matrix and @code{p}-vector.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -10091,9 +10823,15 @@ convenience.
    the CIP position.
 
 Called:
-   iauPnm06a    classical NPB matrix, IAU 2006/2000A
-   iauBpn2xy    extract CIP X,Y coordinates from NPB matrix
-   iauS06       the CIO locator s, given X,Y, IAU 2006
+@item iauPnm06a
+Classical NPB matrix, IAU 2006/2000A.
+
+@item iauBpn2xy
+Extract CIP X,Y coordinates from NPB matrix.
+
+@item iauS06
+The CIO locator s, given X,Y, IAU 2006.
+
 
 References:
 
@@ -10145,8 +10883,12 @@ Returned:
    p       double[3]    Cartesian coordinates
 
 Called:
-   iauS2c       spherical coordinates to unit vector
-   iauSxp       multiply p-vector by scalar
+@item iauS2c
+Spherical coordinates to unit vector.
+
+@item iauSxp
+Multiply @code{p}-vector by scalar.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -10185,7 +10927,9 @@ Note:
    It is permissible for pv and spv to be the same array.
 
 Called:
-   iauSxp       multiply p-vector by scalar
+@item iauSxp
+Multiply @code{p}-vector by scalar.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -10212,7 +10956,9 @@ Notes:
    the angle.
 
 Called:
-   iauPxp       vector product of two p-vectors
+@item iauPxp
+Vector product of two @code{p}-vectors.
+
    iauPm        modulus of p-vector
    iauPdp       scalar product of two p-vectors
 @end deftypefun
@@ -10233,7 +10979,9 @@ Returned (function value):
           double       angular separation (radians)
 
 Called:
-   iauS2c       spherical coordinates to unit vector
+@item iauS2c
+Spherical coordinates to unit vector.
+
    iauSepp      angular separation between two p-vectors
 @end deftypefun
 
@@ -10382,10 +11130,13 @@ Notes:
    status.
 
 Called:
-   iauStarpv    star catalog data to space motion pv-vector
+@item iauStarpv
+Star catalog data to space motion @code{pv}-vector.
    iauPvu       update a pv-vector
    iauPdp       scalar product of two p-vectors
-   iauPvstar    space motion pv-vector to star catalog data
+@item iauPvstar
+Space motion @code{pv}-vector to star catalog data.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -10486,12 +11237,18 @@ Notes:
 Called:
    iauS2pv      spherical coordinates to pv-vector
    iauPm        modulus of p-vector
-   iauZp        zero p-vector
+@itemiauZp
+Zero @code{p}-vector.
+
    iauPn        decompose p-vector into modulus and direction
    iauPdp       scalar product of two p-vectors
-   iauSxp       multiply p-vector by scalar
+@item iauSxp
+Multiply @code{p}-vector by scalar.
+
    iauPmp       p-vector minus p-vector
-   iauPpp       p-vector plus p-vector
+@item iauPpp
+@code{p}-vector plus @code{p}-vector.
+
 
 Reference:
 
@@ -10949,7 +11706,9 @@ Note:
 
 Called:
    iauTr        transpose r-matrix
-   iauRxp       product of r-matrix and p-vector
+@item iauRxp
+Product of @code{r}-matrix and @code{p}-vector.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -11556,7 +12315,9 @@ convenience.
 
 Called:
    iauPnm00a    classical NPB matrix, IAU 2000A
-   iauBpn2xy    extract CIP X,Y coordinates from NPB matrix
+@item iauBpn2xy
+Extract CIP X,Y coordinates from NPB matrix.
+
    iauS00       the CIO locator s, given X,Y, IAU 2000A
 
 Reference:
@@ -11617,7 +12378,9 @@ convenience.
 
 Called:
    iauPnm00b    classical NPB matrix, IAU 2000B
-   iauBpn2xy    extract CIP X,Y coordinates from NPB matrix
+@item iauBpn2xy
+Extract CIP X,Y coordinates from NPB matrix.
+
    iauS00       the CIO locator s, given X,Y, IAU 2000A
 
 Reference:
@@ -11677,9 +12440,15 @@ System.
    see Capitaine & Wallace (2006) and iauXy06.
 
 Called:
-   iauPnm06a    classical NPB matrix, IAU 2006/2000A
-   iauBpn2xy    extract CIP X,Y coordinates from NPB matrix
-   iauS06       the CIO locator s, given X,Y, IAU 2006
+@item iauPnm06a
+Classical NPB matrix, IAU 2006/2000A.
+
+@item iauBpn2xy
+Extract CIP X,Y coordinates from NPB matrix.
+
+@item iauS06
+The CIO locator s, given X,Y, IAU 2006.
+
 
 References:
 
