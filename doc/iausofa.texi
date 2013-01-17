@@ -6898,74 +6898,95 @@ Technical Note No. 32, BKG (2004).
 @end deftypefun
 
 @c ------------------------------------------------------------
-@c SONO ARRIVATO QUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 @deftypefun double iauGst00b (double @var{uta}, double @var{utb})
 Greenwich apparent sidereal time (consistent with IAU 2000
 resolutions but using the truncated nutation model IAU 2000B).
+
 Status:  support function.
 
 Given:
-   uta,utb    double    UT1 as a 2-part Julian Date (Notes 1,2)
+
+@example
+uta,utb    double    UT1 as a 2-part Julian Date (Notes 1,2)
+@end example
 
 Returned (function value):
-              double    Greenwich apparent sidereal time (radians)
+
+@example
+           double    Greenwich apparent sidereal time (radians)
+@end example
 
 Notes:
 
-1) The UT1 date uta+utb is a Julian Date, apportioned in any
-   convenient way between the argument pair.  For example,
-   JD=2450123.7 could be expressed in any of these ways, among
-   others:
+@enumerate
+@item
+The UT1 date @code{@var{uta} + @var{utb}} is a Julian Date, apportioned
+in any convenient way between the argument pair.  For example, @code{JD
+= 2450123f.7} could be expressed in any of these ways, among others:
 
-           uta            utb
+@example
+    uta            utb
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in cases
-   where the loss of several decimal digits of resolution is
-   acceptable.  The J2000 and MJD methods are good compromises
-   between resolution and convenience.  For UT, the date & time
-   method is best matched to the algorithm that is used by the Earth
-   Rotation Angle function, called internally:  maximum precision is
-   delivered when the uta argument is for 0hrs UT1 on the day in
-   question and the utb argument lies in the range 0 to 1, or vice
-   versa.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 and MJD methods are good compromises between resolution and
+convenience.  For UT, the date & time method is best matched to the
+algorithm that is used by the Earth Rotation Angle function, called
+internally: maximum precision is delivered when the @var{uta} argument
+is for 0hrs UT1 on the day in question and the @var{utb} argument lies
+in the range 0 to 1, or vice versa.
 
-2) The result is compatible with the IAU 2000 resolutions, except
-   that accuracy has been compromised for the sake of speed and
-   convenience in two respects:
+@item
+The result is compatible with the IAU 2000 resolutions, except that
+accuracy has been compromised for the sake of speed and convenience in
+two respects:
 
-   . UT is used instead of TDB (or TT) to compute the precession
-     component of GMST and the equation of the equinoxes.  This
-     results in errors of order 0.1 mas at present.
+@itemize
+@item
+UT is used instead of TDB (or TT) to compute the precession component of
+GMST and the equation of the equinoxes.  This results in errors of order
+@math{0.1} mas at present.
 
-   . The IAU 2000B abridged nutation model (McCarthy & Luzum, 2001)
-     is used, introducing errors of up to 1 mas.
+@item
+The IAU 2000B abridged nutation model (McCarthy & Luzum, 2001) is used,
+introducing errors of up to @math{1} mas.
+@end itemize
 
-3) This GAST is compatible with the IAU 2000 resolutions and must be
-   used only in conjunction with other IAU 2000 compatible
-   components such as precession-nutation.
+@item
+This GAST is compatible with the IAU 2000 resolutions and must be used
+only in conjunction with other IAU 2000 compatible components such as
+precession-nutation.
 
-4) The result is returned in the range 0 to 2pi.
+@item
+The result is returned in the range 0 to 2pi.
 
-5) The algorithm is from Capitaine et al. (2003) and IERS
-   Conventions 2003.
+@item
+The algorithm is from Capitaine et al. (2003) and IERS Conventions 2003.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauGmst00
 Greenwich mean sidereal time, IAU 2000.
 
-   iauEe00b     equation of the equinoxes, IAU 2000B
+@item iauEe00b
+Equation of the equinoxes, IAU 2000B.
+
 @item iauAnp
 Normalize angle into range 0 to 2pi.
-
+@end table
 
 References:
 
+@itemize
 @item
 Capitaine, N., Wallace, P.T. and McCarthy, D.D., ``Expressions to
 implement the IAU 2000 definition of UT1'', Astronomy & Astrophysics,
@@ -6979,59 +7000,75 @@ Dynamical Astronomy, 85, 37-49 (2003).
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauGst06 (double @var{uta}, double @var{utb}, double @var{tta}, double @var{ttb}, double @var{rnpb}[3][3])
 Greenwich apparent sidereal time, IAU 2006, given the NPB matrix.
+
 Status:  support function.
 
 Given:
-   uta,utb  double        UT1 as a 2-part Julian Date (Notes 1,2)
-   tta,ttb  double        TT as a 2-part Julian Date (Notes 1,2)
-   rnpb     double[3][3]  nutation x precession x bias matrix
+
+@example
+uta,utb  double        UT1 as a 2-part Julian Date (Notes 1,2)
+tta,ttb  double        TT as a 2-part Julian Date (Notes 1,2)
+rnpb     double[3][3]  nutation x precession x bias matrix
+@end example
 
 Returned (function value):
-            double        Greenwich apparent sidereal time (radians)
+
+@example
+double        Greenwich apparent sidereal time (radians)
+@end example
 
 Notes:
 
-1) The UT1 and TT dates uta+utb and tta+ttb respectively, are both
-   Julian Dates, apportioned in any convenient way between the
-   argument pairs.  For example, JD=2450123.7 could be expressed in
-   any of these ways, among others:
+@enumerate
+@item
+The UT1 and TT dates @code{@var{uta} + @var{utb}} and @code{@var{tta} +
+@var{ttb}} respectively, are both Julian Dates, apportioned in any
+convenient way between the argument pairs.  For example, @code{JD =
+2450123.7} could be expressed in any of these ways, among others:
 
-          Part A        Part B
+@example
+   Part A        Part B
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable (in the case of UT;  the TT is not at all critical
-   in this respect).  The J2000 and MJD methods are good compromises
-   between resolution and convenience.  For UT, the date & time
-   method is best matched to the algorithm that is used by the Earth
-   rotation angle function, called internally:  maximum precision is
-   delivered when the uta argument is for 0hrs UT1 on the day in
-   question and the utb argument lies in the range 0 to 1, or vice
-   versa.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable (in the
+case of UT; the TT is not at all critical in this respect).  The J2000
+and MJD methods are good compromises between resolution and convenience.
+For UT, the date & time method is best matched to the algorithm that is
+used by the Earth rotation angle function, called internally: maximum
+precision is delivered when the @var{uta} argument is for 0hrs UT1 on
+the day in question and the @var{utb} argument lies in the range 0 to 1,
+or vice versa.
 
-2) Both UT1 and TT are required, UT1 to predict the Earth rotation
-   and TT to predict the effects of precession-nutation.  If UT1 is
-   used for both purposes, errors of order 100 microarcseconds
-   result.
+@item
+Both UT1 and TT are required, UT1 to predict the Earth rotation and TT
+to predict the effects of precession--nutation.  If UT1 is used for both
+purposes, errors of order 100 microarcseconds result.
 
-3) Although the function uses the IAU 2006 series for s+XY/2, it is
-   otherwise independent of the precession-nutation model and can in
-   practice be used with any equinox-based NPB matrix.
+@item
+Although the function uses the IAU 2006 series for @code{s + XY/2}, it
+is otherwise independent of the precession--nutation model and can in
+practice be used with any equinox--based NPB matrix.
 
-4) The result is returned in the range 0 to 2pi.
+@item
+The result is returned in the range 0 to 2pi.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauBpn2xy
 Extract CIP X,Y coordinates from NPB matrix.
 
@@ -7044,12 +7081,16 @@ Normalize angle into range 0 to 2pi.
 @item iauEra00
 Earth rotation angle, IAU 2000.
 
-   iauEors      equation of the origins, given NPB matrix and s
+@item iauEors
+Equation of the origins, given NPB matrix and @var{s}.
+@end table
 
 Reference:
 
+@itemize
 @item
 Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -7057,61 +7098,80 @@ Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 @deftypefun double iauGst06a (double @var{uta}, double @var{utb}, double @var{tta}, double @var{ttb})
 Greenwich apparent sidereal time (consistent with IAU 2000 and 2006
 resolutions).
+
 Status:  canonical model.
 
 Given:
-   uta,utb    double    UT1 as a 2-part Julian Date (Notes 1,2)
-   tta,ttb    double    TT as a 2-part Julian Date (Notes 1,2)
+
+@example
+uta,utb    double    UT1 as a 2-part Julian Date (Notes 1,2)
+tta,ttb    double    TT as a 2-part Julian Date (Notes 1,2)
+@end example
 
 Returned (function value):
-              double    Greenwich apparent sidereal time (radians)
+
+@example
+           double    Greenwich apparent sidereal time (radians)
+@end example
 
 Notes:
 
-1) The UT1 and TT dates uta+utb and tta+ttb respectively, are both
-   Julian Dates, apportioned in any convenient way between the
-   argument pairs.  For example, JD=2450123.7 could be expressed in
-   any of these ways, among others:
+@enumerate
+@item
+The UT1 and TT dates @code{@var{uta} + @var{utb}} and @code{@var{tta} +
+@var{ttb}} respectively, are both Julian Dates, apportioned in any
+convenient way between the argument pairs.  For example, @code{JD =
+2450123.7} could be expressed in any of these ways, among others:
 
-          Part A        Part B
+@example
+   Part A        Part B
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable (in the case of UT;  the TT is not at all critical
-   in this respect).  The J2000 and MJD methods are good compromises
-   between resolution and convenience.  For UT, the date & time
-   method is best matched to the algorithm that is used by the Earth
-   rotation angle function, called internally:  maximum precision is
-   delivered when the uta argument is for 0hrs UT1 on the day in
-   question and the utb argument lies in the range 0 to 1, or vice
-   versa.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable (in the
+case of UT; the TT is not at all critical in this respect).  The J2000
+and MJD methods are good compromises between resolution and convenience.
+For UT, the date & time method is best matched to the algorithm that is
+used by the Earth rotation angle function, called internally: maximum
+precision is delivered when the @var{uta} argument is for 0hrs UT1 on
+the day in question and the @var{utb} argument lies in the range 0 to 1,
+or vice versa.
 
-2) Both UT1 and TT are required, UT1 to predict the Earth rotation
-   and TT to predict the effects of precession-nutation.  If UT1 is
-   used for both purposes, errors of order 100 microarcseconds
-   result.
+@item
+Both UT1 and TT are required, UT1 to predict the Earth rotation and TT
+to predict the effects of precession-nutation.  If UT1 is used for both
+purposes, errors of order 100 microarcseconds result.
 
-3) This GAST is compatible with the IAU 2000/2006 resolutions and
-   must be used only in conjunction with IAU 2006 precession and
-   IAU 2000A nutation.
+@item
+This GAST is compatible with the IAU 2000/2006 resolutions and must be
+used only in conjunction with IAU 2006 precession and IAU 2000A
+nutation.
 
-4) The result is returned in the range 0 to 2pi.
+@item
+The result is returned in the range 0 to 2pi.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauPnm06a
 Classical NPB matrix, IAU 2006/2000A.
 
-   iauGst06     Greenwich apparent ST, IAU 2006, given NPB matrix
+@item iauGst06
+Greenwich apparent ST, IAU 2006, given NPB matrix.
+@end table
 
 Reference:
 
+@itemize
 @item
 Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -7119,103 +7179,141 @@ Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 @deftypefun double iauGst94 (double @var{uta}, double @var{utb})
 Greenwich apparent sidereal time (consistent with IAU 1982/94
 resolutions).
+
 Status:  support function.
 
 Given:
-   uta,utb    double    UT1 as a 2-part Julian Date (Notes 1,2)
+
+@example
+uta,utb    double    UT1 as a 2-part Julian Date (Notes 1,2)
+@end example
 
 Returned (function value):
-              double    Greenwich apparent sidereal time (radians)
+
+@example
+           double    Greenwich apparent sidereal time (radians)
+@end example
 
 Notes:
 
-1) The UT1 date uta+utb is a Julian Date, apportioned in any
-   convenient way between the argument pair.  For example,
-   JD=2450123.7 could be expressed in any of these ways, among
-   others:
+@enumerate
+@item
+The UT1 date @code{@var{uta} + @var{utb}} is a Julian Date, apportioned
+in any convenient way between the argument pair.  For example, @code{JD
+= 2450123.7} could be expressed in any of these ways, among others:
 
-           uta            utb
+@example
+    uta            utb
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in cases
-   where the loss of several decimal digits of resolution is
-   acceptable.  The J2000 and MJD methods are good compromises
-   between resolution and convenience.  For UT, the date & time
-   method is best matched to the algorithm that is used by the Earth
-   Rotation Angle function, called internally:  maximum precision is
-   delivered when the uta argument is for 0hrs UT1 on the day in
-   question and the utb argument lies in the range 0 to 1, or vice
-   versa.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 and MJD methods are good compromises between resolution and
+convenience.  For UT, the date & time method is best matched to the
+algorithm that is used by the Earth Rotation Angle function, called
+internally: maximum precision is delivered when the @var{uta} argument
+is for 0hrs UT1 on the day in question and the @var{utb} argument lies
+in the range 0 to 1, or vice versa.
 
-2) The result is compatible with the IAU 1982 and 1994 resolutions,
-   except that accuracy has been compromised for the sake of
-   convenience in that UT is used instead of TDB (or TT) to compute
-   the equation of the equinoxes.
+@item
+The result is compatible with the IAU 1982 and 1994 resolutions, except
+that accuracy has been compromised for the sake of convenience in that
+UT is used instead of TDB (or TT) to compute the equation of the
+equinoxes.
 
-3) This GAST must be used only in conjunction with contemporaneous
-   IAU standards such as 1976 precession, 1980 obliquity and 1982
-   nutation.  It is not compatible with the IAU 2000 resolutions.
+@item
+This GAST must be used only in conjunction with contemporaneous IAU
+standards such as 1976 precession, 1980 obliquity and 1982 nutation.  It
+is not compatible with the IAU 2000 resolutions.
 
-4) The result is returned in the range 0 to 2pi.
+@item
+The result is returned in the range 0 to 2pi.
+@end enumerate
 
 Called:
-   iauGmst82    Greenwich mean sidereal time, IAU 1982
-   iauEqeq94    equation of the equinoxes, IAU 1994
+
+@table
+@item iauGmst82
+Greenwich mean sidereal time, IAU 1982.
+
+@item iauEqeq94
+Equation of the equinoxes, IAU 1994.
+
 @item iauAnp
 Normalize angle into range 0 to 2pi.
-
+@end table
 
 References:
 
-   Explanatory Supplement to the Astronomical Almanac,
-   P. Kenneth Seidelmann (ed), University Science Books (1992)
+@itemize
+@item
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992).
 
-   IAU Resolution C7, Recommendation 3 (1994)
+@item
+IAU Resolution C7, Recommendation 3 (1994).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauH2fk5 (double @var{rh}, double @var{dh}, double @var{drh}, double @var{ddh}, double @var{pxh}, double @var{rvh}, double * @var{r5}, double * @var{d5}, double * @var{dr5}, double * @var{dd5}, double * @var{px5}, double * @var{rv5})
 Transform Hipparcos star data into the FK5 (J2000.0) system.
+
 Status:  support function.
 
 Given (all Hipparcos, epoch J2000.0):
-   rh      double    RA (radians)
-   dh      double    Dec (radians)
-   drh     double    proper motion in RA (dRA/dt, rad/Jyear)
-   ddh     double    proper motion in Dec (dDec/dt, rad/Jyear)
-   pxh     double    parallax (arcsec)
-   rvh     double    radial velocity (km/s, positive = receding)
+
+@example
+rh      double    RA (radians)
+dh      double    Dec (radians)
+drh     double    proper motion in RA (dRA/dt, rad/Jyear)
+ddh     double    proper motion in Dec (dDec/dt, rad/Jyear)
+pxh     double    parallax (arcsec)
+rvh     double    radial velocity (km/s, positive = receding)
+@end example
 
 Returned (all FK5, equinox J2000.0, epoch J2000.0):
-   r5      double    RA (radians)
-   d5      double    Dec (radians)
-   dr5     double    proper motion in RA (dRA/dt, rad/Jyear)
-   dd5     double    proper motion in Dec (dDec/dt, rad/Jyear)
-   px5     double    parallax (arcsec)
-   rv5     double    radial velocity (km/s, positive = receding)
+
+@example
+r5      double    RA (radians)
+d5      double    Dec (radians)
+dr5     double    proper motion in RA (dRA/dt, rad/Jyear)
+dd5     double    proper motion in Dec (dDec/dt, rad/Jyear)
+px5     double    parallax (arcsec)
+rv5     double    radial velocity (km/s, positive = receding)
+@end example
 
 Notes:
 
-1) This function transforms Hipparcos star positions and proper
-   motions into FK5 J2000.0.
+@enumerate
+@item
+This function transforms Hipparcos star positions and proper motions
+into FK5 J2000.0.
 
-2) The proper motions in RA are dRA/dt rather than
-   cos(Dec)*dRA/dt, and are per year rather than per century.
+@item
+The proper motions in RA are @code{dRA/dt} rather than @code{cos(Dec) *
+dRA/dt}, and are per year rather than per century.
 
-3) The FK5 to Hipparcos transformation is modeled as a pure
-   rotation and spin;  zonal errors in the FK5 catalog are not
-   taken into account.
+@item
+The FK5 to Hipparcos transformation is modeled as a pure rotation and
+spin; zonal errors in the FK5 catalog are not taken into account.
 
-4) See also iauFk52h, iauFk5hz, iauHfk5z.
+@item
+See also @code{iauFk52h}, @code{iauFk5hz}, @code{iauHfk5z}.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauStarpv
 Star catalog data to space motion @code{pv}-vector.
+
 @item iauFk5hip
 FK5 to Hipparcos rotation and spin.
 
@@ -7231,37 +7329,50 @@ Product of transpose of @code{r}-matrix and @code{p}-vector.
 @item iauPxp
 Vector product of two @code{p}-vectors.
 
-   iauPmp       p-vector minus p-vector
+@item iauPmp
+@code{p}-vector minus @code{p}-vector.
+
 @item iauPvstar
 Space motion @code{pv}-vector to star catalog data.
-
+@end table
 
 Reference:
 
+@itemize
 @item
 F.Mignard & M.Froeschle, Astron. Astrophys. 354, 732-739 (2000).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauHfk5z (double @var{rh}, double @var{dh}, double @vari{date}, double @varii{date}, double * @var{r5}, double * @var{d5}, double * @var{dr5}, double * @var{dd5})
-Transform a Hipparcos star position into FK5 J2000.0, assuming
-zero Hipparcos proper motion.
+Transform a Hipparcos star position into FK5 J2000.0, assuming zero
+Hipparcos proper motion.
+
 Status:  support function.
 
 Given:
-   rh            double    Hipparcos RA (radians)
-   dh            double    Hipparcos Dec (radians)
-   date1,date2   double    TDB date (Note 1)
 
-Returned (all FK5, equinox J2000.0, date date1+date2):
-   r5            double    RA (radians)
-   d5            double    Dec (radians)
-   dr5           double    FK5 RA proper motion (rad/year, Note 4)
-   dd5           double    Dec proper motion (rad/year, Note 4)
+@example
+rh            double    Hipparcos RA (radians)
+dh            double    Hipparcos Dec (radians)
+date1,date2   double    TDB date (Note 1)
+@end example
+
+Returned (all FK5, equinox J2000.0, date @code{@vari{date} +
+@varii{date}}):
+
+@example
+r5            double    RA (radians)
+d5            double    Dec (radians)
+dr5           double    FK5 RA proper motion (rad/year, Note 4)
+dd5           double    Dec proper motion (rad/year, Note 4)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -7284,24 +7395,31 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The proper motion in RA is dRA/dt rather than cos(Dec)*dRA/dt.
+@item
+The proper motion in RA is @code{dRA/dt} rather than @code{cos(Dec) *
+dRA/dt}.
 
-3) The FK5 to Hipparcos transformation is modeled as a pure rotation
-   and spin;  zonal errors in the FK5 catalogue are not taken into
-   account.
+@item
+The FK5 to Hipparcos transformation is modeled as a pure rotation and
+spin; zonal errors in the FK5 catalogue are not taken into account.
 
-4) It was the intention that Hipparcos should be a close
-   approximation to an inertial frame, so that distant objects have
-   zero proper motion;  such objects have (in general) non-zero
-   proper motion in FK5, and this function returns those fictitious
-   proper motions.
+@item
+It was the intention that Hipparcos should be a close approximation to
+an inertial frame, so that distant objects have zero proper motion; such
+objects have (in general) non-zero proper motion in FK5, and this
+function returns those fictitious proper motions.
 
-5) The position returned by this function is in the FK5 J2000.0
-   reference system but at date date1+date2.
+@item
+The position returned by this function is in the FK5 J2000.0 reference
+system but at date @code{@vari{date} + @varii{date}}.
 
-6) See also iauFk52h, iauH2fk5, iauFk5zhz.
+@item
+See also @code{iauFk52h}, @code{iauH2fk5}, @code{iauFk5zhz}.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauS2c
 Spherical coordinates to unit vector.
 
@@ -7323,145 +7441,200 @@ Product of transpose of @code{r}-matrix and @code{p}-vector.
 @item iauPxp
 Vector product of two @code{p}-vectors.
 
-   iauPv2s      pv-vector to spherical
+@item iauPv2s
+@code{pv}-vector to spherical.
+
 @item iauAnp
 Normalize angle into range 0 to 2pi.
-
+@end table
 
 Reference:
 
+@itemize
 @item
 F.Mignard & M.Froeschle, 2000, Astron.Astrophys. 354, 732-739.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauIr (double @var{r}[3][3])
-Initialize an r-matrix to the identity matrix.
+Initialize an @code{r}-matrix to the identity matrix.
+
 Status:  vector/matrix support function.
 
 Returned:
-   r       double[3][3]    r-matrix
+
+@example
+r       double[3][3]    r-matrix
+@end example
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauJd2cal (double @var{dj1}, double @var{dj2}, int * @var{iy}, int * @var{im}, int * @var{id}, double * @var{fd})
 Julian Date to Gregorian year, month, day, and fraction of a day.
+
 Status:  support function.
 
 Given:
-   dj1,dj2   double   Julian Date (Notes 1, 2)
+
+@example
+dj1,dj2   double   Julian Date (Notes 1, 2)
+@end example
 
 Returned (arguments):
-   iy        int      year
-   im        int      month
-   id        int      day
-   fd        double   fraction of day
+
+@example
+iy        int      year
+im        int      month
+id        int      day
+fd        double   fraction of day
+@end example
 
 Returned (function value):
-             int      status:
-                         0 = OK
-                        -1 = unacceptable date (Note 3)
+
+@example
+int      status:
+            0 = OK
+           -1 = unacceptable date (Note 3)
+@end example
 
 Notes:
 
-1) The earliest valid date is -68569.5 (-4900 March 1).  The
-   largest value accepted is 10^9.
+@enumerate
+@item
+The earliest valid date is -68569.5 (-4900 March 1).  The largest value
+accepted is 10^9.
 
-2) The Julian Date is apportioned in any convenient way between
-   the arguments dj1 and dj2.  For example, JD=2450123.7 could
-   be expressed in any of these ways, among others:
+@item
+The Julian Date is apportioned in any convenient way between the
+arguments @var{dj1} and @var{dj2}.  For example, @code{JD = 2450123.7}
+could be expressed in any of these ways, among others:
 
-          dj1             dj2
+@example
+   dj1             dj2
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-3) In early eras the conversion is from the "proleptic Gregorian
-   calendar";  no account is taken of the date(s) of adoption of
-   the Gregorian calendar, nor is the AD/BC numbering convention
-   observed.
+@item
+In early eras the conversion is from the ``proleptic Gregorian
+calendar''; no account is taken of the date(s) of adoption of the
+Gregorian calendar, nor is the AD/BC numbering convention observed.
+@end enumerate
 
 Reference:
 
-   Explanatory Supplement to the Astronomical Almanac,
-   P. Kenneth Seidelmann (ed), University Science Books (1992),
-   Section 12.92 (p604).
+@itemize
+@item
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992), Section 12.92 (p604).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauJdcalf (int @var{ndp}, double @var{dj1}, double @var{dj2}, int @var{iymdf}[4])
-Julian Date to Gregorian Calendar, expressed in a form convenient
-for formatting messages:  rounded to a specified precision.
+Julian Date to Gregorian Calendar, expressed in a form convenient for
+formatting messages: rounded to a specified precision.
+
 Status:  support function.
 
 Given:
-   ndp       int      number of decimal places of days in fraction
-   dj1,dj2   double   dj1+dj2 = Julian Date (Note 1)
+
+@example
+ndp       int      number of decimal places of days in fraction
+dj1,dj2   double   dj1+dj2 = Julian Date (Note 1)
+@end example
 
 Returned:
-   iymdf     int[4]   year, month, day, fraction in Gregorian
-                      calendar
+
+@example
+iymdf     int[4]   year, month, day, fraction in Gregorian
+                   calendar
+@end example
 
 Returned (function value):
-             int      status:
-                        -1 = date out of range
-                         0 = OK
-                        +1 = NDP not 0-9 (interpreted as 0)
+
+@example
+int      status:
+           -1 = date out of range
+            0 = OK
+           +1 = NDP not 0-9 (interpreted as 0)
+@end example
 
 Notes:
 
-1) The Julian Date is apportioned in any convenient way between
-   the arguments dj1 and dj2.  For example, JD=2450123.7 could
-   be expressed in any of these ways, among others:
+@enumerate
+@item
+The Julian Date is apportioned in any convenient way between the
+arguments @var{dj1} and @var{dj2}.  For example, @code{JD = 2450123.7}
+could be expressed in any of these ways, among others:
 
-           dj1            dj2
+@example
+    dj1            dj2
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-2) In early eras the conversion is from the "Proleptic Gregorian
-   Calendar";  no account is taken of the date(s) of adoption of
-   the Gregorian Calendar, nor is the AD/BC numbering convention
-   observed.
+@item
+In early eras the conversion is from the ``Proleptic Gregorian
+Calendar''; no account is taken of the date(s) of adoption of the
+Gregorian Calendar, nor is the AD/BC numbering convention observed.
 
-3) Refer to the function iauJd2cal.
+@item
+Refer to the function iauJd2cal.
 
-4) NDP should be 4 or less if internal overflows are to be
-   avoided on machines which use 16-bit integers.
+@item
+NDP should be 4 or less if internal overflows are to be avoided on
+machines which use 16-bit integers.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauJd2cal
 JD to Gregorian calendar.
-
+@end table
 
 Reference:
 
-   Explanatory Supplement to the Astronomical Almanac,
-   P. Kenneth Seidelmann (ed), University Science Books (1992),
-   Section 12.92 (p604).
+@itemize
+@item
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992), Section 12.92 (p604).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauNum00a (double @vari{date}, double @varii{date}, double @var{rmatn}[3][3])
 Form the matrix of nutation for a given date, IAU 2000A model.
+
 Status:  support function.
 
 Given:
-   date1,date2  double          TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double          TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rmatn        double[3][3]    nutation matrix
+
+@example
+rmatn        double[3][3]    nutation matrix
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -7484,38 +7657,56 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The matrix operates in the sense V(true) = rmatn * V(mean), where
-   the p-vector V(true) is with respect to the true equatorial triad
-   of date and the p-vector V(mean) is with respect to the mean
-   equatorial triad of date.
+@item
+The matrix operates in the sense @code{V(true) = rmatn * V(mean)}, where
+the @code{p}-vector @code{V(true)} is with respect to the true
+equatorial triad of date and the @code{p}-vector @code{V(mean)} is with
+respect to the mean equatorial triad of date.
 
-3) A faster, but slightly less accurate result (about 1 mas), can be
-   obtained by using instead the iauNum00b function.
+@item
+A faster, but slightly less accurate result (about 1 mas), can be
+obtained by using instead the iauNum00b function.
+@end enumerate
 
 Called:
-   iauPn00a     bias/precession/nutation, IAU 2000A
+
+@table @code
+@item iauPn00a
+Bias/precession/nutation, IAU 2000A.
+@end table
 
 Reference:
 
-   Explanatory Supplement to the Astronomical Almanac,
-   P. Kenneth Seidelmann (ed), University Science Books (1992),
-   Section 3.222-3 (p114).
+@itemize
+@item
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992), Section 3.222-3
+(p114).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauNum00b (double @vari{date}, double @varii{date}, double @var{rmatn}[3][3])
 Form the matrix of nutation for a given date, IAU 2000B model.
+
 Status:  support function.
 
 Given:
-   date1,date2  double         TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double         TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rmatn        double[3][3]   nutation matrix
+
+@example
+rmatn        double[3][3]   nutation matrix
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -7538,38 +7729,56 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The matrix operates in the sense V(true) = rmatn * V(mean), where
-   the p-vector V(true) is with respect to the true equatorial triad
-   of date and the p-vector V(mean) is with respect to the mean
-   equatorial triad of date.
+@item
+The matrix operates in the sense @code{V(true) = rmatn * V(mean)}, where
+the @code{p}-vector @code{V(true)} is with respect to the true
+equatorial triad of date and the @code{p}-vector @code{V(mean)} is with
+respect to the mean equatorial triad of date.
 
-3) The present function is faster, but slightly less accurate (about
-   1 mas), than the iauNum00a function.
+@item
+The present function is faster, but slightly less accurate (about
+@math{1} mas), than the iauNum00a function.
+@end enumerate
 
 Called:
-   iauPn00b     bias/precession/nutation, IAU 2000B
+
+@table @code
+@item iauPn00b
+Bias/precession/nutation, IAU 2000B.
+@end table
 
 Reference:
 
-   Explanatory Supplement to the Astronomical Almanac,
-   P. Kenneth Seidelmann (ed), University Science Books (1992),
-   Section 3.222-3 (p114).
+@example
+@item
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992), Section 3.222-3
+(p114).
+@end example
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauNum06a (double @vari{date}, double @varii{date}, double @var{rmatn}[3][3])
 Form the matrix of nutation for a given date, IAU 2006/2000A model.
+
 Status:  support function.
 
 Given:
-   date1,date2   double          TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2   double          TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rmatn         double[3][3]    nutation matrix
+
+@example
+rmatn         double[3][3]    nutation matrix
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -7592,24 +7801,38 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The matrix operates in the sense V(true) = rmatn * V(mean), where
-   the p-vector V(true) is with respect to the true equatorial triad
-   of date and the p-vector V(mean) is with respect to the mean
-   equatorial triad of date.
+@item
+The matrix operates in the sense @code{V(true) = rmatn * V(mean)}, where
+the @code{p}-vector @code{V(true)} is with respect to the true
+equatorial triad of date and the @code{p}-vector @code{V(mean)} is with
+respect to the mean equatorial triad of date.
+@end enumerate
 
 Called:
-   iauObl06     mean obliquity, IAU 2006
-   iauNut06a    nutation, IAU 2006/2000A
-   iauNumat     form nutation matrix
+
+@table @code
+@item iauObl06
+Mean obliquity, IAU 2006.
+
+@item iauNut06a
+Nutation, IAU 2006/2000A.
+
+@item iauNumat
+Form nutation matrix.
+@end table
 
 Reference:
 
-   Explanatory Supplement to the Astronomical Almanac,
-   P. Kenneth Seidelmann (ed), University Science Books (1992),
-   Section 3.222-3 (p114).
+@itemize
+@item
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992), Section 3.222-3
+(p114).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
+@c SONO ARRIVATO QUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 @deftypefun void iauNumat (double @var{epsa}, double @var{dpsi}, double @var{deps}, double @var{rmatn}[3][3])
 Form the matrix of nutation.
@@ -8116,7 +8339,9 @@ Nutation, IAU 1980.
 @item iauObl80
 Mean obliquity, IAU 1980.
 
-   iauNumat     form nutation matrix
+@item iauNumat
+Form nutation matrix.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -8156,7 +8381,7 @@ the date & time methods are both good compromises between resolution and
 convenience.
 
 2) The result is the angle between the ecliptic and mean equator of
-   date date1+date2.
+   date @code{@vari{date} + @varii{date}}.
 
 Reference:
 
@@ -8201,7 +8426,7 @@ the date & time methods are both good compromises between resolution and
 convenience.
 
 2) The result is the angle between the ecliptic and mean equator of
-   date date1+date2.
+   date @code{@vari{date} + @varii{date}}.
 
 Reference:
 
@@ -8325,7 +8550,9 @@ Reference:
 Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
 
 Called:
-   iauObl06     mean obliquity, IAU 2006
+@item iauObl06
+Mean obliquity, IAU 2006.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -8410,7 +8637,9 @@ Called:
 @item iauPxp
 Vector product of two @code{p}-vectors.
 
-   iauPmp       p-vector minus p-vector
+@item iauPmp
+@code{p}-vector minus @code{p}-vector.
+
    iauPdp       scalar product of two p-vectors
 @end deftypefun
 
@@ -8590,7 +8819,9 @@ Reference:
 Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
 
 Called:
-   iauObl06     mean obliquity, IAU 2006
+@item iauObl06
+Mean obliquity, IAU 2006.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -8619,7 +8850,7 @@ Returned (function value):
 
 Notes:
 
-1) The date date1+date2 is in the TDB time scale (in practice TT can
+1) The date @code{@vari{date} + @varii{date}} is in the TDB time scale (in practice TT can
    be used) and is a Julian Date, apportioned in any convenient way
    between the two arguments.  For example, JD(TDB)=2450123.7 could
    be expressed in any of these ways, among others:
@@ -8885,7 +9116,7 @@ Given:
    date1,date2 double       ending date, TT (Note 1)
 
 Returned:
-   rmatp       double[3][3] precession matrix, J2000.0 -> date1+date2
+   rmatp       double[3][3] precession matrix, J2000.0 -> @code{@vari{date} + @varii{date}}
 
 Notes:
 
@@ -9085,7 +9316,9 @@ Mean obliquity, IAU 1980.
    iauBp00      frame bias and precession matrices, IAU 2000
 @item iauCr
 Copy @code{r}-matrix.
-   iauNumat     form nutation matrix
+@item iauNumat
+Form nutation matrix.
+
 @item iauRxr
 Product of two @code{r}-matrices.
 
@@ -9123,7 +9356,7 @@ Returned:
 
 Notes:
 
-1)  The TT date date1+date2 is a Julian Date, apportioned in any
+1)  The TT date @code{@vari{date} + @varii{date}} is a Julian Date, apportioned in any
     convenient way between the two arguments.  For example,
     JD(TT)=2450123.7 could be expressed in any of these ways,
     among others:
@@ -9217,7 +9450,7 @@ Returned:
 
 Notes:
 
-1)  The TT date date1+date2 is a Julian Date, apportioned in any
+1)  The TT date @code{@vari{date} + @varii{date}} is a Julian Date, apportioned in any
     convenient way between the two arguments.  For example,
     JD(TT)=2450123.7 could be expressed in any of these ways,
     among others:
@@ -9311,7 +9544,7 @@ Returned:
 
 Notes:
 
-1)  The TT date date1+date2 is a Julian Date, apportioned in any
+1)  The TT date @code{@vari{date} + @varii{date}} is a Julian Date, apportioned in any
     convenient way between the two arguments.  For example,
     JD(TT)=2450123.7 could be expressed in any of these ways,
     among others:
@@ -9406,7 +9639,7 @@ Returned:
 
 Notes:
 
-1)  The TT date date1+date2 is a Julian Date, apportioned in any
+1)  The TT date @code{@vari{date} + @varii{date}} is a Julian Date, apportioned in any
     convenient way between the two arguments.  For example,
     JD(TT)=2450123.7 could be expressed in any of these ways,
     among others:
@@ -9456,7 +9689,9 @@ Notes:
     arguments.  The arrays are filled in the stated order.
 
 Called:
-   iauNut06a    nutation, IAU 2006/2000A
+@item iauNut06a
+Nutation, IAU 2006/2000A.
+
    iauPn06      bias/precession/nutation results, IAU 2006
 
 Reference:
@@ -9504,14 +9739,16 @@ convenience.
 
 2) The matrix operates in the sense V(date) = rbpn * V(GCRS), where
    the p-vector V(date) is with respect to the true equatorial triad
-   of date date1+date2 and the p-vector V(GCRS) is with respect to
+   of date @code{@vari{date} + @varii{date}} and the p-vector V(GCRS) is with respect to
    the Geocentric Celestial Reference System (IAU, 2000).
 
 3) A faster, but slightly less accurate result (about 1 mas), can be
    obtained by using instead the iauPnm00b function.
 
 Called:
-   iauPn00a     bias/precession/nutation, IAU 2000A
+@item iauPn00a
+Bias/precession/nutation, IAU 2000A.
+
 
 Reference:
 
@@ -9559,7 +9796,7 @@ convenience.
 
 2) The matrix operates in the sense V(date) = rbpn * V(GCRS), where
    the p-vector V(date) is with respect to the true equatorial triad
-   of date date1+date2 and the p-vector V(GCRS) is with respect to
+   of date @code{@vari{date} + @varii{date}} and the p-vector V(GCRS) is with respect to
    the Geocentric Celestial Reference System (IAU, 2000).
 
 3) The present function is faster, but slightly less accurate (about
@@ -9614,12 +9851,14 @@ convenience.
 
 2) The matrix operates in the sense V(date) = rnpb * V(GCRS), where
    the p-vector V(date) is with respect to the true equatorial triad
-   of date date1+date2 and the p-vector V(GCRS) is with respect to
+   of date @code{@vari{date} + @varii{date}} and the p-vector V(GCRS) is with respect to
    the Geocentric Celestial Reference System (IAU, 2000).
 
 Called:
    iauPfw06     bias-precession F-W angles, IAU 2006
-   iauNut06a    nutation, IAU 2006/2000A
+@item iauNut06a
+Nutation, IAU 2006/2000A.
+
 @item iauFw2m
 F-W angles to @code{r}-matrix.
 
@@ -9643,7 +9882,7 @@ Returned:
 
 Notes:
 
-1) The TDB date date1+date2 is a Julian Date, apportioned in any
+1) The TDB date @code{@vari{date} + @varii{date}} is a Julian Date, apportioned in any
    convenient way between the two arguments.  For example,
    JD(TDB)=2450123.7 could be expressed in any of these ways,
    among others:
@@ -9664,7 +9903,7 @@ Notes:
 
 2) The matrix operates in the sense V(date) = rmatpn * V(J2000),
    where the p-vector V(date) is with respect to the true equatorial
-   triad of date date1+date2 and the p-vector V(J2000) is with
+   triad of date @code{@vari{date} + @varii{date}} and the p-vector V(J2000) is with
    respect to the mean equatorial triad of epoch J2000.0.
 
 Called:
@@ -10016,7 +10255,9 @@ Note:
    arguments.
 
 Called:
-   iauPmp       p-vector minus p-vector
+@item iauPmp
+@code{p}-vector minus @code{p}-vector.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -10124,12 +10365,16 @@ Called:
 @item iauSxp
 Multiply @code{p}-vector by scalar.
 
-   iauPmp       p-vector minus p-vector
+@item iauPmp
+@code{p}-vector minus @code{p}-vector.
+
    iauPm        modulus of p-vector
 @item iauPpp
 @code{p}-vector plus @code{p}-vector.
 
-   iauPv2s      pv-vector to spherical
+@item iauPv2s
+@code{pv}-vector to spherical.
+
 @item iauAnp
 Normalize angle into range 0 to 2pi.
 
@@ -11245,7 +11490,9 @@ Zero @code{p}-vector.
 @item iauSxp
 Multiply @code{p}-vector by scalar.
 
-   iauPmp       p-vector minus p-vector
+@item iauPmp
+@code{p}-vector minus @code{p}-vector.
+
 @item iauPpp
 @code{p}-vector plus @code{p}-vector.
 
