@@ -7832,33 +7832,47 @@ Seidelmann (ed), University Science Books (1992), Section 3.222-3
 @end deftypefun
 
 @c ------------------------------------------------------------
-@c SONO ARRIVATO QUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 @deftypefun void iauNumat (double @var{epsa}, double @var{dpsi}, double @var{deps}, double @var{rmatn}[3][3])
 Form the matrix of nutation.
+
 Status:  support function.
 
 Given:
-   epsa        double         mean obliquity of date (Note 1)
-   dpsi,deps   double         nutation (Note 2)
+
+@example
+epsa        double         mean obliquity of date (Note 1)
+dpsi,deps   double         nutation (Note 2)
+@end example
 
 Returned:
-   rmatn       double[3][3]   nutation matrix (Note 3)
+
+@example
+rmatn       double[3][3]   nutation matrix (Note 3)
+@end example
 
 Notes:
-1) The supplied mean obliquity epsa, must be consistent with the
-   precession-nutation models from which dpsi and deps were obtained.
 
-2) The caller is responsible for providing the nutation components;
-   they are in longitude and obliquity, in radians and are with
-   respect to the equinox and ecliptic of date.
+@enumerate
+@item
+The supplied mean obliquity @var{epsa}, must be consistent with the
+precession--nutation models from which dpsi and deps were obtained.
 
-3) The matrix operates in the sense V(true) = rmatn * V(mean),
-   where the p-vector V(true) is with respect to the true
-   equatorial triad of date and the p-vector V(mean) is with
-   respect to the mean equatorial triad of date.
+@item
+The caller is responsible for providing the nutation components; they
+are in longitude and obliquity, in radians and are with respect to the
+equinox and ecliptic of date.
+
+@item
+The matrix operates in the sense @code{V(true) = rmatn * V(mean)}, where
+the @code{p}-vector @code{V(true)} is with respect to the true
+equatorial triad of date and the @code{p}-vector @code{V(mean)} is with
+respect to the mean equatorial triad of date.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauIr
 Initialize @code{r}-matrix to identity.
 
@@ -7867,12 +7881,15 @@ Rotate around @math{X}-axis.
 
 @item iauRz
 Rotate around @math{Z}-axis.
+@end table
 
 Reference:
 
-   Explanatory Supplement to the Astronomical Almanac,
-   P. Kenneth Seidelmann (ed), University Science Books (1992),
-   Section 3.222-3 (p114).
+@itemize
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992), Section 3.222-3
+(p114).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -7880,16 +7897,24 @@ Reference:
 @deftypefun void iauNut00a (double @vari{date}, double @varii{date}, double * @var{dpsi}, double * @var{deps})
 Nutation, IAU 2000A model (MHB2000 luni-solar and planetary nutation
 with free core nutation omitted).
+
 Status:  canonical model.
 
 Given:
-   date1,date2   double   TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2   double   TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   dpsi,deps     double   nutation, luni-solar + planetary (Note 2)
+
+@example
+dpsi,deps     double   nutation, luni-solar + planetary (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -7912,85 +7937,91 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The nutation components in longitude and obliquity are in radians
-   and with respect to the equinox and ecliptic of date.  The
-   obliquity at J2000.0 is assumed to be the Lieske et al. (1977)
-   value of 84381.448 arcsec.
+@item
+The nutation components in longitude and obliquity are in radians and
+with respect to the equinox and ecliptic of date.  The obliquity at
+J2000.0 is assumed to be the Lieske et al. (1977) value of 84381.448
+arcsec.
 
-   Both the luni-solar and planetary nutations are included.  The
-   latter are due to direct planetary nutations and the
-   perturbations of the lunar and terrestrial orbits.
+Both the luni--solar and planetary nutations are included.  The latter
+are due to direct planetary nutations and the perturbations of the lunar
+and terrestrial orbits.
 
-3) The function computes the MHB2000 nutation series with the
-   associated corrections for planetary nutations.  It is an
-   implementation of the nutation part of the IAU 2000A precession-
-   nutation model, formally adopted by the IAU General Assembly in
-   2000, namely MHB2000 (Mathews et al. 2002), but with the free
-   core nutation (FCN - see Note 4) omitted.
+@item
+The function computes the MHB2000 nutation series with the associated
+corrections for planetary nutations.  It is an implementation of the
+nutation part of the IAU 2000A precession--nutation model, formally
+adopted by the IAU General Assembly in 2000, namely MHB2000 (Mathews et
+al. 2002), but with the free core nutation (FCN --- see Note 4) omitted.
 
-4) The full MHB2000 model also contains contributions to the
-   nutations in longitude and obliquity due to the free-excitation
-   of the free-core-nutation during the period 1979-2000.  These FCN
-   terms, which are time-dependent and unpredictable, are NOT
-   included in the present function and, if required, must be
-   independently computed.  With the FCN corrections included, the
-   present function delivers a pole which is at current epochs
-   accurate to a few hundred microarcseconds.  The omission of FCN
-   introduces further errors of about that size.
+@item
+The full MHB2000 model also contains contributions to the nutations in
+longitude and obliquity due to the free-excitation of the
+free--core--nutation during the period 1979-2000.  These FCN terms,
+which are time--dependent and unpredictable, are NOT included in the
+present function and, if required, must be independently computed.  With
+the FCN corrections included, the present function delivers a pole which
+is at current epochs accurate to a few hundred microarcseconds.  The
+omission of FCN introduces further errors of about that size.
 
-5) The present function provides classical nutation.  The MHB2000
-   algorithm, from which it is adapted, deals also with (i) the
-   offsets between the GCRS and mean poles and (ii) the adjustments
-   in longitude and obliquity due to the changed precession rates.
-   These additional functions, namely frame bias and precession
-   adjustments, are supported by the SOFA functions iauBi00  and
-   iauPr00.
+@item
+The present function provides classical nutation.  The MHB2000
+algorithm, from which it is adapted, deals also with (i) the offsets
+between the GCRS and mean poles and (ii) the adjustments in longitude
+and obliquity due to the changed precession rates.  These additional
+functions, namely frame bias and precession adjustments, are supported
+by the SOFA functions iauBi00 and iauPr00.
 
-6) The MHB2000 algorithm also provides "total" nutations, comprising
-   the arithmetic sum of the frame bias, precession adjustments,
-   luni-solar nutation and planetary nutation.  These total
-   nutations can be used in combination with an existing IAU 1976
-   precession implementation, such as iauPmat76,  to deliver GCRS-
-   to-true predictions of sub-mas accuracy at current dates.
-   However, there are three shortcomings in the MHB2000 model that
-   must be taken into account if more accurate or definitive results
-   are required (see Wallace 2002):
+@item
+The MHB2000 algorithm also provides ``total'' nutations, comprising the
+arithmetic sum of the frame bias, precession adjustments, luni-solar
+nutation and planetary nutation.  These total nutations can be used in
+combination with an existing IAU 1976 precession implementation, such as
+iauPmat76, to deliver GCRS- to-true predictions of sub-mas accuracy at
+current dates.  However, there are three shortcomings in the MHB2000
+model that must be taken into account if more accurate or definitive
+results are required (see Wallace 2002):
 
-     (i) The MHB2000 total nutations are simply arithmetic sums,
-         yet in reality the various components are successive Euler
-         rotations.  This slight lack of rigor leads to cross terms
-         that exceed 1 mas after a century.  The rigorous procedure
-         is to form the GCRS-to-true rotation matrix by applying the
-         bias, precession and nutation in that order.
+@enumerate a
+@item
+The MHB2000 total nutations are simply arithmetic sums, yet in reality
+the various components are successive Euler rotations.  This slight lack
+of rigor leads to cross terms that exceed 1 mas after a century.  The
+rigorous procedure is to form the GCRS-to-true rotation matrix by
+applying the bias, precession and nutation in that order.
 
-    (ii) Although the precession adjustments are stated to be with
-         respect to Lieske et al. (1977), the MHB2000 model does
-         not specify which set of Euler angles are to be used and
-         how the adjustments are to be applied.  The most literal
-         and straightforward procedure is to adopt the 4-rotation
-         epsilon_0, psi_A, omega_A, xi_A option, and to add DPSIPR
-         to psi_A and DEPSPR to both omega_A and eps_A.
+@item
+Although the precession adjustments are stated to be with respect to
+Lieske et al. (1977), the MHB2000 model does not specify which set of
+Euler angles are to be used and how the adjustments are to be applied.
+The most literal and straightforward procedure is to adopt the
+4-rotation epsilon_0, psi_A, omega_A, xi_A option, and to add DPSIPR to
+psi_A and DEPSPR to both omega_A and eps_A.
 
-   (iii) The MHB2000 model predates the determination by Chapront
-         et al. (2002) of a 14.6 mas displacement between the
-         J2000.0 mean equinox and the origin of the ICRS frame.  It
-         should, however, be noted that neglecting this displacement
-         when calculating star coordinates does not lead to a
-         14.6 mas change in right ascension, only a small second-
-         order distortion in the pattern of the precession-nutation
-         effect.
+@item
+The MHB2000 model predates the determination by Chapront et al. (2002)
+of a 14.6 mas displacement between the J2000.0 mean equinox and the
+origin of the ICRS frame.  It should, however, be noted that neglecting
+this displacement when calculating star coordinates does not lead to a
+14.6 mas change in right ascension, only a small second- order
+distortion in the pattern of the precession-nutation effect.
+@end enumerate
 
-   For these reasons, the SOFA functions do not generate the "total
-   nutations" directly, though they can of course easily be
-   generated by calling iauBi00, iauPr00 and the present function
-   and adding the results.
+For these reasons, the SOFA functions do not generate the ``total
+nutations'' directly, though they can of course easily be generated by
+calling iauBi00, iauPr00 and the present function and adding the
+results.
 
-7) The MHB2000 model contains 41 instances where the same frequency
-   appears multiple times, of which 38 are duplicates and three are
-   triplicates.  To keep the present code close to the original MHB
-   algorithm, this small inefficiency has not been corrected.
+@item
+The MHB2000 model contains 41 instances where the same frequency appears
+multiple times, of which 38 are duplicates and three are triplicates.
+To keep the present code close to the original MHB algorithm, this small
+inefficiency has not been corrected.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauFal03
 Mean anomaly of the Moon.
 
@@ -8000,32 +8031,47 @@ Mean argument of the latitude of the Moon.
 @item iauFaom03
 Mean longitude of the Moon's ascending node.
 
-   iauFame03    mean longitude of Mercury
+@item iauFame03
+Mean longitude of Mercury.
+
 @item iauFave03
 Mean longitude of Venus.
 
 @item iauFae03
 Mean longitude of Earth.
 
-   iauFama03    mean longitude of Mars
-   iauFaju03    mean longitude of Jupiter
-   iauFasa03    mean longitude of Saturn
-   iauFaur03    mean longitude of Uranus
+@item iauFama03
+Mean longitude of Mars.
+
+@item iauFaju03
+Mean longitude of Jupiter.
+
+@item iauFasa03
+Mean longitude of Saturn.
+
+@item iauFaur03
+Mean longitude of Uranus.
+
 @item iauFapa03
 General accumulated precession in longitude.
-
+@end table
 
 References:
 
-   Chapront, J., Chapront-Touze, M. & Francou, G. 2002,
-   Astron.Astrophys. 387, 700
+@itemize
+@item
+Chapront, J., Chapront-Touze, M. & Francou, G. 2002,
+Astron.Astrophys. 387, 700
 
-   Lieske, J.H., Lederle, T., Fricke, W. & Morando, B. 1977,
-   Astron.Astrophys. 58, 1-16
+@item
+Lieske, J.H., Lederle, T., Fricke, W. & Morando, B. 1977,
+Astron.Astrophys. 58, 1-16
 
-   Mathews, P.M., Herring, T.A., Buffet, B.A. 2002, J.Geophys.Res.
-   107, B4.  The MHB_2000 code itself was obtained on 9th September
-   2002 from ftp//maia.usno.navy.mil/conv2000/chapter5/IAU2000A.
+@item
+Mathews, P.M., Herring, T.A., Buffet, B.A. 2002, J.Geophys.Res.  107,
+B4.  The MHB_2000 code itself was obtained on 9th September 2002 from:
+
+@center @url{ftp//maia.usno.navy.mil/conv2000/chapter5/IAU2000A}
 
 @item
 Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
@@ -8035,24 +8081,34 @@ G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
 Astron.Astrophys.Supp.Ser. 135, 111.
 
-   Wallace, P.T., "Software for Implementing the IAU 2000
-   Resolutions", in IERS Workshop 5.1 (2002)
+@item
+Wallace, P.T., ``Software for Implementing the IAU 2000 Resolutions'',
+in IERS Workshop 5.1 (2002).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauNut00b (double @vari{date}, double @varii{date}, double * @var{dpsi}, double * @var{deps})
 Nutation, IAU 2000B model.
+
 Status:  canonical model.
 
 Given:
-   date1,date2   double    TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2   double    TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   dpsi,deps     double    nutation, luni-solar + planetary (Note 2)
+
+@example
+dpsi,deps     double    nutation, luni-solar + planetary (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -8075,104 +8131,116 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The nutation components in longitude and obliquity are in radians
-   and with respect to the equinox and ecliptic of date.  The
-   obliquity at J2000.0 is assumed to be the Lieske et al. (1977)
-   value of 84381.448 arcsec.  (The errors that result from using
-   this function with the IAU 2006 value of 84381.406 arcsec can be
-   neglected.)
+@item
+The nutation components in longitude and obliquity are in radians and
+with respect to the equinox and ecliptic of date.  The obliquity at
+J2000.0 is assumed to be the Lieske et al. (1977) value of 84381.448
+arcsec.  (The errors that result from using this function with the IAU
+2006 value of 84381.406 arcsec can be neglected.)
 
-   The nutation model consists only of luni-solar terms, but
-   includes also a fixed offset which compensates for certain long-
-   period planetary terms (Note 7).
+The nutation model consists only of luni--solar terms, but includes also
+a fixed offset which compensates for certain long--period planetary
+terms (Note 7).
 
-3) This function is an implementation of the IAU 2000B abridged
-   nutation model formally adopted by the IAU General Assembly in
-   2000.  The function computes the MHB_2000_SHORT luni-solar
-   nutation series (Luzum 2001), but without the associated
-   corrections for the precession rate adjustments and the offset
-   between the GCRS and J2000.0 mean poles.
+@item
+This function is an implementation of the IAU 2000B abridged nutation
+model formally adopted by the IAU General Assembly in 2000.  The
+function computes the MHB_2000_SHORT luni--solar nutation series (Luzum
+2001), but without the associated corrections for the precession rate
+adjustments and the offset between the GCRS and J2000.0 mean poles.
 
-4) The full IAU 2000A (MHB2000) nutation model contains nearly 1400
-   terms.  The IAU 2000B model (McCarthy & Luzum 2003) contains only
-   77 terms, plus additional simplifications, yet still delivers
-   results of 1 mas accuracy at present epochs.  This combination of
-   accuracy and size makes the IAU 2000B abridged nutation model
-   suitable for most practical applications.
+@item
+The full IAU 2000A (MHB2000) nutation model contains nearly 1400 terms.
+The IAU 2000B model (McCarthy & Luzum 2003) contains only 77 terms, plus
+additional simplifications, yet still delivers results of 1 mas accuracy
+at present epochs.  This combination of accuracy and size makes the IAU
+2000B abridged nutation model suitable for most practical applications.
 
-   The function delivers a pole accurate to 1 mas from 1900 to 2100
-   (usually better than 1 mas, very occasionally just outside
-   1 mas).  The full IAU 2000A model, which is implemented in the
-   function iauNut00a (q.v.), delivers considerably greater accuracy
-   at current dates;  however, to realize this improved accuracy,
-   corrections for the essentially unpredictable free-core-nutation
-   (FCN) must also be included.
+The function delivers a pole accurate to 1 mas from 1900 to 2100
+(usually better than 1 mas, very occasionally just outside 1 mas).  The
+full IAU 2000A model, which is implemented in the function iauNut00a
+(q.v.), delivers considerably greater accuracy at current dates;
+however, to realize this improved accuracy, corrections for the
+essentially unpredictable free-core-nutation (FCN) must also be
+included.
 
-5) The present function provides classical nutation.  The
-   MHB_2000_SHORT algorithm, from which it is adapted, deals also
-   with (i) the offsets between the GCRS and mean poles and (ii) the
-   adjustments in longitude and obliquity due to the changed
-   precession rates.  These additional functions, namely frame bias
-   and precession adjustments, are supported by the SOFA functions
-   iauBi00  and iauPr00.
+@item
+The present function provides classical nutation.  The MHB_2000_SHORT
+algorithm, from which it is adapted, deals also with (i) the offsets
+between the GCRS and mean poles and (ii) the adjustments in longitude
+and obliquity due to the changed precession rates.  These additional
+functions, namely frame bias and precession adjustments, are supported
+by the SOFA functions iauBi00 and iauPr00.
 
-6) The MHB_2000_SHORT algorithm also provides "total" nutations,
-   comprising the arithmetic sum of the frame bias, precession
-   adjustments, and nutation (luni-solar + planetary).  These total
-   nutations can be used in combination with an existing IAU 1976
-   precession implementation, such as iauPmat76,  to deliver GCRS-
-   to-true predictions of mas accuracy at current epochs.  However,
-   for symmetry with the iauNut00a  function (q.v. for the reasons),
-   the SOFA functions do not generate the "total nutations"
-   directly.  Should they be required, they could of course easily
-   be generated by calling iauBi00, iauPr00 and the present function
-   and adding the results.
+@item
+The MHB_2000_SHORT algorithm also provides ``total'' nutations,
+comprising the arithmetic sum of the frame bias, precession adjustments,
+and nutation (luni-solar + planetary).  These total nutations can be
+used in combination with an existing IAU 1976 precession implementation,
+such as @code{iauPmat76}, to deliver GCRS--to--true predictions of mas
+accuracy at current epochs.  However, for symmetry with the iauNut00a
+function (q.v. for the reasons), the @sofa{} functions do not generate
+the ``total nutations'' directly.  Should they be required, they could
+of course easily be generated by calling @code{iauBi00}, @code{iauPr00}
+and the present function and adding the results.
 
-7) The IAU 2000B model includes "planetary bias" terms that are
-   fixed in size but compensate for long-period nutations.  The
-   amplitudes quoted in McCarthy & Luzum (2003), namely
-   Dpsi = -1.5835 mas and Depsilon = +1.6339 mas, are optimized for
-   the "total nutations" method described in Note 6.  The Luzum
-   (2001) values used in this SOFA implementation, namely -0.135 mas
-   and +0.388 mas, are optimized for the "rigorous" method, where
-   frame bias, precession and nutation are applied separately and in
-   that order.  During the interval 1995-2050, the SOFA
-   implementation delivers a maximum error of 1.001 mas (not
-   including FCN).
+@item
+The IAU 2000B model includes ``planetary bias'' terms that are fixed in
+size but compensate for long-period nutations.  The amplitudes quoted in
+McCarthy & Luzum (2003), namely @code{Dpsi = -1.5835 mas} and
+@code{Depsilon = +1.6339 mas}, are optimized for the ``total nutations''
+method described in Note 6.  The Luzum (2001) values used in this SOFA
+implementation, namely -0.135 mas and +0.388 mas, are optimized for the
+``rigorous'' method, where frame bias, precession and nutation are
+applied separately and in that order.  During the interval 1995-2050,
+the @sofa{} implementation delivers a maximum error of 1.001 mas (not
+including FCN).
+@end enumerate
 
 References:
 
-   Lieske, J.H., Lederle, T., Fricke, W., Morando, B., "Expressions
-   for the precession quantities based upon the IAU /1976/ system of
-   astronomical constants", Astron.Astrophys. 58, 1-2, 1-16. (1977)
+@itemize
+@item
+Lieske, J.H., Lederle, T., Fricke, W., Morando, B., ``Expressions for
+the precession quantities based upon the IAU /1976/ system of
+astronomical constants'', Astron.Astrophys. 58, 1-2, 1-16. (1977).
 
-   Luzum, B., private communication, 2001 (Fortran code
-   MHB_2000_SHORT)
+@item
+Luzum, B., private communication, 2001 (Fortran code MHB_2000_SHORT).
 
-   McCarthy, D.D. & Luzum, B.J., "An abridged model of the
-   precession-nutation of the celestial pole", Cel.Mech.Dyn.Astron.
-   85, 37-49 (2003)
+@item
+McCarthy, D.D. & Luzum, B.J., ``An abridged model of the
+precession--nutation of the celestial pole'', Cel.Mech.Dyn.Astron.  85,
+37-49 (2003).
 
-   Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M.,
-   Francou, G., Laskar, J., Astron.Astrophys. 282, 663-683 (1994)
+@item
+Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., Laskar, J., Astron.Astrophys. 282, 663-683 (1994).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauNut06a (double @vari{date}, double @varii{date}, double * @var{dpsi}, double * @var{deps})
-IAU 2000A nutation with adjustments to match the IAU 2006
-precession.
-
-Given:
-   date1,date2   double   TT as a 2-part Julian Date (Note 1)
-
-Returned:
-   dpsi,deps     double   nutation, luni-solar + planetary (Note 2)
+IAU 2000A nutation with adjustments to match the IAU 2006 precession.
 
 Status:  canonical model.
 
+Given:
+
+@example
+date1,date2   double   TT as a 2-part Julian Date (Note 1)
+@end example
+
+Returned:
+
+@example
+dpsi,deps     double   nutation, luni-solar + planetary (Note 2)
+@end example
+
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -8195,37 +8263,47 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The nutation components in longitude and obliquity are in radians
-   and with respect to the mean equinox and ecliptic of date,
-   IAU 2006 precession model (Hilton et al. 2006, Capitaine et al.
-   2005).
+@item
+The nutation components in longitude and obliquity are in radians and
+with respect to the mean equinox and ecliptic of date, IAU 2006
+precession model (Hilton et al. 2006, Capitaine et al.  2005).
 
-3) The function first computes the IAU 2000A nutation, then applies
-   adjustments for (i) the consequences of the change in obliquity
-   from the IAU 1980 ecliptic to the IAU 2006 ecliptic and (ii) the
-   secular variation in the Earth's dynamical form factor J2.
+@item
+The function first computes the IAU 2000A nutation, then applies
+adjustments for (i) the consequences of the change in obliquity from the
+IAU 1980 ecliptic to the IAU 2006 ecliptic and (ii) the secular
+variation in the Earth's dynamical form factor J2.
 
-4) The present function provides classical nutation, complementing
-   the IAU 2000 frame bias and IAU 2006 precession.  It delivers a
-   pole which is at current epochs accurate to a few tens of
-   microarcseconds, apart from the free core nutation.
+@item
+The present function provides classical nutation, complementing the IAU
+2000 frame bias and IAU 2006 precession.  It delivers a pole which is at
+current epochs accurate to a few tens of microarcseconds, apart from the
+free core nutation.
+@end enumerate
 
 Called:
+
+@table
 @item iauNut00a
 Nutation, IAU 2000A.
-
+@end table
 
 References:
 
-   Chapront, J., Chapront-Touze, M. & Francou, G. 2002,
-   Astron.Astrophys. 387, 700
+@itemize
+@item
+Chapront, J., Chapront-Touze, M. & Francou, G. 2002,
+Astron.Astrophys. 387, 700
 
-   Lieske, J.H., Lederle, T., Fricke, W. & Morando, B. 1977,
-   Astron.Astrophys. 58, 1-16
+@item
+Lieske, J.H., Lederle, T., Fricke, W. & Morando, B. 1977,
+Astron.Astrophys. 58, 1-16
 
-   Mathews, P.M., Herring, T.A., Buffet, B.A. 2002, J.Geophys.Res.
-   107, B4.  The MHB_2000 code itself was obtained on 9th September
-   2002 from ftp//maia.usno.navy.mil/conv2000/chapter5/IAU2000A.
+@item
+Mathews, P.M., Herring, T.A., Buffet, B.A. 2002, J.Geophys.Res.  107,
+B4.  The MHB_2000 code itself was obtained on 9th September 2002 from:
+
+@center @url{ftp//maia.usno.navy.mil/conv2000/chapter5/IAU2000A}
 
 @item
 Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
@@ -8235,25 +8313,35 @@ G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 Souchay, J., Loysel, B., Kinoshita, H., Folgueira, M.  1999,
 Astron.Astrophys.Supp.Ser. 135, 111.
 
-   Wallace, P.T., "Software for Implementing the IAU 2000
-   Resolutions", in IERS Workshop 5.1 (2002)
+@item
+Wallace, P.T., ``Software for Implementing the IAU 2000 Resolutions'',
+in IERS Workshop 5.1 (2002).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauNut80 (double @vari{date}, double @varii{date}, double * @var{dpsi}, double * @var{deps})
 Nutation, IAU 1980 model.
+
 Status:  canonical model.
 
 Given:
-   date1,date2   double    TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2   double    TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   dpsi          double    nutation in longitude (radians)
-   deps          double    nutation in obliquity (radians)
+
+@example
+dpsi          double    nutation in longitude (radians)
+deps          double    nutation in obliquity (radians)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -8276,35 +8364,47 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The nutation components are with respect to the ecliptic of
-   date.
+@item
+The nutation components are with respect to the ecliptic of date.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauAnpm
 Normalize angle into range +/- pi.
-
+@end table
 
 Reference:
 
-   Explanatory Supplement to the Astronomical Almanac,
-   P. Kenneth Seidelmann (ed), University Science Books (1992),
-   Section 3.222 (p111).
+@itemize
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992), Section 3.222 (p111).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauNutm80 (double @vari{date}, double @varii{date}, double @var{rmatn}[3][3])
 Form the matrix of nutation for a given date, IAU 1980 model.
+
 Status:  support function.
 
 Given:
-   date1,date2    double          TDB date (Note 1)
+
+@example
+date1,date2    double          TDB date (Note 1)
+@end example
 
 Returned:
-   rmatn          double[3][3]    nutation matrix
+
+@example
+rmatn          double[3][3]    nutation matrix
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -8327,12 +8427,16 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The matrix operates in the sense V(true) = rmatn * V(mean),
-   where the p-vector V(true) is with respect to the true
-   equatorial triad of date and the p-vector V(mean) is with
-   respect to the mean equatorial triad of date.
+@item
+The matrix operates in the sense @code{V(true) = rmatn * V(mean)}, where
+the @code{p}-vector @code{V(true)} is with respect to the true
+equatorial triad of date and the @code{p}-vector @code{V(mean)} is with
+respect to the mean equatorial triad of date.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauNut80
 Nutation, IAU 1980.
 
@@ -8341,23 +8445,31 @@ Mean obliquity, IAU 1980.
 
 @item iauNumat
 Form nutation matrix.
-
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauObl06 (double @vari{date}, double @varii{date})
 Mean obliquity of the ecliptic, IAU 2006 precession model.
+
 Status:  canonical model.
 
 Given:
-   date1,date2  double   TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double   TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned (function value):
-                double   obliquity of the ecliptic (radians, Note 2)
+
+@example
+double   obliquity of the ecliptic (radians, Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -8380,29 +8492,41 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The result is the angle between the ecliptic and mean equator of
-   date @code{@vari{date} + @varii{date}}.
+@item
+The result is the angle between the ecliptic and mean equator of date
+@code{@vari{date} + @varii{date}}.
+@end enumerate
 
 Reference:
 
+@itemize
 @item
 Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauObl80 (double @vari{date}, double @varii{date})
 Mean obliquity of the ecliptic, IAU 1980 model.
+
 Status:  canonical model.
 
 Given:
-   date1,date2   double    TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2   double    TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned (function value):
-                 double    obliquity of the ecliptic (radians, Note 2)
+
+@example
+              double    obliquity of the ecliptic (radians, Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -8425,45 +8549,58 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The result is the angle between the ecliptic and mean equator of
-   date @code{@vari{date} + @varii{date}}.
+@item
+The result is the angle between the ecliptic and mean equator of date
+@code{@vari{date} + @varii{date}}.
+@end enumerate
 
 Reference:
 
-   Explanatory Supplement to the Astronomical Almanac,
-   P. Kenneth Seidelmann (ed), University Science Books (1992),
-   Expression 3.222-1 (p114).
+@itemize
+@item
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992), Expression 3.222-1
+(p114).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauP06e (double @vari{date}, double @varii{date}, double * @var{eps0}, double * @var{psia}, double * @var{oma}, double * @var{bpa}, double * @var{bqa}, double * @var{pia}, double * @var{bpia}, double * @var{epsa}, double * @var{chia}, double * @var{za}, double * @var{zetaa}, double * @var{thetaa}, double * @var{pa}, double * @var{gam}, double * @var{phi}, double * @var{psi})
 Precession angles, IAU 2006, equinox based.
+
 Status:  canonical models.
 
 Given:
-   date1,date2   double   TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2   double   TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned (see Note 2):
-   eps0          double   epsilon_0
-   psia          double   psi_A
-   oma           double   omega_A
-   bpa           double   P_A
-   bqa           double   Q_A
-   pia           double   pi_A
-   bpia          double   Pi_A
-   epsa          double   obliquity epsilon_A
-   chia          double   chi_A
-   za            double   z_A
-   zetaa         double   zeta_A
-   thetaa        double   theta_A
-   pa            double   p_A
-   gam           double   F-W angle gamma_J2000
-   phi           double   F-W angle phi_J2000
-   psi           double   F-W angle psi_J2000
+
+@example
+eps0          double   epsilon_0
+psia          double   psi_A
+oma           double   omega_A
+bpa           double   P_A
+bqa           double   Q_A
+pia           double   pi_A
+bpia          double   Pi_A
+epsa          double   obliquity epsilon_A
+chia          double   chi_A
+za            double   z_A
+zetaa         double   zeta_A
+thetaa        double   theta_A
+pa            double   p_A
+gam           double   F-W angle gamma_J2000
+phi           double   F-W angle phi_J2000
+psi           double   F-W angle psi_J2000
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -8486,206 +8623,289 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) This function returns the set of equinox based angles for the
-   Capitaine et al. "P03" precession theory, adopted by the IAU in
-   2006.  The angles are set out in Table 1 of Hilton et al. (2006):
+@item
+This function returns the set of equinox based angles for the Capitaine
+et al. ``P03'' precession theory, adopted by the IAU in 2006.  The
+angles are set out in Table 1 of Hilton et al. (2006):
 
-   eps0   epsilon_0   obliquity at J2000.0
-   psia   psi_A       luni-solar precession
-   oma    omega_A     inclination of equator wrt J2000.0 ecliptic
-   bpa    P_A         ecliptic pole x, J2000.0 ecliptic triad
-   bqa    Q_A         ecliptic pole -y, J2000.0 ecliptic triad
-   pia    pi_A        angle between moving and J2000.0 ecliptics
-   bpia   Pi_A        longitude of ascending node of the ecliptic
-   epsa   epsilon_A   obliquity of the ecliptic
-   chia   chi_A       planetary precession
-   za     z_A         equatorial precession: -3rd 323 Euler angle
-   zetaa  zeta_A      equatorial precession: -1st 323 Euler angle
-   thetaa theta_A     equatorial precession: 2nd 323 Euler angle
-   pa     p_A         general precession
-   gam    gamma_J2000 J2000.0 RA difference of ecliptic poles
-   phi    phi_J2000   J2000.0 codeclination of ecliptic pole
-   psi    psi_J2000   longitude difference of equator poles, J2000.0
+@example
+eps0   epsilon_0   obliquity at J2000.0
+psia   psi_A       luni-solar precession
+oma    omega_A     inclination of equator wrt J2000.0 ecliptic
+bpa    P_A         ecliptic pole x, J2000.0 ecliptic triad
+bqa    Q_A         ecliptic pole -y, J2000.0 ecliptic triad
+pia    pi_A        angle between moving and J2000.0 ecliptics
+bpia   Pi_A        longitude of ascending node of the ecliptic
+epsa   epsilon_A   obliquity of the ecliptic
+chia   chi_A       planetary precession
+za     z_A         equatorial precession: -3rd 323 Euler angle
+zetaa  zeta_A      equatorial precession: -1st 323 Euler angle
+thetaa theta_A     equatorial precession: 2nd 323 Euler angle
+pa     p_A         general precession
+gam    gamma_J2000 J2000.0 RA difference of ecliptic poles
+phi    phi_J2000   J2000.0 codeclination of ecliptic pole
+psi    psi_J2000   longitude difference of equator poles, J2000.0
+@end example
 
-   The returned values are all radians.
+The returned values are all radians.
 
-3) Hilton et al. (2006) Table 1 also contains angles that depend on
-   models distinct from the P03 precession theory itself, namely the
-   IAU 2000A frame bias and nutation.  The quoted polynomials are
-   used in other SOFA functions:
+@item
+Hilton et al. (2006) Table 1 also contains angles that depend on models
+distinct from the P03 precession theory itself, namely the IAU 2000A
+frame bias and nutation.  The quoted polynomials are used in other SOFA
+functions:
 
-   . iauXy06  contains the polynomial parts of the X and Y series.
+@table @code
+@item iauXy06
+Contains the polynomial parts of the X and Y series.
 
-   . iauS06  contains the polynomial part of the s+XY/2 series.
+@item iauS06
+Contains the polynomial part of the s+XY/2 series.
 
-   . iauPfw06  implements the series for the Fukushima-Williams
-     angles that are with respect to the GCRS pole (i.e. the variants
-     that include frame bias).
+@item iauPfw06
+Implements the series for the Fukushima--Williams angles that are with
+respect to the GCRS pole (i.e. the variants that include frame bias).
+@end table
 
-4) The IAU resolution stipulated that the choice of parameterization
-   was left to the user, and so an IAU compliant precession
-   implementation can be constructed using various combinations of
-   the angles returned by the present function.
+@item
+The IAU resolution stipulated that the choice of parameterization was
+left to the user, and so an IAU compliant precession implementation can
+be constructed using various combinations of the angles returned by the
+present function.
 
-5) The parameterization used by SOFA is the version of the Fukushima-
-   Williams angles that refers directly to the GCRS pole.  These
-   angles may be calculated by calling the function iauPfw06.  SOFA
-   also supports the direct computation of the CIP GCRS X,Y by
-   series, available by calling iauXy06.
+@item
+The parameterization used by SOFA is the version of the Fukushima-
+Williams angles that refers directly to the GCRS pole.  These angles may
+be calculated by calling the function iauPfw06.  SOFA also supports the
+direct computation of the CIP GCRS X,Y by series, available by calling
+iauXy06.
 
-6) The agreement between the different parameterizations is at the
-   1 microarcsecond level in the present era.
+@item
+The agreement between the different parameterizations is at the 1
+microarcsecond level in the present era.
 
-7) When constructing a precession formulation that refers to the GCRS
-   pole rather than the dynamical pole, it may (depending on the
-   choice of angles) be necessary to introduce the frame bias
-   explicitly.
+@item
+When constructing a precession formulation that refers to the GCRS pole
+rather than the dynamical pole, it may (depending on the choice of
+angles) be necessary to introduce the frame bias explicitly.
 
-8) It is permissible to re-use the same variable in the returned
-   arguments.  The quantities are stored in the stated order.
+@item
+It is permissible to re-use the same variable in the returned arguments.
+The quantities are stored in the stated order.
+@end enumerate
+
+Called:
+
+@table @code
+@item iauObl06
+Mean obliquity, IAU 2006.
+@end table
 
 Reference:
 
+@itemize
 @item
 Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
-
-Called:
-@item iauObl06
-Mean obliquity, IAU 2006.
-
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauP2pv (double @var{p}[3], double @var{pv}[2][3])
-Extend a p-vector to a pv-vector by appending a zero velocity.
+Extend a @code{p}-vector to a @code{pv}-vector by appending a zero
+velocity.
+
 Status:  vector/matrix support function.
 
 Given:
-   p        double[3]       p-vector
+
+@example
+p        double[3]       p-vector
+@end example
 
 Returned:
-   pv       double[2][3]    pv-vector
+
+@example
+pv       double[2][3]    pv-vector
+@end example
 
 Called:
+
+@table @code
 @item iauCp
 Copy @code{p}-vector.
 
 @itemiauZp
 Zero @code{p}-vector.
-
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauP2s (double @var{p}[3], double * @var{theta}, double * @var{phi}, double * @var{r})
-P-vector to spherical polar coordinates.
+@code{p}-vector to spherical polar coordinates.
+
 Status:  vector/matrix support function.
 
 Given:
-   p        double[3]    p-vector
+
+@example
+p        double[3]    p-vector
+@end example
 
 Returned:
-   theta    double       longitude angle (radians)
-   phi      double       latitude angle (radians)
-   r        double       radial distance
+
+@example
+theta    double       longitude angle (radians)
+phi      double       latitude angle (radians)
+r        double       radial distance
+@end example
 
 Notes:
 
-1) If P is null, zero theta, phi and r are returned.
+@enumerate
+@item
+If @var{p} is null, zero @var{theta}, @var{phi} and @var{r} are
+returned.
 
-2) At either pole, zero theta is returned.
+@item
+At either pole, zero @var{theta} is returned.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauC2s
 @code{p}-vector to spherical.
 
-   iauPm        modulus of p-vector
+@item iauPm
+Modulus of @code{p}-vector.
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauPap (double @var{a}[3], double @var{b}[3])
-Position-angle from two p-vectors.
+Position--angle from two @code{p}-vectors.
+
 Status:  vector/matrix support function.
 
 Given:
-   a      double[3]  direction of reference point
-   b      double[3]  direction of point whose PA is required
+
+@example
+a      double[3]  direction of reference point
+b      double[3]  direction of point whose PA is required
+@end example
 
 Returned (function value):
-          double     position angle of b with respect to a (radians)
+
+@example
+       double     position angle of b with respect to a (radians)
+@end example
 
 Notes:
 
-1) The result is the position angle, in radians, of direction b with
-   respect to direction a.  It is in the range -pi to +pi.  The
-   sense is such that if b is a small distance "north" of a the
-   position angle is approximately zero, and if b is a small
-   distance "east" of a the position angle is approximately +pi/2.
+@enumerate
+@item
+The result is the position angle, in radians, of direction @var{b} with
+respect to direction @var{a}.  It is in the range -pi to +pi.  The sense
+is such that if @var{b} is a small distance ``north'' of @var{a} the
+position angle is approximately zero, and if @var{b} is a small distance
+``east'' of @var{a} the position angle is approximately +pi/2.
 
-2) The vectors a and b need not be of unit length.
+@item
+The vectors @var{a} and @var{b} need not be of unit length.
 
-3) Zero is returned if the two directions are the same or if either
-   vector is null.
+@item
+Zero is returned if the two directions are the same or if either vector
+is null.
 
-4) If vector a is at a pole, the result is ill-defined.
+@item
+If vector @var{a} is at a pole, the result is ill--defined.
+@end enumerate
 
 Called:
-   iauPn        decompose p-vector into modulus and direction
-   iauPm        modulus of p-vector
+
+@table @code
+@item iauPn
+Decompose @code{p}-vector into modulus and direction.
+
+@item iauPm
+Modulus of @code{p}-vector.
+
 @item iauPxp
 Vector product of two @code{p}-vectors.
 
 @item iauPmp
 @code{p}-vector minus @code{p}-vector.
 
-   iauPdp       scalar product of two p-vectors
+@item iauPdp
+Scalar product of two @code{p}-vectors.
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauPas (double @var{al}, double @var{ap}, double @var{bl}, double @var{bp})
-Position-angle from spherical coordinates.
-Status:  vector/matrix support function.
+Position--angle from spherical coordinates.
+
+Status: vector/matrix support function.
 
 Given:
-   al     double     longitude of point A (e.g. RA) in radians
-   ap     double     latitude of point A (e.g. Dec) in radians
-   bl     double     longitude of point B
-   bp     double     latitude of point B
+
+@example
+al     double     longitude of point A (e.g. RA) in radians
+ap     double     latitude of point A (e.g. Dec) in radians
+bl     double     longitude of point B
+bp     double     latitude of point B
+@end example
 
 Returned (function value):
-          double     position angle of B with respect to A
+
+@example
+       double     position angle of B with respect to A
+@end example
 
 Notes:
 
-1) The result is the bearing (position angle), in radians, of point
-   B with respect to point A.  It is in the range -pi to +pi.  The
-   sense is such that if B is a small distance "east" of point A,
-   the bearing is approximately +pi/2.
+@enumerate
+@item
+The result is the bearing (position angle), in radians, of point B with
+respect to point A.  It is in the range -pi to +pi.  The sense is such
+that if B is a small distance ``east'' of point A, the bearing is
+approximately +pi/2.
 
-2) Zero is returned if the two points are coincident.
+@item
+Zero is returned if the two points are coincident.
+@end enumerate
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPb06 (double @vari{date}, double @varii{date}, double * @var{bzeta}, double * @var{bz}, double * @var{btheta})
 This function forms three Euler angles which implement general
-precession from epoch J2000.0, using the IAU 2006 model.  Frame
-bias (the offset between ICRS and mean J2000.0) is included.
+precession from epoch J2000.0, using the IAU 2006 model.  Frame bias
+(the offset between ICRS and mean J2000.0) is included.
+
 Status:  support function.
 
 Given:
-   date1,date2  double   TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double   TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   bzeta        double   1st rotation: radians cw around z
-   bz           double   3rd rotation: radians cw around z
-   btheta       double   2nd rotation: radians ccw around y
+
+@example
+bzeta        double   1st rotation: radians cw around z
+bz           double   3rd rotation: radians cw around z
+btheta       double   2nd rotation: radians ccw around y
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -8708,62 +8928,87 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The traditional accumulated precession angles zeta_A, z_A,
-   theta_A cannot be obtained in the usual way, namely through
-   polynomial expressions, because of the frame bias.  The latter
-   means that two of the angles undergo rapid changes near this
-   date.  They are instead the results of decomposing the
-   precession-bias matrix obtained by using the Fukushima-Williams
-   method, which does not suffer from the problem.  The
-   decomposition returns values which can be used in the
-   conventional formulation and which include frame bias.
+@item
+The traditional accumulated precession angles zeta_A, z_A, theta_A
+cannot be obtained in the usual way, namely through polynomial
+expressions, because of the frame bias.  The latter means that two of
+the angles undergo rapid changes near this date.  They are instead the
+results of decomposing the precession--bias matrix obtained by using the
+Fukushima--Williams method, which does not suffer from the problem.  The
+decomposition returns values which can be used in the conventional
+formulation and which include frame bias.
 
-3) The three angles are returned in the conventional order, which
-   is not the same as the order of the corresponding Euler
-   rotations.  The precession-bias matrix is
-   R_3(-z) x R_2(+theta) x R_3(-zeta).
+@item
+The three angles are returned in the conventional order, which is not
+the same as the order of the corresponding Euler rotations.  The
+precession--bias matrix is:
 
-4) Should zeta_A, z_A, theta_A angles be required that do not
-   contain frame bias, they are available by calling the SOFA
-   function iauP06e.
+@example
+R_3(-z) x R_2(+theta) x R_3(-zeta).
+@end example
+
+@item
+Should zeta_A, z_A, theta_A angles be required that do not contain frame
+bias, they are available by calling the @sofa{} function iauP06e.
+@end enumerate
 
 Called:
-   iauPmat06    PB matrix, IAU 2006
+
+@table @code
+@item iauPmat06
+PB matrix, IAU 2006.
+
 @item iauRz
 Rotate around @math{Z}-axis.
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun double iauPdp (double @var{a}[3], double @var{b}[3])
-p-vector inner (=scalar=dot) product.
+@code{p}-vector inner (=scalar=dot) product.
+
 Status:  vector/matrix support function.
 
 Given:
-   a      double[3]     first p-vector
-   b      double[3]     second p-vector
+
+@example
+a      double[3]     first p-vector
+b      double[3]     second p-vector
+@end example
 
 Returned (function value):
-          double        a . b
+
+@example
+       double        a . b
+@end example
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPfw06 (double @vari{date}, double @varii{date}, double * @var{gamb}, double * @var{phib}, double * @var{psib}, double * @var{epsa})
-Precession angles, IAU 2006 (Fukushima-Williams 4-angle formulation).
+Precession angles, IAU 2006 (Fukushima--Williams 4-angle formulation).
+
 Status:  canonical model.
 
 Given:
-   date1,date2  double   TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double   TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   gamb         double   F-W angle gamma_bar (radians)
-   phib         double   F-W angle phi_bar (radians)
-   psib         double   F-W angle psi_bar (radians)
-   epsa         double   F-W angle epsilon_A (radians)
+
+@example
+gamb         double   F-W angle gamma_bar (radians)
+phib         double   F-W angle phi_bar (radians)
+psib         double   F-W angle psi_bar (radians)
+epsa         double   F-W angle epsilon_A (radians)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -8786,206 +9031,263 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) Naming the following points:
+@item
+Naming the following points:
 
-         e = J2000.0 ecliptic pole,
-         p = GCRS pole,
-         E = mean ecliptic pole of date,
-   and   P = mean pole of date,
+@example
+e = J2000.0 ecliptic pole,
+p = GCRS pole,
+E = mean ecliptic pole of date,
+P = mean pole of date,
+@end example
 
-   the four Fukushima-Williams angles are as follows:
+@noindent
+the four Fukushima--Williams angles are as follows:
 
-      gamb = gamma_bar = epE
-      phib = phi_bar = pE
-      psib = psi_bar = pEP
-      epsa = epsilon_A = EP
+@example
+gamb = gamma_bar = epE
+phib = phi_bar = pE
+psib = psi_bar = pEP
+epsa = epsilon_A = EP
+@end example
 
-3) The matrix representing the combined effects of frame bias and
-   precession is:
+@item
+The matrix representing the combined effects of frame bias and
+precession is:
 
-      PxB = R_1(-epsa).R_3(-psib).R_1(phib).R_3(gamb)
+@example
+PxB = R_1(-epsa).R_3(-psib).R_1(phib).R_3(gamb)
+@end example
 
-4) The matrix representing the combined effects of frame bias,
-   precession and nutation is simply:
+@item
+The matrix representing the combined effects of frame bias, precession
+and nutation is simply:
 
-      NxPxB = R_1(-epsa-dE).R_3(-psib-dP).R_1(phib).R_3(gamb)
+@example
+NxPxB = R_1(-epsa-dE).R_3(-psib-dP).R_1(phib).R_3(gamb)
+@end example
 
-   where dP and dE are the nutation components with respect to the
-   ecliptic of date.
+@noindent
+where dP and dE are the nutation components with respect to the ecliptic
+of date.
+@end enumerate
+
+Called:
+
+@table @code
+@item iauObl06
+Mean obliquity, IAU 2006.
+@end table
 
 Reference:
 
+@itemize
 @item
 Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
-
-Called:
-@item iauObl06
-Mean obliquity, IAU 2006.
-
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauPlan94 (double @vari{date}, double @varii{date}, int @var{np}, double @var{pv}[2][3])
+Approximate heliocentric position and velocity of a nominated major
+planet: Mercury, Venus, EMB, Mars, Jupiter, Saturn, Uranus or Neptune
+(but not the Earth itself).
+
 Status:  support function.
 
-Approximate heliocentric position and velocity of a nominated major
-planet:  Mercury, Venus, EMB, Mars, Jupiter, Saturn, Uranus or
-Neptune (but not the Earth itself).
-
 Given:
-   date1  double       TDB date part A (Note 1)
-   date2  double       TDB date part B (Note 1)
-   np     int          planet (1=Mercury, 2=Venus, 3=EMB, 4=Mars,
-                           5=Jupiter, 6=Saturn, 7=Uranus, 8=Neptune)
+
+@example
+date1  double       TDB date part A (Note 1)
+date2  double       TDB date part B (Note 1)
+np     int          planet (1=Mercury, 2=Venus, 3=EMB, 4=Mars,
+                    5=Jupiter, 6=Saturn, 7=Uranus, 8=Neptune)
+@end example
 
 Returned (argument):
-   pv     double[2][3] planet p,v (heliocentric, J2000.0, AU,AU/d)
+
+@example
+pv     double[2][3] planet p,v (heliocentric, J2000.0, AU,AU/d)
+@end example
 
 Returned (function value):
-          int          status: -1 = illegal NP (outside 1-8)
-                                0 = OK
-                               +1 = warning: year outside 1000-3000
-                               +2 = warning: failed to converge
+
+@example
+int          status: -1 = illegal NP (outside 1-8)
+                      0 = OK
+                     +1 = warning: year outside 1000-3000
+                     +2 = warning: failed to converge
+@end example
 
 Notes:
 
-1) The date @code{@vari{date} + @varii{date}} is in the TDB time scale (in practice TT can
-   be used) and is a Julian Date, apportioned in any convenient way
-   between the two arguments.  For example, JD(TDB)=2450123.7 could
-   be expressed in any of these ways, among others:
-
-          date1          date2
-
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
-
-   The JD method is the most natural and convenient to use in cases
-   where the loss of several decimal digits of resolution is
-   acceptable.  The J2000 method is best matched to the way the
-   argument is handled internally and will deliver the optimum
-   resolution.  The MJD method and the date & time methods are both
-   good compromises between resolution and convenience.  The limited
-   accuracy of the present algorithm is such that any of the methods
-   is satisfactory.
-
-2) If an np value outside the range 1-8 is supplied, an error status
-   (function value -1) is returned and the pv vector set to zeroes.
-
-3) For np=3 the result is for the Earth-Moon Barycenter.  To obtain
-   the heliocentric position and velocity of the Earth, use instead
-   the SOFA function iauEpv00.
-
-4) On successful return, the array pv contains the following:
+@enumerate
+@item
+The date @code{@vari{date} + @varii{date}} is in the TDB time scale (in
+practice TT can be used) and is a Julian Date, apportioned in any
+convenient way between the two arguments.  For example, @code{JD(TDB) =
+2450123.7} could be expressed in any of these ways, among others:
 
 @example
-      pv[0][0]   x      @}
-      pv[0][1]   y      @} heliocentric position, AU
-      pv[0][2]   z      @}
+   date1          date2
 
-      pv[1][0]   xdot   @}
-      pv[1][1]   ydot   @} heliocentric velocity, AU/d
-      pv[1][2]   zdot   @}
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
 @end example
 
-   The reference frame is equatorial and is with respect to the
-   mean equator and equinox of epoch J2000.0.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.  The limited accuracy of the present algorithm is such that
+any of the methods is satisfactory.
 
-5) The algorithm is due to J.L. Simon, P. Bretagnon, J. Chapront,
-   M. Chapront-Touze, G. Francou and J. Laskar (Bureau des
-   Longitudes, Paris, France).  From comparisons with JPL
-   ephemeris DE102, they quote the following maximum errors
-   over the interval 1800-2050:
+@item
+If an @var{np} value outside the range 1-8 is supplied, an error status
+(function value -1) is returned and the pv vector set to zeroes.
 
-                   L (arcsec)    B (arcsec)      R (km)
+@item
+For @code{@var{np} = 3} the result is for the Earth--Moon Barycenter.
+To obtain the heliocentric position and velocity of the Earth, use
+instead the @sofa{} function @code{iauEpv00}.
 
-      Mercury          4             1             300
-      Venus            5             1             800
-      EMB              6             1            1000
-      Mars            17             1            7700
-      Jupiter         71             5           76000
-      Saturn          81            13          267000
-      Uranus          86             7          712000
-      Neptune         11             1          253000
+@item
+On successful return, the array @var{pv} contains the following:
 
-   Over the interval 1000-3000, they report that the accuracy is no
-   worse than 1.5 times that over 1800-2050.  Outside 1000-3000 the
-   accuracy declines.
+@example
+pv[0][0]   x      @}
+pv[0][1]   y      @} heliocentric position, AU
+pv[0][2]   z      @}
 
-   Comparisons of the present function with the JPL DE200 ephemeris
-   give the following RMS errors over the interval 1960-2025:
+pv[1][0]   xdot   @}
+pv[1][1]   ydot   @} heliocentric velocity, AU/d
+pv[1][2]   zdot   @}
+@end example
 
-                    position (km)     velocity (m/s)
+The reference frame is equatorial and is with respect to the mean
+equator and equinox of epoch J2000.0.
 
-      Mercury            334               0.437
-      Venus             1060               0.855
-      EMB               2010               0.815
-      Mars              7690               1.98
-      Jupiter          71700               7.70
-      Saturn          199000              19.4
-      Uranus          564000              16.4
-      Neptune         158000              14.4
+@item
+The algorithm is due to J.L. Simon, P. Bretagnon, J. Chapront,
+M. Chapront-Touze, G. Francou and J. Laskar (Bureau des Longitudes,
+Paris, France).  From comparisons with JPL ephemeris DE102, they quote
+the following maximum errors over the interval 1800-2050:
 
-   Comparisons against DE200 over the interval 1800-2100 gave the
-   following maximum absolute differences.  (The results using
-   DE406 were essentially the same.)
+@example
+             L (arcsec)    B (arcsec)      R (km)
 
-                 L (arcsec)   B (arcsec)     R (km)   Rdot (m/s)
+Mercury          4             1             300
+Venus            5             1             800
+EMB              6             1            1000
+Mars            17             1            7700
+Jupiter         71             5           76000
+Saturn          81            13          267000
+Uranus          86             7          712000
+Neptune         11             1          253000
+@end example
 
-      Mercury        7            1            500       0.7
-      Venus          7            1           1100       0.9
-      EMB            9            1           1300       1.0
-      Mars          26            1           9000       2.5
-      Jupiter       78            6          82000       8.2
-      Saturn        87           14         263000      24.6
-      Uranus        86            7         661000      27.4
-      Neptune       11            2         248000      21.4
+Over the interval 1000-3000, they report that the accuracy is no worse
+than 1.5 times that over 1800-2050.  Outside 1000-3000 the accuracy
+declines.
 
-6) The present SOFA re-implementation of the original Simon et al.
-   Fortran code differs from the original in the following respects:
+Comparisons of the present function with the JPL DE200 ephemeris give
+the following RMS errors over the interval 1960-2025:
 
-     *  C instead of Fortran.
+@example
+              position (km)     velocity (m/s)
 
-     *  The date is supplied in two parts.
+Mercury            334               0.437
+Venus             1060               0.855
+EMB               2010               0.815
+Mars              7690               1.98
+Jupiter          71700               7.70
+Saturn          199000              19.4
+Uranus          564000              16.4
+Neptune         158000              14.4
+@end example
 
-     *  The result is returned only in equatorial Cartesian form;
-        the ecliptic longitude, latitude and radius vector are not
-        returned.
+Comparisons against DE200 over the interval 1800-2100 gave the following
+maximum absolute differences.  (The results using DE406 were essentially
+the same.)
 
-     *  The result is in the J2000.0 equatorial frame, not ecliptic.
+@example
+           L (arcsec)   B (arcsec)     R (km)   Rdot (m/s)
 
-     *  More is done in-line: there are fewer calls to subroutines.
+Mercury        7            1            500       0.7
+Venus          7            1           1100       0.9
+EMB            9            1           1300       1.0
+Mars          26            1           9000       2.5
+Jupiter       78            6          82000       8.2
+Saturn        87           14         263000      24.6
+Uranus        86            7         661000      27.4
+Neptune       11            2         248000      21.4
+@end example
 
-     *  Different error/warning status values are used.
+@item
+The present @sofa{} re-implementation of the original Simon et al.
+Fortran code differs from the original in the following respects:
 
-     *  A different Kepler's-equation-solver is used (avoiding
-        use of double precision complex).
+@itemize
+@item
+C instead of Fortran.
 
-     *  Polynomials in t are nested to minimize rounding errors.
+@item
+The date is supplied in two parts.
 
-     *  Explicit double constants are used to avoid mixed-mode
-        expressions.
+@item
+The result is returned only in equatorial Cartesian form; the ecliptic
+longitude, latitude and radius vector are not returned.
 
-   None of the above changes affects the result significantly.
+@item
+The result is in the J2000.0 equatorial frame, not ecliptic.
 
-7) The returned status indicates the most serious condition
-   encountered during execution of the function.  Illegal np is
-   considered the most serious, overriding failure to converge,
-   which in turn takes precedence over the remote date warning.
+@item
+More is done in--line: there are fewer calls to subroutines.
+
+@item
+Different error/warning status values are used.
+
+@item
+A different Kepler's--equation--solver is used (avoiding use of double
+precision complex).
+
+@item
+Polynomials in t are nested to minimize rounding errors.
+
+@item
+Explicit double constants are used to avoid mixed--mode expressions.
+@end itemize
+
+None of the above changes affects the result significantly.
+
+@item
+The returned status indicates the most serious condition encountered
+during execution of the function.  Illegal np is considered the most
+serious, overriding failure to converge, which in turn takes precedence
+over the remote date warning.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauAnp
 Normalize angle into range 0 to 2pi.
+@end table
 
+Reference:
 
-Reference:  Simon, J.L, Bretagnon, P., Chapront, J.,
-            Chapront-Touze, M., Francou, G., and Laskar, J.,
-            Astron. Astrophys. 282, 663 (1994).
+@itemize
+Simon, J.L, Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
+G., and Laskar, J., Astron. Astrophys. 282, 663 (1994).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
+@c SONO ARRIVATO QUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 @deftypefun double iauPm (double @var{p}[3])
 Modulus of p-vector.
@@ -9221,7 +9523,9 @@ Notes:
    arguments.
 
 Called:
-   iauPm        modulus of p-vector
+@item iauPm
+Modulus of @code{p}-vector.
+
 @itemiauZp
 Zero @code{p}-vector.
 
@@ -10217,7 +10521,9 @@ Note:
    dot-product of the two p-vectors and its derivative.
 
 Called:
-   iauPdp       scalar product of two p-vectors
+@item iauPdp
+Scalar product of two @code{p}-vectors.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -10234,7 +10540,9 @@ Returned:
    s      double         modulus of velocity component
 
 Called:
-   iauPm        modulus of p-vector
+@item iauPm
+Modulus of @code{p}-vector.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -10360,15 +10668,21 @@ Notes:
 6) The inverse transformation is performed by the function iauStarpv.
 
 Called:
-   iauPn        decompose p-vector into modulus and direction
-   iauPdp       scalar product of two p-vectors
+@item iauPn
+Decompose @code{p}-vector into modulus and direction.
+
+@item iauPdp
+Scalar product of two @code{p}-vectors.
+
 @item iauSxp
 Multiply @code{p}-vector by scalar.
 
 @item iauPmp
 @code{p}-vector minus @code{p}-vector.
 
-   iauPm        modulus of p-vector
+@item iauPm
+Modulus of @code{p}-vector.
+
 @item iauPpp
 @code{p}-vector plus @code{p}-vector.
 
@@ -11204,8 +11518,12 @@ Called:
 @item iauPxp
 Vector product of two @code{p}-vectors.
 
-   iauPm        modulus of p-vector
-   iauPdp       scalar product of two p-vectors
+@item iauPm
+Modulus of @code{p}-vector.
+
+@item iauPdp
+Scalar product of two @code{p}-vectors.
+
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -11378,7 +11696,9 @@ Called:
 @item iauStarpv
 Star catalog data to space motion @code{pv}-vector.
    iauPvu       update a pv-vector
-   iauPdp       scalar product of two p-vectors
+@item iauPdp
+Scalar product of two @code{p}-vectors.
+
 @item iauPvstar
 Space motion @code{pv}-vector to star catalog data.
 
@@ -11481,12 +11801,18 @@ Notes:
 
 Called:
    iauS2pv      spherical coordinates to pv-vector
-   iauPm        modulus of p-vector
+@item iauPm
+Modulus of @code{p}-vector.
+
 @itemiauZp
 Zero @code{p}-vector.
 
-   iauPn        decompose p-vector into modulus and direction
-   iauPdp       scalar product of two p-vectors
+@item iauPn
+Decompose @code{p}-vector into modulus and direction.
+
+@item iauPdp
+Scalar product of two @code{p}-vectors.
+
 @item iauSxp
 Multiply @code{p}-vector by scalar.
 
@@ -12468,17 +12794,27 @@ Mean elongation of the Moon from the Sun.
 @item iauFaom03
 Mean longitude of the Moon's ascending node.
 
-   iauFame03    mean longitude of Mercury
+@item iauFame03
+Mean longitude of Mercury.
+
 @item iauFave03
 Mean longitude of Venus.
 
 @item iauFae03
 Mean longitude of Earth.
 
-   iauFama03    mean longitude of Mars
-   iauFaju03    mean longitude of Jupiter
-   iauFasa03    mean longitude of Saturn
-   iauFaur03    mean longitude of Uranus
+@item iauFama03
+Mean longitude of Mars.
+
+@item iauFaju03
+Mean longitude of Jupiter.
+
+@item iauFasa03
+Mean longitude of Saturn.
+
+@item iauFaur03
+Mean longitude of Uranus.
+
    iauFane03    mean longitude of Neptune
 @item iauFapa03
 General accumulated precession in longitude.
