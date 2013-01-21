@@ -5598,7 +5598,7 @@ Notes:
 Though @var{t} is strictly TDB, it is usually more convenient to use TT,
 which makes no significant difference.
 
-@teim
+@item
 The expression used is as adopted in IERS Conventions (2003) and is
 adapted from Simon et al. (1994).
 @end enumerate
@@ -6162,7 +6162,7 @@ obtained by combining these three appropriately.
 
 Called:
 
-@table
+@table @code
 @item iauIr
 Initialize @code{r}-matrix to identity.
 
@@ -6476,7 +6476,7 @@ Earth reference ellipsoids.
 @item iauGd2gce
 Geodetic to geocentric transformation, general.
 
-@itemiauZp
+@item iauZp
 Zero @code{p}-vector.
 @end table
 @end deftypefun
@@ -7237,7 +7237,7 @@ The result is returned in the range 0 to 2pi.
 
 Called:
 
-@table
+@table @code
 @item iauGmst82
 Greenwich mean sidereal time, IAU 1982.
 
@@ -7749,12 +7749,12 @@ Bias/precession/nutation, IAU 2000B.
 
 Reference:
 
-@example
+@itemize
 @item
 Explanatory Supplement to the Astronomical Almanac, P. Kenneth
 Seidelmann (ed), University Science Books (1992), Section 3.222-3
 (p114).
-@end example
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -8283,7 +8283,7 @@ free core nutation.
 
 Called:
 
-@table
+@table @code
 @item iauNut00a
 Nutation, IAU 2000A.
 @end table
@@ -8735,7 +8735,7 @@ Called:
 @item iauCp
 Copy @code{p}-vector.
 
-@itemiauZp
+@item iauZp
 Zero @code{p}-vector.
 @end table
 @end deftypefun
@@ -9287,34 +9287,48 @@ G., and Laskar, J., Astron. Astrophys. 282, 663 (1994).
 @end deftypefun
 
 @c ------------------------------------------------------------
-@c SONO ARRIVATO QUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 @deftypefun double iauPm (double @var{p}[3])
-Modulus of p-vector.
-Status:  vector/matrix support function.
+Modulus of @code{p}-vector.
+
+Status: vector/matrix support function.
 
 Given:
-   p      double[3]     p-vector
+
+@example
+p      double[3]     p-vector
+@end example
 
 Returned (function value):
-          double        modulus
+
+@example
+       double        modulus
+@end example
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPmat00 (double @vari{date}, double @varii{date}, double @var{rbp}[3][3])
-Precession matrix (including frame bias) from GCRS to a specified
-date, IAU 2000 model.
+Precession matrix (including frame bias) from GCRS to a specified date,
+IAU 2000 model.
+
 Status:  support function.
 
 Given:
-   date1,date2  double          TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double          TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rbp          double[3][3]    bias-precession matrix (Note 2)
+
+@example
+rbp          double[3][3]    bias-precession matrix (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -9337,36 +9351,53 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The matrix operates in the sense V(date) = rbp * V(GCRS), where
-   the p-vector V(GCRS) is with respect to the Geocentric Celestial
-   Reference System (IAU, 2000) and the p-vector V(date) is with
-   respect to the mean equatorial triad of the given date.
+@item
+The matrix operates in the sense @code{V(date) = rbp * V(GCRS)}, where
+the @code{p}-vector @code{V(GCRS)} is with respect to the Geocentric
+Celestial Reference System (IAU, 2000) and the @code{p}-vector
+@code{V(date)} is with respect to the mean equatorial triad of the given
+date.
+@end enumerate
 
 Called:
-   iauBp00      frame bias and precession matrices, IAU 2000
+
+@table @code
+@item iauBp00
+Frame bias and precession matrices, IAU 2000.
+@end table
 
 Reference:
 
-   IAU: Trans. International Astronomical Union, Vol. XXIVB;  Proc.
-   24th General Assembly, Manchester, UK.  Resolutions B1.3, B1.6.
-   (2000)
+@itemize
+@item
+IAU: Trans. International Astronomical Union, Vol. XXIVB; Proc.  24th
+General Assembly, Manchester, UK.  Resolutions B1.3, B1.6.  (2000).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPmat06 (double @vari{date}, double @varii{date}, double @var{rbp}[3][3])
-Precession matrix (including frame bias) from GCRS to a specified
-date, IAU 2006 model.
+Precession matrix (including frame bias) from GCRS to a specified date,
+IAU 2006 model.
+
 Status:  support function.
 
 Given:
-   date1,date2  double          TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double          TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rbp          double[3][3]    bias-precession matrix (Note 2)
+
+@example
+rbp          double[3][3]    bias-precession matrix (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -9389,39 +9420,56 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The matrix operates in the sense V(date) = rbp * V(GCRS), where
-   the p-vector V(GCRS) is with respect to the Geocentric Celestial
-   Reference System (IAU, 2000) and the p-vector V(date) is with
-   respect to the mean equatorial triad of the given date.
+@item
+The matrix operates in the sense @code{V(date) = rbp * V(GCRS)}, where
+the @code{p}-vector @code{V(GCRS)} is with respect to the Geocentric
+Celestial Reference System (IAU, 2000) and the @code{p}-vector V(date)
+is with respect to the mean equatorial triad of the given date.
+@end enumerate
 
 Called:
-   iauPfw06     bias-precession F-W angles, IAU 2006
+
+@table @code
+@item iauPfw06
+Bias-precession F-W angles, IAU 2006.
+
 @item iauFw2m
 F-W angles to @code{r}-matrix.
+@end table
 
 References:
 
+@itemize
 @item
 Capitaine, N. & Wallace, P.T., 2006, Astron.Astrophys. 450, 855
 
 @item
 Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPmat76 (double @vari{date}, double @varii{date}, double @var{rmatp}[3][3])
 Precession matrix from J2000.0 to a specified date, IAU 1976 model.
-Status:  support function.
+
+Status: support function.
 
 Given:
-   date1,date2 double       ending date, TT (Note 1)
+
+@example
+date1,date2 double       ending date, TT (Note 1)
+@end example
 
 Returned:
-   rmatp       double[3][3] precession matrix, J2000.0 -> @code{@vari{date} + @varii{date}}
+
+@example
+rmatp       double[3][3] precession matrix, J2000.0 -> @code{@vari{date} + @varii{date}}
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -9444,118 +9492,160 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The matrix operates in the sense V(date) = RMATP * V(J2000),
-   where the p-vector V(J2000) is with respect to the mean
-   equatorial triad of epoch J2000.0 and the p-vector V(date)
-   is with respect to the mean equatorial triad of the given
-   date.
+@item
+The matrix operates in the sense @code{V(date) = RMATP * V(J2000)},
+where the @code{p}-vector @code{V(J2000)} is with respect to the mean
+equatorial triad of epoch J2000.0 and the @code{p}-vector @code{V(date)}
+is with respect to the mean equatorial triad of the given date.
 
-3) Though the matrix method itself is rigorous, the precession
-   angles are expressed through canonical polynomials which are
-   valid only for a limited time span.  In addition, the IAU 1976
-   precession rate is known to be imperfect.  The absolute accuracy
-   of the present formulation is better than 0.1 arcsec from
-   1960AD to 2040AD, better than 1 arcsec from 1640AD to 2360AD,
-   and remains below 3 arcsec for the whole of the period
-   500BC to 3000AD.  The errors exceed 10 arcsec outside the
-   range 1200BC to 3900AD, exceed 100 arcsec outside 4200BC to
-   5600AD and exceed 1000 arcsec outside 6800BC to 8200AD.
+@item
+Though the matrix method itself is rigorous, the precession angles are
+expressed through canonical polynomials which are valid only for a
+limited time span.  In addition, the IAU 1976 precession rate is known
+to be imperfect.  The absolute accuracy of the present formulation is
+better than 0.1 arcsec from 1960AD to 2040AD, better than 1 arcsec from
+1640AD to 2360AD, and remains below 3 arcsec for the whole of the period
+500BC to 3000AD.  The errors exceed 10 arcsec outside the range 1200BC
+to 3900AD, exceed 100 arcsec outside 4200BC to 5600AD and exceed 1000
+arcsec outside 6800BC to 8200AD.
+@end enumerate
 
 Called:
-   iauPrec76    accumulated precession angles, IAU 1976
+
+@table @code
+@item iauPrec76
+Accumulated precession angles, IAU 1976.
+
 @item iauIr
 Initialize @code{r}-matrix to identity.
 
 @item iauRz
 Rotate around @math{Z}-axis.
-   iauRy        rotate around Y-axis
+
+@item iauRy
+Rotate around @math{Y}-axis.
+
 @item iauCr
 Copy @code{r}-matrix.
+@end table
 
 References:
 
+@itemize
 @item
 Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
 
 @item
 Equations (6) & (7), p283.
 
-   Kaplan,G.H., 1981. USNO circular no. 163, pA2.
+@item
+Kaplan,G.H., 1981. USNO circular no. 163, pA2.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPmp (double @var{a}[3], double @var{b}[3], double @var{amb}[3])
-P-vector subtraction.
-Status:  vector/matrix support function.
+@code{p}-vector subtraction.
+
+Status: vector/matrix support function.
 
 Given:
-   a        double[3]      first p-vector
-   b        double[3]      second p-vector
+
+@example
+a        double[3]      first p-vector
+b        double[3]      second p-vector
+@end example
 
 Returned:
-   amb      double[3]      a - b
 
-Note:
-   It is permissible to re-use the same array for any of the
-   arguments.
+@example
+amb      double[3]      a - b
+@end example
+
+Notes:
+
+@enumerate
+@item
+It is permissible to re-use the same array for any of the arguments.
+@end enumerate
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPn (double @var{p}[3], double * @var{r}, double @var{u}[3])
-Convert a p-vector into modulus and unit vector.
+Convert a @code{p}-vector into modulus and unit vector.
+
 Status:  vector/matrix support function.
 
 Given:
-   p        double[3]      p-vector
+
+@example
+p        double[3]      p-vector
+@end example
 
 Returned:
-   r        double         modulus
-   u        double[3]      unit vector
+
+@example
+r        double         modulus
+u        double[3]      unit vector
+@end example
 
 Notes:
 
-1) If p is null, the result is null.  Otherwise the result is a unit
-   vector.
+@enumerate
+@item
+If @var{p} is null, the result is null.  Otherwise the result is a unit
+vector.
 
-2) It is permissible to re-use the same array for any of the
-   arguments.
+@item
+It is permissible to re-use the same array for any of the arguments.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauPm
 Modulus of @code{p}-vector.
 
-@itemiauZp
+@item iauZp
 Zero @code{p}-vector.
 
 @item iauSxp
 Multiply @code{p}-vector by scalar.
-
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPn00 (double @vari{date}, double @varii{date}, double @var{dpsi}, double @var{deps}, double * @var{epsa}, double @var{rb}[3][3], double @var{rp}[3][3], double @var{rbp}[3][3], double @var{rn}[3][3], double @var{rbpn}[3][3])
-Precession-nutation, IAU 2000 model:  a multi-purpose function,
-supporting classical (equinox-based) use directly and CIO-based
-use indirectly.
+Precession--nutation, IAU 2000 model: a multi--purpose function,
+supporting classical (equinox--based) use directly and CIO--based use
+indirectly.
+
 Status:  support function.
 
 Given:
-   date1,date2  double          TT as a 2-part Julian Date (Note 1)
-   dpsi,deps    double          nutation (Note 2)
+
+@example
+date1,date2  double          TT as a 2-part Julian Date (Note 1)
+dpsi,deps    double          nutation (Note 2)
+@end example
 
 Returned:
-   epsa         double          mean obliquity (Note 3)
-   rb           double[3][3]    frame bias matrix (Note 4)
-   rp           double[3][3]    precession matrix (Note 5)
-   rbp          double[3][3]    bias-precession matrix (Note 6)
-   rn           double[3][3]    nutation matrix (Note 7)
-   rbpn         double[3][3]    GCRS-to-true matrix (Note 8)
+
+@example
+epsa         double          mean obliquity (Note 3)
+rb           double[3][3]    frame bias matrix (Note 4)
+rp           double[3][3]    precession matrix (Note 5)
+rbp          double[3][3]    bias-precession matrix (Note 6)
+rn           double[3][3]    nutation matrix (Note 7)
+rbpn         double[3][3]    GCRS-to-true matrix (Note 8)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -9585,39 +9675,50 @@ equinox and ecliptic of date.  For high--accuracy applications, free
 core nutation should be included as well as any other relevant
 corrections to the position of the CIP.
 
-3) The returned mean obliquity is consistent with the IAU 2000
-   precession-nutation models.
+@item
+The returned mean obliquity is consistent with the IAU 2000
+precession--nutation models.
 
-4) The matrix rb transforms vectors from GCRS to J2000.0 mean
-   equator and equinox by applying frame bias.
+@item
+The matrix @var{rb} transforms vectors from GCRS to J2000.0 mean equator
+and equinox by applying frame bias.
 
-5) The matrix rp transforms vectors from J2000.0 mean equator and
-   equinox to mean equator and equinox of date by applying
-   precession.
+@item
+The matrix @var{rp} transforms vectors from J2000.0 mean equator and
+equinox to mean equator and equinox of date by applying precession.
 
-6) The matrix rbp transforms vectors from GCRS to mean equator and
-   equinox of date by applying frame bias then precession.  It is
-   the product rp x rb.
+@item
+The matrix @var{rbp} transforms vectors from GCRS to mean equator and
+equinox of date by applying frame bias then precession.  It is the
+product @code{@var{rp} * @var{rb}}.
 
-7) The matrix rn transforms vectors from mean equator and equinox of
-   date to true equator and equinox of date by applying the nutation
-   (luni-solar + planetary).
+@item
+The matrix @var{rn} transforms vectors from mean equator and equinox of
+date to true equator and equinox of date by applying the nutation
+(luni--solar + planetary).
 
-8) The matrix rbpn transforms vectors from GCRS to true equator and
-   equinox of date.  It is the product rn x rbp, applying frame
-   bias, precession and nutation in that order.
+@item
+The matrix rbpn transforms vectors from GCRS to true equator and equinox
+of date.  It is the product @code{@var{rn} * @var{rbp}}, applying frame
+bias, precession and nutation in that order.
 
-9) It is permissible to re-use the same array in the returned
-   arguments.  The arrays are filled in the order given.
+@item
+It is permissible to re-use the same array in the returned arguments.
+The arrays are filled in the order given.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauPr00
 IAU 2000 precession adjustments.
 
 @item iauObl80
 Mean obliquity, IAU 1980.
 
-   iauBp00      frame bias and precession matrices, IAU 2000
+@item iauBp00
+Frame bias and precession matrices, IAU 2000.
+
 @item iauCr
 Copy @code{r}-matrix.
 @item iauNumat
@@ -9625,400 +9726,525 @@ Form nutation matrix.
 
 @item iauRxr
 Product of two @code{r}-matrices.
-
+@end table
 
 Reference:
 
-   Capitaine, N., Chapront, J., Lambert, S. and Wallace, P.,
-   "Expressions for the Celestial Intermediate Pole and Celestial
-   Ephemeris Origin consistent with the IAU 2000A precession-
-   nutation model", Astron.Astrophys. 400, 1145-1154 (2003)
+@itemize
+@item
+Capitaine, N., Chapront, J., Lambert, S. and Wallace, P., ``Expressions
+for the Celestial Intermediate Pole and Celestial Ephemeris Origin
+consistent with the IAU 2000A precession--nutation model'',
+Astron.Astrophys. 400, 1145-1154 (2003).
 
-   n.b. The celestial ephemeris origin (CEO) was renamed "celestial
-        intermediate origin" (CIO) by IAU 2006 Resolution 2.
+@quotation
+n.b. The celestial ephemeris origin (CEO) was renamed ``celestial
+intermediate origin'' (CIO) by IAU 2006 Resolution 2.
+@end quotation
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPn00a (double @vari{date}, double @varii{date}, double * @var{dpsi}, double * @var{deps}, double * @var{epsa}, double @var{rb}[3][3], double @var{rp}[3][3], double @var{rbp}[3][3], double @var{rn}[3][3], double @var{rbpn}[3][3])
-Precession-nutation, IAU 2000A model:  a multi-purpose function,
-supporting classical (equinox-based) use directly and CIO-based
-use indirectly.
+Precession--nutation, IAU 2000A model: a multi--purpose function,
+supporting classical (equinox--based) use directly and CIO--based use
+indirectly.
+
 Status:  support function.
 
 Given:
-   date1,date2  double          TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double          TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   dpsi,deps    double          nutation (Note 2)
-   epsa         double          mean obliquity (Note 3)
-   rb           double[3][3]    frame bias matrix (Note 4)
-   rp           double[3][3]    precession matrix (Note 5)
-   rbp          double[3][3]    bias-precession matrix (Note 6)
-   rn           double[3][3]    nutation matrix (Note 7)
-   rbpn         double[3][3]    GCRS-to-true matrix (Notes 8,9)
+
+@example
+dpsi,deps    double          nutation (Note 2)
+epsa         double          mean obliquity (Note 3)
+rb           double[3][3]    frame bias matrix (Note 4)
+rp           double[3][3]    precession matrix (Note 5)
+rbp          double[3][3]    bias-precession matrix (Note 6)
+rn           double[3][3]    nutation matrix (Note 7)
+rbpn         double[3][3]    GCRS-to-true matrix (Notes 8,9)
+@end example
 
 Notes:
 
-1)  The TT date @code{@vari{date} + @varii{date}} is a Julian Date, apportioned in any
-    convenient way between the two arguments.  For example,
-    JD(TT)=2450123.7 could be expressed in any of these ways,
-    among others:
+@enumerate
+@item
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
+apportioned in any convenient way between the two arguments.  For
+example, @code{JD(TT) = 2450123.7} could be expressed in any of these
+ways, among others:
 
-           date1          date2
+@example
+   date1          date2
 
-        2450123.7           0.0       (JD method)
-        2451545.0       -1421.3       (J2000 method)
-        2400000.5       50123.2       (MJD method)
-        2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-    The JD method is the most natural and convenient to use in
-    cases where the loss of several decimal digits of resolution
-    is acceptable.  The J2000 method is best matched to the way
-    the argument is handled internally and will deliver the
-    optimum resolution.  The MJD method and the date & time methods
-    are both good compromises between resolution and convenience.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.
 
-2)  The nutation components (luni-solar + planetary, IAU 2000A) in
-    longitude and obliquity are in radians and with respect to the
-    equinox and ecliptic of date.  Free core nutation is omitted;
-    for the utmost accuracy, use the iauPn00  function, where the
-    nutation components are caller-specified.  For faster but
-    slightly less accurate results, use the iauPn00b function.
+@item
+The nutation components (luni--solar + planetary, IAU 2000A) in
+longitude and obliquity are in radians and with respect to the equinox
+and ecliptic of date.  Free core nutation is omitted; for the utmost
+accuracy, use the @code{iauPn00} function, where the nutation components
+are caller--specified.  For faster but slightly less accurate results,
+use the @code{iauPn00b} function.
 
-3)  The mean obliquity is consistent with the IAU 2000 precession.
+@item
+The mean obliquity is consistent with the IAU 2000 precession.
 
-4)  The matrix rb transforms vectors from GCRS to J2000.0 mean
-    equator and equinox by applying frame bias.
+@item
+The matrix rb transforms vectors from GCRS to J2000.0 mean equator and
+equinox by applying frame bias.
 
-5)  The matrix rp transforms vectors from J2000.0 mean equator and
-    equinox to mean equator and equinox of date by applying
-    precession.
+@item
+The matrix @var{rp} transforms vectors from J2000.0 mean equator and
+equinox to mean equator and equinox of date by applying precession.
 
-6)  The matrix rbp transforms vectors from GCRS to mean equator and
-    equinox of date by applying frame bias then precession.  It is
-    the product rp x rb.
+@item
+The matrix rbp transforms vectors from GCRS to mean equator and equinox
+of date by applying frame bias then precession.  It is the product
+@code{@var{rp} * @var{rb}}.
 
-7)  The matrix rn transforms vectors from mean equator and equinox
-    of date to true equator and equinox of date by applying the
-    nutation (luni-solar + planetary).
+@item
+The matrix @var{rn} transforms vectors from mean equator and equinox of
+date to true equator and equinox of date by applying the nutation
+(luni--solar + planetary).
 
-8)  The matrix rbpn transforms vectors from GCRS to true equator and
-    equinox of date.  It is the product rn x rbp, applying frame
-    bias, precession and nutation in that order.
+@item
+The matrix rbpn transforms vectors from GCRS to true equator and equinox
+of date.  It is the product @code{@var{rn} * @var{rbp}}, applying frame
+bias, precession and nutation in that order.
 
-9)  The X,Y,Z coordinates of the IAU 2000B Celestial Intermediate
-    Pole are elements (3,1-3) of the matrix rbpn.
+@item
+The @math{X}, @math{Y}, @math{Z} coordinates of the IAU 2000B Celestial
+Intermediate Pole are elements @math{(3,1-3)} of the matrix @var{rbpn}.
 
-10) It is permissible to re-use the same array in the returned
-    arguments.  The arrays are filled in the order given.
+@item
+It is permissible to re-use the same array in the returned arguments.
+The arrays are filled in the order given.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauNut00a
 Nutation, IAU 2000A.
 
 @item iauPn00
 Bias/precession/nutation results, IAU 2000.
-
+@end table
 
 Reference:
 
-   Capitaine, N., Chapront, J., Lambert, S. and Wallace, P.,
-   "Expressions for the Celestial Intermediate Pole and Celestial
-   Ephemeris Origin consistent with the IAU 2000A precession-
-   nutation model", Astron.Astrophys. 400, 1145-1154 (2003)
+@itemize
+@item
+Capitaine, N., Chapront, J., Lambert, S. and Wallace, P., ``Expressions
+for the Celestial Intermediate Pole and Celestial Ephemeris Origin
+consistent with the IAU 2000A precession--nutation model'',
+Astron.Astrophys. 400, 1145-1154 (2003).
 
-   n.b. The celestial ephemeris origin (CEO) was renamed "celestial
-        intermediate origin" (CIO) by IAU 2006 Resolution 2.
+@quotation
+n.b. The celestial ephemeris origin (CEO) was renamed ``celestial
+intermediate origin'' (CIO) by IAU 2006 Resolution 2.
+@end quotation
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPn00b (double @vari{date}, double @varii{date}, double * @var{dpsi}, double * @var{deps}, double * @var{epsa}, double @var{rb}[3][3], double @var{rp}[3][3], double @var{rbp}[3][3], double @var{rn}[3][3], double @var{rbpn}[3][3])
-Precession-nutation, IAU 2000B model:  a multi-purpose function,
-supporting classical (equinox-based) use directly and CIO-based
-use indirectly.
+Precession--nutation, IAU 2000B model: a multi--purpose function,
+supporting classical (equinox--based) use directly and CIO--based use
+indirectly.
+
 Status:  support function.
 
 Given:
-   date1,date2  double          TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double          TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   dpsi,deps    double          nutation (Note 2)
-   epsa         double          mean obliquity (Note 3)
-   rb           double[3][3]    frame bias matrix (Note 4)
-   rp           double[3][3]    precession matrix (Note 5)
-   rbp          double[3][3]    bias-precession matrix (Note 6)
-   rn           double[3][3]    nutation matrix (Note 7)
-   rbpn         double[3][3]    GCRS-to-true matrix (Notes 8,9)
+
+@example
+dpsi,deps    double          nutation (Note 2)
+epsa         double          mean obliquity (Note 3)
+rb           double[3][3]    frame bias matrix (Note 4)
+rp           double[3][3]    precession matrix (Note 5)
+rbp          double[3][3]    bias-precession matrix (Note 6)
+rn           double[3][3]    nutation matrix (Note 7)
+rbpn         double[3][3]    GCRS-to-true matrix (Notes 8,9)
+@end example
 
 Notes:
 
-1)  The TT date @code{@vari{date} + @varii{date}} is a Julian Date, apportioned in any
-    convenient way between the two arguments.  For example,
-    JD(TT)=2450123.7 could be expressed in any of these ways,
-    among others:
+@enumerate
+@item
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
+apportioned in any convenient way between the two arguments.  For
+example, @code{JD(TT) = 2450123.7} could be expressed in any of these
+ways, among others:
 
-           date1          date2
+@example
+   date1          date2
 
-        2450123.7           0.0       (JD method)
-        2451545.0       -1421.3       (J2000 method)
-        2400000.5       50123.2       (MJD method)
-        2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-    The JD method is the most natural and convenient to use in
-    cases where the loss of several decimal digits of resolution
-    is acceptable.  The J2000 method is best matched to the way
-    the argument is handled internally and will deliver the
-    optimum resolution.  The MJD method and the date & time methods
-    are both good compromises between resolution and convenience.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.
 
-2)  The nutation components (luni-solar + planetary, IAU 2000B) in
-    longitude and obliquity are in radians and with respect to the
-    equinox and ecliptic of date.  For more accurate results, but
-    at the cost of increased computation, use the iauPn00a function.
-    For the utmost accuracy, use the iauPn00  function, where the
-    nutation components are caller-specified.
+@item
+The nutation components (luni--solar + planetary, IAU 2000B) in
+longitude and obliquity are in radians and with respect to the equinox
+and ecliptic of date.  For more accurate results, but at the cost of
+increased computation, use the @code{iauPn00a} function.  For the utmost
+accuracy, use the @code{iauPn00} function, where the nutation components
+are caller--specified.
 
-3)  The mean obliquity is consistent with the IAU 2000 precession.
+@item
+The mean obliquity is consistent with the IAU 2000 precession.
 
-4)  The matrix rb transforms vectors from GCRS to J2000.0 mean
-    equator and equinox by applying frame bias.
+@item
+The matrix @var{rb} transforms vectors from GCRS to J2000.0 mean equator
+and equinox by applying frame bias.
 
-5)  The matrix rp transforms vectors from J2000.0 mean equator and
-    equinox to mean equator and equinox of date by applying
-    precession.
+@item
+The matrix @var{rp} transforms vectors from J2000.0 mean equator and
+equinox to mean equator and equinox of date by applying precession.
 
-6)  The matrix rbp transforms vectors from GCRS to mean equator and
-    equinox of date by applying frame bias then precession.  It is
-    the product rp x rb.
+@item
+The matrix @var{rbp} transforms vectors from GCRS to mean equator and
+equinox of date by applying frame bias then precession.  It is the
+product @code{@var{rp} * @var{rb}}.
 
-7)  The matrix rn transforms vectors from mean equator and equinox
-    of date to true equator and equinox of date by applying the
-    nutation (luni-solar + planetary).
+@item
+The matrix @var{rn} transforms vectors from mean equator and equinox of
+date to true equator and equinox of date by applying the nutation
+(luni--solar + planetary).
 
-8)  The matrix rbpn transforms vectors from GCRS to true equator and
-    equinox of date.  It is the product rn x rbp, applying frame
-    bias, precession and nutation in that order.
+@item
+The matrix @var{rbpn} transforms vectors from GCRS to true equator and
+equinox of date.  It is the product @code{@var{rn} * @var{rbp}},
+applying frame bias, precession and nutation in that order.
 
-9)  The X,Y,Z coordinates of the IAU 2000B Celestial Intermediate
-    Pole are elements (3,1-3) of the matrix rbpn.
+@item
+The @math{X}, @math{Y}, @math{Z} coordinates of the IAU 2000B Celestial
+Intermediate Pole are elements @math{(3,1-3)} of the matrix rbpn.
 
-10) It is permissible to re-use the same array in the returned
-    arguments.  The arrays are filled in the stated order.
+@item
+It is permissible to re-use the same array in the returned arguments.
+The arrays are filled in the stated order.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauNut00b
 Nutation, IAU 2000B.
 
 @item iauPn00
 Bias/precession/nutation results, IAU 2000.
-
+@end table
 
 Reference:
 
-   Capitaine, N., Chapront, J., Lambert, S. and Wallace, P.,
-   "Expressions for the Celestial Intermediate Pole and Celestial
-   Ephemeris Origin consistent with the IAU 2000A precession-
-   nutation model", Astron.Astrophys. 400, 1145-1154 (2003).
+@itemize
+@item
+Capitaine, N., Chapront, J., Lambert, S. and Wallace, P., ``Expressions
+for the Celestial Intermediate Pole and Celestial Ephemeris Origin
+consistent with the IAU 2000A precession--nutation model'',
+Astron.Astrophys. 400, 1145-1154 (2003).
 
-   n.b. The celestial ephemeris origin (CEO) was renamed "celestial
-        intermediate origin" (CIO) by IAU 2006 Resolution 2.
+@quotation
+n.b. The celestial ephemeris origin (CEO) was renamed ``celestial
+intermediate origin'' (CIO) by IAU 2006 Resolution 2.
+@end quotation
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPn06 (double @vari{date}, double @varii{date}, double @var{dpsi}, double @var{deps}, double * @var{epsa}, double @var{rb}[3][3], double @var{rp}[3][3], double @var{rbp}[3][3], double @var{rn}[3][3], double @var{rbpn}[3][3])
-Precession-nutation, IAU 2006 model:  a multi-purpose function,
-supporting classical (equinox-based) use directly and CIO-based use
+Precession--nutation, IAU 2006 model: a multi--purpose function,
+supporting classical (equinox--based) use directly and CIO--based use
 indirectly.
+
 Status:  support function.
 
 Given:
-   date1,date2  double          TT as a 2-part Julian Date (Note 1)
-   dpsi,deps    double          nutation (Note 2)
+
+@example
+date1,date2  double          TT as a 2-part Julian Date (Note 1)
+dpsi,deps    double          nutation (Note 2)
+@end example
 
 Returned:
-   epsa         double          mean obliquity (Note 3)
-   rb           double[3][3]    frame bias matrix (Note 4)
-   rp           double[3][3]    precession matrix (Note 5)
-   rbp          double[3][3]    bias-precession matrix (Note 6)
-   rn           double[3][3]    nutation matrix (Note 7)
-   rbpn         double[3][3]    GCRS-to-true matrix (Note 8)
+
+@example
+epsa         double          mean obliquity (Note 3)
+rb           double[3][3]    frame bias matrix (Note 4)
+rp           double[3][3]    precession matrix (Note 5)
+rbp          double[3][3]    bias-precession matrix (Note 6)
+rn           double[3][3]    nutation matrix (Note 7)
+rbpn         double[3][3]    GCRS-to-true matrix (Note 8)
+@end example
 
 Notes:
 
-1)  The TT date @code{@vari{date} + @varii{date}} is a Julian Date, apportioned in any
-    convenient way between the two arguments.  For example,
-    JD(TT)=2450123.7 could be expressed in any of these ways,
-    among others:
+@enumerate
+@item
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
+apportioned in any convenient way between the two arguments.  For
+example, @code{JD(TT) = 2450123.7} could be expressed in any of these
+ways, among others:
 
-           date1          date2
+@example
+   date1          date2
 
-        2450123.7           0.0       (JD method)
-        2451545.0       -1421.3       (J2000 method)
-        2400000.5       50123.2       (MJD method)
-        2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-    The JD method is the most natural and convenient to use in
-    cases where the loss of several decimal digits of resolution
-    is acceptable.  The J2000 method is best matched to the way
-    the argument is handled internally and will deliver the
-    optimum resolution.  The MJD method and the date & time methods
-    are both good compromises between resolution and convenience.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.
 
-2)  The caller is responsible for providing the nutation components;
-    they are in longitude and obliquity, in radians and are with
-    respect to the equinox and ecliptic of date.  For high-accuracy
-    applications, free core nutation should be included as well as
-    any other relevant corrections to the position of the CIP.
+@item
+The caller is responsible for providing the nutation components; they
+are in longitude and obliquity, in radians and are with respect to the
+equinox and ecliptic of date.  For high--accuracy applications, free
+core nutation should be included as well as any other relevant
+corrections to the position of the CIP.
 
-3)  The returned mean obliquity is consistent with the IAU 2006
-    precession.
+@item
+The returned mean obliquity is consistent with the IAU 2006 precession.
 
-4)  The matrix rb transforms vectors from GCRS to J2000.0 mean
-    equator and equinox by applying frame bias.
+@item
+The matrix @var{rb} transforms vectors from GCRS to J2000.0 mean equator
+and equinox by applying frame bias.
 
-5)  The matrix rp transforms vectors from J2000.0 mean equator and
-    equinox to mean equator and equinox of date by applying
-    precession.
+@item
+The matrix @var{rp} transforms vectors from J2000.0 mean equator and
+equinox to mean equator and equinox of date by applying precession.
 
-6)  The matrix rbp transforms vectors from GCRS to mean equator and
-    equinox of date by applying frame bias then precession.  It is
-    the product rp x rb.
+@item
+The matrix @var{rbp} transforms vectors from GCRS to mean equator and
+equinox of date by applying frame bias then precession.  It is the
+product @code{@var{rp} * @var{rb}}.
 
-7)  The matrix rn transforms vectors from mean equator and equinox
-    of date to true equator and equinox of date by applying the
-    nutation (luni-solar + planetary).
+@item
+The matrix @var{rn} transforms vectors from mean equator and equinox of
+date to true equator and equinox of date by applying the nutation
+(luni--solar + planetary).
 
-8)  The matrix rbpn transforms vectors from GCRS to true equator and
-    equinox of date.  It is the product rn x rbp, applying frame
-    bias, precession and nutation in that order.
+@item
+The matrix @var{rbpn} transforms vectors from GCRS to true equator and
+equinox of date.  It is the product @code{@var{rn} * @var{rbp}},
+applying frame bias, precession and nutation in that order.
 
-9)  The X,Y,Z coordinates of the IAU 2000B Celestial Intermediate
-    Pole are elements (3,1-3) of the matrix rbpn.
+@item
+The @math{X}, @math{Y}, @math{Z} coordinates of the IAU 2000B Celestial
+Intermediate Pole are elements @math{(3,1-3)} of the matrix @var{rbpn}.
 
-10) It is permissible to re-use the same array in the returned
-    arguments.  The arrays are filled in the stated order.
+@item
+It is permissible to re-use the same array in the returned arguments.
+The arrays are filled in the stated order.
+@end enumerate
 
 Called:
-   iauPfw06     bias-precession F-W angles, IAU 2006
+
+@table @code
+@item iauPfw06
+Bias-precession F-W angles, IAU 2006.
+
 @item iauFw2m
 F-W angles to @code{r}-matrix.
+
 @item iauCr
 Copy @code{r}-matrix.
-   iauTr        transpose r-matrix
+
+@item iauTr
+Transpose @code{r}-matrix.
+
 @item iauRxr
 Product of two @code{r}-matrices.
-
+@end table
 
 References:
 
+@itemize
 @item
 Capitaine, N. & Wallace, P.T., 2006, Astron.Astrophys. 450, 855
 
 @item
 Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPn06a (double @vari{date}, double @varii{date}, double * @var{dpsi}, double * @var{deps}, double * @var{epsa}, double @var{rb}[3][3], double @var{rp}[3][3], double @var{rbp}[3][3], double @var{rn}[3][3], double @var{rbpn}[3][3])
-Precession-nutation, IAU 2006/2000A models:  a multi-purpose function,
-supporting classical (equinox-based) use directly and CIO-based use
+Precession--nutation, IAU 2006/2000A models: a multi--purpose function,
+supporting classical (equinox--based) use directly and CIO--based use
 indirectly.
+
 Status:  support function.
 
 Given:
-   date1,date2  double          TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double          TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   dpsi,deps    double          nutation (Note 2)
-   epsa         double          mean obliquity (Note 3)
-   rb           double[3][3]    frame bias matrix (Note 4)
-   rp           double[3][3]    precession matrix (Note 5)
-   rbp          double[3][3]    bias-precession matrix (Note 6)
-   rn           double[3][3]    nutation matrix (Note 7)
-   rbpn         double[3][3]    GCRS-to-true matrix (Notes 8,9)
+
+@example
+dpsi,deps    double          nutation (Note 2)
+epsa         double          mean obliquity (Note 3)
+rb           double[3][3]    frame bias matrix (Note 4)
+rp           double[3][3]    precession matrix (Note 5)
+rbp          double[3][3]    bias-precession matrix (Note 6)
+rn           double[3][3]    nutation matrix (Note 7)
+rbpn         double[3][3]    GCRS-to-true matrix (Notes 8,9)
+@end example
 
 Notes:
 
-1)  The TT date @code{@vari{date} + @varii{date}} is a Julian Date, apportioned in any
-    convenient way between the two arguments.  For example,
-    JD(TT)=2450123.7 could be expressed in any of these ways,
-    among others:
+@enumerate
+@item
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
+apportioned in any convenient way between the two arguments.  For
+example, @code{JD(TT) = 2450123.7} could be expressed in any of these
+ways, among others:
 
-           date1          date2
+@example
+   date1          date2
 
-        2450123.7           0.0       (JD method)
-        2451545.0       -1421.3       (J2000 method)
-        2400000.5       50123.2       (MJD method)
-        2450123.5           0.2       (date & time method)
+2450123.7           0.0       (JD method)
+2451545.0       -1421.3       (J2000 method)
+2400000.5       50123.2       (MJD method)
+2450123.5           0.2       (date & time method)
+@end example
 
-    The JD method is the most natural and convenient to use in
-    cases where the loss of several decimal digits of resolution
-    is acceptable.  The J2000 method is best matched to the way
-    the argument is handled internally and will deliver the
-    optimum resolution.  The MJD method and the date & time methods
-    are both good compromises between resolution and convenience.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.
 
-2)  The nutation components (luni-solar + planetary, IAU 2000A) in
-    longitude and obliquity are in radians and with respect to the
-    equinox and ecliptic of date.  Free core nutation is omitted;
-    for the utmost accuracy, use the iauPn06 function, where the
-    nutation components are caller-specified.
+@item
+The nutation components (luni--solar + planetary, IAU 2000A) in
+longitude and obliquity are in radians and with respect to the equinox
+and ecliptic of date.  Free core nutation is omitted; for the utmost
+accuracy, use the @code{iauPn06} function, where the nutation components
+are caller--specified.
 
-3)  The mean obliquity is consistent with the IAU 2006 precession.
+@item
+The mean obliquity is consistent with the IAU 2006 precession.
 
-4)  The matrix rb transforms vectors from GCRS to mean J2000.0 by
-    applying frame bias.
+@item
+The matrix @var{rb} transforms vectors from GCRS to mean J2000.0 by
+applying frame bias.
 
-5)  The matrix rp transforms vectors from mean J2000.0 to mean of
-    date by applying precession.
+@item
+The matrix @var{rp} transforms vectors from mean J2000.0 to mean of date
+by applying precession.
 
-6)  The matrix rbp transforms vectors from GCRS to mean of date by
-    applying frame bias then precession.  It is the product rp x rb.
+@item
+The matrix rbp transforms vectors from GCRS to mean of date by applying
+frame bias then precession.  It is the product @code{@var{rp} *
+@var{rb}}.
 
-7)  The matrix rn transforms vectors from mean of date to true of
-    date by applying the nutation (luni-solar + planetary).
+@item
+The matrix @var{rn} transforms vectors from mean of date to true of date
+by applying the nutation (luni--solar + planetary).
 
-8)  The matrix rbpn transforms vectors from GCRS to true of date
-    (CIP/equinox).  It is the product rn x rbp, applying frame bias,
-    precession and nutation in that order.
+@item
+The matrix rbpn transforms vectors from GCRS to true of date
+(CIP/equinox).  It is the product @code{@var{rn} * @var{rbp}}, applying
+frame bias, precession and nutation in that order.
 
-9)  The X,Y,Z coordinates of the IAU 2006/2000A Celestial
-    Intermediate Pole are elements (1,1-3) of the matrix rbpn.
+@item
+The @math{X}, @math{Y}, @math{Z} coordinates of the IAU 2006/2000A
+Celestial Intermediate Pole are elements @math{(1,1-3)} of the matrix
+@var{rbpn}.
 
-10) It is permissible to re-use the same array in the returned
-    arguments.  The arrays are filled in the stated order.
+@item
+It is permissible to re-use the same array in the returned arguments.
+The arrays are filled in the stated order.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauNut06a
 Nutation, IAU 2006/2000A.
 
-   iauPn06      bias/precession/nutation results, IAU 2006
+@item iauPn06
+Bias/precession/nutation results, IAU 2006.
+@end table
 
 Reference:
 
+@itemize
 @item
-Capitaine, N. & Wallace, P.T., 2006, Astron.Astrophys. 450, 855
+Capitaine, N. & Wallace, P.T., 2006, Astron.Astrophys. 450, 855.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPnm00a (double @vari{date}, double @varii{date}, double @var{rbpn}[3][3])
-Form the matrix of precession-nutation for a given date (including
-frame bias), equinox-based, IAU 2000A model.
+Form the matrix of precession--nutation for a given date (including
+frame bias), equinox--based, IAU 2000A model.
+
 Status:  support function.
 
 Given:
-   date1,date2  double     TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2  double     TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rbpn         double[3][3]    classical NPB matrix (Note 2)
+
+@example
+rbpn         double[3][3]    classical NPB matrix (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -10041,41 +10267,57 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The matrix operates in the sense V(date) = rbpn * V(GCRS), where
-   the p-vector V(date) is with respect to the true equatorial triad
-   of date @code{@vari{date} + @varii{date}} and the p-vector V(GCRS) is with respect to
-   the Geocentric Celestial Reference System (IAU, 2000).
+@item
+The matrix operates in the sense @code{V(date) = rbpn * V(GCRS)}, where
+the @code{p}-vector @code{V(date)} is with respect to the true
+equatorial triad of date @code{@vari{date} + @varii{date}} and the
+@code{p}-vector @code{V(GCRS)} is with respect to the Geocentric
+Celestial Reference System (IAU, 2000).
 
-3) A faster, but slightly less accurate result (about 1 mas), can be
-   obtained by using instead the iauPnm00b function.
+@item
+A faster, but slightly less accurate result (about @math{1} mas), can be
+obtained by using instead the @code{iauPnm00b} function.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauPn00a
 Bias/precession/nutation, IAU 2000A.
-
+@end table
 
 Reference:
 
-   IAU: Trans. International Astronomical Union, Vol. XXIVB;  Proc.
-   24th General Assembly, Manchester, UK.  Resolutions B1.3, B1.6.
-   (2000)
+@itemize
+@item
+IAU: Trans. International Astronomical Union, Vol. XXIVB; Proc.  24th
+General Assembly, Manchester, UK.  Resolutions B1.3, B1.6.  (2000).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPnm00b (double @vari{date}, double @varii{date}, double @var{rbpn}[3][3])
-Form the matrix of precession-nutation for a given date (including
-frame bias), equinox-based, IAU 2000B model.
-Status:  support function.
+Form the matrix of precession--nutation for a given date (including
+frame bias), equinox--based, IAU 2000B model.
+
+Status: support function.
 
 Given:
-   date1,date2 double       TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2 double       TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rbpn        double[3][3] bias-precession-nutation matrix (Note 2)
+
+@example
+rbpn        double[3][3] bias-precession-nutation matrix (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -10098,39 +10340,57 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The matrix operates in the sense V(date) = rbpn * V(GCRS), where
-   the p-vector V(date) is with respect to the true equatorial triad
-   of date @code{@vari{date} + @varii{date}} and the p-vector V(GCRS) is with respect to
-   the Geocentric Celestial Reference System (IAU, 2000).
+@item
+The matrix operates in the sense @code{V(date) = rbpn * V(GCRS)}, where
+the @code{p}-vector @code{V(date)} is with respect to the true
+equatorial triad of date @code{@vari{date} + @varii{date}} and the
+@code{p}-vector V(GCRS) is with respect to the Geocentric Celestial
+Reference System (IAU, 2000).
 
-3) The present function is faster, but slightly less accurate (about
-   1 mas), than the iauPnm00a function.
+@item
+The present function is faster, but slightly less accurate (about
+@math{1} mas), than the @code{iauPnm00a} function.
+@end enumerate
 
 Called:
-   iauPn00b     bias/precession/nutation, IAU 2000B
+
+@table @code
+@item iauPn00b
+Bias/precession/nutation, IAU 2000B.
+@end table
 
 Reference:
 
-   IAU: Trans. International Astronomical Union, Vol. XXIVB;  Proc.
-   24th General Assembly, Manchester, UK.  Resolutions B1.3, B1.6.
-   (2000)
+@itemize
+@item
+IAU: Trans. International Astronomical Union, Vol. XXIVB; Proc.  24th
+General Assembly, Manchester, UK.  Resolutions B1.3, B1.6.  (2000).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPnm06a (double @vari{date}, double @varii{date}, double @var{rnpb}[3][3])
-Form the matrix of precession-nutation for a given date (including
+Form the matrix of precession--nutation for a given date (including
 frame bias), IAU 2006 precession and IAU 2000A nutation models.
+
 Status:  support function.
 
 Given:
-   date1,date2 double       TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2 double       TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   rnpb        double[3][3] bias-precession-nutation matrix (Note 2)
+
+@example
+rnpb        double[3][3] bias-precession-nutation matrix (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -10153,22 +10413,33 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The matrix operates in the sense V(date) = rnpb * V(GCRS), where
-   the p-vector V(date) is with respect to the true equatorial triad
-   of date @code{@vari{date} + @varii{date}} and the p-vector V(GCRS) is with respect to
-   the Geocentric Celestial Reference System (IAU, 2000).
+@item
+The matrix operates in the sense @code{V(date) = rnpb * V(GCRS)}, where
+the @code{p}-vector @code{V(date)} is with respect to the true
+equatorial triad of date @code{@vari{date} + @varii{date}} and the
+@code{p}-vector @code{V(GCRS)} is with respect to the Geocentric
+Celestial Reference System (IAU, 2000).
+@end enumerate
 
 Called:
-   iauPfw06     bias-precession F-W angles, IAU 2006
+
+@table @code
+@item iauPfw06
+Bias-precession F-W angles, IAU 2006.
+
 @item iauNut06a
 Nutation, IAU 2006/2000A.
 
 @item iauFw2m
 F-W angles to @code{r}-matrix.
+@end table
 
 Reference:
 
-   Capitaine, N. & Wallace, P.T., 2006, Astron.Astrophys. 450, 855.
+@itemize
+@item
+Capitaine, N. & Wallace, P.T., 2006, Astron.Astrophys. 450, 855.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -10176,52 +10447,74 @@ Reference:
 @deftypefun void iauPnm80 (double @vari{date}, double @varii{date}, double @var{rmatpn}[3][3])
 Form the matrix of precession/nutation for a given date, IAU 1976
 precession model, IAU 1980 nutation model.
+
 Status:  support function.
 
 Given:
-   date1,date2    double         TDB date (Note 1)
+
+@example
+date1,date2    double         TDB date (Note 1)
+@end example
 
 Returned:
-   rmatpn         double[3][3]   combined precession/nutation matrix
+
+@example
+rmatpn         double[3][3]   combined precession/nutation matrix
+@end example
 
 Notes:
 
-1) The TDB date @code{@vari{date} + @varii{date}} is a Julian Date, apportioned in any
-   convenient way between the two arguments.  For example,
-   JD(TDB)=2450123.7 could be expressed in any of these ways,
-   among others:
+@enumerate
+@item
+The TDB date @code{@vari{date} + @varii{date}} is a Julian Date,
+apportioned in any convenient way between the two arguments.  For
+example, @code{JD(TDB) = 2450123.7} could be expressed in any of these
+ways, among others:
 
-          date1          date2
+@example
+  date1          date2
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+450123.7           0.0       (JD method)
+451545.0       -1421.3       (J2000 method)
+400000.5       50123.2       (MJD method)
+450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in
-   cases where the loss of several decimal digits of resolution
-   is acceptable.  The J2000 method is best matched to the way
-   the argument is handled internally and will deliver the
-   optimum resolution.  The MJD method and the date & time methods
-   are both good compromises between resolution and convenience.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum resolution.  The MJD method and
+the date & time methods are both good compromises between resolution and
+convenience.
 
-2) The matrix operates in the sense V(date) = rmatpn * V(J2000),
-   where the p-vector V(date) is with respect to the true equatorial
-   triad of date @code{@vari{date} + @varii{date}} and the p-vector V(J2000) is with
-   respect to the mean equatorial triad of epoch J2000.0.
+@item
+The matrix operates in the sense @code{V(date) = rmatpn * V(J2000)},
+where the @code{p}-vector V(date) is with respect to the true equatorial
+triad of date @code{@vari{date} + @varii{date}} and the @code{p}-vector
+@code{V(J2000)} is with respect to the mean equatorial triad of epoch
+J2000.0.
+@end enumerate
 
 Called:
-   iauPmat76    precession matrix, IAU 1976
-   iauNutm80    nutation matrix, IAU 1980
+
+@table @code
+@item iauPmat76
+Precession matrix, IAU 1976.
+
+@item iauNutm80
+Nutation matrix, IAU 1980.
+
 @item iauRxr
 Product of two @code{r}-matrices.
-
+@end table
 
 Reference:
 
-   Explanatory Supplement to the Astronomical Almanac,
-   P. Kenneth Seidelmann (ed), University Science Books (1992),
-   Section 3.3 (p145).
+@itemize
+@item
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992), Section 3.3 (p145).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -10231,109 +10524,156 @@ Form the matrix of polar motion for a given date, IAU 2000.
 Status:  support function.
 
 Given:
-   xp,yp    double    coordinates of the pole (radians, Note 1)
-   sp       double    the TIO locator s' (radians, Note 2)
+
+@example
+xp,yp    double    coordinates of the pole (radians, Note 1)
+sp       double    the TIO locator s' (radians, Note 2)
+@end example
 
 Returned:
-   rpom     double[3][3]   polar-motion matrix (Note 3)
+
+@example
+rpom     double[3][3]   polar-motion matrix (Note 3)
+@end example
 
 Notes:
 
-1) The arguments xp and yp are the coordinates (in radians) of the
-   Celestial Intermediate Pole with respect to the International
-   Terrestrial Reference System (see IERS Conventions 2003),
-   measured along the meridians to 0 and 90 deg west respectively.
+@enumerate
+@item
+The arguments @var{xp} and @var{yp} are the coordinates (in radians) of
+the Celestial Intermediate Pole with respect to the International
+Terrestrial Reference System (see IERS Conventions 2003), measured along
+the meridians to 0 and 90 deg west respectively.
 
-2) The argument sp is the TIO locator s', in radians, which
-   positions the Terrestrial Intermediate Origin on the equator.  It
-   is obtained from polar motion observations by numerical
-   integration, and so is in essence unpredictable.  However, it is
-   dominated by a secular drift of about 47 microarcseconds per
-   century, and so can be taken into account by using s' = -47*t,
-   where t is centuries since J2000.0.  The function iauSp00
-   implements this approximation.
+@item
+The argument @var{sp} is the TIO locator s', in radians, which positions
+the Terrestrial Intermediate Origin on the equator.  It is obtained from
+polar motion observations by numerical integration, and so is in essence
+unpredictable.  However, it is dominated by a secular drift of about 47
+microarcseconds per century, and so can be taken into account by using
+s' = -47*t, where t is centuries since J2000.0.  The function
+@code{iauSp00} implements this approximation.
 
-3) The matrix operates in the sense V(TRS) = rpom * V(CIP), meaning
-   that it is the final rotation when computing the pointing
-   direction to a celestial source.
+@item
+The matrix operates in the sense @code{V(TRS) = rpom * V(CIP)}, meaning
+that it is the final rotation when computing the pointing direction to a
+celestial source.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauIr
 Initialize @code{r}-matrix to identity.
 
 @item iauRz
 Rotate around @math{Z}-axis.
-   iauRy        rotate around Y-axis
+
+@item iauRy
+Rotate around @math{Y}-axis.
+
 @item iauRx
 Rotate around @math{X}-axis.
-
+@end table
 
 Reference:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPpp (double @var{a}[3], double @var{b}[3], double @var{apb}[3])
-P-vector addition.
-Status:  vector/matrix support function.
+@code{p}-vector addition.
+
+Status: vector/matrix support function.
 
 Given:
+
+@example
    a        double[3]      first p-vector
    b        double[3]      second p-vector
+@end example
 
 Returned:
-   apb      double[3]      a + b
 
-Note:
-   It is permissible to re-use the same array for any of the
-   arguments.
+@example
+   apb      double[3]      a + b
+@end example
+
+Notes:
+
+@enumerate
+It is permissible to re-use the same array for any of the arguments.
+@end enumerate
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPpsp (double @var{a}[3], double @var{s}, double @var{b}[3], double @var{apsb}[3])
-P-vector plus scaled p-vector.
+@code{p}-vector plus scaled @code{p}-vector.
 Status:  vector/matrix support function.
 
 Given:
-   a      double[3]     first p-vector
-   s      double        scalar (multiplier for b)
-   b      double[3]     second p-vector
+
+@example
+a      double[3]     first p-vector
+s      double        scalar (multiplier for b)
+b      double[3]     second p-vector
+@end example
 
 Returned:
-   apsb   double[3]     a + s*b
 
-Note:
-   It is permissible for any of a, b and apsb to be the same array.
+@example
+apsb   double[3]     a + s*b
+@end example
+
+Notes:
+
+@enumerate
+@item
+It is permissible for any of @var{a}, @var{b} and @var{apsb} to be the
+same array.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauSxp
 Multiply @code{p}-vector by scalar.
 
 @item iauPpp
 @code{p}-vector plus @code{p}-vector.
-
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPr00 (double @vari{date}, double @varii{date}, double * @var{dpsipr}, double * @var{depspr})
-Precession-rate part of the IAU 2000 precession-nutation models
-(part of MHB2000).
+Precession--rate part of the IAU 2000 precession--nutation models (part
+of MHB2000).
+
 Status:  canonical model.
 
 Given:
-   date1,date2    double  TT as a 2-part Julian Date (Note 1)
+
+@example
+date1,date2    double  TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
-   dpsipr,depspr  double  precession corrections (Notes 2,3)
+
+@example
+dpsipr,depspr  double  precession corrections (Notes 2,3)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -10356,318 +10696,428 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The precession adjustments are expressed as "nutation
-   components", corrections in longitude and obliquity with respect
-   to the J2000.0 equinox and ecliptic.
+@item
+The precession adjustments are expressed as ``nutation components'',
+corrections in longitude and obliquity with respect to the J2000.0
+equinox and ecliptic.
 
-3) Although the precession adjustments are stated to be with respect
-   to Lieske et al. (1977), the MHB2000 model does not specify which
-   set of Euler angles are to be used and how the adjustments are to
-   be applied.  The most literal and straightforward procedure is to
-   adopt the 4-rotation epsilon_0, psi_A, omega_A, xi_A option, and
-   to add dpsipr to psi_A and depspr to both omega_A and eps_A.
+@item
+Although the precession adjustments are stated to be with respect to
+Lieske et al. (1977), the MHB2000 model does not specify which set of
+Euler angles are to be used and how the adjustments are to be applied.
+The most literal and straightforward procedure is to adopt the
+4-rotation epsilon_0, psi_A, omega_A, xi_A option, and to add dpsipr to
+psi_A and depspr to both omega_A and eps_A.
 
-4) This is an implementation of one aspect of the IAU 2000A nutation
-   model, formally adopted by the IAU General Assembly in 2000,
-   namely MHB2000 (Mathews et al. 2002).
+@item
+This is an implementation of one aspect of the IAU 2000A nutation model,
+formally adopted by the IAU General Assembly in 2000, namely MHB2000
+(Mathews et al. 2002).
+@end enumerate
 
 References:
 
-   Lieske, J.H., Lederle, T., Fricke, W. & Morando, B., "Expressions
-   for the precession quantities based upon the IAU (1976) System of
-   Astronomical Constants", Astron.Astrophys., 58, 1-16 (1977)
+@itemize
+@item
+Lieske, J.H., Lederle, T., Fricke, W. & Morando, B., ``Expressions for
+the precession quantities based upon the IAU (1976) System of
+Astronomical Constants'', Astron.Astrophys., 58, 1-16 (1977).
 
-   Mathews, P.M., Herring, T.A., Buffet, B.A., "Modeling of nutation
-   and precession   New nutation series for nonrigid Earth and
-   insights into the Earth's interior", J.Geophys.Res., 107, B4,
-   2002.  The MHB2000 code itself was obtained on 9th September 2002
-   from ftp://maia.usno.navy.mil/conv2000/chapter5/IAU2000A.
+@item
+Mathews, P.M., Herring, T.A., Buffet, B.A., ``Modeling of nutation and
+precession New nutation series for nonrigid Earth and insights into the
+Earth's interior'', J.Geophys.Res., 107, B4, 2002.  The MHB2000 code
+itself was obtained on 9th September 2002 from:
 
-   Wallace, P.T., "Software for Implementing the IAU 2000
-   Resolutions", in IERS Workshop 5.1 (2002).
+@center @url{ftp://maia.usno.navy.mil/conv2000/chapter5/IAU2000A}
+
+@item
+Wallace, P.T., ``Software for Implementing the IAU 2000 Resolutions'',
+in IERS Workshop 5.1 (2002).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPrec76 (double @var{ep01}, double @var{ep02}, double @var{ep11}, double @var{ep12}, double * @var{zeta}, double * @var{z}, double * @var{theta})
-IAU 1976 precession model.
+IAU 1976 precession model.  This function forms the three Euler angles
+which implement general precession between two epochs, using the IAU
+1976 model (as for the FK5 catalog).
 
-This function forms the three Euler angles which implement general
-precession between two epochs, using the IAU 1976 model (as for
-the FK5 catalog).
 Status:  canonical model.
 
 Given:
-   ep01,ep02   double    TDB starting epoch (Note 1)
-   ep11,ep12   double    TDB ending epoch (Note 1)
+
+@example
+ep01,ep02   double    TDB starting epoch (Note 1)
+ep11,ep12   double    TDB ending epoch (Note 1)
+@end example
 
 Returned:
-   zeta        double    1st rotation: radians cw around z
-   z           double    3rd rotation: radians cw around z
-   theta       double    2nd rotation: radians ccw around y
+
+@example
+zeta        double    1st rotation: radians cw around z
+z           double    3rd rotation: radians cw around z
+theta       double    2nd rotation: radians ccw around y
+@end example
 
 Notes:
 
-1) The epochs ep01+ep02 and ep11+ep12 are Julian Dates, apportioned
-   in any convenient way between the arguments epn1 and epn2.  For
-   example, JD(TDB)=2450123.7 could be expressed in any of these
-   ways, among others:
+@enumerate
+@item
+The epochs @code{@var{ep01} + @var{ep02}} and @code{@var{ep11} +
+@var{ep12}} are Julian Dates, apportioned in any convenient way between
+the arguments @var{epn1} and @var{epn2}.  For example, @code{JD(TDB) =
+2450123.7} could be expressed in any of these ways, among others:
 
-           epn1          epn2
+@example
+   epn1          epn2
 
-       2450123.7           0.0       (JD method)
-       2451545.0       -1421.3       (J2000 method)
-       2400000.5       50123.2       (MJD method)
-       2450123.5           0.2       (date & time method)
+450123.7           0.0       (JD method)
+451545.0       -1421.3       (J2000 method)
+400000.5       50123.2       (MJD method)
+450123.5           0.2       (date & time method)
+@end example
 
-   The JD method is the most natural and convenient to use in cases
-   where the loss of several decimal digits of resolution is
-   acceptable.  The J2000 method is best matched to the way the
-   argument is handled internally and will deliver the optimum
-   optimum resolution.  The MJD method and the date & time methods
-   are both good compromises between resolution and convenience.
-   The two epochs may be expressed using different methods, but at
-   the risk of losing some resolution.
+The JD method is the most natural and convenient to use in cases where
+the loss of several decimal digits of resolution is acceptable.  The
+J2000 method is best matched to the way the argument is handled
+internally and will deliver the optimum optimum resolution.  The MJD
+method and the date & time methods are both good compromises between
+resolution and convenience.  The two epochs may be expressed using
+different methods, but at the risk of losing some resolution.
 
-2) The accumulated precession angles zeta, z, theta are expressed
-   through canonical polynomials which are valid only for a limited
-   time span.  In addition, the IAU 1976 precession rate is known to
-   be imperfect.  The absolute accuracy of the present formulation
-   is better than 0.1 arcsec from 1960AD to 2040AD, better than
-   1 arcsec from 1640AD to 2360AD, and remains below 3 arcsec for
-   the whole of the period 500BC to 3000AD.  The errors exceed
-   10 arcsec outside the range 1200BC to 3900AD, exceed 100 arcsec
-   outside 4200BC to 5600AD and exceed 1000 arcsec outside 6800BC to
-   8200AD.
+@item
+The accumulated precession angles @var{zeta}, @var{z}, @var{theta} are
+expressed through canonical polynomials which are valid only for a
+limited time span.  In addition, the IAU 1976 precession rate is known
+to be imperfect.  The absolute accuracy of the present formulation is
+better than 0.1 arcsec from 1960AD to 2040AD, better than 1 arcsec from
+1640AD to 2360AD, and remains below 3 arcsec for the whole of the period
+500BC to 3000AD.  The errors exceed 10 arcsec outside the range 1200BC
+to 3900AD, exceed 100 arcsec outside 4200BC to 5600AD and exceed 1000
+arcsec outside 6800BC to 8200AD.
 
-3) The three angles are returned in the conventional order, which
-   is not the same as the order of the corresponding Euler
-   rotations.  The precession matrix is
-   R_3(-z) x R_2(+theta) x R_3(-zeta).
+@item
+The three angles are returned in the conventional order, which is not
+the same as the order of the corresponding Euler rotations.  The
+precession matrix is:
+
+@example
+R_3(-z) * R_2(+theta) * R_3(-zeta)
+@end example
+@end table
 
 Reference:
 
-   Lieske, J.H., 1979, Astron.Astrophys. 73, 282, equations
-   (6) & (7), p283.
+@itemize
+@item
+Lieske, J.H., 1979, Astron.Astrophys. 73, 282, equations (6) & (7),
+p283.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPv2p (double @var{pv}[2][3], double @var{p}[3])
-Discard velocity component of a pv-vector.
+Discard velocity component of a @var{pv}-vector.
+
 Status:  vector/matrix support function.
 
 Given:
-   pv      double[2][3]     pv-vector
+
+@example
+pv      double[2][3]     pv-vector
+@end example
 
 Returned:
-   p       double[3]        p-vector
+
+@example
+p       double[3]        p-vector
+@end enumerate
 
 Called:
+
+@table @code
 @item iauCp
 Copy @code{p}-vector.
-
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPv2s (double @var{pv}[2][3], double * @var{theta}, double * @var{phi}, double * @var{r}, double * @var{td}, double * @var{pd}, double * @var{rd})
 Convert position/velocity from Cartesian to spherical coordinates.
+
 Status:  vector/matrix support function.
 
 Given:
-   pv       double[2][3]  pv-vector
+
+@example
+pv       double[2][3]  pv-vector
+@end example
 
 Returned:
-   theta    double        longitude angle (radians)
-   phi      double        latitude angle (radians)
-   r        double        radial distance
-   td       double        rate of change of theta
-   pd       double        rate of change of phi
-   rd       double        rate of change of r
+
+@example
+theta    double        longitude angle (radians)
+phi      double        latitude angle (radians)
+r        double        radial distance
+td       double        rate of change of theta
+pd       double        rate of change of phi
+rd       double        rate of change of r
+@end example
 
 Notes:
 
-1) If the position part of pv is null, theta, phi, td and pd
-   are indeterminate.  This is handled by extrapolating the
-   position through unit time by using the velocity part of
-   pv.  This moves the origin without changing the direction
-   of the velocity component.  If the position and velocity
-   components of pv are both null, zeroes are returned for all
-   six results.
+@enumerate
+@item
+If the position part of @var{pv} is null, @var{theta}, @var{phi},
+@var{td} and @var{pd} are indeterminate.  This is handled by
+extrapolating the position through unit time by using the velocity part
+of @var{pv}.  This moves the origin without changing the direction of
+the velocity component.  If the position and velocity components of pv
+are both null, zeroes are returned for all six results.
 
-2) If the position is a pole, theta, td and pd are indeterminate.
-   In such cases zeroes are returned for all three.
+@item
+If the position is a pole, @var{theta}, @var{td} and @var{pd} are
+indeterminate.  In such cases zeroes are returned for all three.
+@end enumerate
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPvdpv (double @var{a}[2][3], double @var{b}[2][3], double @var{adb}[2])
-Inner (=scalar=dot) product of two pv-vectors.
+Inner (=scalar=dot) product of two @var{pv}-vectors.
+
 Status:  vector/matrix support function.
 
 Given:
-   a        double[2][3]      first pv-vector
-   b        double[2][3]      second pv-vector
+
+@example
+a        double[2][3]      first pv-vector
+b        double[2][3]      second pv-vector
+@end example
 
 Returned:
-   adb      double[2]         a . b (see note)
 
-Note:
+@example
+adb      double[2]         a . b (see note)
+@end example
 
-   If the position and velocity components of the two pv-vectors are
-   ( ap, av ) and ( bp, bv ), the result, a . b, is the pair of
-   numbers ( ap . bp , ap . bv + av . bp ).  The two numbers are the
-   dot-product of the two p-vectors and its derivative.
+Notes:
+
+@enumerate
+@item
+If the position and velocity components of the two @var{pv}-vectors are
+@code{(ap, av)} and @code{(bp, bv)}, the result, @code{@var{a} *
+@var{b}}, is the pair of numbers @code{(ap * bp, ap * bv + av bp)}.  The
+two numbers are the dot--product of the two @code{p}-vectors and its
+derivative.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauPdp
 Scalar product of two @code{p}-vectors.
-
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPvm (double @var{pv}[2][3], double * @var{r}, double * @var{s})
-Modulus of pv-vector.
+Modulus of @var{pv}-vector.
+
 Status:  vector/matrix support function.
 
 Given:
-   pv     double[2][3]   pv-vector
+
+@example
+pv     double[2][3]   pv-vector
+@end example
 
 Returned:
-   r      double         modulus of position component
-   s      double         modulus of velocity component
+
+@example
+r      double         modulus of position component
+s      double         modulus of velocity component
+@end enumerate
 
 Called:
+
+@table @code
 @item iauPm
 Modulus of @code{p}-vector.
-
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPvmpv (double @var{a}[2][3], double @var{b}[2][3], double @var{amb}[2][3])
-Subtract one pv-vector from another.
+Subtract one @var{pv}-vector from another.
 Status:  vector/matrix support function.
 
 Given:
-   a       double[2][3]      first pv-vector
-   b       double[2][3]      second pv-vector
+
+@example
+a       double[2][3]      first pv-vector
+b       double[2][3]      second pv-vector
+@end example
 
 Returned:
-   amb     double[2][3]      a - b
 
-Note:
-   It is permissible to re-use the same array for any of the
-   arguments.
+@example
+amb     double[2][3]      a - b
+@end example
+
+Notes:
+
+@enumerate
+@item
+It is permissible to re-use the same array for any of the arguments.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauPmp
 @code{p}-vector minus @code{p}-vector.
-
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauPvppv (double @var{a}[2][3], double @var{b}[2][3], double @var{apb}[2][3])
-Add one pv-vector to another.
+Add one @var{pv}-vector to another.
+
 Status:  vector/matrix support function.
 
 Given:
-   a        double[2][3]      first pv-vector
-   b        double[2][3]      second pv-vector
+
+@example
+a        double[2][3]      first pv-vector
+b        double[2][3]      second pv-vector
+@end example
 
 Returned:
-   apb      double[2][3]      a + b
 
-Note:
-   It is permissible to re-use the same array for any of the
-   arguments.
+@example
+apb      double[2][3]      a + b
+@end example
+
+Notes:
+
+@enumerate
+@item
+It is permissible to re-use the same array for any of the arguments.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauPpp
 @code{p}-vector plus @code{p}-vector.
-
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauPvstar (double @var{pv}[2][3], double * @var{ra}, double * @var{dec}, double * @var{pmr}, double * @var{pmd}, double * @var{px}, double * @var{rv})
 Convert star position+velocity vector to catalog coordinates.
+
 Status:  support function.
 
 Given (Note 1):
-   pv     double[2][3]   pv-vector (AU, AU/day)
+
+@example
+pv     double[2][3]   pv-vector (AU, AU/day)
+@end example
 
 Returned (Note 2):
-   ra     double         right ascension (radians)
-   dec    double         declination (radians)
-   pmr    double         RA proper motion (radians/year)
-   pmd    double         Dec proper motion (radians/year)
-   px     double         parallax (arcsec)
-   rv     double         radial velocity (km/s, positive = receding)
+
+@example
+ra     double         right ascension (radians)
+dec    double         declination (radians)
+pmr    double         RA proper motion (radians/year)
+pmd    double         Dec proper motion (radians/year)
+px     double         parallax (arcsec)
+rv     double         radial velocity (km/s, positive = receding)
+@end example
 
 Returned (function value):
-          int            status:
-                            0 = OK
-                           -1 = superluminal speed (Note 5)
-                           -2 = null position vector
+
+@example
+int            status:
+                  0 = OK
+                 -1 = superluminal speed (Note 5)
+                 -2 = null position vector
+@end example
 
 Notes:
 
-1) The specified pv-vector is the coordinate direction (and its rate
-   of change) for the date at which the light leaving the star
-   reached the solar-system barycenter.
+@enumerate
+@item
+The specified @var{pv}-vector is the coordinate direction (and its rate
+of change) for the date at which the light leaving the star reached the
+solar--system barycenter.
 
-2) The star data returned by this function are "observables" for an
-   imaginary observer at the solar-system barycenter.  Proper motion
-   and radial velocity are, strictly, in terms of barycentric
-   coordinate time, TCB.  For most practical applications, it is
-   permissible to neglect the distinction between TCB and ordinary
-   "proper" time on Earth (TT/TAI).  The result will, as a rule, be
-   limited by the intrinsic accuracy of the proper-motion and
-   radial-velocity data;  moreover, the supplied pv-vector is likely
-   to be merely an intermediate result (for example generated by the
-   function iauStarpv), so that a change of time unit will cancel
-   out overall.
+@item
+The star data returned by this function are ``observables'' for an
+imaginary observer at the solar--system barycenter.  Proper motion and
+radial velocity are, strictly, in terms of barycentric coordinate time,
+TCB.  For most practical applications, it is permissible to neglect the
+distinction between TCB and ordinary ``proper'' time on Earth (TT/TAI).
+The result will, as a rule, be limited by the intrinsic accuracy of the
+proper--motion and radial--velocity data; moreover, the supplied
+@var{pv}-vector is likely to be merely an intermediate result (for
+example generated by the function iauStarpv), so that a change of time
+unit will cancel out overall.
 
-   In accordance with normal star-catalog conventions, the object's
-   right ascension and declination are freed from the effects of
-   secular aberration.  The frame, which is aligned to the catalog
-   equator and equinox, is Lorentzian and centered on the SSB.
+In accordance with normal star--catalog conventions, the object's right
+ascension and declination are freed from the effects of secular
+aberration.  The frame, which is aligned to the catalog equator and
+equinox, is Lorentzian and centered on the SSB.
 
-   Summarizing, the specified pv-vector is for most stars almost
-   identical to the result of applying the standard geometrical
-   "space motion" transformation to the catalog data.  The
-   differences, which are the subject of the Stumpff paper cited
-   below, are:
+Summarizing, the specified @var{pv}-vector is for most stars almost
+identical to the result of applying the standard geometrical ``space
+motion'' transformation to the catalog data.  The differences, which are
+the subject of the Stumpff paper cited below, are:
 
-   (i) In stars with significant radial velocity and proper motion,
-   the constantly changing light-time distorts the apparent proper
-   motion.  Note that this is a classical, not a relativistic,
-   effect.
+@enumerate a
+@item
+In stars with significant radial velocity and proper motion, the
+constantly changing light--time distorts the apparent proper motion.
+Note that this is a classical, not a relativistic, effect.
 
-   (ii) The transformation complies with special relativity.
+@item
+The transformation complies with special relativity.
+@end enumerate
 
-3) Care is needed with units.  The star coordinates are in radians
-   and the proper motions in radians per Julian year, but the
-   parallax is in arcseconds; the radial velocity is in km/s, but
-   the pv-vector result is in AU and AU/day.
+@item
+Care is needed with units.  The star coordinates are in radians and the
+proper motions in radians per Julian year, but the parallax is in
+arcseconds; the radial velocity is in km/s, but the @var{pv}-vector
+result is in AU and AU/day.
 
-4) The proper motions are the rate of change of the right ascension
-   and declination at the catalog epoch and are in radians per Julian
-   year.  The RA proper motion is in terms of coordinate angle, not
-   true angle, and will thus be numerically larger at high
-   declinations.
+@item
+The proper motions are the rate of change of the right ascension and
+declination at the catalog epoch and are in radians per Julian year.
+The RA proper motion is in terms of coordinate angle, not true angle,
+and will thus be numerically larger at high declinations.
 
-5) Straight-line motion at constant speed in the inertial frame is
-   assumed.  If the speed is greater than or equal to the speed of
-   light, the function aborts with an error status.
+@item
+Straight--line motion at constant speed in the inertial frame is
+assumed.  If the speed is greater than or equal to the speed of light,
+the function aborts with an error status.
 
-6) The inverse transformation is performed by the function iauStarpv.
+@item
+The inverse transformation is performed by the function iauStarpv.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauPn
 Decompose @code{p}-vector into modulus and direction.
 
@@ -10691,37 +11141,51 @@ Modulus of @code{p}-vector.
 
 @item iauAnp
 Normalize angle into range 0 to 2pi.
-
+@end table
 
 Reference:
 
-   Stumpff, P., 1985, Astron.Astrophys. 144, 232-240.
+@itemize
+@item
+Stumpff, P., 1985, Astron.Astrophys. 144, 232-240.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
+@c SONO ARRIVATO QUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 @deftypefun void iauPvu (double @var{dt}, double @var{pv}[2][3], double @var{upv}[2][3])
-Update a pv-vector.
+Update a @var{pv}-vector.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    dt       double           time interval
    pv       double[2][3]     pv-vector
+@end example
 
 Returned:
+
+@example
    upv      double[2][3]     p updated, v unchanged
+@end example
 
 Notes:
 
+@enumerate
 1) "Update" means "refer the position component of the vector
    to a new date dt time units from the existing date".
 
 2) The time units of dt must match those of the velocity.
 
 3) It is permissible for pv and upv to be the same array.
+@end enumerate
 
 Called:
-   iauPpsp      p-vector plus scaled p-vector
+
+@table @code
+   iauPpsp      @code{p}-vector plus scaled @code{p}-vector
 @item iauCp
 Copy @code{p}-vector.
 
@@ -10730,18 +11194,25 @@ Copy @code{p}-vector.
 @c ------------------------------------------------------------
 
 @deftypefun void iauPvup (double @var{dt}, double @var{pv}[2][3], double @var{p}[3])
-Update a pv-vector, discarding the velocity component.
+Update a @var{pv}-vector, discarding the velocity component.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    dt       double            time interval
    pv       double[2][3]      pv-vector
+@end example
 
 Returned:
+
+@example
    p        double[3]         p-vector
+@end example
 
 Notes:
 
+@enumerate
 1) "Update" means "refer the position component of the vector to a
    new date dt time units from the existing date".
 
@@ -10751,27 +11222,37 @@ Notes:
 @c ------------------------------------------------------------
 
 @deftypefun void iauPvxpv (double @var{a}[2][3], double @var{b}[2][3], double @var{axb}[2][3])
-Outer (=vector=cross) product of two pv-vectors.
+Outer (=vector=cross) product of two @var{pv}-vectors.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    a        double[2][3]      first pv-vector
    b        double[2][3]      second pv-vector
+@end example
 
 Returned:
+
+@example
    axb      double[2][3]      a x b
+@end example
 
 Notes:
 
-1) If the position and velocity components of the two pv-vectors are
+@enumerate
+1) If the position and velocity components of the two @var{pv}-vectors are
    ( ap, av ) and ( bp, bv ), the result, a x b, is the pair of
    vectors ( ap x bp, ap x bv + av x bp ).  The two vectors are the
-   cross-product of the two p-vectors and its derivative.
+   cross-product of the two @code{p}-vectors and its derivative.
 
 2) It is permissible to re-use the same array for any of the
    arguments.
+@end enumerate
 
 Called:
+
+@table @code
    iauCpv       copy pv-vector
 @item iauPxp
 Vector product of two @code{p}-vectors.
@@ -10784,17 +11265,25 @@ Vector product of two @code{p}-vectors.
 @c ------------------------------------------------------------
 
 @deftypefun void iauPxp (double @var{a}[3], double @var{b}[3], double @var{axb}[3])
-p-vector outer (=vector=cross) product.
+@code{p}-vector outer (=vector=cross) product.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    a        double[3]      first p-vector
    b        double[3]      second p-vector
+@end example
 
 Returned:
-   axb      double[3]      a x b
 
-Note:
+@example
+   axb      double[3]      a x b
+@end example
+
+Notes:
+
+@enumerate
    It is permissible to re-use the same array for any of the
    arguments.
 @end deftypefun
@@ -10806,13 +11295,20 @@ Express an r-matrix as an r-vector.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    r        double[3][3]    rotation matrix
+@end example
 
 Returned:
+
+@example
    w        double[3]       rotation vector (Note 1)
+@end example
 
 Notes:
 
+@enumerate
 1) A rotation matrix describes a rotation through some angle about
    some arbitrary axis called the Euler axis.  The "rotation vector"
    returned by this function has the same direction as the Euler axis,
@@ -10834,13 +11330,20 @@ Form the r-matrix corresponding to a given r-vector.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    w        double[3]      rotation vector (Note 1)
+@end example
 
 Returned:
+
+@example
    r        double[3][3]    rotation matrix
+@end example
 
 Notes:
 
+@enumerate
 1) A rotation matrix describes a rotation through some angle about
    some arbitrary axis called the Euler axis.  The "rotation vector"
    supplied to This function has the same direction as the Euler
@@ -10859,13 +11362,17 @@ Rotate an r-matrix about the x-axis.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    phi    double          angle (radians)
 
 Given and returned:
    r      double[3][3]    r-matrix, rotated
+@end example
 
 Notes:
 
+@enumerate
 1) Calling this function with positive phi incorporates in the
    supplied r-matrix r an additional rotation, about the x-axis,
    anticlockwise as seen looking towards the origin from positive x.
@@ -10882,20 +11389,31 @@ Notes:
 @c ------------------------------------------------------------
 
 @deftypefun void iauRxp (double @var{r}[3][3], double @var{p}[3], double @var{rp}[3])
-Multiply a p-vector by an r-matrix.
+Multiply a @code{p}-vector by an r-matrix.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    r        double[3][3]    r-matrix
    p        double[3]       p-vector
+@end example
 
 Returned:
-   rp       double[3]       r * p
 
-Note:
+@example
+   rp       double[3]       r * p
+@end example
+
+Notes:
+
+@enumerate
    It is permissible for p and rp to be the same array.
+@end enumerate
 
 Called:
+
+@table @code
 
 @table @code
 @item iauCp
@@ -10906,20 +11424,31 @@ Copy @code{p}-vector.
 @c ------------------------------------------------------------
 
 @deftypefun void iauRxpv (double @var{r}[3][3], double @var{pv}[2][3], double @var{rpv}[2][3])
-Multiply a pv-vector by an r-matrix.
+Multiply a @var{pv}-vector by an r-matrix.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    r        double[3][3]    r-matrix
    pv       double[2][3]    pv-vector
+@end example
 
 Returned:
-   rpv      double[2][3]    r * pv
 
-Note:
+@example
+   rpv      double[2][3]    r * pv
+@end example
+
+Notes:
+
+@enumerate
    It is permissible for pv and rpv to be the same array.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauRxp
 Product of @code{r}-matrix and @code{p}-vector.
 
@@ -10932,17 +11461,28 @@ Multiply two r-matrices.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    a        double[3][3]    first r-matrix
    b        double[3][3]    second r-matrix
+@end example
 
 Returned:
-   atb      double[3][3]    a * b
 
-Note:
+@example
+   atb      double[3][3]    a * b
+@end example
+
+Notes:
+
+@enumerate
    It is permissible to re-use the same array for any of the
    arguments.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauCr
 Copy @code{r}-matrix.
 @end deftypefun
@@ -10954,13 +11494,17 @@ Rotate an r-matrix about the y-axis.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    theta  double          angle (radians)
 
 Given and returned:
    r      double[3][3]    r-matrix, rotated
+@end example
 
 Notes:
 
+@enumerate
 1) Calling this function with positive theta incorporates in the
    supplied r-matrix r an additional rotation, about the y-axis,
    anticlockwise as seen looking towards the origin from positive y.
@@ -10981,13 +11525,17 @@ Rotate an r-matrix about the z-axis.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    psi    double          angle (radians)
 
 Given and returned:
    r      double[3][3]    r-matrix, rotated
+@end example
 
 Notes:
 
+@enumerate
 1) Calling this function with positive psi incorporates in the
    supplied r-matrix r an additional rotation, about the z-axis,
    anticlockwise as seen looking towards the origin from positive z.
@@ -11006,18 +11554,22 @@ Notes:
 @deftypefun double iauS00 (double @vari{date}, double @varii{date}, double @var{x}, double @var{y})
 The CIO locator s, positioning the Celestial Intermediate Origin on
 the equator of the Celestial Intermediate Pole, given the CIP's X,Y
-coordinates.  Compatible with IAU 2000A precession-nutation.
+coordinates.  Compatible with IAU 2000A precession--nutation.
 Status:  canonical model.
 
 Given:
+
+@example
    date1,date2   double    TT as a 2-part Julian Date (Note 1)
    x,y           double    CIP coordinates (Note 3)
 
 Returned (function value):
                  double    the CIO locator s in radians (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -11053,9 +11605,12 @@ convenience.
    responsible for providing values that are consistent with the
    supplied date.
 
-4) The model is consistent with the IAU 2000A precession-nutation.
+4) The model is consistent with the IAU 2000A precession--nutation.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauFal03
 Mean anomaly of the Moon.
 
@@ -11083,10 +11638,11 @@ General accumulated precession in longitude.
 
 References:
 
-   Capitaine, N., Chapront, J., Lambert, S. and Wallace, P.,
-   "Expressions for the Celestial Intermediate Pole and Celestial
-   Ephemeris Origin consistent with the IAU 2000A precession-
-   nutation model", Astron.Astrophys. 400, 1145-1154 (2003)
+@item
+Capitaine, N., Chapront, J., Lambert, S. and Wallace, P., ``Expressions
+for the Celestial Intermediate Pole and Celestial Ephemeris Origin
+consistent with the IAU 2000A precession--nutation model'',
+Astron.Astrophys. 400, 1145-1154 (2003).
 
    n.b. The celestial ephemeris origin (CEO) was renamed "celestial
         intermediate origin" (CIO) by IAU 2006 Resolution 2.
@@ -11101,17 +11657,21 @@ Technical Note No. 32, BKG (2004).
 @deftypefun double iauS00a (double @vari{date}, double @varii{date})
 The CIO locator s, positioning the Celestial Intermediate Origin on
 the equator of the Celestial Intermediate Pole, using the IAU 2000A
-precession-nutation model.
+precession--nutation model.
 Status:  support function.
 
 Given:
+
+@example
    date1,date2  double    TT as a 2-part Julian Date (Note 1)
 
 Returned (function value):
                 double    the CIO locator s in radians (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -11147,18 +11707,22 @@ convenience.
    the CIP position.  Faster results, with no significant loss of
    accuracy, can be obtained via the function iauS00b, which uses
    instead the IAU 2000B truncated model.
+@end enumerate
 
 Called:
+
+@table @code
    iauPnm00a     classical NPB matrix, IAU 2000A
    iauBnp2xy     extract CIP X,Y from the BPN matrix
    iauS00        the CIO locator s, given X,Y, IAU 2000A
 
 References:
 
-   Capitaine, N., Chapront, J., Lambert, S. and Wallace, P.,
-   "Expressions for the Celestial Intermediate Pole and Celestial
-   Ephemeris Origin consistent with the IAU 2000A precession-
-   nutation model", Astron.Astrophys. 400, 1145-1154 (2003)
+@item
+Capitaine, N., Chapront, J., Lambert, S. and Wallace, P., ``Expressions
+for the Celestial Intermediate Pole and Celestial Ephemeris Origin
+consistent with the IAU 2000A precession--nutation model'',
+Astron.Astrophys. 400, 1145-1154 (2003).
 
    n.b. The celestial ephemeris origin (CEO) was renamed "celestial
         intermediate origin" (CIO) by IAU 2006 Resolution 2.
@@ -11173,17 +11737,21 @@ Technical Note No. 32, BKG (2004).
 @deftypefun double iauS00b (double @vari{date}, double @varii{date})
 The CIO locator s, positioning the Celestial Intermediate Origin on
 the equator of the Celestial Intermediate Pole, using the IAU 2000B
-precession-nutation model.
+precession--nutation model.
 Status:  support function.
 
 Given:
+
+@example
    date1,date2  double    TT as a 2-part Julian Date (Note 1)
 
 Returned (function value):
                 double    the CIO locator s in radians (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -11219,18 +11787,22 @@ convenience.
    predicting the CIP position.  The function iauS00a uses instead
    the full IAU 2000A model, but with no significant increase in
    accuracy and at some cost in speed.
+@end enumerate
 
 Called:
+
+@table @code
    iauPnm00b     classical NPB matrix, IAU 2000B
    iauBnp2xy     extract CIP X,Y from the BPN matrix
    iauS00        the CIO locator s, given X,Y, IAU 2000A
 
 References:
 
-   Capitaine, N., Chapront, J., Lambert, S. and Wallace, P.,
-   "Expressions for the Celestial Intermediate Pole and Celestial
-   Ephemeris Origin consistent with the IAU 2000A precession-
-   nutation model", Astron.Astrophys. 400, 1145-1154 (2003)
+@item
+Capitaine, N., Chapront, J., Lambert, S. and Wallace, P., ``Expressions
+for the Celestial Intermediate Pole and Celestial Ephemeris Origin
+consistent with the IAU 2000A precession--nutation model'',
+Astron.Astrophys. 400, 1145-1154 (2003).
 
    n.b. The celestial ephemeris origin (CEO) was renamed "celestial
         intermediate origin" (CIO) by IAU 2006 Resolution 2.
@@ -11245,18 +11817,22 @@ Technical Note No. 32, BKG (2004).
 @deftypefun double iauS06 (double @vari{date}, double @varii{date}, double @var{x}, double @var{y})
 The CIO locator s, positioning the Celestial Intermediate Origin on
 the equator of the Celestial Intermediate Pole, given the CIP's X,Y
-coordinates.  Compatible with IAU 2006/2000A precession-nutation.
+coordinates.  Compatible with IAU 2006/2000A precession--nutation.
 Status:  canonical model.
 
 Given:
+
+@example
    date1,date2   double    TT as a 2-part Julian Date (Note 1)
    x,y           double    CIP coordinates (Note 3)
 
 Returned (function value):
                  double    the CIO locator s in radians (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -11295,8 +11871,11 @@ convenience.
 4) The model is consistent with the "P03" precession (Capitaine et
    al. 2003), adopted by IAU 2006 Resolution 1, 2006, and the
    IAU 2000A nutation (with P03 adjustments).
+@end enumerate
 
 Called:
+
+@table @code
 @item iauFal03
 Mean anomaly of the Moon.
 
@@ -11340,13 +11919,17 @@ precession and IAU 2000A nutation models.
 Status:  support function.
 
 Given:
+
+@example
    date1,date2  double    TT as a 2-part Julian Date (Note 1)
 
 Returned (function value):
                 double    the CIO locator s in radians (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -11380,8 +11963,11 @@ convenience.
    more compact than a direct series for s would be.  The present
    function uses the full IAU 2000A nutation model when predicting
    the CIP position.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauPnm06a
 Classical NPB matrix, IAU 2006/2000A.
 
@@ -11394,10 +11980,11 @@ The CIO locator s, given X,Y, IAU 2006.
 
 References:
 
-   Capitaine, N., Chapront, J., Lambert, S. and Wallace, P.,
-   "Expressions for the Celestial Intermediate Pole and Celestial
-   Ephemeris Origin consistent with the IAU 2000A precession-
-   nutation model", Astron.Astrophys. 400, 1145-1154 (2003)
+@item
+Capitaine, N., Chapront, J., Lambert, S. and Wallace, P., ``Expressions
+for the Celestial Intermediate Pole and Celestial Ephemeris Origin
+consistent with the IAU 2000A precession--nutation model'',
+Astron.Astrophys. 400, 1145-1154 (2003).
 
    n.b. The celestial ephemeris origin (CEO) was renamed "celestial
         intermediate origin" (CIO) by IAU 2006 Resolution 2.
@@ -11420,28 +12007,41 @@ Convert spherical coordinates to Cartesian.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    theta    double       longitude angle (radians)
    phi      double       latitude angle (radians)
+@end example
 
 Returned:
+
+@example
    c        double[3]    direction cosines
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauS2p (double @var{theta}, double @var{phi}, double @var{r}, double @var{p}[3])
-Convert spherical polar coordinates to p-vector.
+Convert spherical polar coordinates to @code{p}-vector.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    theta   double       longitude angle (radians)
    phi     double       latitude angle (radians)
    r       double       radial distance
+@end example
 
 Returned:
+
+@example
    p       double[3]    Cartesian coordinates
+@end enumerate
 
 Called:
+
+@table @code
 @item iauS2c
 Spherical coordinates to unit vector.
 
@@ -11457,35 +12057,51 @@ Convert position/velocity from spherical to Cartesian coordinates.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    theta    double          longitude angle (radians)
    phi      double          latitude angle (radians)
    r        double          radial distance
    td       double          rate of change of theta
    pd       double          rate of change of phi
    rd       double          rate of change of r
+@end example
 
 Returned:
+
+@example
    pv       double[2][3]    pv-vector
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauS2xpv (double @var{s1}, double @var{s2}, double @var{pv}[2][3], double @var{spv}[2][3])
-Multiply a pv-vector by two scalars.
+Multiply a @var{pv}-vector by two scalars.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    s1     double         scalar to multiply position component by
    s2     double         scalar to multiply velocity component by
    pv     double[2][3]   pv-vector
+@end example
 
 Returned:
-   spv    double[2][3]   pv-vector: p scaled by s1, v scaled by s2
 
-Note:
+@example
+   spv    double[2][3]   pv-vector: p scaled by s1, v scaled by s2
+@end example
+
+Notes:
+
+@enumerate
    It is permissible for pv and spv to be the same array.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauSxp
 Multiply @code{p}-vector by scalar.
 
@@ -11494,18 +12110,22 @@ Multiply @code{p}-vector by scalar.
 @c ------------------------------------------------------------
 
 @deftypefun double iauSepp (double @var{a}[3], double @var{b}[3])
-Angular separation between two p-vectors.
+Angular separation between two @code{p}-vectors.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    a      double[3]    first p-vector (not necessarily unit length)
    b      double[3]    second p-vector (not necessarily unit length)
 
 Returned (function value):
           double       angular separation (radians, always positive)
+@end example
 
 Notes:
 
+@enumerate
 1) If either vector is null, a zero result is returned.
 
 2) The angular separation is most simply formulated in terms of
@@ -11513,8 +12133,11 @@ Notes:
    near zero and pi.  The present algorithm uses both cross product
    and dot product, to deliver full accuracy whatever the size of
    the angle.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauPxp
 Vector product of two @code{p}-vectors.
 
@@ -11533,6 +12156,8 @@ Angular separation between two sets of spherical coordinates.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    al     double       first longitude (radians)
    ap     double       first latitude (radians)
    bl     double       second longitude (radians)
@@ -11540,12 +12165,15 @@ Given:
 
 Returned (function value):
           double       angular separation (radians)
+@end enumerate
 
 Called:
+
+@table @code
 @item iauS2c
 Spherical coordinates to unit vector.
 
-   iauSepp      angular separation between two p-vectors
+   iauSepp      angular separation between two @code{p}-vectors
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -11556,13 +12184,17 @@ on the equator of the Celestial Intermediate Pole.
 Status:  canonical model.
 
 Given:
+
+@example
    date1,date2  double    TT as a 2-part Julian Date (Note 1)
 
 Returned (function value):
                 double    the TIO locator s' in radians (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -11590,9 +12222,11 @@ convenience.
    However, it is dominated by a secular drift of about
    47 microarcseconds per century, which is the approximation
    evaluated by the present function.
+@end table
 
 Reference:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
@@ -11605,6 +12239,8 @@ Star proper motion:  update star catalog data for space motion.
 Status:  support function.
 
 Given:
+
+@example
    ra1    double     right ascension (radians), before
    dec1   double     declination (radians), before
    pmr1   double     RA proper motion (radians/year), before
@@ -11615,8 +12251,11 @@ Given:
    ep1b   double     "before" epoch, part B (Note 1)
    ep2a   double     "after" epoch, part A (Note 1)
    ep2b   double     "after" epoch, part B (Note 1)
+@end example
 
 Returned:
+
+@example
    ra2    double     right ascension (radians), after
    dec2   double     declination (radians), after
    pmr2   double     RA proper motion (radians/year), after
@@ -11632,9 +12271,11 @@ Returned (function value):
                          2 = excessive velocity (Note 7)
                          4 = solution didn't converge (Note 8)
                       else = binary logical OR of the above warnings
+@end example
 
 Notes:
 
+@enumerate
 1) The starting and ending TDB dates ep1a+ep1b and ep2a+ep2b are
    Julian Dates, apportioned in any convenient way between the two
    parts (A and B).  For example, JD(TDB)=2450123.7 could be
@@ -11691,11 +12332,14 @@ Notes:
    involves an iterative calculation.  If the process fails to
    converge within a set number of iterations, 4 is added to the
    status.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauStarpv
 Star catalog data to space motion @code{pv}-vector.
-   iauPvu       update a pv-vector
+   iauPvu       update a @var{pv}-vector
 @item iauPdp
 Scalar product of two @code{p}-vectors.
 
@@ -11728,9 +12372,11 @@ Returned (function value):
                             2 = excessive speed (Note 7)
                             4 = solution didn't converge (Note 8)
                          else = binary logical OR of the above
+@end example
 
 Notes:
 
+@enumerate
 1) The star data accepted by this function are "observables" for an
    imaginary observer at the solar-system barycenter.  Proper motion
    and radial velocity are, strictly, in terms of barycentric
@@ -11738,7 +12384,7 @@ Notes:
    permissible to neglect the distinction between TCB and ordinary
    "proper" time on Earth (TT/TAI).  The result will, as a rule, be
    limited by the intrinsic accuracy of the proper-motion and
-   radial-velocity data;  moreover, the pv-vector is likely to be
+   radial-velocity data;  moreover, the @var{pv}-vector is likely to be
    merely an intermediate result, so that a change of time unit
    would cancel out overall.
 
@@ -11747,7 +12393,7 @@ Notes:
    secular aberration.  The frame, which is aligned to the catalog
    equator and equinox, is Lorentzian and centered on the SSB.
 
-2) The resulting position and velocity pv-vector is with respect to
+2) The resulting position and velocity @var{pv}-vector is with respect to
    the same frame and, like the catalog coordinates, is freed from
    the effects of secular aberration.  Should the "coordinate
    direction", where the object was located at the catalog epoch, be
@@ -11757,7 +12403,7 @@ Notes:
    velocity pv[1][0-2] by this light-time and adding the result to
    pv[0][0-2].
 
-   Summarizing, the pv-vector returned is for most stars almost
+   Summarizing, the @var{pv}-vector returned is for most stars almost
    identical to the result of applying the standard geometrical
    "space motion" transformation.  The differences, which are the
    subject of the Stumpff paper referenced below, are:
@@ -11772,7 +12418,7 @@ Notes:
 3) Care is needed with units.  The star coordinates are in radians
    and the proper motions in radians per Julian year, but the
    parallax is in arcseconds; the radial velocity is in km/s, but
-   the pv-vector result is in AU and AU/day.
+   the @var{pv}-vector result is in AU and AU/day.
 
 4) The RA proper motion is in terms of coordinate angle, not true
    angle.  If the catalog uses arcseconds for both RA and Dec proper
@@ -11798,13 +12444,16 @@ Notes:
 
 9) The inverse transformation is performed by the function
    iauPvstar.
+@end enumerate
 
 Called:
-   iauS2pv      spherical coordinates to pv-vector
+
+@table @code
+   iauS2pv      spherical coordinates to @var{pv}-vector
 @item iauPm
 Modulus of @code{p}-vector.
 
-@itemiauZp
+@item iauZp
 Zero @code{p}-vector.
 
 @item iauPn
@@ -11822,47 +12471,68 @@ Multiply @code{p}-vector by scalar.
 @item iauPpp
 @code{p}-vector plus @code{p}-vector.
 
+@end table
 
 Reference:
 
+@itemize
    Stumpff, P., 1985, Astron.Astrophys. 144, 232-240.
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauSxp (double @var{s}, double @var{p}[3], double @var{sp}[3])
-Multiply a p-vector by a scalar.
+Multiply a @code{p}-vector by a scalar.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    s      double        scalar
    p      double[3]     p-vector
+@end example
 
 Returned:
-   sp     double[3]     s * p
 
-Note:
+@example
+   sp     double[3]     s * p
+@end example
+
+Notes:
+
+@enumerate
    It is permissible for p and sp to be the same array.
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauSxpv (double s, double @var{pv}[2][3], double @var{spv}[2][3])
-Multiply a pv-vector by a scalar.
+Multiply a @var{pv}-vector by a scalar.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    s       double          scalar
    pv      double[2][3]    pv-vector
+@end example
 
 Returned:
-   spv     double[2][3]    s * pv
 
-Note:
+@example
+   spv     double[2][3]    s * pv
+@end example
+
+Notes:
+
+@enumerate
    It is permissible for pv and psv to be the same array
+@end enumerate
 
 Called:
-   iauS2xpv     multiply pv-vector by two scalars
+
+@table @code
+   iauS2xpv     multiply @var{pv}-vector by two scalars
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -11875,15 +12545,23 @@ Terrestrial Time, TT.
 Status:  canonical.
 
 Given:
+
+@example
    tai1,tai2  double    TAI as a 2-part Julian Date
+@end example
 
 Returned:
+
+@example
    tt1,tt2    double    TT as a 2-part Julian Date
 
 Returned (function value):
               int       status:  0 = OK
+@end example
 
-Note:
+Notes:
+
+@enumerate
 
    tai1+tai2 is Julian Date, apportioned in any convenient way
    between the two arguments, for example where tai1 is the Julian
@@ -11910,17 +12588,24 @@ Universal Time, UT1.
 Status:  canonical.
 
 Given:
+
+@example
    tai1,tai2  double    TAI as a 2-part Julian Date
    dta        double    UT1-TAI in seconds
+@end example
 
 Returned:
+
+@example
    ut11,ut12  double    UT1 as a 2-part Julian Date
 
 Returned (function value):
               int       status:  0 = OK
+@end example
 
 Notes:
 
+@enumerate
 1) tai1+tai2 is Julian Date, apportioned in any convenient way
    between the two arguments, for example where tai1 is the Julian
    Day Number and tai2 is the fraction of a day.  The returned
@@ -11928,9 +12613,11 @@ Notes:
 
 2) The argument dta, i.e. UT1-TAI, is an observed quantity, and is
    available from IERS tabulations.
+@end table
 
 Reference:
 
+@itemize
    Explanatory Supplement to the Astronomical Almanac,
    P. Kenneth Seidelmann (ed), University Science Books (1992)
 @end deftypefun
@@ -11945,18 +12632,25 @@ Coordinated Universal Time, UTC.
 Status:  canonical.
 
 Given:
+
+@example
    tai1,tai2  double   TAI as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
+
+@example
    utc1,utc2  double   UTC as a 2-part quasi Julian Date (Notes 1-3)
 
 Returned (function value):
               int      status: +1 = dubious year (Note 4)
                                 0 = OK
                                -1 = unacceptable date
+@end example
 
 Notes:
 
+@enumerate
 1) tai1+tai2 is Julian Date, apportioned in any convenient way
    between the two arguments, for example where tai1 is the Julian
    Day Number and tai2 is the fraction of a day.  The returned utc1
@@ -11976,8 +12670,11 @@ Notes:
 4) The warning status "dubious year" flags UTCs that predate the
    introduction of the time scale and that are too far in the future
    to be trusted.  See iauDat for further details.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauJd2cal
 JD to Gregorian calendar.
 
@@ -12008,16 +12705,23 @@ Barycentric Dynamical Time, TDB.
 Status:  canonical.
 
 Given:
+
+@example
    tcb1,tcb2  double    TCB as a 2-part Julian Date
+@end example
 
 Returned:
+
+@example
    tdb1,tdb2  double    TDB as a 2-part Julian Date
 
 Returned (function value):
               int       status:  0 = OK
+@end example
 
 Notes:
 
+@enumerate
 1) tcb1+tcb2 is Julian Date, apportioned in any convenient way
    between the two arguments, for example where tcb1 is the Julian
    Day Number and tcb2 is the fraction of a day.  The returned
@@ -12040,9 +12744,11 @@ Notes:
 
 3) TDB is essentially the same as Teph, the time argument for the
    JPL solar system ephemerides.
+@end table
 
 Reference:
 
+@itemize
    IAU 2006 Resolution B3
 @end deftypefun
 
@@ -12056,15 +12762,23 @@ Terrestrial Time, TT.
 Status:  canonical.
 
 Given:
+
+@example
    tcg1,tcg2  double    TCG as a 2-part Julian Date
+@end example
 
 Returned:
+
+@example
    tt1,tt2    double    TT as a 2-part Julian Date
 
 Returned (function value):
               int       status:  0 = OK
+@end example
 
-Note:
+Notes:
+
+@enumerate
 
    tcg1+tcg2 is Julian Date, apportioned in any convenient way
    between the two arguments, for example where tcg1 is the Julian
@@ -12089,16 +12803,23 @@ Barycentric Coordinate Time, TCB.
 Status:  canonical.
 
 Given:
+
+@example
    tdb1,tdb2  double    TDB as a 2-part Julian Date
+@end example
 
 Returned:
+
+@example
    tcb1,tcb2  double    TCB as a 2-part Julian Date
 
 Returned (function value):
               int       status:  0 = OK
+@end example
 
 Notes:
 
+@enumerate
 1) tdb1+tdb2 is Julian Date, apportioned in any convenient way
    between the two arguments, for example where tdb1 is the Julian
    Day Number and tdb2 is the fraction of a day.  The returned
@@ -12121,9 +12842,11 @@ Notes:
 
 3) TDB is essentially the same as Teph, the time argument for the
    JPL solar system ephemerides.
+@end table
 
 Reference:
 
+@itemize
    IAU 2006 Resolution B3
 @end deftypefun
 
@@ -12137,17 +12860,24 @@ Terrestrial Time, TT.
 Status:  canonical.
 
 Given:
+
+@example
    tdb1,tdb2  double    TDB as a 2-part Julian Date
    dtr        double    TDB-TT in seconds
+@end example
 
 Returned:
+
+@example
    tt1,tt2    double    TT as a 2-part Julian Date
 
 Returned (function value):
               int       status:  0 = OK
+@end example
 
 Notes:
 
+@enumerate
 1) tdb1+tdb2 is Julian Date, apportioned in any convenient way
    between the two arguments, for example where tdb1 is the Julian
    Day Number and tdb2 is the fraction of a day.  The returned
@@ -12182,12 +12912,17 @@ Convert hours, minutes, seconds to radians.
 Status:  support function.
 
 Given:
+
+@example
    s         char    sign:  '-' = negative, otherwise positive
    ihour     int     hours
    imin      int     minutes
    sec       double  seconds
+@end example
 
 Returned:
+
+@example
    rad       double  angle in radians
 
 Returned (function value):
@@ -12195,9 +12930,11 @@ Returned (function value):
                               1 = ihour outside range 0-23
                               2 = imin outside range 0-59
                               3 = sec outside range 0-59.999...
+@end example
 
 Notes:
 
+@enumerate
 1)  The result is computed even if any of the range checks fail.
 
 2)  Negative ihour, imin and/or sec produce a warning status, but
@@ -12216,12 +12953,17 @@ Convert hours, minutes, seconds to days.
 Status:  support function.
 
 Given:
+
+@example
    s         char    sign:  '-' = negative, otherwise positive
    ihour     int     hours
    imin      int     minutes
    sec       double  seconds
+@end example
 
 Returned:
+
+@example
    days      double  interval in days
 
 Returned (function value):
@@ -12229,9 +12971,11 @@ Returned (function value):
                               1 = ihour outside range 0-23
                               2 = imin outside range 0-59
                               3 = sec outside range 0-59.999...
+@end example
 
 Notes:
 
+@enumerate
 1)  The result is computed even if any of the range checks fail.
 
 2)  Negative ihour, imin and/or sec produce a warning status, but
@@ -12248,15 +12992,26 @@ Transpose an r-matrix.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    r        double[3][3]    r-matrix
+@end example
 
 Returned:
-   rt       double[3][3]    transpose
 
-Note:
+@example
+   rt       double[3][3]    transpose
+@end example
+
+Notes:
+
+@enumerate
    It is permissible for r and rt to be the same array.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauCr
 Copy @code{r}-matrix.
 @end deftypefun
@@ -12264,21 +13019,34 @@ Copy @code{r}-matrix.
 @c ------------------------------------------------------------
 
 @deftypefun void iauTrxp (double @var{r}[3][3], double @var{p}[3], double @var{trp}[3])
-Multiply a p-vector by the transpose of an r-matrix.
+Multiply a @code{p}-vector by the transpose of an r-matrix.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    r        double[3][3]   r-matrix
    p        double[3]      p-vector
+@end example
 
 Returned:
-   trp      double[3]      r * p
 
-Note:
+@example
+   trp      double[3]      r * p
+@end example
+
+Notes:
+
+@enumerate
    It is permissible for p and trp to be the same array.
+@end enumerate
 
 Called:
-   iauTr        transpose r-matrix
+
+@table @code
+@item iauTr
+Transpose @code{r}-matrix.
+
 @item iauRxp
 Product of @code{r}-matrix and @code{p}-vector.
 
@@ -12287,22 +13055,35 @@ Product of @code{r}-matrix and @code{p}-vector.
 @c ------------------------------------------------------------
 
 @deftypefun void iauTrxpv (double @var{r}[3][3], double @var{pv}[2][3], double @var{trpv}[2][3])
-Multiply a pv-vector by the transpose of an r-matrix.
+Multiply a @var{pv}-vector by the transpose of an r-matrix.
 Status:  vector/matrix support function.
 
 Given:
+
+@example
    r        double[3][3]    r-matrix
    pv       double[2][3]    pv-vector
+@end example
 
 Returned:
-   trpv     double[2][3]    r * pv
 
-Note:
+@example
+   trpv     double[2][3]    r * pv
+@end example
+
+Notes:
+
+@enumerate
    It is permissible for pv and trpv to be the same array.
+@end enumerate
 
 Called:
-   iauTr        transpose r-matrix
-   iauRxpv      product of r-matrix and pv-vector
+
+@table @code
+@item iauTr
+Transpose @code{r}-matrix.
+
+   iauRxpv      product of r-matrix and @var{pv}-vector
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -12315,15 +13096,23 @@ Atomic Time, TAI.
 Status:  canonical.
 
 Given:
+
+@example
    tt1,tt2    double    TT as a 2-part Julian Date
+@end example
 
 Returned:
+
+@example
    tai1,tai2  double    TAI as a 2-part Julian Date
 
 Returned (function value):
               int       status:  0 = OK
+@end example
 
-Note:
+Notes:
+
+@enumerate
 
    tt1+tt2 is Julian Date, apportioned in any convenient way between
    the two arguments, for example where tt1 is the Julian Day Number
@@ -12350,15 +13139,23 @@ Coordinate Time, TCG.
 Status:  canonical.
 
 Given:
+
+@example
    tt1,tt2    double    TT as a 2-part Julian Date
+@end example
 
 Returned:
+
+@example
    tcg1,tcg2  double    TCG as a 2-part Julian Date
 
 Returned (function value):
               int       status:  0 = OK
+@end example
 
-Note:
+Notes:
+
+@enumerate
 
    tt1+tt2 is Julian Date, apportioned in any convenient way between
    the two arguments, for example where tt1 is the Julian Day Number
@@ -12384,17 +13181,24 @@ Dynamical Time, TDB.
 Status:  canonical.
 
 Given:
+
+@example
    tt1,tt2    double    TT as a 2-part Julian Date
    dtr        double    TDB-TT in seconds
+@end example
 
 Returned:
+
+@example
    tdb1,tdb2  double    TDB as a 2-part Julian Date
 
 Returned (function value):
               int       status:  0 = OK
+@end example
 
 Notes:
 
+@enumerate
 1) tt1+tt2 is Julian Date, apportioned in any convenient way between
    the two arguments, for example where tt1 is the Julian Day Number
    and tt2 is the fraction of a day.  The returned tdb1,tdb2 follow
@@ -12430,26 +13234,35 @@ UT1.
 Status:  canonical.
 
 Given:
+
+@example
    tt1,tt2    double    TT as a 2-part Julian Date
    dt         double    TT-UT1 in seconds
+@end example
 
 Returned:
+
+@example
    ut11,ut12  double    UT1 as a 2-part Julian Date
 
 Returned (function value):
               int       status:  0 = OK
+@end example
 
 Notes:
 
+@enumerate
 1) tt1+tt2 is Julian Date, apportioned in any convenient way between
    the two arguments, for example where tt1 is the Julian Day Number
    and tt2 is the fraction of a day.  The returned ut11,ut12 follow
    suit.
 
 2) The argument dt is classical Delta T.
+@end table
 
 Reference:
 
+@itemize
    Explanatory Supplement to the Astronomical Almanac,
    P. Kenneth Seidelmann (ed), University Science Books (1992)
 @end deftypefun
@@ -12464,17 +13277,24 @@ Atomic Time, TAI.
 Status:  canonical.
 
 Given:
+
+@example
    ut11,ut12  double    UT1 as a 2-part Julian Date
    dta        double    UT1-TAI in seconds
+@end example
 
 Returned:
+
+@example
    tai1,tai2  double    TAI as a 2-part Julian Date
 
 Returned (function value):
               int       status:  0 = OK
+@end example
 
 Notes:
 
+@enumerate
 1) ut11+ut12 is Julian Date, apportioned in any convenient way
    between the two arguments, for example where ut11 is the Julian
    Day Number and ut12 is the fraction of a day.  The returned
@@ -12482,9 +13302,11 @@ Notes:
 
 2) The argument dta, i.e. UT1-TAI, is an observed quantity, and is
    available from IERS tabulations.
+@end table
 
 Reference:
 
+@itemize
    Explanatory Supplement to the Astronomical Almanac,
    P. Kenneth Seidelmann (ed), University Science Books (1992)
 @end deftypefun
@@ -12499,26 +13321,35 @@ Time, TT.
 Status:  canonical.
 
 Given:
+
+@example
    ut11,ut12  double    UT1 as a 2-part Julian Date
    dt         double    TT-UT1 in seconds
+@end example
 
 Returned:
+
+@example
    tt1,tt2    double    TT as a 2-part Julian Date
 
 Returned (function value):
               int       status:  0 = OK
+@end example
 
 Notes:
 
+@enumerate
 1) ut11+ut12 is Julian Date, apportioned in any convenient way
    between the two arguments, for example where ut11 is the Julian
    Day Number and ut12 is the fraction of a day.  The returned
    tt1,tt2 follow suit.
 
 2) The argument dt is classical Delta T.
+@end table
 
 Reference:
 
+@itemize
    Explanatory Supplement to the Astronomical Almanac,
    P. Kenneth Seidelmann (ed), University Science Books (1992)
 @end deftypefun
@@ -12533,19 +13364,26 @@ Universal Time, UTC.
 Status:  canonical.
 
 Given:
+
+@example
    ut11,ut12  double   UT1 as a 2-part Julian Date (Note 1)
    dut1       double   Delta UT1: UT1-UTC in seconds (Note 2)
+@end example
 
 Returned:
+
+@example
    utc1,utc2  double   UTC as a 2-part quasi Julian Date (Notes 3,4)
 
 Returned (function value):
               int      status: +1 = dubious year (Note 5)
                                 0 = OK
                                -1 = unacceptable date
+@end example
 
 Notes:
 
+@enumerate
 1) ut11+ut12 is Julian Date, apportioned in any convenient way
    between the two arguments, for example where ut11 is the Julian
    Day Number and ut12 is the fraction of a day.  The returned utc1
@@ -12570,8 +13408,11 @@ Notes:
 5) The warning status "dubious year" flags UTCs that predate the
    introduction of the time scale and that are too far in the future
    to be trusted.  See iauDat for further details.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauJd2cal
 JD to Gregorian calendar.
 
@@ -12602,18 +13443,25 @@ International Atomic Time, TAI.
 Status:  canonical.
 
 Given:
+
+@example
    utc1,utc2  double   UTC as a 2-part quasi Julian Date (Notes 1-4)
+@end example
 
 Returned:
+
+@example
    tai1,tai2  double   TAI as a 2-part Julian Date (Note 5)
 
 Returned (function value):
               int      status: +1 = dubious year (Note 3)
                                 0 = OK
                                -1 = unacceptable date
+@end example
 
 Notes:
 
+@enumerate
 1) utc1+utc2 is quasi Julian Date (see Note 2), apportioned in any
    convenient way between the two arguments, for example where utc1
    is the Julian Day Number and utc2 is the fraction of a day.
@@ -12633,8 +13481,11 @@ Notes:
 
 5) The returned TAI1,TAI2 are such that their sum is the TAI Julian
    Date.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauJd2cal
 JD to Gregorian calendar.
 
@@ -12664,19 +13515,26 @@ Universal Time, UT1.
 Status:  canonical.
 
 Given:
+
+@example
    utc1,utc2  double   UTC as a 2-part quasi Julian Date (Notes 1-4)
    dut1       double   Delta UT1 = UT1-UTC in seconds (Note 5)
+@end example
 
 Returned:
+
+@example
    ut11,ut12  double   UT1 as a 2-part Julian Date (Note 6)
 
 Returned (function value):
               int      status: +1 = dubious year (Note 7)
                                 0 = OK
                                -1 = unacceptable date
+@end example
 
 Notes:
 
+@enumerate
 1) utc1+utc2 is quasi Julian Date (see Note 2), apportioned in any
    convenient way between the two arguments, for example where utc1
    is the Julian Day Number and utc2 is the fraction of a day.
@@ -12714,8 +13572,11 @@ Technical Note No. 32, BKG (2004).
 
    Explanatory Supplement to the Astronomical Almanac,
    P. Kenneth Seidelmann (ed), University Science Books (1992)
+@end enumerate
 
 Called:
+
+@table @code
 @item iauJd2cal
 JD to Gregorian calendar.
 
@@ -12734,13 +13595,20 @@ on IAU 2006 precession and IAU 2000A nutation.
 Status:  canonical model.
 
 Given:
+
+@example
    date1,date2  double     TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
+
+@example
    x,y          double     CIP X,Y coordinates (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -12777,8 +13645,11 @@ convenience.
    negligible amount compared with the intrinsic accuracy of the
    models.  However, it would be unwise to mix the two methods
    (angles-based and series-based) in a single application.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauFal03
 Mean anomaly of the Moon.
 
@@ -12852,18 +13723,25 @@ Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 @deftypefun void iauXys00a (double @vari{date}, double @varii{date}, double * @var{x}, double * @var{y}, double * @var{s})
 For a given TT date, compute the X,Y coordinates of the Celestial
 Intermediate Pole and the CIO locator s, using the IAU 2000A
-precession-nutation model.
+precession--nutation model.
 Status:  support function.
 
 Given:
+
+@example
    date1,date2  double   TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
+
+@example
    x,y          double   Celestial Intermediate Pole (Note 2)
    s            double   the CIO locator s (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -12895,16 +13773,23 @@ convenience.
 
 4) A faster, but slightly less accurate result (about 1 mas for
    X,Y), can be obtained by using instead the iauXys00b function.
+@end enumerate
 
 Called:
+
+@table @code
    iauPnm00a    classical NPB matrix, IAU 2000A
 @item iauBpn2xy
 Extract CIP X,Y coordinates from NPB matrix.
 
-   iauS00       the CIO locator s, given X,Y, IAU 2000A
+@item iauS00
+The CIO locator s, given X,Y, IAU 2000A.
+
+@end table
 
 Reference:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
@@ -12915,18 +13800,25 @@ Technical Note No. 32, BKG (2004).
 @deftypefun void iauXys00b (double @vari{date}, double @varii{date}, double * @var{x}, double * @var{y}, double * @var{s})
 For a given TT date, compute the X,Y coordinates of the Celestial
 Intermediate Pole and the CIO locator s, using the IAU 2000B
-precession-nutation model.
+precession--nutation model.
 Status:  support function.
 
 Given:
+
+@example
    date1,date2  double   TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
+
+@example
    x,y          double   Celestial Intermediate Pole (Note 2)
    s            double   the CIO locator s (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -12958,16 +13850,24 @@ convenience.
 
 4) The present function is faster, but slightly less accurate (about
    1 mas in X,Y), than the iauXys00a function.
+@end enumerate
 
 Called:
-   iauPnm00b    classical NPB matrix, IAU 2000B
+
+@table @code
+@item iauPnm00b
+Classical NPB matrix, IAU 2000B.
+
 @item iauBpn2xy
 Extract CIP X,Y coordinates from NPB matrix.
 
-   iauS00       the CIO locator s, given X,Y, IAU 2000A
+@item iauS00
+The CIO locator s, given X,Y, IAU 2000A.
+@end table
 
 Reference:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
@@ -12982,14 +13882,21 @@ precession and IAU 2000A nutation models.
 Status:  support function.
 
 Given:
+
+@example
    date1,date2  double  TT as a 2-part Julian Date (Note 1)
+@end example
 
 Returned:
+
+@example
    x,y          double  Celestial Intermediate Pole (Note 2)
    s            double  the CIO locator s (Note 2)
+@end example
 
 Notes:
 
+@enumerate
 @item
 The TT date @code{@var{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
@@ -13021,8 +13928,11 @@ System.
 
 4) Series-based solutions for generating X and Y are also available:
    see Capitaine & Wallace (2006) and iauXy06.
+@end enumerate
 
 Called:
+
+@table @code
 @item iauPnm06a
 Classical NPB matrix, IAU 2006/2000A.
 
@@ -13031,7 +13941,7 @@ Extract CIP X,Y coordinates from NPB matrix.
 
 @item iauS06
 The CIO locator s, given X,Y, IAU 2006.
-
+@end table
 
 References:
 
@@ -13050,6 +13960,7 @@ Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 Zero a @code{p}-vector.
 
 Status: vector/matrix support function.
+@end example
 
 Returned:
 
@@ -13064,18 +13975,21 @@ p        double[3]      p-vector
 Zero a @code{pv}-vector.
 
 Status: vector/matrix support function.
+@end example
 
 Returned:
 
 @example
 pv       double[2][3]      pv-vector
 @end example
+@end enumerate
 
 Called:
 
-@example
-iauZp        zero p-vector
-@end example
+@table @code
+@item iauZp
+Zero @code{p}-vector.
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -13084,6 +13998,7 @@ iauZp        zero p-vector
 Initialize an @code{r}-matrix to the null matrix.
 
 Status:  vector/matrix support function.
+@end example
 
 Returned:
 
