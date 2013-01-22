@@ -3719,7 +3719,7 @@ Notes:
 
 @itemize
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -4553,7 +4553,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -4852,7 +4852,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -4924,7 +4924,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -4996,7 +4996,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -5132,7 +5132,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -5326,7 +5326,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -5458,7 +5458,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -5559,7 +5559,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -5622,7 +5622,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -5687,7 +5687,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -5744,7 +5744,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -5818,7 +5818,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -5952,7 +5952,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -6034,7 +6034,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -6135,7 +6135,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -6204,7 +6204,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -6276,7 +6276,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -6379,7 +6379,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -6978,7 +6978,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -7051,7 +7051,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -7124,7 +7124,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -7342,7 +7342,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -7511,7 +7511,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -7624,7 +7624,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -7720,7 +7720,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -7818,7 +7818,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -7926,7 +7926,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -8025,7 +8025,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -8086,7 +8086,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -8224,7 +8224,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -8308,7 +8308,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -8391,7 +8391,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -8478,7 +8478,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -8558,7 +8558,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -8645,7 +8645,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -8739,7 +8739,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -8814,7 +8814,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
@@ -10408,7 +10408,7 @@ Notes:
 
 @enumerate
 @item
-The TT date @code{@var{date} + @varii{date}} is a Julian Date,
+The TT date @code{@vari{date} + @varii{date}} is a Julian Date,
 apportioned in any convenient way between the two arguments.  For
 example, @code{JD(TT) = 2450123.7} could be expressed in any of these
 ways, among others:
