@@ -1671,29 +1671,29 @@ i = iauTf2d  ( s, ihour, imin, sec, &days );
 
 
 @menu
-* astronomy::                   Astronomy functions.
-* vector matrix::               Vector and matrix functions.
+* api astronomy::               Astronomy functions.
+* api vector matrix::           Vector and matrix functions.
 @end menu
 
 @c page
-@node astronomy
+@node api astronomy
 @section Astronomy functions
 
 
 @menu
-* Calendars::                   Calendars.
-* Ephemerides::                 Ephemerides.
-* FundamentalArgs::             Fundamental args.
-* PrecNutPolar::                Prec nut polar.
-* RotationAndTime::             Rotation and time.
-* SpaceMotion::                 Space motion.
-* StarCatalogs::                Star catalogs.
-* Geodetic/Geocentric::         Geodetic geocentric.
-* Timescales::                  Timescales.
+* api Calendars::               Calendars.
+* api Ephemerides::             Ephemerides.
+* api FundamentalArgs::         Fundamental args.
+* api PrecNutPolar::            Prec nut polar.
+* api RotationAndTime::         Rotation and time.
+* api SpaceMotion::             Space motion.
+* api StarCatalogs::            Star catalogs.
+* api Geodetic/Geocentric::     Geodetic geocentric.
+* api Timescales::              Timescales.
 @end menu
 
 @c page
-@node Calendars
+@node api Calendars
 @subsection Calendars
 
 
@@ -2044,7 +2044,7 @@ Seidelmann (ed), University Science Books (1992), Section 12.92 (p604).
 @end deftypefun
 
 @c page
-@node Ephemerides
+@node api Ephemerides
 @subsection Ephemerides
 
 
@@ -2362,7 +2362,7 @@ G., and Laskar, J., Astron. Astrophys. 282, 663 (1994).
 @end deftypefun
 
 @c page
-@node FundamentalArgs
+@node api FundamentalArgs
 @subsection Fundamental args
 
 
@@ -3014,7 +3014,7 @@ Astron.Astrophys.Supp.Ser. 135, 111.
 @end deftypefun
 
 @c page
-@node PrecNutPolar
+@node api PrecNutPolar
 @subsection Prec nut polar
 
 
@@ -7465,7 +7465,7 @@ precession matrix is:
 @example
 R_3(-z) * R_2(+theta) * R_3(-zeta)
 @end example
-@end table
+@end enumerate
 
 Reference:
 
@@ -8442,7 +8442,7 @@ Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 @end deftypefun
 
 @c page
-@node RotationAndTime
+@node api RotationAndTime
 @subsection Rotation and time
 
 
@@ -9764,7 +9764,7 @@ IAU Resolution C7, Recommendation 3 (1994).
 @end deftypefun
 
 @c page
-@node SpaceMotion
+@node api SpaceMotion
 @subsection Space motion
 
 
@@ -10050,7 +10050,7 @@ Stumpff, P., 1985, Astron.Astrophys. 144, 232-240.
 @end deftypefun
 
 @c page
-@node StarCatalogs
+@node api StarCatalogs
 @subsection Star catalogs
 
 
@@ -10615,7 +10615,7 @@ Space motion @code{pv}-vector to star catalog data.
 @end deftypefun
 
 @c page
-@node Geodetic/Geocentric
+@node api Geodetic/Geocentric
 @subsection Geodetic geocentric
 
 
@@ -10992,7 +10992,7 @@ Seidelmann (ed), University Science Books (1992), Section 4.22, p202.
 @end deftypefun
 
 @c page
-@node Timescales
+@node api Timescales
 @subsection Timescales
 
 
@@ -11835,7 +11835,7 @@ with values before that date.
 @item
 TDB is essentially the same as Teph, the time argument for the JPL solar
 system ephemerides.
-@end table
+@end enumerate
 
 Reference:
 
@@ -12199,7 +12199,7 @@ returned @vari{tt}, @varii{tt} follow suit.
 
 @item
 The argument @var{dt} is classical Delta T.
-@end table
+@end enumerate
 
 Reference:
 
@@ -12452,6 +12452,7 @@ Julian Date.
 The warning status ``dubious year'' flags UTCs that predate the
 introduction of the time scale and that are too far in the future to be
 trusted.  See @code{iauDat} for further details.
+@end enumerate
 
 Called:
 
@@ -12483,25 +12484,25 @@ Seidelmann (ed), University Science Books (1992).
 @end deftypefun
 
 @c page
-@node vector matrix
+@node api vector matrix
 @section Vector and matrix functions
 
 
 @menu
-* AngleOps::                    Angle operations.
-* BuildRotations::              Build rotations.
-* CopyExtendExtract::           Copy extend extract.
-* Initialization::              Initialization.
-* MatrixOps::                   Matrix operations.
-* MatrixVectorProducts::        Matrix vector products.
-* RotationVectors::             Rotation vectors.
-* SeparationAndAngle::          Separation and angle.
-* SphericalCartesian::          Spherical cartesian.
-* VectorOps::                   Vector operations.
+* api AngleOps::                Angle operations.
+* api BuildRotations::          Build rotations.
+* api CopyExtendExtract::       Copy extend extract.
+* api Initialization::          Initialization.
+* api MatrixOps::               Matrix operations.
+* api MatrixVectorProducts::    Matrix vector products.
+* api RotationVectors::         Rotation vectors.
+* api SeparationAndAngle::      Separation and angle.
+* api SphericalCartesian::      Spherical cartesian.
+* api VectorOps::               Vector operations.
 @end menu
 
 @c page
-@node AngleOps
+@node api AngleOps
 @subsection Angle operations
 
 
@@ -12883,7 +12884,7 @@ the smallest taking precedence.
 @end deftypefun
 
 @c page
-@node BuildRotations
+@node api BuildRotations
 @subsection Build rotations
 
 
@@ -12920,7 +12921,7 @@ The additional rotation can be represented by this matrix:
 (  0   +cos(phi)   +sin(phi)  )
 (  0   -sin(phi)   +cos(phi)  )
 @end example
-@enumerate
+@end enumerate
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -13000,7 +13001,7 @@ The additional rotation can be represented by this matrix:
 @end deftypefun
 
 @c page
-@node CopyExtendExtract
+@node api CopyExtendExtract
 @subsection Copy extend extract
 
 
@@ -13124,7 +13125,7 @@ Returned:
 
 @example
 p       double[3]        p-vector
-@end enumerate
+@end example
 
 Called:
 
@@ -13135,7 +13136,7 @@ Copy @code{p}-vector.
 @end deftypefun
 
 @c page
-@node Initialization
+@node api Initialization
 @subsection Initialization
 
 
@@ -13157,7 +13158,6 @@ r       double[3][3]    r-matrix
 Zero a @code{p}-vector.
 
 Status: vector/matrix support function.
-@end example
 
 Returned:
 
@@ -13172,14 +13172,12 @@ p        double[3]      p-vector
 Zero a @code{pv}-vector.
 
 Status: vector/matrix support function.
-@end example
 
 Returned:
 
 @example
 pv       double[2][3]      pv-vector
 @end example
-@end enumerate
 
 Called:
 
@@ -13195,7 +13193,6 @@ Zero @code{p}-vector.
 Initialize an @code{r}-matrix to the null matrix.
 
 Status:  vector/matrix support function.
-@end example
 
 Returned:
 
@@ -13205,7 +13202,7 @@ r        double[3][3]    r-matrix
 @end deftypefun
 
 @c page
-@node MatrixOps
+@node api MatrixOps
 @subsection Matrix operations
 
 
@@ -13277,7 +13274,7 @@ Copy @code{r}-matrix.
 @end deftypefun
 
 @c page
-@node MatrixVectorProducts
+@node api MatrixVectorProducts
 @subsection Matrix vector products
 
 
@@ -13425,7 +13422,7 @@ Product of @code{r}-matrix and @var{pv}-vector.
 @end deftypefun
 
 @c page
-@node RotationVectors
+@node api RotationVectors
 @subsection Rotation vectors
 
 
@@ -13505,7 +13502,7 @@ vector from the origin.
 @end deftypefun
 
 @c page
-@node SeparationAndAngle
+@node api SeparationAndAngle
 @subsection Separation and angle
 
 
@@ -13671,7 +13668,7 @@ Returned (function value):
 
 @example
        double       angular separation (radians)
-@end enumerate
+@end example
 
 Called:
 
@@ -13685,7 +13682,7 @@ Angular separation between two @code{p}-vectors.
 @end deftypefun
 
 @c page
-@node SphericalCartesian
+@node api SphericalCartesian
 @subsection Spherical cartesian
 
 
@@ -13845,7 +13842,7 @@ Returned:
 
 @example
 p       double[3]    Cartesian coordinates
-@end enumerate
+@end example
 
 Called:
 
@@ -13884,7 +13881,7 @@ pv       double[2][3]    pv-vector
 @end deftypefun
 
 @c page
-@node VectorOps
+@node api VectorOps
 @subsection Vector operations
 
 
@@ -14123,7 +14120,7 @@ Returned:
 @example
 r      double         modulus of position component
 s      double         modulus of velocity component
-@end enumerate
+@end example
 
 Called:
 
