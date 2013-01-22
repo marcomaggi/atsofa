@@ -2746,6 +2746,7 @@ Astron.Astrophys.Supp.Ser. 135, 111.
 @deftypefun double iauFane03 (double @var{t})
 Fundamental argument, IERS Conventions (2003):
 mean longitude of Neptune.
+
 Status: canonical model.
 
 Given:
@@ -7252,6 +7253,7 @@ Seidelmann (ed), University Science Books (1992), Section 3.3 (p145).
 
 @deftypefun void iauPom00 (double @var{xp}, double @var{yp}, double @var{sp}, double @var{rpom}[3][3])
 Form the matrix of polar motion for a given date, IAU 2000.
+
 Status: support function.
 
 Given:
@@ -14034,6 +14036,7 @@ It is permissible to re-use the same array for any of the arguments.
 
 @deftypefun void iauPpsp (double @var{a}[3], double @var{s}, double @var{b}[3], double @var{apsb}[3])
 @code{p}-vector plus scaled @code{p}-vector.
+
 Status: vector/matrix support function.
 
 Given:
@@ -14140,6 +14143,7 @@ Modulus of @code{p}-vector.
 
 @deftypefun void iauPvmpv (double @var{a}[2][3], double @var{b}[2][3], double @var{amb}[2][3])
 Subtract one @var{pv}-vector from another.
+
 Status: vector/matrix support function.
 
 Given:
