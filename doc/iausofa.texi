@@ -12505,72 +12505,6 @@ Seidelmann (ed), University Science Books (1992).
 @subsection Angle operations
 
 
-
-
-@c page
-@node BuildRotations
-@subsection Build rotations
-
-
-
-
-@c page
-@node CopyExtendExtract
-@subsection Copy extend extract
-
-
-
-
-@c page
-@node Initialization
-@subsection Initialization
-
-
-
-
-@c page
-@node MatrixOps
-@subsection Matrix operations
-
-
-
-
-@c page
-@node MatrixVectorProducts
-@subsection Matrix vector products
-
-
-
-
-@c page
-@node RotationVectors
-@subsection Rotation vectors
-
-
-
-
-@c page
-@node SeparationAndAngle
-@subsection Separation and angle
-
-
-
-
-@c page
-@node SphericalCartesian
-@subsection Spherical cartesian
-
-
-
-
-@c page
-@node VectorOps
-@subsection Vector operations
-
-
-@c page
-@c TUTTE
-
 @deftypefun void iauA2af (int @var{ndp}, double @var{angle}, char * @var{sign}, int @var{idmsf}[4])
 Decompose radians into degrees, arcminutes, arcseconds, fraction.
 
@@ -12795,39 +12729,280 @@ double     angle in range +/-pi
 
 @c ------------------------------------------------------------
 
-@deftypefun void iauC2s (double @var{p}[3], double * @var{theta}, double * @var{phi})
-@code{p}-vector to spherical coordinates.
+@deftypefun void iauD2tf (int @var{ndp}, double @var{days}, char * @var{sign}, int @var{ihmsf}[4])
+Decompose days to hours, minutes, seconds, fraction.
 
 Status: vector/matrix support function.
 
 Given:
 
 @example
-p      double[3]    p-vector
+ndp     int     resolution (Note 1)
+days    double  interval in days
 @end example
 
 Returned:
 
-@table @code
-theta  double       longitude angle (radians)
-phi    double       latitude angle (radians)
-@end table
+@example
+sign    char    '+' or '-'
+ihmsf   int[4]  hours, minutes, seconds, fraction
+@end example
 
 Notes:
 
 @enumerate
 @item
-The vector @var{p} can have any magnitude; only its direction is used.
+The argument @var{ndp} is interpreted as follows:
+
+@example
+ndp         resolution
+ :      ...0000 00 00
+-7         1000 00 00
+-6          100 00 00
+-5           10 00 00
+-4            1 00 00
+-3            0 10 00
+-2            0 01 00
+-1            0 00 10
+ 0            0 00 01
+ 1            0 00 00.1
+ 2            0 00 00.01
+ 3            0 00 00.001
+ :            0 00 00.000...
+@end example
 
 @item
-If @var{p} is null, zero @var{theta} and @var{phi} are returned.
+The largest positive useful value for @var{ndp} is determined by the
+size of days, the format of double on the target platform, and the risk
+of overflowing @code{ihmsf[3]}.  On a typical platform, for days up to
+@math{1.0}, the available floating--point precision might correspond to
+@code{@var{ndp} = 12}.  However, the practical limit is typically
+@code{@var{ndp} = 9}, set by the capacity of a 32-bit int, or
+@code{@var{ndp} = 4} if int is only 16 bits.
 
 @item
-At either pole, zero @var{theta} is returned.
+The absolute value of days may exceed @math{1.0}.  In cases where it
+does not, it is up to the caller to test for and handle the case where
+days is very nearly @math{1.0} and rounds up to 24 hours, by testing for
+@code{@var{ihmsf}[0] = 24} and setting @code{@var{ihmsf}[0-3]} to zero.
 @end enumerate
 @end deftypefun
 
 @c ------------------------------------------------------------
+
+@deftypefun int iauTf2a (char @var{s}, int @var{ihour}, int @var{imin}, double @var{sec}, double * @var{rad})
+Convert hours, minutes, seconds to radians.
+
+Status:  support function.
+
+Given:
+
+@example
+s         char    sign:  '-' = negative, otherwise positive
+ihour     int     hours
+imin      int     minutes
+sec       double  seconds
+@end example
+
+Returned:
+
+@example
+rad       double  angle in radians
+@end example
+
+Returned (function value):
+
+@example
+int     status:  0 = OK
+                 1 = ihour outside range 0-23
+                 2 = imin outside range 0-59
+                 3 = sec outside range 0-59.999...
+@end example
+
+Notes:
+
+@enumerate
+@item
+The result is computed even if any of the range checks fail.
+
+@item
+Negative @var{ihour}, @var{imin} and/or @var{sec} produce a warning
+status, but the absolute value is used in the conversion.
+
+@item
+If there are multiple errors, the status value reflects only the first,
+the smallest taking precedence.
+@end enumerate
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun int iauTf2d (char @var{s}, int @var{ihour}, int @var{imin}, double @var{sec}, double * @var{days})
+Convert hours, minutes, seconds to days.
+
+Status:  support function.
+
+Given:
+
+@example
+s         char    sign:  '-' = negative, otherwise positive
+ihour     int     hours
+imin      int     minutes
+sec       double  seconds
+@end example
+
+Returned:
+
+@example
+days      double  interval in days
+@end example
+
+Returned (function value):
+
+@example
+int     status:  0 = OK
+                 1 = ihour outside range 0-23
+                 2 = imin outside range 0-59
+                 3 = sec outside range 0-59.999...
+@end example
+
+Notes:
+
+@enumerate
+@item
+The result is computed even if any of the range checks fail.
+
+@item
+Negative @var{ihour}, @var{imin} and/or @var{sec} produce a warning
+status, but the absolute value is used in the conversion.
+
+@item
+If there are multiple errors, the status value reflects only the first,
+the smallest taking precedence.
+@end enumerate
+@end deftypefun
+
+@c page
+@node BuildRotations
+@subsection Build rotations
+
+
+@deftypefun void iauRx (double @var{phi}, double @var{r}[3][3])
+Rotate an @code{r}-matrix about the @math{X}-axis.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+phi    double          angle (radians)
+@end example
+
+Given and returned:
+
+@example
+r      double[3][3]    r-matrix, rotated
+@end example
+
+Notes:
+
+@enumerate
+@item
+Calling this function with positive phi incorporates in the supplied
+@code{r}-matrix @var{r} an additional rotation, about the @math{X}-axis,
+anticlockwise as seen looking towards the origin from positive @var{x}.
+
+@item
+The additional rotation can be represented by this matrix:
+
+@example
+(  1       0           0      )
+(  0   +cos(phi)   +sin(phi)  )
+(  0   -sin(phi)   +cos(phi)  )
+@end example
+@enumerate
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauRy (double @var{theta}, double @var{r}[3][3])
+Rotate an @code{r}-matrix about the @math{Y}-axis.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+theta  double          angle (radians)
+@end example
+
+Given and returned:
+
+@example
+r      double[3][3]    r-matrix, rotated
+@end example
+
+Notes:
+
+@enumerate
+@item
+Calling this function with positive theta incorporates in the supplied
+@code{r}-matrix @var{r} an additional rotation, about the @math{Y}-axis,
+anticlockwise as seen looking towards the origin from positive @math{Y}.
+
+@item
+The additional rotation can be represented by this matrix:
+
+@example
+(  +cos(theta)     0      -sin(theta)  )
+(      0           1          0        )
+(  +sin(theta)     0      +cos(theta)  )
+@end example
+@end enumerate
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauRz (double @var{psi}, double @var{r}[3][3])
+Rotate an @code{r}-matrix about the @math{Z}-axis.
+
+Status: vector/matrix support function.
+
+Given:
+
+@example
+psi    double          angle (radians)
+@end example
+
+Given and returned:
+
+@example
+r      double[3][3]    r-matrix, rotated
+@end example
+
+Notes:
+
+@enumerate
+@item
+Calling this function with positive psi incorporates in the supplied
+@code{r}-matrix @var{r} an additional rotation, about the @math{Z}-axis,
+anticlockwise as seen looking towards the origin from positive @math{Z}.
+
+@item
+The additional rotation can be represented by this matrix:
+
+@example
+(  +cos(psi)   +sin(psi)    0  )
+(  -sin(psi)   +cos(psi)    0  )
+(      0           0        1  )
+@end example
+@end enumerate
+@end deftypefun
+
+@c page
+@node CopyExtendExtract
+@subsection Copy extend extract
+
 
 @deftypefun void iauCp (double @var{p}[3], double @var{c}[3])
 Copy a @code{p}-vector.
@@ -12903,82 +13078,6 @@ Copy @code{p}-vector.
 
 @c ------------------------------------------------------------
 
-@deftypefun void iauD2tf (int @var{ndp}, double @var{days}, char * @var{sign}, int @var{ihmsf}[4])
-Decompose days to hours, minutes, seconds, fraction.
-
-Status: vector/matrix support function.
-
-Given:
-
-@example
-ndp     int     resolution (Note 1)
-days    double  interval in days
-@end example
-
-Returned:
-
-@example
-sign    char    '+' or '-'
-ihmsf   int[4]  hours, minutes, seconds, fraction
-@end example
-
-Notes:
-
-@enumerate
-@item
-The argument @var{ndp} is interpreted as follows:
-
-@example
-ndp         resolution
- :      ...0000 00 00
--7         1000 00 00
--6          100 00 00
--5           10 00 00
--4            1 00 00
--3            0 10 00
--2            0 01 00
--1            0 00 10
- 0            0 00 01
- 1            0 00 00.1
- 2            0 00 00.01
- 3            0 00 00.001
- :            0 00 00.000...
-@end example
-
-@item
-The largest positive useful value for @var{ndp} is determined by the
-size of days, the format of double on the target platform, and the risk
-of overflowing @code{ihmsf[3]}.  On a typical platform, for days up to
-@math{1.0}, the available floating--point precision might correspond to
-@code{@var{ndp} = 12}.  However, the practical limit is typically
-@code{@var{ndp} = 9}, set by the capacity of a 32-bit int, or
-@code{@var{ndp} = 4} if int is only 16 bits.
-
-@item
-The absolute value of days may exceed @math{1.0}.  In cases where it
-does not, it is up to the caller to test for and handle the case where
-days is very nearly @math{1.0} and rounds up to 24 hours, by testing for
-@code{@var{ihmsf}[0] = 24} and setting @code{@var{ihmsf}[0-3]} to zero.
-@end enumerate
-@end deftypefun
-
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauIr (double @var{r}[3][3])
-Initialize an @code{r}-matrix to the identity matrix.
-
-Status:  vector/matrix support function.
-
-Returned:
-
-@example
-r       double[3][3]    r-matrix
-@end example
-@end deftypefun
-
-@c ------------------------------------------------------------
-
 @deftypefun void iauP2pv (double @var{p}[3], double @var{pv}[2][3])
 Extend a @code{p}-vector to a @code{pv}-vector by appending a zero
 velocity.
@@ -13010,48 +13109,405 @@ Zero @code{p}-vector.
 
 @c ------------------------------------------------------------
 
-@deftypefun void iauP2s (double @var{p}[3], double * @var{theta}, double * @var{phi}, double * @var{r})
-@code{p}-vector to spherical polar coordinates.
+@deftypefun void iauPv2p (double @var{pv}[2][3], double @var{p}[3])
+Discard velocity component of a @var{pv}-vector.
 
 Status:  vector/matrix support function.
 
 Given:
 
 @example
-p        double[3]    p-vector
+pv      double[2][3]     pv-vector
 @end example
 
 Returned:
 
 @example
-theta    double       longitude angle (radians)
-phi      double       latitude angle (radians)
-r        double       radial distance
+p       double[3]        p-vector
+@end enumerate
+
+Called:
+
+@table @code
+@item iauCp
+Copy @code{p}-vector.
+@end table
+@end deftypefun
+
+@c page
+@node Initialization
+@subsection Initialization
+
+
+@deftypefun void iauIr (double @var{r}[3][3])
+Initialize an @code{r}-matrix to the identity matrix.
+
+Status:  vector/matrix support function.
+
+Returned:
+
+@example
+r       double[3][3]    r-matrix
+@end example
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauZp (double @var{p}[3])
+Zero a @code{p}-vector.
+
+Status: vector/matrix support function.
+@end example
+
+Returned:
+
+@example
+p        double[3]      p-vector
+@end example
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauZpv (double @var{pv}[2][3])
+Zero a @code{pv}-vector.
+
+Status: vector/matrix support function.
+@end example
+
+Returned:
+
+@example
+pv       double[2][3]      pv-vector
+@end example
+@end enumerate
+
+Called:
+
+@table @code
+@item iauZp
+Zero @code{p}-vector.
+@end table
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauZr (double @var{r}[3][3])
+Initialize an @code{r}-matrix to the null matrix.
+
+Status:  vector/matrix support function.
+@end example
+
+Returned:
+
+@example
+r        double[3][3]    r-matrix
+@end example
+@end deftypefun
+
+@c page
+@node MatrixOps
+@subsection Matrix operations
+
+
+@deftypefun void iauRxr (double @var{a}[3][3], double @var{b}[3][3], double @var{atb}[3][3])
+Multiply two @code{r}-matrices.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+a        double[3][3]    first r-matrix
+b        double[3][3]    second r-matrix
+@end example
+
+Returned:
+
+@example
+atb      double[3][3]    a * b
 @end example
 
 Notes:
 
 @enumerate
 @item
-If @var{p} is null, zero @var{theta}, @var{phi} and @var{r} are
-returned.
-
-@item
-At either pole, zero @var{theta} is returned.
+It is permissible to re-use the same array for any of the arguments.
 @end enumerate
 
 Called:
 
 @table @code
-@item iauC2s
-@code{p}-vector to spherical.
-
-@item iauPm
-Modulus of @code{p}-vector.
+@item iauCr
+Copy @code{r}-matrix.
 @end table
 @end deftypefun
 
 @c ------------------------------------------------------------
+
+@deftypefun void iauTr (double @var{r}[3][3], double @var{rt}[3][3])
+Transpose an @code{r}-matrix.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+r        double[3][3]    r-matrix
+@end example
+
+Returned:
+
+@example
+rt       double[3][3]    transpose
+@end example
+
+Notes:
+
+@enumerate
+@item
+It is permissible for @var{r} and @var{rt} to be the same array.
+@end enumerate
+
+Called:
+
+@table @code
+@item iauCr
+Copy @code{r}-matrix.
+@end table
+@end deftypefun
+
+@c page
+@node MatrixVectorProducts
+@subsection Matrix vector products
+
+
+@deftypefun void iauRxp (double @var{r}[3][3], double @var{p}[3], double @var{rp}[3])
+Multiply a @code{p}-vector by an @code{r}-matrix.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+r        double[3][3]    r-matrix
+p        double[3]       p-vector
+@end example
+
+Returned:
+
+@example
+rp       double[3]       r * p
+@end example
+
+Notes:
+
+@enumerate
+It is permissible for p and rp to be the same array.
+@end enumerate
+
+Called:
+
+@table @code
+@item iauCp
+Copy @code{p}-vector.
+@end table
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauRxpv (double @var{r}[3][3], double @var{pv}[2][3], double @var{rpv}[2][3])
+Multiply a @var{pv}-vector by an @code{r}-matrix.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+r        double[3][3]    r-matrix
+pv       double[2][3]    pv-vector
+@end example
+
+Returned:
+
+@example
+rpv      double[2][3]    r * pv
+@end example
+
+Notes:
+
+@enumerate
+@item
+It is permissible for @var{pv} and @var{rpv} to be the same array.
+@end enumerate
+
+Called:
+
+@table @code
+@item iauRxp
+Product of @code{r}-matrix and @code{p}-vector.
+@end table
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauTrxp (double @var{r}[3][3], double @var{p}[3], double @var{trp}[3])
+Multiply a @code{p}-vector by the transpose of an @code{r}-matrix.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+r        double[3][3]   r-matrix
+p        double[3]      p-vector
+@end example
+
+Returned:
+
+@example
+trp      double[3]      r * p
+@end example
+
+Notes:
+
+@enumerate
+@item
+It is permissible for @var{p} and @var{trp} to be the same array.
+@end enumerate
+
+Called:
+
+@table @code
+@item iauTr
+Transpose @code{r}-matrix.
+
+@item iauRxp
+Product of @code{r}-matrix and @code{p}-vector.
+@end table
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauTrxpv (double @var{r}[3][3], double @var{pv}[2][3], double @var{trpv}[2][3])
+Multiply a @var{pv}-vector by the transpose of an @code{r}-matrix.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+r        double[3][3]    r-matrix
+pv       double[2][3]    pv-vector
+@end example
+
+Returned:
+
+@example
+trpv     double[2][3]    r * pv
+@end example
+
+Notes:
+
+@enumerate
+@item
+It is permissible for @var{pv} and @var{trpv} to be the same array.
+@end enumerate
+
+Called:
+
+@table @code
+@item iauTr
+Transpose @code{r}-matrix.
+
+@item iauRxpv
+Product of @code{r}-matrix and @var{pv}-vector.
+@end table
+@end deftypefun
+
+@c page
+@node RotationVectors
+@subsection Rotation vectors
+
+
+@deftypefun void iauRm2v (double @var{r}[3][3], double @var{w}[3])
+Express an @code{r}-matrix as an @code{r}-vector.
+
+Status: vector/matrix support function.
+
+Given:
+
+@example
+r        double[3][3]    rotation matrix
+@end example
+
+Returned:
+
+@example
+w        double[3]       rotation vector (Note 1)
+@end example
+
+Notes:
+
+@enumerate
+@item
+A rotation matrix describes a rotation through some angle about some
+arbitrary axis called the Euler axis.  The ``rotation vector'' returned
+by this function has the same direction as the Euler axis, and its
+magnitude is the angle in radians.  (The magnitude and direction can be
+separated by means of the function @code{iauPn}.)
+
+@item
+If @var{r} is null, so is the result.  If @var{r} is not a rotation
+matrix the result is undefined; @var{r} must be proper (i.e. have a
+positive determinant) and real orthogonal (inverse = transpose).
+
+@item
+The reference frame rotates clockwise as seen looking along the rotation
+vector from the origin.
+@end enumerate
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauRv2m (double @var{w}[3], double @var{r}[3][3])
+Form the @code{r}-matrix corresponding to a given @code{r}-vector.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+w        double[3]      rotation vector (Note 1)
+@end example
+
+Returned:
+
+@example
+r        double[3][3]    rotation matrix
+@end example
+
+Notes:
+
+@enumerate
+@item
+A rotation matrix describes a rotation through some angle about some
+arbitrary axis called the Euler axis.  The ``rotation vector'' supplied
+to This function has the same direction as the Euler axis, and its
+magnitude is the angle in radians.
+
+@item
+If @var{w} is null, the unit matrix is returned.
+
+@item
+The reference frame rotates clockwise as seen looking along the rotation
+vector from the origin.
+@end enumerate
+@end deftypefun
+
+@c page
+@node SeparationAndAngle
+@subsection Separation and angle
+
 
 @deftypefun double iauPap (double @var{a}[3], double @var{b}[3])
 Position--angle from two @code{p}-vectors.
@@ -13149,6 +13605,288 @@ Zero is returned if the two points are coincident.
 @end deftypefun
 
 @c ------------------------------------------------------------
+
+@deftypefun double iauSepp (double @var{a}[3], double @var{b}[3])
+Angular separation between two @code{p}-vectors.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+a      double[3]    first p-vector (not necessarily unit length)
+b      double[3]    second p-vector (not necessarily unit length)
+@end example
+
+Returned (function value):
+
+@example
+       double       angular separation (radians, always positive)
+@end example
+
+Notes:
+
+@enumerate
+@item
+If either vector is null, a zero result is returned.
+
+@item
+The angular separation is most simply formulated in terms of scalar
+product.  However, this gives poor accuracy for angles near zero and
+@math{\pi}.  The present algorithm uses both cross product and dot
+product, to deliver full accuracy whatever the size of the angle.
+@end enumerate
+
+Called:
+
+@table @code
+@item iauPxp
+Vector product of two @code{p}-vectors.
+
+@item iauPm
+Modulus of @code{p}-vector.
+
+@item iauPdp
+Scalar product of two @code{p}-vectors.
+@end table
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun double iauSeps (double @var{al}, double @var{ap}, double @var{bl}, double @var{bp})
+Angular separation between two sets of spherical coordinates.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+al     double       first longitude (radians)
+ap     double       first latitude (radians)
+bl     double       second longitude (radians)
+bp     double       second latitude (radians)
+@end example
+
+Returned (function value):
+
+@example
+       double       angular separation (radians)
+@end enumerate
+
+Called:
+
+@table @code
+@item iauS2c
+Spherical coordinates to unit vector.
+
+@item iauSepp
+Angular separation between two @code{p}-vectors.
+@end table
+@end deftypefun
+
+@c page
+@node SphericalCartesian
+@subsection Spherical cartesian
+
+
+@deftypefun void iauC2s (double @var{p}[3], double * @var{theta}, double * @var{phi})
+@code{p}-vector to spherical coordinates.
+
+Status: vector/matrix support function.
+
+Given:
+
+@example
+p      double[3]    p-vector
+@end example
+
+Returned:
+
+@table @code
+theta  double       longitude angle (radians)
+phi    double       latitude angle (radians)
+@end table
+
+Notes:
+
+@enumerate
+@item
+The vector @var{p} can have any magnitude; only its direction is used.
+
+@item
+If @var{p} is null, zero @var{theta} and @var{phi} are returned.
+
+@item
+At either pole, zero @var{theta} is returned.
+@end enumerate
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauP2s (double @var{p}[3], double * @var{theta}, double * @var{phi}, double * @var{r})
+@code{p}-vector to spherical polar coordinates.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+p        double[3]    p-vector
+@end example
+
+Returned:
+
+@example
+theta    double       longitude angle (radians)
+phi      double       latitude angle (radians)
+r        double       radial distance
+@end example
+
+Notes:
+
+@enumerate
+@item
+If @var{p} is null, zero @var{theta}, @var{phi} and @var{r} are
+returned.
+
+@item
+At either pole, zero @var{theta} is returned.
+@end enumerate
+
+Called:
+
+@table @code
+@item iauC2s
+@code{p}-vector to spherical.
+
+@item iauPm
+Modulus of @code{p}-vector.
+@end table
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauPv2s (double @var{pv}[2][3], double * @var{theta}, double * @var{phi}, double * @var{r}, double * @var{td}, double * @var{pd}, double * @var{rd})
+Convert position/velocity from Cartesian to spherical coordinates.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+pv       double[2][3]  pv-vector
+@end example
+
+Returned:
+
+@example
+theta    double        longitude angle (radians)
+phi      double        latitude angle (radians)
+r        double        radial distance
+td       double        rate of change of theta
+pd       double        rate of change of phi
+rd       double        rate of change of r
+@end example
+
+Notes:
+
+@enumerate
+@item
+If the position part of @var{pv} is null, @var{theta}, @var{phi},
+@var{td} and @var{pd} are indeterminate.  This is handled by
+extrapolating the position through unit time by using the velocity part
+of @var{pv}.  This moves the origin without changing the direction of
+the velocity component.  If the position and velocity components of pv
+are both null, zeroes are returned for all six results.
+
+@item
+If the position is a pole, @var{theta}, @var{td} and @var{pd} are
+indeterminate.  In such cases zeroes are returned for all three.
+@end enumerate
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauS2c (double @var{theta}, double @var{phi}, double @var{c}[3])
+Convert spherical coordinates to Cartesian.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+theta    double       longitude angle (radians)
+phi      double       latitude angle (radians)
+@end example
+
+Returned:
+
+@example
+c        double[3]    direction cosines
+@end example
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauS2p (double @var{theta}, double @var{phi}, double @var{r}, double @var{p}[3])
+Convert spherical polar coordinates to @code{p}-vector.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+theta   double       longitude angle (radians)
+phi     double       latitude angle (radians)
+r       double       radial distance
+@end example
+
+Returned:
+
+@example
+p       double[3]    Cartesian coordinates
+@end enumerate
+
+Called:
+
+@table @code
+@item iauS2c
+Spherical coordinates to unit vector.
+
+@item iauSxp
+Multiply @code{p}-vector by scalar.
+@end table
+@end deftypefun
+
+@c ------------------------------------------------------------
+
+@deftypefun void iauS2pv (double @var{theta}, double @var{phi}, double @var{r}, double @var{td}, double @var{pd}, double @var{rd}, double @var{pv}[2][3])
+Convert position/velocity from spherical to Cartesian coordinates.
+
+Status:  vector/matrix support function.
+
+Given:
+
+@example
+theta    double          longitude angle (radians)
+phi      double          latitude angle (radians)
+r        double          radial distance
+td       double          rate of change of theta
+pd       double          rate of change of phi
+rd       double          rate of change of r
+@end example
+
+Returned:
+
+@example
+pv       double[2][3]    pv-vector
+@end example
+@end deftypefun
+
+@c page
+@node VectorOps
+@subsection Vector operations
+
 
 @deftypefun double iauPdp (double @var{a}[3], double @var{b}[3])
 @code{p}-vector inner (=scalar=dot) product.
@@ -13326,74 +14064,6 @@ Multiply @code{p}-vector by scalar.
 @item iauPpp
 @code{p}-vector plus @code{p}-vector.
 @end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauPv2p (double @var{pv}[2][3], double @var{p}[3])
-Discard velocity component of a @var{pv}-vector.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-pv      double[2][3]     pv-vector
-@end example
-
-Returned:
-
-@example
-p       double[3]        p-vector
-@end enumerate
-
-Called:
-
-@table @code
-@item iauCp
-Copy @code{p}-vector.
-@end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauPv2s (double @var{pv}[2][3], double * @var{theta}, double * @var{phi}, double * @var{r}, double * @var{td}, double * @var{pd}, double * @var{rd})
-Convert position/velocity from Cartesian to spherical coordinates.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-pv       double[2][3]  pv-vector
-@end example
-
-Returned:
-
-@example
-theta    double        longitude angle (radians)
-phi      double        latitude angle (radians)
-r        double        radial distance
-td       double        rate of change of theta
-pd       double        rate of change of phi
-rd       double        rate of change of r
-@end example
-
-Notes:
-
-@enumerate
-@item
-If the position part of @var{pv} is null, @var{theta}, @var{phi},
-@var{td} and @var{pd} are indeterminate.  This is handled by
-extrapolating the position through unit time by using the velocity part
-of @var{pv}.  This moves the origin without changing the direction of
-the velocity component.  If the position and velocity components of pv
-are both null, zeroes are returned for all six results.
-
-@item
-If the position is a pole, @var{theta}, @var{td} and @var{pd} are
-indeterminate.  In such cases zeroes are returned for all three.
-@end enumerate
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -13686,379 +14356,6 @@ It is permissible to re-use the same array for any of the arguments.
 
 @c ------------------------------------------------------------
 
-@deftypefun void iauRm2v (double @var{r}[3][3], double @var{w}[3])
-Express an @code{r}-matrix as an @code{r}-vector.
-
-Status: vector/matrix support function.
-
-Given:
-
-@example
-r        double[3][3]    rotation matrix
-@end example
-
-Returned:
-
-@example
-w        double[3]       rotation vector (Note 1)
-@end example
-
-Notes:
-
-@enumerate
-@item
-A rotation matrix describes a rotation through some angle about some
-arbitrary axis called the Euler axis.  The ``rotation vector'' returned
-by this function has the same direction as the Euler axis, and its
-magnitude is the angle in radians.  (The magnitude and direction can be
-separated by means of the function @code{iauPn}.)
-
-@item
-If @var{r} is null, so is the result.  If @var{r} is not a rotation
-matrix the result is undefined; @var{r} must be proper (i.e. have a
-positive determinant) and real orthogonal (inverse = transpose).
-
-@item
-The reference frame rotates clockwise as seen looking along the rotation
-vector from the origin.
-@end enumerate
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauRv2m (double @var{w}[3], double @var{r}[3][3])
-Form the @code{r}-matrix corresponding to a given @code{r}-vector.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-w        double[3]      rotation vector (Note 1)
-@end example
-
-Returned:
-
-@example
-r        double[3][3]    rotation matrix
-@end example
-
-Notes:
-
-@enumerate
-@item
-A rotation matrix describes a rotation through some angle about some
-arbitrary axis called the Euler axis.  The ``rotation vector'' supplied
-to This function has the same direction as the Euler axis, and its
-magnitude is the angle in radians.
-
-@item
-If @var{w} is null, the unit matrix is returned.
-
-@item
-The reference frame rotates clockwise as seen looking along the rotation
-vector from the origin.
-@end enumerate
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauRx (double @var{phi}, double @var{r}[3][3])
-Rotate an @code{r}-matrix about the @math{X}-axis.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-phi    double          angle (radians)
-@end example
-
-Given and returned:
-
-@example
-r      double[3][3]    r-matrix, rotated
-@end example
-
-Notes:
-
-@enumerate
-@item
-Calling this function with positive phi incorporates in the supplied
-@code{r}-matrix @var{r} an additional rotation, about the @math{X}-axis,
-anticlockwise as seen looking towards the origin from positive @var{x}.
-
-@item
-The additional rotation can be represented by this matrix:
-
-@example
-(  1       0           0      )
-(  0   +cos(phi)   +sin(phi)  )
-(  0   -sin(phi)   +cos(phi)  )
-@end example
-@enumerate
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauRxp (double @var{r}[3][3], double @var{p}[3], double @var{rp}[3])
-Multiply a @code{p}-vector by an @code{r}-matrix.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-r        double[3][3]    r-matrix
-p        double[3]       p-vector
-@end example
-
-Returned:
-
-@example
-rp       double[3]       r * p
-@end example
-
-Notes:
-
-@enumerate
-It is permissible for p and rp to be the same array.
-@end enumerate
-
-Called:
-
-@table @code
-@item iauCp
-Copy @code{p}-vector.
-@end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauRxpv (double @var{r}[3][3], double @var{pv}[2][3], double @var{rpv}[2][3])
-Multiply a @var{pv}-vector by an @code{r}-matrix.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-r        double[3][3]    r-matrix
-pv       double[2][3]    pv-vector
-@end example
-
-Returned:
-
-@example
-rpv      double[2][3]    r * pv
-@end example
-
-Notes:
-
-@enumerate
-@item
-It is permissible for @var{pv} and @var{rpv} to be the same array.
-@end enumerate
-
-Called:
-
-@table @code
-@item iauRxp
-Product of @code{r}-matrix and @code{p}-vector.
-@end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauRxr (double @var{a}[3][3], double @var{b}[3][3], double @var{atb}[3][3])
-Multiply two @code{r}-matrices.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-a        double[3][3]    first r-matrix
-b        double[3][3]    second r-matrix
-@end example
-
-Returned:
-
-@example
-atb      double[3][3]    a * b
-@end example
-
-Notes:
-
-@enumerate
-@item
-It is permissible to re-use the same array for any of the arguments.
-@end enumerate
-
-Called:
-
-@table @code
-@item iauCr
-Copy @code{r}-matrix.
-@end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauRy (double @var{theta}, double @var{r}[3][3])
-Rotate an @code{r}-matrix about the @math{Y}-axis.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-theta  double          angle (radians)
-@end example
-
-Given and returned:
-
-@example
-r      double[3][3]    r-matrix, rotated
-@end example
-
-Notes:
-
-@enumerate
-@item
-Calling this function with positive theta incorporates in the supplied
-@code{r}-matrix @var{r} an additional rotation, about the @math{Y}-axis,
-anticlockwise as seen looking towards the origin from positive @math{Y}.
-
-@item
-The additional rotation can be represented by this matrix:
-
-@example
-(  +cos(theta)     0      -sin(theta)  )
-(      0           1          0        )
-(  +sin(theta)     0      +cos(theta)  )
-@end example
-@end enumerate
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauRz (double @var{psi}, double @var{r}[3][3])
-Rotate an @code{r}-matrix about the @math{Z}-axis.
-
-Status: vector/matrix support function.
-
-Given:
-
-@example
-psi    double          angle (radians)
-@end example
-
-Given and returned:
-
-@example
-r      double[3][3]    r-matrix, rotated
-@end example
-
-Notes:
-
-@enumerate
-@item
-Calling this function with positive psi incorporates in the supplied
-@code{r}-matrix @var{r} an additional rotation, about the @math{Z}-axis,
-anticlockwise as seen looking towards the origin from positive @math{Z}.
-
-@item
-The additional rotation can be represented by this matrix:
-
-@example
-(  +cos(psi)   +sin(psi)    0  )
-(  -sin(psi)   +cos(psi)    0  )
-(      0           0        1  )
-@end example
-@end enumerate
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauS2c (double @var{theta}, double @var{phi}, double @var{c}[3])
-Convert spherical coordinates to Cartesian.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-theta    double       longitude angle (radians)
-phi      double       latitude angle (radians)
-@end example
-
-Returned:
-
-@example
-c        double[3]    direction cosines
-@end example
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauS2p (double @var{theta}, double @var{phi}, double @var{r}, double @var{p}[3])
-Convert spherical polar coordinates to @code{p}-vector.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-theta   double       longitude angle (radians)
-phi     double       latitude angle (radians)
-r       double       radial distance
-@end example
-
-Returned:
-
-@example
-p       double[3]    Cartesian coordinates
-@end enumerate
-
-Called:
-
-@table @code
-@item iauS2c
-Spherical coordinates to unit vector.
-
-@item iauSxp
-Multiply @code{p}-vector by scalar.
-@end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauS2pv (double @var{theta}, double @var{phi}, double @var{r}, double @var{td}, double @var{pd}, double @var{rd}, double @var{pv}[2][3])
-Convert position/velocity from spherical to Cartesian coordinates.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-theta    double          longitude angle (radians)
-phi      double          latitude angle (radians)
-r        double          radial distance
-td       double          rate of change of theta
-pd       double          rate of change of phi
-rd       double          rate of change of r
-@end example
-
-Returned:
-
-@example
-pv       double[2][3]    pv-vector
-@end example
-@end deftypefun
-
-@c ------------------------------------------------------------
-
 @deftypefun void iauS2xpv (double @var{s1}, double @var{s2}, double @var{pv}[2][3], double @var{spv}[2][3])
 Multiply a @var{pv}-vector by two scalars.
 
@@ -14090,86 +14387,6 @@ Called:
 @table @code
 @item iauSxp
 Multiply @code{p}-vector by scalar.
-@end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun double iauSepp (double @var{a}[3], double @var{b}[3])
-Angular separation between two @code{p}-vectors.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-a      double[3]    first p-vector (not necessarily unit length)
-b      double[3]    second p-vector (not necessarily unit length)
-@end example
-
-Returned (function value):
-
-@example
-       double       angular separation (radians, always positive)
-@end example
-
-Notes:
-
-@enumerate
-@item
-If either vector is null, a zero result is returned.
-
-@item
-The angular separation is most simply formulated in terms of scalar
-product.  However, this gives poor accuracy for angles near zero and
-@math{\pi}.  The present algorithm uses both cross product and dot
-product, to deliver full accuracy whatever the size of the angle.
-@end enumerate
-
-Called:
-
-@table @code
-@item iauPxp
-Vector product of two @code{p}-vectors.
-
-@item iauPm
-Modulus of @code{p}-vector.
-
-@item iauPdp
-Scalar product of two @code{p}-vectors.
-@end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun double iauSeps (double @var{al}, double @var{ap}, double @var{bl}, double @var{bp})
-Angular separation between two sets of spherical coordinates.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-al     double       first longitude (radians)
-ap     double       first latitude (radians)
-bl     double       second longitude (radians)
-bp     double       second latitude (radians)
-@end example
-
-Returned (function value):
-
-@example
-       double       angular separation (radians)
-@end enumerate
-
-Called:
-
-@table @code
-@item iauS2c
-Spherical coordinates to unit vector.
-
-@item iauSepp
-Angular separation between two @code{p}-vectors.
 @end table
 @end deftypefun
 
@@ -14234,263 +14451,6 @@ Called:
 @item iauS2xpv
 Multiply @var{pv}-vector by two scalars.
 @end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun int iauTf2a (char @var{s}, int @var{ihour}, int @var{imin}, double @var{sec}, double * @var{rad})
-Convert hours, minutes, seconds to radians.
-
-Status:  support function.
-
-Given:
-
-@example
-s         char    sign:  '-' = negative, otherwise positive
-ihour     int     hours
-imin      int     minutes
-sec       double  seconds
-@end example
-
-Returned:
-
-@example
-rad       double  angle in radians
-@end example
-
-Returned (function value):
-
-@example
-int     status:  0 = OK
-                 1 = ihour outside range 0-23
-                 2 = imin outside range 0-59
-                 3 = sec outside range 0-59.999...
-@end example
-
-Notes:
-
-@enumerate
-@item
-The result is computed even if any of the range checks fail.
-
-@item
-Negative @var{ihour}, @var{imin} and/or @var{sec} produce a warning
-status, but the absolute value is used in the conversion.
-
-@item
-If there are multiple errors, the status value reflects only the first,
-the smallest taking precedence.
-@end enumerate
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun int iauTf2d (char @var{s}, int @var{ihour}, int @var{imin}, double @var{sec}, double * @var{days})
-Convert hours, minutes, seconds to days.
-
-Status:  support function.
-
-Given:
-
-@example
-s         char    sign:  '-' = negative, otherwise positive
-ihour     int     hours
-imin      int     minutes
-sec       double  seconds
-@end example
-
-Returned:
-
-@example
-days      double  interval in days
-@end example
-
-Returned (function value):
-
-@example
-int     status:  0 = OK
-                 1 = ihour outside range 0-23
-                 2 = imin outside range 0-59
-                 3 = sec outside range 0-59.999...
-@end example
-
-Notes:
-
-@enumerate
-@item
-The result is computed even if any of the range checks fail.
-
-@item
-Negative @var{ihour}, @var{imin} and/or @var{sec} produce a warning
-status, but the absolute value is used in the conversion.
-
-@item
-If there are multiple errors, the status value reflects only the first,
-the smallest taking precedence.
-@end enumerate
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauTr (double @var{r}[3][3], double @var{rt}[3][3])
-Transpose an @code{r}-matrix.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-r        double[3][3]    r-matrix
-@end example
-
-Returned:
-
-@example
-rt       double[3][3]    transpose
-@end example
-
-Notes:
-
-@enumerate
-@item
-It is permissible for @var{r} and @var{rt} to be the same array.
-@end enumerate
-
-Called:
-
-@table @code
-@item iauCr
-Copy @code{r}-matrix.
-@end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauTrxp (double @var{r}[3][3], double @var{p}[3], double @var{trp}[3])
-Multiply a @code{p}-vector by the transpose of an @code{r}-matrix.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-r        double[3][3]   r-matrix
-p        double[3]      p-vector
-@end example
-
-Returned:
-
-@example
-trp      double[3]      r * p
-@end example
-
-Notes:
-
-@enumerate
-@item
-It is permissible for @var{p} and @var{trp} to be the same array.
-@end enumerate
-
-Called:
-
-@table @code
-@item iauTr
-Transpose @code{r}-matrix.
-
-@item iauRxp
-Product of @code{r}-matrix and @code{p}-vector.
-@end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauTrxpv (double @var{r}[3][3], double @var{pv}[2][3], double @var{trpv}[2][3])
-Multiply a @var{pv}-vector by the transpose of an @code{r}-matrix.
-
-Status:  vector/matrix support function.
-
-Given:
-
-@example
-r        double[3][3]    r-matrix
-pv       double[2][3]    pv-vector
-@end example
-
-Returned:
-
-@example
-trpv     double[2][3]    r * pv
-@end example
-
-Notes:
-
-@enumerate
-@item
-It is permissible for @var{pv} and @var{trpv} to be the same array.
-@end enumerate
-
-Called:
-
-@table @code
-@item iauTr
-Transpose @code{r}-matrix.
-
-@item iauRxpv
-Product of @code{r}-matrix and @var{pv}-vector.
-@end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauZp (double @var{p}[3])
-Zero a @code{p}-vector.
-
-Status: vector/matrix support function.
-@end example
-
-Returned:
-
-@example
-p        double[3]      p-vector
-@end example
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauZpv (double @var{pv}[2][3])
-Zero a @code{pv}-vector.
-
-Status: vector/matrix support function.
-@end example
-
-Returned:
-
-@example
-pv       double[2][3]      pv-vector
-@end example
-@end enumerate
-
-Called:
-
-@table @code
-@item iauZp
-Zero @code{p}-vector.
-@end table
-@end deftypefun
-
-@c ------------------------------------------------------------
-
-@deftypefun void iauZr (double @var{r}[3][3])
-Initialize an @code{r}-matrix to the null matrix.
-
-Status:  vector/matrix support function.
-@end example
-
-Returned:
-
-@example
-r        double[3][3]    r-matrix
-@end example
 @end deftypefun
 
 @c page
