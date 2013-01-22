@@ -120,8 +120,6 @@ The repackaging into @value{PACKAGE} is by @value{AUTHOR}
 
 Appendices
 
-* consts fortran::              @sofa{} Fortran constants.
-* consts c::                    @sofa{} C constants.
 * board::                       @iau{} Standards of Fundamental
                                 Astronomy Board.
 * license::                     Package license.
@@ -1673,6 +1671,8 @@ i = iauTf2d  ( s, ihour, imin, sec, &days );
 @menu
 * api astronomy::               Astronomy functions.
 * api vector matrix::           Vector and matrix functions.
+* api consts fortran::          Fortran language constants.
+* api consts c::                C language constants.
 @end menu
 
 @c page
@@ -14453,8 +14453,8 @@ Multiply @var{pv}-vector by two scalars.
 @end deftypefun
 
 @c page
-@node consts fortran
-@appendix @sofa{} Fortran constants
+@node api consts fortran
+@section Fortran language constants
 
 
 These must be used exactly as presented below.
@@ -14522,12 +14522,146 @@ PARAMETER ( DAS2R = 4.848136811095359935899141D-6 )
 @end table
 
 @c page
-@node consts c
-@appendix @sofa{} C constants
+@node api consts c
+@section C language constants
 
 
 The constants used by the C version of @sofa{} are defined in the header
 file @file{sofam.h}.
+
+
+@defvr Constant DPI
+Pi.
+@end defvr
+
+
+@defvr Constant D2PI
+Twice pi.
+@end defvr
+
+
+@defvr Constant DD2R
+Degrees to radians.
+@end defvr
+
+
+@defvr Constant DR2AS
+Radians to arcseconds.
+@end defvr
+
+
+@defvr Constant DAS2R
+Arcseconds to radians.
+@end defvr
+
+
+@defvr Constant DS2R
+Seconds of time to radians.
+@end defvr
+
+
+@defvr Constant TURNAS
+Arcseconds in a full circle.
+@end defvr
+
+
+@defvr Constant DMAS2R
+Milliarcseconds to radians.
+@end defvr
+
+
+@defvr Constant DTY
+Length of tropical year B1900 (days).
+@end defvr
+
+
+@defvr Constant DAYSEC
+Seconds per day..
+@end defvr
+
+
+@defvr Constant DJY
+Days per Julian year.
+@end defvr
+
+
+@defvr Constant DJC
+Days per Julian century.
+@end defvr
+
+
+@defvr Constant DJM
+Days per Julian millennium.
+@end defvr
+
+
+@defvr Constant DJ00
+Reference epoch (J2000.0), Julian Date.
+@end defvr
+
+
+@defvr Constant DJM0
+Julian Date of Modified Julian Date zero.
+@end defvr
+
+
+@defvr Constant DJM00
+Reference epoch (J2000.0), Modified Julian Date.
+@end defvr
+
+
+@defvr Constant DJM77
+1977 Jan 1.0 as MJD.
+@end defvr
+
+
+@defvr Constant TTMTAI
+TT minus TAI (s).
+@end defvr
+
+
+@defvr Constant DAU
+AU (m).
+@end defvr
+
+
+@defvr Constant DC
+Speed of light (AU per day).
+@end defvr
+
+
+@defvr Constant ELG
+L_G = 1 - d(TT)/d(TCG).
+@end defvr
+
+
+@defvr Constant ELB
+@defvrx constant TDB0
+@code{L_B = 1 - d(TDB)/d(TCB)} and TDB (s) at TAI 1977/1/1.0.
+@end defvr
+
+
+@defvr Constant WGS84
+@defvrx Constant GRS80
+@defvrx Constant WGS72
+Reference ellipsoids.
+@end defvr
+
+@c ------------------------------------------------------------
+
+@deftypefn {Preprocessor Macro} double dint (double @var{A})
+Truncate to nearest whole number towards zero (double).
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} double dnint (double @var{A})
+Round to nearest whole number.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} double dsign (double @var{A}, double @var{B})
+Magnitude of @var{A} with sign of @var{B}.
+@end deftypefn
 
 @c page
 @node board
