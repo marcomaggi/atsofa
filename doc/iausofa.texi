@@ -2492,6 +2492,7 @@ Simon et al. (1994).
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
@@ -2499,6 +2500,7 @@ Technical Note No. 32, BKG (2004).
 @item
 Simon, J.-L., Bretagnon, P., Chapront, J., Chapront-Touze, M., Francou,
 G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
