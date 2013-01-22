@@ -49,9 +49,9 @@ This document describes version @value{VERSION} of @value{PACKAGE}, the
 International Astronomical Union's @sofa{} Collection of libraries
 repackaged using the @gnu{} Autotools.
 
-@value{PACKAGE} is neither distributed, supported nor endorsed by the
-International Astronomical Union.  Any use of this pacakge should comply
-with @sofa{}'s license and terms of use.  Especially, but not
+@value{PACKAGE} is neither distributed, nor supported, nor endorsed by
+the International Astronomical Union.  Any use of this pacakge should
+comply with @sofa{}'s license and terms of use.  Especially, but not
 exclusively, any published work or commercial products which includes
 results achieved by using @value{PACKAGE} shall acknowledge that the
 @sofa{} software was used in obtaining those results.
@@ -65,6 +65,11 @@ Astronomical Union's @sofa{} license and its development takes place at:
 proper release tarballs are available from:
 
 @center @url{http://code.google.com/p/libtoolisations/downloads/list}
+
+@noindent
+the International Astronomical Union's @sofa{} project home page is at:
+
+@center @url{http://www.iausofa.org/}
 
 @noindent
 Copyright @copyright{} International Astronomical Union Standards of
@@ -174,13 +179,12 @@ Star catalogue conversion.
 This package makes use of the @gnu{} Autotools to allow easy
 distribution and installation of @sofa{}.
 
-@value{PACKAGE} is neither distributed, supported nor endorsed by the
-International Astronomical Union.  Any use of this pacakge should comply
-with @sofa{}'s license and terms of use.  Especially, but not
+@value{PACKAGE} is neither distributed, nor supported, nor endorsed by
+the International Astronomical Union.  Any use of this pacakge should
+comply with @sofa{}'s license and terms of use.  Especially, but not
 exclusively, any published work or commercial products which includes
 results achieved by using @value{PACKAGE} shall acknowledge that the
 @sofa{} software was used in obtaining those results.
-
 
 @c page
 @node intro
@@ -210,7 +214,7 @@ the @sofa{} Center (the outlet for @sofa{} products) were announced.
 
 The @sofa{} initiative was originally proposed by the @iau{} Working
 Group on Astronomical Standards (@acronym{WGAS}), under the chairmanship
-of Toshio Fukushima.  The proposal was for ``...new arrangements to
+of Toshio Fukushima.  The proposal was for ``@dots{}new arrangements to
 establish and maintain an accessible and authoritative set of constants,
 algorithms and procedures that implement standard models used in
 fundamental astronomy''.  The @sofa{} Software Libraries implement the
@@ -1700,7 +1704,7 @@ i = iauTf2d  ( s, ihour, imin, sec, &days );
 @deftypefun int iauCal2jd (int @var{iy}, int @var{im}, int @var{id}, double * @var{djm0}, double * @var{djm})
 Gregorian Calendar to Julian Date.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -1757,7 +1761,7 @@ Seidelmann (ed), University Science Books (1992), Section 12.92 (p604).
 @deftypefun double iauEpb (double @var{dj1}, double @var{dj2})
 Julian Date to Besselian Epoch.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -1794,7 +1798,7 @@ Lieske,J.H., 1979. Astron.Astrophys.,73,282.
 @deftypefun void iauEpb2jd (double @var{epb}, double * @var{djm0}, double * @var{djm})
 Besselian Epoch to Julian Date.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -1831,7 +1835,7 @@ Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
 @deftypefun double iauEpj (double @var{dj1}, double @var{dj2})
 Julian Date to Julian Epoch.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -1868,7 +1872,7 @@ Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
 @deftypefun void iauEpj2jd (double @var{epj}, double * @var{djm0}, double * @var{djm})
 Julian Epoch to Julian Date.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -1905,7 +1909,7 @@ Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
 @deftypefun int iauJd2cal (double @var{dj1}, double @var{dj2}, int * @var{iy}, int * @var{im}, int * @var{id}, double * @var{fd})
 Julian Date to Gregorian year, month, day, and fraction of a day.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -1972,7 +1976,7 @@ Seidelmann (ed), University Science Books (1992), Section 12.92 (p604).
 Julian Date to Gregorian Calendar, expressed in a form convenient for
 formatting messages: rounded to a specified precision.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -2052,7 +2056,7 @@ Seidelmann (ed), University Science Books (1992), Section 12.92 (p604).
 Earth position and velocity, heliocentric and barycentric, with respect
 to the Barycentric Celestial Reference System.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -2169,7 +2173,7 @@ Approximate heliocentric position and velocity of a nominated major
 planet: Mercury, Venus, EMB, Mars, Jupiter, Saturn, Uranus or Neptune
 (but not the Earth itself).
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -2370,7 +2374,7 @@ G., and Laskar, J., Astron. Astrophys. 282, 663 (1994).
 Fundamental argument, IERS Conventions (2003): mean elongation of the
 Moon from the Sun.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2414,7 +2418,7 @@ G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 @deftypefun double iauFae03 (double @var{t})
 Fundamental argument, IERS Conventions (2003): mean longitude of Earth.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2463,7 +2467,7 @@ Astron.Astrophys.Supp.Ser. 135, 111.
 Fundamental argument, IERS Conventions (2003): mean longitude of the
 Moon minus mean longitude of the ascending node.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2509,7 +2513,7 @@ G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 Fundamental argument, IERS Conventions (2003): mean longitude of
 Jupiter.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2557,7 +2561,7 @@ Astron.Astrophys.Supp.Ser. 135, 111.
 @deftypefun double iauFal03 (double @var{t})
 Fundamental argument, IERS Conventions (2003): mean anomaly of the Moon.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2601,7 +2605,7 @@ G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 @deftypefun double iauFalp03 (double @var{t})
 Fundamental argument, IERS Conventions (2003): mean anomaly of the Sun.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2645,7 +2649,7 @@ G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 @deftypefun double iauFama03 (double @var{t})
 Fundamental argument, IERS Conventions (2003): mean longitude of Mars.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2694,7 +2698,7 @@ Astron.Astrophys.Supp.Ser. 135, 111.
 Fundamental argument, IERS Conventions (2003): mean longitude of
 Mercury.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2742,7 +2746,7 @@ Astron.Astrophys.Supp.Ser. 135, 111.
 @deftypefun double iauFane03 (double @var{t})
 Fundamental argument, IERS Conventions (2003):
 mean longitude of Neptune.
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2787,7 +2791,7 @@ G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 Fundamental argument, IERS Conventions (2003): mean longitude of the
 Moon's ascending node.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2832,7 +2836,7 @@ G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 Fundamental argument, IERS Conventions (2003): general accumulated
 precession in longitude.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2880,7 +2884,7 @@ Technical Note No. 32, BKG (2004).
 @deftypefun double iauFasa03 (double @var{t})
 Fundamental argument, IERS Conventions (2003): mean longitude of Saturn.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2928,7 +2932,7 @@ Astron.Astrophys.Supp.Ser. 135, 111.
 @deftypefun double iauFaur03 (double @var{t})
 Fundamental argument, IERS Conventions (2003): mean longitude of Uranus.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -2972,7 +2976,7 @@ G., Laskar, J. 1994, Astron.Astrophys. 282, 663-683.
 @deftypefun double iauFave03 (double @var{t})
 Fundamental argument, IERS Conventions (2003): mean longitude of Venus.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -3273,7 +3277,7 @@ Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 Extract from the bias--precession--nutation matrix the @math{x},
 @math{y} coordinates of the Celestial Intermediate Pole.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -3595,7 +3599,7 @@ Technical Note No. 32, BKG
 Form the celestial--to--intermediate matrix for a given date given the
 bias--precession--nutation matrix.  IAU 2000.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -3785,7 +3789,7 @@ Technical Note No. 32, BKG (2004).
 Form the celestial to intermediate--frame--of--date matrix given the CIP
 @var{x}, @var{y} and the CIO locator @var{s}.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -3856,7 +3860,7 @@ Technical Note No. 32, BKG (2004)
 Form the celestial to terrestrial matrix given the date, the UT1 and the
 polar motion, using the IAU 2000A nutation model.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -3960,7 +3964,7 @@ Technical Note No. 32, BKG (2004)
 Form the celestial to terrestrial matrix given the date, the UT1 and the
 polar motion, using the IAU 2000B nutation model.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -4062,7 +4066,7 @@ Form the celestial to terrestrial matrix given the date, the UT1 and the
 polar motion, using the IAU 2006 precession and IAU 2000A nutation
 models.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -4163,7 +4167,7 @@ Assemble the celestial to terrestrial matrix from CIO-based components
 (the celestial--to--intermediate matrix, the Earth Rotation Angle and
 the polar motion matrix).
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -4236,7 +4240,7 @@ Assemble the celestial to terrestrial matrix from equinox-based
 components (the celestial--to--true matrix, the Greenwich Apparent
 Sidereal Time and the polar motion matrix).
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -4309,7 +4313,7 @@ Technical Note No. 32, BKG (2004)
 Form the celestial to terrestrial matrix given the date, the UT1, the
 nutation and the polar motion.  IAU 2000.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -4423,7 +4427,7 @@ Technical Note No. 32, BKG (2004).
 Form the celestial to terrestrial matrix given the date, the UT1, the
 CIP coordinates and the polar motion.  IAU 2000.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -4530,7 +4534,7 @@ Technical Note No. 32, BKG (2004).
 @deftypefun double iauEo06a (double @vari{date}, double @varii{date})
 Equation of the origins, IAU 2006 precession and IAU 2000A nutation.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -4611,7 +4615,7 @@ Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 Equation of the origins, given the classical NPB matrix and the quantity
 @var{s}.
 
-Status:  support function.
+Status: support function.
 
 Given:
 @example
@@ -4656,7 +4660,7 @@ Wallace, P. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 @deftypefun void iauFw2m (double @var{gamb}, double @var{phib}, double @var{psi}, double @var{eps}, double r[3][3])
 Form rotation matrix given the Fukushima--Williams angles.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -4753,7 +4757,7 @@ Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
 @deftypefun void iauFw2xy (double @var{gamb}, double @var{phib}, double @var{psi}, double @var{eps}, double * @var{x}, double * @var{y})
 CIP X,Y given Fukushima--Williams bias--precession--nutation angles.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -4829,7 +4833,7 @@ Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
 @deftypefun void iauNum00a (double @vari{date}, double @varii{date}, double @var{rmatn}[3][3])
 Form the matrix of nutation for a given date, IAU 2000A model.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -4901,7 +4905,7 @@ Seidelmann (ed), University Science Books (1992), Section 3.222-3
 @deftypefun void iauNum00b (double @vari{date}, double @varii{date}, double @var{rmatn}[3][3])
 Form the matrix of nutation for a given date, IAU 2000B model.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -4973,7 +4977,7 @@ Seidelmann (ed), University Science Books (1992), Section 3.222-3
 @deftypefun void iauNum06a (double @vari{date}, double @varii{date}, double @var{rmatn}[3][3])
 Form the matrix of nutation for a given date, IAU 2006/2000A model.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -5047,7 +5051,7 @@ Seidelmann (ed), University Science Books (1992), Section 3.222-3
 @deftypefun void iauNumat (double @var{epsa}, double @var{dpsi}, double @var{deps}, double @var{rmatn}[3][3])
 Form the matrix of nutation.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -5109,7 +5113,7 @@ Seidelmann (ed), University Science Books (1992), Section 3.222-3
 Nutation, IAU 2000A model (MHB2000 luni-solar and planetary nutation
 with free core nutation omitted).
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -5303,7 +5307,7 @@ in IERS Workshop 5.1 (2002).
 @deftypefun void iauNut00b (double @vari{date}, double @varii{date}, double * @var{dpsi}, double * @var{deps})
 Nutation, IAU 2000B model.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -5435,7 +5439,7 @@ G., Laskar, J., Astron.Astrophys. 282, 663-683 (1994).
 @deftypefun void iauNut06a (double @vari{date}, double @varii{date}, double * @var{dpsi}, double * @var{deps})
 IAU 2000A nutation with adjustments to match the IAU 2006 precession.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -5535,7 +5539,7 @@ in IERS Workshop 5.1 (2002).
 @deftypefun void iauNut80 (double @vari{date}, double @varii{date}, double * @var{dpsi}, double * @var{deps})
 Nutation, IAU 1980 model.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -5599,7 +5603,7 @@ Seidelmann (ed), University Science Books (1992), Section 3.222 (p111).
 @deftypefun void iauNutm80 (double @vari{date}, double @varii{date}, double @var{rmatn}[3][3])
 Form the matrix of nutation for a given date, IAU 1980 model.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -5664,7 +5668,7 @@ Form nutation matrix.
 @deftypefun double iauObl06 (double @vari{date}, double @varii{date})
 Mean obliquity of the ecliptic, IAU 2006 precession model.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -5721,7 +5725,7 @@ Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
 @deftypefun double iauObl80 (double @vari{date}, double @varii{date})
 Mean obliquity of the ecliptic, IAU 1980 model.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -5780,7 +5784,7 @@ Seidelmann (ed), University Science Books (1992), Expression 3.222-1
 @deftypefun void iauP06e (double @vari{date}, double @varii{date}, double * @var{eps0}, double * @var{psia}, double * @var{oma}, double * @var{bpa}, double * @var{bqa}, double * @var{pia}, double * @var{bpia}, double * @var{epsa}, double * @var{chia}, double * @var{za}, double * @var{zetaa}, double * @var{thetaa}, double * @var{pa}, double * @var{gam}, double * @var{phi}, double * @var{psi})
 Precession angles, IAU 2006, equinox based.
 
-Status:  canonical models.
+Status: canonical models.
 
 Given:
 
@@ -5927,7 +5931,7 @@ This function forms three Euler angles which implement general
 precession from epoch J2000.0, using the IAU 2006 model.  Frame bias
 (the offset between ICRS and mean J2000.0) is included.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -6008,7 +6012,7 @@ Rotate around @math{Z}-axis.
 @deftypefun void iauPfw06 (double @vari{date}, double @varii{date}, double * @var{gamb}, double * @var{phib}, double * @var{psib}, double * @var{epsa})
 Precession angles, IAU 2006 (Fukushima--Williams 4-angle formulation).
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -6112,7 +6116,7 @@ Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351.
 Precession matrix (including frame bias) from GCRS to a specified date,
 IAU 2000 model.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -6181,7 +6185,7 @@ General Assembly, Manchester, UK.  Resolutions B1.3, B1.6.  (2000).
 Precession matrix (including frame bias) from GCRS to a specified date,
 IAU 2006 model.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -6350,7 +6354,7 @@ Precession--nutation, IAU 2000 model: a multi--purpose function,
 supporting classical (equinox--based) use directly and CIO--based use
 indirectly.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -6478,7 +6482,7 @@ Precession--nutation, IAU 2000A model: a multi--purpose function,
 supporting classical (equinox--based) use directly and CIO--based use
 indirectly.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -6599,7 +6603,7 @@ Precession--nutation, IAU 2000B model: a multi--purpose function,
 supporting classical (equinox--based) use directly and CIO--based use
 indirectly.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -6720,7 +6724,7 @@ Precession--nutation, IAU 2006 model: a multi--purpose function,
 supporting classical (equinox--based) use directly and CIO--based use
 indirectly.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -6844,7 +6848,7 @@ Precession--nutation, IAU 2006/2000A models: a multi--purpose function,
 supporting classical (equinox--based) use directly and CIO--based use
 indirectly.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -6955,7 +6959,7 @@ Capitaine, N. & Wallace, P.T., 2006, Astron.Astrophys. 450, 855.
 Form the matrix of precession--nutation for a given date (including
 frame bias), equinox--based, IAU 2000A model.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -7101,7 +7105,7 @@ General Assembly, Manchester, UK.  Resolutions B1.3, B1.6.  (2000).
 Form the matrix of precession--nutation for a given date (including
 frame bias), IAU 2006 precession and IAU 2000A nutation models.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -7175,7 +7179,7 @@ Capitaine, N. & Wallace, P.T., 2006, Astron.Astrophys. 450, 855.
 Form the matrix of precession/nutation for a given date, IAU 1976
 precession model, IAU 1980 nutation model.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -7248,7 +7252,7 @@ Seidelmann (ed), University Science Books (1992), Section 3.3 (p145).
 
 @deftypefun void iauPom00 (double @var{xp}, double @var{yp}, double @var{sp}, double @var{rpom}[3][3])
 Form the matrix of polar motion for a given date, IAU 2000.
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -7318,7 +7322,7 @@ Technical Note No. 32, BKG (2004).
 Precession--rate part of the IAU 2000 precession--nutation models (part
 of MHB2000).
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -7405,7 +7409,7 @@ IAU 1976 precession model.  This function forms the three Euler angles
 which implement general precession between two epochs, using the IAU
 1976 model (as for the FK5 catalog).
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -7486,7 +7490,7 @@ on the equator of the Celestial Intermediate Pole, given the CIP's
 @math{X}, @math{Y} coordinates.  Compatible with IAU 2000A
 precession--nutation.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -8001,7 +8005,7 @@ Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 The TIO locator @math{s'}, positioning the Terrestrial Intermediate
 Origin on the equator of the Celestial Intermediate Pole.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -8199,7 +8203,7 @@ For a given TT date, compute the @math{X}, @math{Y} coordinates of the
 Celestial Intermediate Pole and the CIO locator @math{s}, using the IAU
 2000A precession--nutation model.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -8283,7 +8287,7 @@ For a given TT date, compute the @math{X}, @math{Y} coordinates of the
 Celestial Intermediate Pole and the CIO locator @math{s}, using the IAU
 2000B precession--nutation model.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -8366,7 +8370,7 @@ For a given TT date, compute the X,Y coordinates of the Celestial
 Intermediate Pole and the CIO locator @math{s}, using the IAU 2006
 precession and IAU 2000A nutation models.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -8452,7 +8456,7 @@ Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 The equation of the equinoxes, compatible with IAU 2000 resolutions,
 given the nutation in longitude and the mean obliquity.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -8534,7 +8538,7 @@ Technical Note No. 32, BKG (2004).
 @deftypefun double iauEe00a (double @vari{date}, double @varii{date})
 Equation of the equinoxes, compatible with IAU 2000 resolutions.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -8715,7 +8719,7 @@ Technical Note No. 32, BKG (2004).
 Equation of the equinoxes, compatible with IAU 2000 resolutions and IAU
 2006/2000A precession--nutation.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -8790,7 +8794,7 @@ Technical Note No. 32, BKG
 Equation of the equinoxes complementary terms, consistent with IAU 2000
 resolutions.
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -8994,7 +8998,7 @@ Capitaine, N. & Gontier, A.-M., 1993, Astron. Astrophys., 275, 645-650.
 @deftypefun double iauEra00 (double @var{dj1}, double @var{dj2})
 Earth rotation angle (IAU 2000 model).
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -9067,7 +9071,7 @@ Technical Note No. 32, BKG (2004).
 Greenwich mean sidereal time (model consistent with IAU 2000
 resolutions).
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -9156,7 +9160,7 @@ Technical Note No. 32, BKG (2004).
 @deftypefun double iauGmst06 (double @var{uta}, double @var{utb}, double @var{tta}, double @var{ttb})
 Greenwich mean sidereal time (consistent with IAU 2006 precession).
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -9236,7 +9240,7 @@ Astron.Astrophys. 432, 355.
 @deftypefun double iauGmst82 (double @var{dj1}, double @var{dj2})
 Universal Time to Greenwich mean sidereal time (IAU 1982 model).
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -9315,7 +9319,7 @@ Aoki et al., Astron. Astrophys. 105, 359-361 (1982).
 @deftypefun double iauGst00a (double @var{uta}, double @var{utb}, double @var{tta}, double @var{ttb})
 Greenwich apparent sidereal time (consistent with IAU 2000 resolutions).
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -9408,7 +9412,7 @@ Technical Note No. 32, BKG (2004).
 Greenwich apparent sidereal time (consistent with IAU 2000
 resolutions but using the truncated nutation model IAU 2000B).
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -9513,7 +9517,7 @@ Technical Note No. 32, BKG (2004).
 @deftypefun double iauGst06 (double @var{uta}, double @var{utb}, double @var{tta}, double @var{ttb}, double @var{rnpb}[3][3])
 Greenwich apparent sidereal time, IAU 2006, given the NPB matrix.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -9604,7 +9608,7 @@ Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 Greenwich apparent sidereal time (consistent with IAU 2000 and 2006
 resolutions).
 
-Status:  canonical model.
+Status: canonical model.
 
 Given:
 
@@ -9685,7 +9689,7 @@ Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 Greenwich apparent sidereal time (consistent with IAU 1982/94
 resolutions).
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -9773,7 +9777,7 @@ IAU Resolution C7, Recommendation 3 (1994).
 @deftypefun int iauPvstar (double @var{pv}[2][3], double * @var{ra}, double * @var{dec}, double * @var{pmr}, double * @var{pmd}, double * @var{px}, double * @var{rv})
 Convert star position+velocity vector to catalog coordinates.
 
-Status:  support function.
+Status: support function.
 
 Given (Note 1):
 
@@ -9903,7 +9907,7 @@ Stumpff, P., 1985, Astron.Astrophys. 144, 232-240.
 @deftypefun int iauStarpv (double @var{ra}, double @var{dec}, double @var{pmr}, double @var{pmd}, double @var{px}, double @var{rv}, double @var{pv}[2][3])
 Convert star catalog coordinates to position+velocity vector.
 
-Status:  support function.
+Status: support function.
 
 Given (Note 1):
 
@@ -10059,7 +10063,7 @@ Stumpff, P., 1985, Astron.Astrophys. 144, 232-240.
 @deftypefun void iauFk52h (double @var{r5}, double @var{d5}, double @var{dr5}, double @var{dd5}, double @var{px5}, double @var{rv5}, double * @var{rh}, double * @var{dh}, double * @var{drh}, double * @var{ddh}, double * @var{pxh}, double * @var{rvh})
 Transform FK5 (J2000.0) star data into the Hipparcos system.
 
-Status:  support function.
+Status: support function.
 
 Given (all FK5, equinox J2000.0, epoch J2000.0):
 
@@ -10137,7 +10141,7 @@ F.Mignard & M.Froeschle, Astron. Astrophys. 354, 732-739 (2000).
 @deftypefun void iauFk5hip (double @var{r5h}[3][3], double @var{s5h}[3])
 FK5 to Hipparcos rotation and spin.
 
-Status:  support function.
+Status: support function.
 
 Returned:
 
@@ -10191,7 +10195,7 @@ F.Mignard & M.Froeschle, Astron. Astrophys. 354, 732-739 (2000).
 Transform an FK5 (J2000.0) star position into the system of the
 Hipparcos catalogue, assuming zero Hipparcos proper motion.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -10293,7 +10297,7 @@ F.Mignard & M.Froeschle, 2000, Astron.Astrophys. 354, 732-739.
 @deftypefun void iauH2fk5 (double @var{rh}, double @var{dh}, double @var{drh}, double @var{ddh}, double @var{pxh}, double @var{rvh}, double * @var{r5}, double * @var{d5}, double * @var{dr5}, double * @var{dd5}, double * @var{px5}, double * @var{rv5})
 Transform Hipparcos star data into the FK5 (J2000.0) system.
 
-Status:  support function.
+Status: support function.
 
 Given (all Hipparcos, epoch J2000.0):
 
@@ -10378,7 +10382,7 @@ F.Mignard & M.Froeschle, Astron. Astrophys. 354, 732-739 (2000).
 Transform a Hipparcos star position into FK5 J2000.0, assuming zero
 Hipparcos proper motion.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -10489,7 +10493,7 @@ F.Mignard & M.Froeschle, 2000, Astron.Astrophys. 354, 732-739.
 @deftypefun int iauStarpm (double @var{ra1}, double @var{dec1}, double @var{pmr1}, double @var{pmd1}, double @var{px1}, double @var{rv1}, double @var{ep1a}, double @var{ep1b}, double @var{ep2a}, double @var{ep2b}, double * @var{ra2}, double * @var{dec2}, double * @var{pmr2}, double * @var{pmd2}, double * @var{px2}, double * @var{rv2})
 Star proper motion: update star catalog data for space motion.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -10624,7 +10628,7 @@ Space motion @code{pv}-vector to star catalog data.
 @deftypefun int iauEform (int @var{n}, double * @var{a}, double * @var{f})
 Earth reference ellipsoids.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -10700,7 +10704,7 @@ Seidelmann (ed), University Science Books (1992), p220.
 Transform geocentric coordinates to geodetic using the specified
 reference ellipsoid.
 
-Status:  canonical transformation.
+Status: canonical transformation.
 
 Given:
 
@@ -10773,7 +10777,7 @@ Geocentric to geodetic transformation, general.
 Transform geocentric coordinates to geodetic for a reference ellipsoid
 of specified form.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -10924,7 +10928,7 @@ Zero @code{p}-vector.
 Transform geodetic coordinates to geocentric for a reference ellipsoid
 of specified form.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -11002,7 +11006,7 @@ Seidelmann (ed), University Science Books (1992), Section 4.22, p202.
 Format for output a 2-part Julian Date (or in the case of UTC a quasi-JD
 form that includes special provision for leap seconds).
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -11122,7 +11126,7 @@ even if no leap seconds have been added.
 Latest leap second:  2012 June 30
 @end quotation
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -11257,7 +11261,7 @@ rate adjustment (-L_B)  <-  definition of TDB
 Adopted values for the various constants can be found in the IERS
 Conventions (McCarthy & Petit 2003).
 
-Status:  support routine.
+Status: support routine.
 
 Given:
 
@@ -11404,7 +11408,7 @@ G. & Laskar, J., Astron.Astrophys., 282, 663-683 (1994).
 Encode date and time fields into 2-part Julian Date (or in the case of
 UTC a quasi-JD form that includes special provision for leap seconds).
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -11498,7 +11502,7 @@ JD to Gregorian calendar.
 Time scale transformation: International Atomic Time, TAI, to
 Terrestrial Time, TT.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -11547,7 +11551,7 @@ Seidelmann (ed), University Science Books (1992).
 Time scale transformation: International Atomic Time, TAI, to Universal
 Time, UT1.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -11597,7 +11601,7 @@ Seidelmann (ed), University Science Books (1992).
 Time scale transformation: International Atomic Time, TAI, to
 Coordinated Universal Time, UTC.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -11678,7 +11682,7 @@ Seidelmann (ed), University Science Books (1992).
 Time scale transformation: Barycentric Coordinate Time, TCB, to
 Barycentric Dynamical Time, TDB.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -11741,7 +11745,7 @@ IAU 2006 Resolution B3.
 Time scale transformation:  Geocentric Coordinate Time, TCG, to
 Terrestrial Time, TT.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -11790,7 +11794,7 @@ IAU 2000 Resolution B1.9.
 Time scale transformation:  Barycentric Dynamical Time, TDB, to
 Barycentric Coordinate Time, TCB.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -11853,7 +11857,7 @@ IAU 2006 Resolution B3.
 Time scale transformation: Barycentric Dynamical Time, TDB, to
 Terrestrial Time, TT.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -11914,7 +11918,7 @@ IAU 2006 Resolution 3.
 Time scale transformation: Terrestrial Time, TT, to International Atomic
 Time, TAI.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -11963,7 +11967,7 @@ Seidelmann (ed), University Science Books (1992).
 Time scale transformation: Terrestrial Time, TT, to Geocentric
 Coordinate Time, TCG.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -12011,7 +12015,7 @@ IAU 2000 Resolution B1.9.
 Time scale transformation:  Terrestrial Time, TT, to Barycentric
 Dynamical Time, TDB.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -12071,7 +12075,7 @@ IAU 2006 Resolution 3.
 @deftypefun int iauTtut1 (double @vari{tt}, double @varii{tt}, double @var{dt}, double * @var{ut11}, double * @var{ut12})
 Time scale transformation: Terrestrial Time, TT, to Universal Time, UT1.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -12120,7 +12124,7 @@ Seidelmann (ed), University Science Books (1992).
 Time scale transformation: Universal Time, UT1, to International Atomic
 Time, TAI.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -12169,7 +12173,7 @@ Seidelmann (ed), University Science Books (1992).
 @deftypefun int iauUt1tt (double @var{ut11}, double @var{ut12}, double @var{dt}, double * @vari{tt}, double * @varii{tt})
 Time scale transformation: Universal Time, UT1, to Terrestrial Time, TT.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -12218,7 +12222,7 @@ Seidelmann (ed), University Science Books (1992).
 Time scale transformation: Universal Time, UT1, to Coordinated Universal
 Time, UTC.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -12308,7 +12312,7 @@ Seidelmann (ed), University Science Books (1992).
 Time scale transformation: Coordinated Universal Time, UTC, to
 International Atomic Time, TAI.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -12392,7 +12396,7 @@ Seidelmann (ed), University Science Books (1992).
 Time scale transformation: Coordinated Universal Time, UTC, to Universal
 Time, UT1.
 
-Status:  canonical.
+Status: canonical.
 
 Given:
 
@@ -12511,7 +12515,7 @@ Seidelmann (ed), University Science Books (1992).
 @deftypefun void iauA2af (int @var{ndp}, double @var{angle}, char * @var{sign}, int @var{idmsf}[4])
 Decompose radians into degrees, arcminutes, arcseconds, fraction.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -12695,7 +12699,7 @@ the smallest taking precedence.
 @deftypefun double iauAnp (double @var{a})
 Normalize angle into the range @code{0 <= @var{a} < 2pi}.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -12796,7 +12800,7 @@ days is very nearly @math{1.0} and rounds up to 24 hours, by testing for
 @deftypefun int iauTf2a (char @var{s}, int @var{ihour}, int @var{imin}, double @var{sec}, double * @var{rad})
 Convert hours, minutes, seconds to radians.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -12843,7 +12847,7 @@ the smallest taking precedence.
 @deftypefun int iauTf2d (char @var{s}, int @var{ihour}, int @var{imin}, double @var{sec}, double * @var{days})
 Convert hours, minutes, seconds to days.
 
-Status:  support function.
+Status: support function.
 
 Given:
 
@@ -12893,7 +12897,7 @@ the smallest taking precedence.
 @deftypefun void iauRx (double @var{phi}, double @var{r}[3][3])
 Rotate an @code{r}-matrix about the @math{X}-axis.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -12931,7 +12935,7 @@ The additional rotation can be represented by this matrix:
 @deftypefun void iauRy (double @var{theta}, double @var{r}[3][3])
 Rotate an @code{r}-matrix about the @math{Y}-axis.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13010,7 +13014,7 @@ The additional rotation can be represented by this matrix:
 @deftypefun void iauCp (double @var{p}[3], double @var{c}[3])
 Copy a @code{p}-vector.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13030,7 +13034,7 @@ c        double[3]     copy
 @deftypefun void iauCpv (double @var{pv}[2][3], double @var{c}[2][3])
 Copy a position/velocity vector.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13057,7 +13061,7 @@ Copy @code{p}-vector.
 @deftypefun void iauCr (double @var{r}[3][3], double @var{c}[3][3])
 Copy an @code{r}-matrix.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13085,7 +13089,7 @@ Copy @code{p}-vector.
 Extend a @code{p}-vector to a @code{pv}-vector by appending a zero
 velocity.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13115,7 +13119,7 @@ Zero @code{p}-vector.
 @deftypefun void iauPv2p (double @var{pv}[2][3], double @var{p}[3])
 Discard velocity component of a @var{pv}-vector.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13145,7 +13149,7 @@ Copy @code{p}-vector.
 @deftypefun void iauIr (double @var{r}[3][3])
 Initialize an @code{r}-matrix to the identity matrix.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Returned:
 
@@ -13194,7 +13198,7 @@ Zero @code{p}-vector.
 @deftypefun void iauZr (double @var{r}[3][3])
 Initialize an @code{r}-matrix to the null matrix.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Returned:
 
@@ -13211,7 +13215,7 @@ r        double[3][3]    r-matrix
 @deftypefun void iauRxr (double @var{a}[3][3], double @var{b}[3][3], double @var{atb}[3][3])
 Multiply two @code{r}-matrices.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13246,7 +13250,7 @@ Copy @code{r}-matrix.
 @deftypefun void iauTr (double @var{r}[3][3], double @var{rt}[3][3])
 Transpose an @code{r}-matrix.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13283,7 +13287,7 @@ Copy @code{r}-matrix.
 @deftypefun void iauRxp (double @var{r}[3][3], double @var{p}[3], double @var{rp}[3])
 Multiply a @code{p}-vector by an @code{r}-matrix.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13317,7 +13321,7 @@ Copy @code{p}-vector.
 @deftypefun void iauRxpv (double @var{r}[3][3], double @var{pv}[2][3], double @var{rpv}[2][3])
 Multiply a @var{pv}-vector by an @code{r}-matrix.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13352,7 +13356,7 @@ Product of @code{r}-matrix and @code{p}-vector.
 @deftypefun void iauTrxp (double @var{r}[3][3], double @var{p}[3], double @var{trp}[3])
 Multiply a @code{p}-vector by the transpose of an @code{r}-matrix.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13390,7 +13394,7 @@ Product of @code{r}-matrix and @code{p}-vector.
 @deftypefun void iauTrxpv (double @var{r}[3][3], double @var{pv}[2][3], double @var{trpv}[2][3])
 Multiply a @var{pv}-vector by the transpose of an @code{r}-matrix.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13471,7 +13475,7 @@ vector from the origin.
 @deftypefun void iauRv2m (double @var{w}[3], double @var{r}[3][3])
 Form the @code{r}-matrix corresponding to a given @code{r}-vector.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13511,7 +13515,7 @@ vector from the origin.
 @deftypefun double iauPap (double @var{a}[3], double @var{b}[3])
 Position--angle from two @code{p}-vectors.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13608,7 +13612,7 @@ Zero is returned if the two points are coincident.
 @deftypefun double iauSepp (double @var{a}[3], double @var{b}[3])
 Angular separation between two @code{p}-vectors.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13655,7 +13659,7 @@ Scalar product of two @code{p}-vectors.
 @deftypefun double iauSeps (double @var{al}, double @var{ap}, double @var{bl}, double @var{bp})
 Angular separation between two sets of spherical coordinates.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13725,7 +13729,7 @@ At either pole, zero @var{theta} is returned.
 @deftypefun void iauP2s (double @var{p}[3], double * @var{theta}, double * @var{phi}, double * @var{r})
 @code{p}-vector to spherical polar coordinates.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13768,7 +13772,7 @@ Modulus of @code{p}-vector.
 @deftypefun void iauPv2s (double @var{pv}[2][3], double * @var{theta}, double * @var{phi}, double * @var{r}, double * @var{td}, double * @var{pd}, double * @var{rd})
 Convert position/velocity from Cartesian to spherical coordinates.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13809,7 +13813,7 @@ indeterminate.  In such cases zeroes are returned for all three.
 @deftypefun void iauS2c (double @var{theta}, double @var{phi}, double @var{c}[3])
 Convert spherical coordinates to Cartesian.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13830,7 +13834,7 @@ c        double[3]    direction cosines
 @deftypefun void iauS2p (double @var{theta}, double @var{phi}, double @var{r}, double @var{p}[3])
 Convert spherical polar coordinates to @code{p}-vector.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13862,7 +13866,7 @@ Multiply @code{p}-vector by scalar.
 @deftypefun void iauS2pv (double @var{theta}, double @var{phi}, double @var{r}, double @var{td}, double @var{pd}, double @var{rd}, double @var{pv}[2][3])
 Convert position/velocity from spherical to Cartesian coordinates.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13890,7 +13894,7 @@ pv       double[2][3]    pv-vector
 @deftypefun double iauPdp (double @var{a}[3], double @var{b}[3])
 @code{p}-vector inner (=scalar=dot) product.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -13959,7 +13963,7 @@ It is permissible to re-use the same array for any of the arguments.
 @deftypefun void iauPn (double @var{p}[3], double * @var{r}, double @var{u}[3])
 Convert a @code{p}-vector into modulus and unit vector.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -14030,7 +14034,7 @@ It is permissible to re-use the same array for any of the arguments.
 
 @deftypefun void iauPpsp (double @var{a}[3], double @var{s}, double @var{b}[3], double @var{apsb}[3])
 @code{p}-vector plus scaled @code{p}-vector.
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -14070,7 +14074,7 @@ Multiply @code{p}-vector by scalar.
 @deftypefun void iauPvdpv (double @var{a}[2][3], double @var{b}[2][3], double @var{adb}[2])
 Inner (=scalar=dot) product of two @var{pv}-vectors.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -14109,7 +14113,7 @@ Scalar product of two @code{p}-vectors.
 @deftypefun void iauPvm (double @var{pv}[2][3], double * @var{r}, double * @var{s})
 Modulus of @var{pv}-vector.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -14136,7 +14140,7 @@ Modulus of @code{p}-vector.
 
 @deftypefun void iauPvmpv (double @var{a}[2][3], double @var{b}[2][3], double @var{amb}[2][3])
 Subtract one @var{pv}-vector from another.
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -14171,7 +14175,7 @@ Called:
 @deftypefun void iauPvppv (double @var{a}[2][3], double @var{b}[2][3], double @var{apb}[2][3])
 Add one @var{pv}-vector to another.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -14206,7 +14210,7 @@ Called:
 @deftypefun void iauPvu (double @var{dt}, double @var{pv}[2][3], double @var{upv}[2][3])
 Update a @var{pv}-vector.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -14251,7 +14255,7 @@ Copy @code{p}-vector.
 @deftypefun void iauPvup (double @var{dt}, double @var{pv}[2][3], double @var{p}[3])
 Update a @var{pv}-vector, discarding the velocity component.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -14358,7 +14362,7 @@ It is permissible to re-use the same array for any of the arguments.
 @deftypefun void iauS2xpv (double @var{s1}, double @var{s2}, double @var{pv}[2][3], double @var{spv}[2][3])
 Multiply a @var{pv}-vector by two scalars.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -14394,7 +14398,7 @@ Multiply @code{p}-vector by scalar.
 @deftypefun void iauSxp (double @var{s}, double @var{p}[3], double @var{sp}[3])
 Multiply a @code{p}-vector by a scalar.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
@@ -14422,7 +14426,7 @@ It is permissible for @var{p} and @var{sp} to be the same array.
 @deftypefun void iauSxpv (double s, double @var{pv}[2][3], double @var{spv}[2][3])
 Multiply a @var{pv}-vector by a scalar.
 
-Status:  vector/matrix support function.
+Status: vector/matrix support function.
 
 Given:
 
