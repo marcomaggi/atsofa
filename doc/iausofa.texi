@@ -2448,7 +2448,7 @@ Classical NPB matrix, IAU 2006/2000A.
 Extract CIP X,Y coordinates from NPB matrix.
 
 @item iauS06
-The CIO locator s, Given X,Y, IAU 2006.
+The CIO locator @math{s}, Given X,Y, IAU 2006.
 
 @item iauC2ixys
 Celestial--to--intermediate matrix, Given X,Y and s.
@@ -2641,7 +2641,7 @@ Called:
 Celestial--to--intermediate matrix, given X,Y and s.
 
 @item iauS00
-The CIO locator s, given X,Y, IAU 2000A.
+The CIO locator @math{s}, given X,Y, IAU 2000A.
 @end table
 
 Reference:
@@ -2665,7 +2665,7 @@ Given:
 
 @example
 x,y      double         Celestial Intermediate Pole (Note 1)
-s        double         the CIO locator s (Note 2)
+s        double         the CIO locator @math{s} (Note 2)
 @end example
 
 Returned:
@@ -4729,7 +4729,7 @@ Classical NPB matrix, IAU 2006/2000A.
 Extract CIP X,Y coordinates from NPB matrix.
 
 @item iauS06
-The CIO locator s, given X,Y, IAU 2006.
+The CIO locator @math{s}, given X,Y, IAU 2006.
 
 @item iauEors
 Equation of the origins, Given NPB matrix and s.
@@ -7073,7 +7073,7 @@ Called:
 Extract CIP X,Y coordinates from NPB matrix.
 
 @item iauS06
-The CIO locator s, given X,Y, IAU 2006.
+The CIO locator @math{s}, given X,Y, IAU 2006.
 
 @item iauAnp
 Normalize angle into range 0 to 2pi.
@@ -11618,7 +11618,7 @@ x,y           double    CIP coordinates (Note 3)
 Returned (function value):
 
 @example
-              double    the CIO locator s in radians (Note 2)
+              double    the CIO locator @math{s} in radians (Note 2)
 @end example
 
 Notes:
@@ -11731,7 +11731,7 @@ date1,date2  double    TT as a 2-part Julian Date (Note 1)
 Returned (function value):
 
 @example
-             double    the CIO locator s in radians (Note 2)
+             double    the CIO locator @math{s} in radians (Note 2)
 @end example
 
 Notes:
@@ -11827,7 +11827,7 @@ date1,date2  double    TT as a 2-part Julian Date (Note 1)
 Returned (function value):
 
 @example
-             double    the CIO locator s in radians (Note 2)
+             double    the CIO locator @math{s} in radians (Note 2)
 @end example
 
 Notes:
@@ -11925,7 +11925,7 @@ x,y           double    CIP coordinates (Note 3)
 Returned (function value):
 
 @example
-              double    the CIO locator s in radians (Note 2)
+              double    the CIO locator @math{s} in radians (Note 2)
 @end example
 
 Notes:
@@ -12033,7 +12033,7 @@ date1,date2  double    TT as a 2-part Julian Date (Note 1)
 Returned (function value):
 
 @example
-             double    the CIO locator s in radians (Note 2)
+             double    the CIO locator @math{s} in radians (Note 2)
 @end example
 
 Notes:
@@ -12086,7 +12086,7 @@ Classical NPB matrix, IAU 2006/2000A.
 Extract CIP X,Y coordinates from NPB matrix.
 
 @item iauS06
-The CIO locator s, given X,Y, IAU 2006.
+The CIO locator @math{s}, given X,Y, IAU 2006.
 @end table
 
 References:
@@ -13263,29 +13263,30 @@ Copy @code{r}-matrix.
 @end deftypefun
 
 @c ------------------------------------------------------------
-@c SONO ARRIVATO QUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 @deftypefun void iauTrxp (double @var{r}[3][3], double @var{p}[3], double @var{trp}[3])
-Multiply a @code{p}-vector by the transpose of an r-matrix.
+Multiply a @code{p}-vector by the transpose of an @code{r}-matrix.
+
 Status:  vector/matrix support function.
 
 Given:
 
 @example
-   r        double[3][3]   r-matrix
-   p        double[3]      p-vector
+r        double[3][3]   r-matrix
+p        double[3]      p-vector
 @end example
 
 Returned:
 
 @example
-   trp      double[3]      r * p
+trp      double[3]      r * p
 @end example
 
 Notes:
 
 @enumerate
-   It is permissible for p and trp to be the same array.
+@item
+It is permissible for @var{p} and @var{trp} to be the same array.
 @end enumerate
 
 Called:
@@ -13296,32 +13297,34 @@ Transpose @code{r}-matrix.
 
 @item iauRxp
 Product of @code{r}-matrix and @code{p}-vector.
-
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauTrxpv (double @var{r}[3][3], double @var{pv}[2][3], double @var{trpv}[2][3])
-Multiply a @var{pv}-vector by the transpose of an r-matrix.
+Multiply a @var{pv}-vector by the transpose of an @code{r}-matrix.
+
 Status:  vector/matrix support function.
 
 Given:
 
 @example
-   r        double[3][3]    r-matrix
-   pv       double[2][3]    pv-vector
+r        double[3][3]    r-matrix
+pv       double[2][3]    pv-vector
 @end example
 
 Returned:
 
 @example
-   trpv     double[2][3]    r * pv
+trpv     double[2][3]    r * pv
 @end example
 
 Notes:
 
 @enumerate
-   It is permissible for pv and trpv to be the same array.
+@item
+It is permissible for @var{pv} and @var{trpv} to be the same array.
 @end enumerate
 
 Called:
@@ -13330,44 +13333,50 @@ Called:
 @item iauTr
 Transpose @code{r}-matrix.
 
-   iauRxpv      product of r-matrix and @var{pv}-vector
+@item iauRxpv
+Product of @code{r}-matrix and @var{pv}-vector.
+@end table
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauTttai (double @vari{tt}, double @varii{tt}, double * @vari{tai}, double * @varii{tai})
-Time scale transformation:  Terrestrial Time, TT, to International
-Atomic Time, TAI.
-
+Time scale transformation: Terrestrial Time, TT, to International Atomic
+Time, TAI.
 
 Status:  canonical.
 
 Given:
 
 @example
-   tt1,tt2    double    TT as a 2-part Julian Date
+tt1,tt2    double    TT as a 2-part Julian Date
 @end example
 
 Returned:
 
 @example
-   tai1,tai2  double    TAI as a 2-part Julian Date
+tai1,tai2  double    TAI as a 2-part Julian Date
+@end example
 
 Returned (function value):
-              int       status:  0 = OK
+
+@example
+int       status:  0 = OK
 @end example
 
 Notes:
 
 @enumerate
-
-   tt1+tt2 is Julian Date, apportioned in any convenient way between
-   the two arguments, for example where tt1 is the Julian Day Number
-   and tt2 is the fraction of a day.  The returned tai1,tai2 follow
-   suit.
+@item
+@code{@vari{tt} + @varii{tt}} is Julian Date, apportioned in any
+convenient way between the two arguments, for example where @vari{tt} is
+the Julian Day Number and @varii{tt} is the fraction of a day.  The
+returned @vari{tai}, @varii{tai} follow suit.
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
@@ -13375,48 +13384,55 @@ Technical Note No. 32, BKG (2004).
 @item
 Explanatory Supplement to the Astronomical Almanac, P. Kenneth
 Seidelmann (ed), University Science Books (1992).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauTttcg (double @vari{tt}, double @varii{tt}, double * @vari{tcg}, double * @varii{tcg})
-Time scale transformation:  Terrestrial Time, TT, to Geocentric
+Time scale transformation: Terrestrial Time, TT, to Geocentric
 Coordinate Time, TCG.
-
 
 Status:  canonical.
 
 Given:
 
 @example
-   tt1,tt2    double    TT as a 2-part Julian Date
+tt1,tt2    double    TT as a 2-part Julian Date
 @end example
 
 Returned:
 
 @example
-   tcg1,tcg2  double    TCG as a 2-part Julian Date
+tcg1,tcg2  double    TCG as a 2-part Julian Date
+@end example
 
 Returned (function value):
-              int       status:  0 = OK
+
+@example
+int       status:  0 = OK
 @end example
 
 Notes:
 
 @enumerate
-
-   tt1+tt2 is Julian Date, apportioned in any convenient way between
-   the two arguments, for example where tt1 is the Julian Day Number
-   and tt2 is the fraction of a day.  The returned @vari{tcg},tcg2 follow
-   suit.
+@item
+@code{@vari{tt} + @varii{tt}} is Julian Date, apportioned in any
+convenient way between the two arguments, for example where @vari{tt} is
+the Julian Day Number and @varii{tt} is the fraction of a day.  The
+returned @vari{tcg}, @varii{tcg} follow suit.
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   IAU 2000 Resolution B1.9
+@item
+IAU 2000 Resolution B1.9.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
@@ -13425,88 +13441,99 @@ Technical Note No. 32, BKG (2004).
 Time scale transformation:  Terrestrial Time, TT, to Barycentric
 Dynamical Time, TDB.
 
-
 Status:  canonical.
 
 Given:
 
 @example
-   tt1,tt2    double    TT as a 2-part Julian Date
-   dtr        double    TDB-TT in seconds
+tt1,tt2    double    TT as a 2-part Julian Date
+dtr        double    TDB-TT in seconds
 @end example
 
 Returned:
 
 @example
-   tdb1,tdb2  double    TDB as a 2-part Julian Date
+tdb1,tdb2  double    TDB as a 2-part Julian Date
+@end example
 
 Returned (function value):
-              int       status:  0 = OK
+
+@example
+int       status:  0 = OK
 @end example
 
 Notes:
 
 @enumerate
-1) tt1+tt2 is Julian Date, apportioned in any convenient way between
-   the two arguments, for example where tt1 is the Julian Day Number
-   and tt2 is the fraction of a day.  The returned tdb1,tdb2 follow
-   suit.
+@item
+@code{@vari{tt} + @varii{tt}} is Julian Date, apportioned in any
+convenient way between the two arguments, for example where @vari{tt} is
+the Julian Day Number and @varii{tt} is the fraction of a day.  The
+returned @vari{tdb}, @varii{tdb} follow suit.
 
-2) The argument dtr represents the quasi-periodic component of the
-   GR transformation between TT and TCB.  It is dependent upon the
-   adopted solar-system ephemeris, and can be obtained by numerical
-   integration, by interrogating a precomputed time ephemeris or by
-   evaluating a model such as that implemented in the SOFA function
-   iauDtdb.   The quantity is dominated by an annual term of 1.7 ms
-   amplitude.
+@item
+The argument @var{dtr} represents the quasi--periodic component of the
+GR transformation between TT and TCB.  It is dependent upon the adopted
+solar--system ephemeris, and can be obtained by numerical integration,
+by interrogating a precomputed time ephemeris or by evaluating a model
+such as that implemented in the @sofa{} function @code{iauDtdb}.  The
+quantity is dominated by an annual term of @math{1.7} ms amplitude.
 
-3) TDB is essentially the same as Teph, the time argument for the JPL
-   solar system ephemerides.
+@item
+TDB is essentially the same as Teph, the time argument for the JPL solar
+system ephemerides.
+@end enumerate
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
 
-   IAU 2006 Resolution 3
+@item
+IAU 2006 Resolution 3.
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauTtut1 (double @vari{tt}, double @varii{tt}, double @var{dt}, double * @var{ut11}, double * @var{ut12})
-Time scale transformation:  Terrestrial Time, TT, to Universal Time,
-UT1.
-
+Time scale transformation: Terrestrial Time, TT, to Universal Time, UT1.
 
 Status:  canonical.
 
 Given:
 
 @example
-   tt1,tt2    double    TT as a 2-part Julian Date
-   dt         double    TT-UT1 in seconds
+tt1,tt2    double    TT as a 2-part Julian Date
+dt         double    TT-UT1 in seconds
 @end example
 
 Returned:
 
 @example
-   ut11,ut12  double    UT1 as a 2-part Julian Date
+ut11,ut12  double    UT1 as a 2-part Julian Date
+@end example
 
 Returned (function value):
-              int       status:  0 = OK
+
+@example
+int       status:  0 = OK
 @end example
 
 Notes:
 
 @enumerate
-1) tt1+tt2 is Julian Date, apportioned in any convenient way between
-   the two arguments, for example where tt1 is the Julian Day Number
-   and tt2 is the fraction of a day.  The returned ut11,ut12 follow
-   suit.
+@item
+@code{@vari{tt} + @varii{tt}} is Julian Date, apportioned in any
+convenient way between the two arguments, for example where @vari{tt} is
+the Julian Day Number and @varii{tt} is the fraction of a day.  The
+returned @var{ut11}, @var{ut12} follow suit.
 
-2) The argument dt is classical Delta T.
-@end table
+@item
+The argument @var{dt} is classical Delta T.
+@end enumerate
 
 Reference:
 
@@ -13514,44 +13541,49 @@ Reference:
 @item
 Explanatory Supplement to the Astronomical Almanac, P. Kenneth
 Seidelmann (ed), University Science Books (1992).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauUt1tai (double @var{ut11}, double @var{ut12}, double @var{dta}, double * @vari{tai}, double * @varii{tai})
-Time scale transformation:  Universal Time, UT1, to International
-Atomic Time, TAI.
-
+Time scale transformation: Universal Time, UT1, to International Atomic
+Time, TAI.
 
 Status:  canonical.
 
 Given:
 
 @example
-   ut11,ut12  double    UT1 as a 2-part Julian Date
-   dta        double    UT1-TAI in seconds
+ut11,ut12  double    UT1 as a 2-part Julian Date
+dta        double    UT1-TAI in seconds
 @end example
 
 Returned:
 
 @example
-   tai1,tai2  double    TAI as a 2-part Julian Date
+tai1,tai2  double    TAI as a 2-part Julian Date
+@end example
 
 Returned (function value):
-              int       status:  0 = OK
+
+@example
+int       status:  0 = OK
 @end example
 
 Notes:
 
 @enumerate
-1) ut11+ut12 is Julian Date, apportioned in any convenient way
-   between the two arguments, for example where ut11 is the Julian
-   Day Number and ut12 is the fraction of a day.  The returned
-   tai1,tai2 follow suit.
+@item
+@code{@var{ut11} + @var{ut12}} is Julian Date, apportioned in any
+convenient way between the two arguments, for example where @var{ut11}
+is the Julian Day Number and @var{ut12} is the fraction of a day.  The
+returned @vari{tai}, @varii{tai} follow suit.
 
-2) The argument dta, i.e. UT1-TAI, is an observed quantity, and is
-   available from IERS tabulations.
-@end table
+@item
+The argument @var{dta}, i.e. UT1-TAI, is an observed quantity, and is
+available from IERS tabulations.
+@end enumerate
 
 Reference:
 
@@ -13559,42 +13591,46 @@ Reference:
 @item
 Explanatory Supplement to the Astronomical Almanac, P. Kenneth
 Seidelmann (ed), University Science Books (1992).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauUt1tt (double @var{ut11}, double @var{ut12}, double @var{dt}, double * @vari{tt}, double * @varii{tt})
-Time scale transformation:  Universal Time, UT1, to Terrestrial
-Time, TT.
-
+Time scale transformation: Universal Time, UT1, to Terrestrial Time, TT.
 
 Status:  canonical.
 
 Given:
 
 @example
-   ut11,ut12  double    UT1 as a 2-part Julian Date
-   dt         double    TT-UT1 in seconds
+ut11,ut12  double    UT1 as a 2-part Julian Date
+dt         double    TT-UT1 in seconds
 @end example
 
 Returned:
 
 @example
-   tt1,tt2    double    TT as a 2-part Julian Date
+tt1,tt2    double    TT as a 2-part Julian Date
+@end example
 
 Returned (function value):
-              int       status:  0 = OK
+
+@example
+int       status:  0 = OK
 @end example
 
 Notes:
 
 @enumerate
-1) ut11+ut12 is Julian Date, apportioned in any convenient way
-   between the two arguments, for example where ut11 is the Julian
-   Day Number and ut12 is the fraction of a day.  The returned
-   tt1,tt2 follow suit.
+@item
+@code{@var{ut11} + @var{ut12}} is Julian Date, apportioned in any
+convenient way between the two arguments, for example where @var{ut11}
+is the Julian Day Number and @var{ut12} is the fraction of a day.  The
+returned @vari{tt}, @varii{tt} follow suit.
 
-2) The argument dt is classical Delta T.
+@item
+The argument @var{dt} is classical Delta T.
 @end table
 
 Reference:
@@ -13603,62 +13639,71 @@ Reference:
 @item
 Explanatory Supplement to the Astronomical Almanac, P. Kenneth
 Seidelmann (ed), University Science Books (1992).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauUt1utc (double @var{ut11}, double @var{ut12}, double @var{dut1}, double * @vari{utc}, double * @varii{utc})
-Time scale transformation:  Universal Time, UT1, to Coordinated
-Universal Time, UTC.
-
+Time scale transformation: Universal Time, UT1, to Coordinated Universal
+Time, UTC.
 
 Status:  canonical.
 
 Given:
 
 @example
-   ut11,ut12  double   UT1 as a 2-part Julian Date (Note 1)
-   dut1       double   Delta UT1: UT1-UTC in seconds (Note 2)
+ut11,ut12  double   UT1 as a 2-part Julian Date (Note 1)
+dut1       double   Delta UT1: UT1-UTC in seconds (Note 2)
 @end example
 
 Returned:
 
 @example
-   utc1,utc2  double   UTC as a 2-part quasi Julian Date (Notes 3,4)
+utc1,utc2  double   UTC as a 2-part quasi Julian Date (Notes 3,4)
+@end example
 
 Returned (function value):
-              int      status: +1 = dubious year (Note 5)
-                                0 = OK
-                               -1 = unacceptable date
+
+@example
+int      status: +1 = dubious year (Note 5)
+                  0 = OK
+                 -1 = unacceptable date
 @end example
 
 Notes:
 
 @enumerate
-1) ut11+ut12 is Julian Date, apportioned in any convenient way
-   between the two arguments, for example where ut11 is the Julian
-   Day Number and ut12 is the fraction of a day.  The returned utc1
-   and utc2 form an analogous pair, except that a special convention
-   is used, to deal with the problem of leap seconds - see Note 3.
+@item
+@code{@var{ut11} + @var{ut12}} is Julian Date, apportioned in any
+convenient way between the two arguments, for example where @var{ut11}
+is the Julian Day Number and @var{ut12} is the fraction of a day.  The
+returned @vari{utc} and @varii{utc} form an analogous pair, except that
+a special convention is used, to deal with the problem of leap
+seconds---see Note 3.
 
-2) Delta UT1 can be obtained from tabulations provided by the
-   International Earth Rotation and Reference Systems Service.  The
-   value changes abruptly by 1s at a leap second;  however, close to
-   a leap second the algorithm used here is tolerant of the "wrong"
-   choice of value being made.
+@item
+Delta UT1 can be obtained from tabulations provided by the International
+Earth Rotation and Reference Systems Service.  The value changes
+abruptly by @math{1} second at a leap second; however, close to a leap
+second the algorithm used here is tolerant of the ``wrong'' choice of
+value being made.
 
-3) JD cannot unambiguously represent UTC during a leap second unless
-   special measures are taken.  The convention in the present
-   function is that the returned quasi JD day UTC1+UTC2 represents
-   UTC days whether the length is 86399, 86400 or 86401 SI seconds.
+@item
+JD cannot unambiguously represent UTC during a leap second unless
+special measures are taken.  The convention in the present function is
+that the returned quasi JD day @code{@vari{UTC} + @varii{utc}}
+represents UTC days whether the length is 86399, 86400 or 86401 SI
+seconds.
 
-4) The function iauD2dtf can be used to transform the UTC quasi-JD
-   into calendar date and clock time, including UTC leap second
-   handling.
+@item
+The function @code{iauD2dtf} can be used to transform the UTC quasi-JD
+into calendar date and clock time, including UTC leap second handling.
 
-5) The warning status "dubious year" flags UTCs that predate the
-   introduction of the time scale and that are too far in the future
-   to be trusted.  See iauDat for further details.
+@item
+The warning status ``dubious year'' flags UTCs that predate the
+introduction of the time scale and that are too far in the future to be
+trusted.  See @code{iauDat} for further details.
 @end enumerate
 
 Called:
@@ -13672,10 +13717,11 @@ JD to Gregorian calendar.
 
 @item iauCal2jd
 Gregorian calendar to JD.
-
+@end table
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
@@ -13683,56 +13729,65 @@ Technical Note No. 32, BKG (2004).
 @item
 Explanatory Supplement to the Astronomical Almanac, P. Kenneth
 Seidelmann (ed), University Science Books (1992).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauUtctai (double @vari{utc}, double @varii{utc}, double * @vari{tai}, double * @varii{tai})
-Time scale transformation:  Coordinated Universal Time, UTC, to
+Time scale transformation: Coordinated Universal Time, UTC, to
 International Atomic Time, TAI.
-
 
 Status:  canonical.
 
 Given:
 
 @example
-   utc1,utc2  double   UTC as a 2-part quasi Julian Date (Notes 1-4)
+utc1,utc2  double   UTC as a 2-part quasi Julian Date (Notes 1-4)
 @end example
 
 Returned:
 
 @example
-   tai1,tai2  double   TAI as a 2-part Julian Date (Note 5)
+tai1,tai2  double   TAI as a 2-part Julian Date (Note 5)
+@end example
 
 Returned (function value):
-              int      status: +1 = dubious year (Note 3)
-                                0 = OK
-                               -1 = unacceptable date
+
+@example
+int      status: +1 = dubious year (Note 3)
+                  0 = OK
+                 -1 = unacceptable date
 @end example
 
 Notes:
 
 @enumerate
-1) utc1+utc2 is quasi Julian Date (see Note 2), apportioned in any
-   convenient way between the two arguments, for example where utc1
-   is the Julian Day Number and utc2 is the fraction of a day.
+@item
+@code{@vari{utc} + @varii{utc}} is quasi Julian Date (see Note 2),
+apportioned in any convenient way between the two arguments, for example
+where @vari{utc} is the Julian Day Number and @varii{utc} is the
+fraction of a day.
 
-2) JD cannot unambiguously represent UTC during a leap second unless
-   special measures are taken.  The convention in the present
-   function is that the JD day represents UTC days whether the
-   length is 86399, 86400 or 86401 SI seconds.
+@item
+JD cannot unambiguously represent UTC during a leap second unless
+special measures are taken.  The convention in the present function is
+that the JD day represents UTC days whether the length is 86399, 86400
+or 86401 SI seconds.
 
-3) The warning status "dubious year" flags UTCs that predate the
-   introduction of the time scale and that are too far in the future
-   to be trusted.  See iauDat  for further details.
+@item
+The warning status ``dubious year'' flags UTCs that predate the
+introduction of the time scale and that are too far in the future to be
+trusted.  See @code{iauDat} for further details.
 
-4) The function iauDtf2d converts from calendar date and time of day
-   into 2-part Julian Date, and in the case of UTC implements the
-   leap-second-ambiguity convention described above.
+@item
+The function @code{iauDtf2d} converts from calendar date and time of day
+into 2-part Julian Date, and in the case of UTC implements the
+leap--second--ambiguity convention described above.
 
-5) The returned TAI1,TAI2 are such that their sum is the TAI Julian
-   Date.
+@item
+The returned @vari{TAI}, @varii{TAI} are such that their sum is the TAI
+Julian Date.
 @end enumerate
 
 Called:
@@ -13746,10 +13801,11 @@ JD to Gregorian calendar.
 
 @item iauCal2jd
 Gregorian calendar to JD.
-
+@end table
 
 References:
 
+@itemize
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
@@ -13757,76 +13813,77 @@ Technical Note No. 32, BKG (2004).
 @item
 Explanatory Supplement to the Astronomical Almanac, P. Kenneth
 Seidelmann (ed), University Science Books (1992).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun int iauUtcut1 (double @vari{utc}, double @varii{utc}, double @var{dut1}, double * @var{ut11}, double * @var{ut12})
-Time scale transformation:  Coordinated Universal Time, UTC, to
-Universal Time, UT1.
+Time scale transformation: Coordinated Universal Time, UTC, to Universal
+Time, UT1.
 
 Status:  canonical.
 
 Given:
 
 @example
-   utc1,utc2  double   UTC as a 2-part quasi Julian Date (Notes 1-4)
-   dut1       double   Delta UT1 = UT1-UTC in seconds (Note 5)
+utc1,utc2  double   UTC as a 2-part quasi Julian Date (Notes 1-4)
+dut1       double   Delta UT1 = UT1-UTC in seconds (Note 5)
 @end example
 
 Returned:
 
 @example
-   ut11,ut12  double   UT1 as a 2-part Julian Date (Note 6)
+ut11,ut12  double   UT1 as a 2-part Julian Date (Note 6)
+@end example
 
 Returned (function value):
-              int      status: +1 = dubious year (Note 7)
-                                0 = OK
-                               -1 = unacceptable date
+
+@example
+int      status: +1 = dubious year (Note 7)
+                  0 = OK
+                 -1 = unacceptable date
 @end example
 
 Notes:
 
 @enumerate
-1) utc1+utc2 is quasi Julian Date (see Note 2), apportioned in any
-   convenient way between the two arguments, for example where utc1
-   is the Julian Day Number and utc2 is the fraction of a day.
-
-2) JD cannot unambiguously represent UTC during a leap second unless
-   special measures are taken.  The convention in the present
-   function is that the JD day represents UTC days whether the
-   length is 86399, 86400 or 86401 SI seconds.
-
-3) The warning status "dubious year" flags UTCs that predate the
-   introduction of the time scale and that are too far in the future
-   to be trusted.  See iauDat  for further details.
-
-4) The function iauDtf2d  converts from calendar date and time of
-   day into 2-part Julian Date, and in the case of UTC implements
-   the leap-second-ambiguity convention described above.
-
-5) Delta UT1 can be obtained from tabulations provided by the
-   International Earth Rotation and Reference Systems Service.  It
-   It is the caller's responsibility to supply a DUT argument
-   containing the UT1-UTC value that matches the given UTC.
-
-6) The returned ut11,ut12 are such that their sum is the UT1 Julian
-   Date.
-
-7) The warning status "dubious year" flags UTCs that predate the
-   introduction of the time scale and that are too far in the future
-   to be trusted.  See iauDat for further details.
-
-References:
+@item
+@code{@vari{utc} + @varii{utc}} is quasi Julian Date (see Note 2),
+apportioned in any convenient way between the two arguments, for example
+where @vari{utc} is the Julian Day Number and @varii{utc} is the
+fraction of a day.
 
 @item
-McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
-Technical Note No. 32, BKG (2004).
+JD cannot unambiguously represent UTC during a leap second unless
+special measures are taken.  The convention in the present function is
+that the JD day represents UTC days whether the length is 86399, 86400
+or 86401 SI seconds.
 
 @item
-Explanatory Supplement to the Astronomical Almanac, P. Kenneth
-Seidelmann (ed), University Science Books (1992).
-@end enumerate
+The warning status ``dubious year'' flags UTCs that predate the
+introduction of the time scale and that are too far in the future to be
+trusted.  See @code{iauDat} for further details.
+
+@item
+The function @code{iauDtf2d} converts from calendar date and time of day
+into 2-part Julian Date, and in the case of UTC implements the
+leap--second--ambiguity convention described above.
+
+@item
+Delta UT1 can be obtained from tabulations provided by the International
+Earth Rotation and Reference Systems Service.  It It is the caller's
+responsibility to supply a DUT argument containing the UT1-UTC value
+that matches the given UTC.
+
+@item
+The returned @var{ut11}, @var{ut12} are such that their sum is the UT1
+Julian Date.
+
+@item
+The warning status ``dubious year'' flags UTCs that predate the
+introduction of the time scale and that are too far in the future to be
+trusted.  See @code{iauDat} for further details.
 
 Called:
 
@@ -13837,27 +13894,44 @@ JD to Gregorian calendar.
 @item iauDat
 @code{delta(AT) = TAI-UTC}.
 
-   iauUtctai    UTC to TAI
-   iauTaiut1    TAI to UT1
+@item iauUtctai
+UTC to TAI.
+
+@item iauTaiut1
+TAI to UT1.
+@end table
+
+References:
+
+@itemize
+@item
+McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
+Technical Note No. 32, BKG (2004).
+
+@item
+Explanatory Supplement to the Astronomical Almanac, P. Kenneth
+Seidelmann (ed), University Science Books (1992).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauXy06 (double @vari{date}, double @varii{date}, double * @var{x}, double * @var{y})
-X,Y coordinates of celestial intermediate pole from series based
-on IAU 2006 precession and IAU 2000A nutation.
-Status:  canonical model.
+@math{X}, @math{Y} coordinates of celestial intermediate pole from
+series based on IAU 2006 precession and IAU 2000A nutation.
+
+Status: canonical model.
 
 Given:
 
 @example
-   date1,date2  double     TT as a 2-part Julian Date (Note 1)
+date1,date2  double     TT as a 2-part Julian Date (Note 1)
 @end example
 
 Returned:
 
 @example
-   x,y          double     CIP X,Y coordinates (Note 2)
+x,y          double     CIP X,Y coordinates (Note 2)
 @end example
 
 Notes:
@@ -13885,20 +13959,22 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The X,Y coordinates are those of the unit vector towards the
-   celestial intermediate pole.  They represent the combined effects
-   of frame bias, precession and nutation.
+@item
+The @math{X}, @math{Y} coordinates are those of the unit vector towards
+the celestial intermediate pole.  They represent the combined effects of
+frame bias, precession and nutation.
 
-3) The fundamental arguments used are as adopted in IERS Conventions
-   (2003) and are from Simon et al. (1994) and Souchay et al.
-   (1999).
+@item
+The fundamental arguments used are as adopted in IERS Conventions (2003)
+and are from Simon et al. (1994) and Souchay et al. (1999).
 
-4) This is an alternative to the angles-based method, via the SOFA
-   function iauFw2xy and as used in iauXys06a for example.  The two
-   methods agree at the 1 microarcsecond level (at present), a
-   negligible amount compared with the intrinsic accuracy of the
-   models.  However, it would be unwise to mix the two methods
-   (angles-based and series-based) in a single application.
+@item
+This is an alternative to the angles--based method, via the @sofa{}
+function @code{iauFw2xy} and as used in @code{iauXys06a} for example.
+The two methods agree at the @math{1} microarcsecond level (at present),
+a negligible amount compared with the intrinsic accuracy of the models.
+However, it would be unwise to mix the two methods (angles--based and
+series--based) in a single application.
 @end enumerate
 
 Called:
@@ -13940,10 +14016,12 @@ Mean longitude of Saturn.
 @item iauFaur03
 Mean longitude of Uranus.
 
-   iauFane03    mean longitude of Neptune
+@item iauFane03
+Mean longitude of Neptune.
+
 @item iauFapa03
 General accumulated precession in longitude.
-
+@end table
 
 References:
 
@@ -13975,22 +14053,23 @@ Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981.
 @c ------------------------------------------------------------
 
 @deftypefun void iauXys00a (double @vari{date}, double @varii{date}, double * @var{x}, double * @var{y}, double * @var{s})
-For a given TT date, compute the X,Y coordinates of the Celestial
-Intermediate Pole and the CIO locator s, using the IAU 2000A
-precession--nutation model.
+For a given TT date, compute the @math{X}, @math{Y} coordinates of the
+Celestial Intermediate Pole and the CIO locator @math{s}, using the IAU
+2000A precession--nutation model.
+
 Status:  support function.
 
 Given:
 
 @example
-   date1,date2  double   TT as a 2-part Julian Date (Note 1)
+date1,date2  double   TT as a 2-part Julian Date (Note 1)
 @end example
 
 Returned:
 
 @example
-   x,y          double   Celestial Intermediate Pole (Note 2)
-   s            double   the CIO locator s (Note 2)
+x,y          double   Celestial Intermediate Pole (Note 2)
+s            double   the CIO locator @math{s} (Note 2)
 @end example
 
 Notes:
@@ -14018,27 +14097,32 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The Celestial Intermediate Pole coordinates are the x,y
-   components of the unit vector in the Geocentric Celestial
-   Reference System.
+@item
+The Celestial Intermediate Pole coordinates are the @math{x}, @math{y}
+components of the unit vector in the Geocentric Celestial Reference
+System.
 
-3) The CIO locator s (in radians) positions the Celestial
-   Intermediate Origin on the equator of the CIP.
+@item
+The CIO locator @math{s} (in radians) positions the Celestial
+Intermediate Origin on the equator of the CIP.
 
-4) A faster, but slightly less accurate result (about 1 mas for
-   X,Y), can be obtained by using instead the iauXys00b function.
+@item
+A faster, but slightly less accurate result (about @math{1} mas for
+@math{X}, @math{Y}), can be obtained by using instead the
+@code{iauXys00b} function.
 @end enumerate
 
 Called:
 
 @table @code
-   iauPnm00a    classical NPB matrix, IAU 2000A
+@item iauPnm00a
+Classical NPB matrix, IAU 2000A.
+
 @item iauBpn2xy
 Extract CIP X,Y coordinates from NPB matrix.
 
 @item iauS00
-The CIO locator s, given X,Y, IAU 2000A.
-
+The CIO locator @math{s}, given X,Y, IAU 2000A.
 @end table
 
 Reference:
@@ -14047,27 +14131,29 @@ Reference:
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauXys00b (double @vari{date}, double @varii{date}, double * @var{x}, double * @var{y}, double * @var{s})
-For a given TT date, compute the X,Y coordinates of the Celestial
-Intermediate Pole and the CIO locator s, using the IAU 2000B
-precession--nutation model.
+For a given TT date, compute the @math{X}, @math{Y} coordinates of the
+Celestial Intermediate Pole and the CIO locator @math{s}, using the IAU
+2000B precession--nutation model.
+
 Status:  support function.
 
 Given:
 
 @example
-   date1,date2  double   TT as a 2-part Julian Date (Note 1)
+date1,date2  double   TT as a 2-part Julian Date (Note 1)
 @end example
 
 Returned:
 
 @example
-   x,y          double   Celestial Intermediate Pole (Note 2)
-   s            double   the CIO locator s (Note 2)
+x,y          double   Celestial Intermediate Pole (Note 2)
+s            double   the CIO locator @math{s} (Note 2)
 @end example
 
 Notes:
@@ -14095,15 +14181,18 @@ internally and will deliver the optimum resolution.  The MJD method and
 the date & time methods are both good compromises between resolution and
 convenience.
 
-2) The Celestial Intermediate Pole coordinates are the x,y
-   components of the unit vector in the Geocentric Celestial
-   Reference System.
+@item
+The Celestial Intermediate Pole coordinates are the @math{X}, @math{Y}
+components of the unit vector in the Geocentric Celestial Reference
+System.
 
-3) The CIO locator s (in radians) positions the Celestial
-   Intermediate Origin on the equator of the CIP.
+@item
+The CIO locator @math{s} (in radians) positions the Celestial
+Intermediate Origin on the equator of the CIP.
 
-4) The present function is faster, but slightly less accurate (about
-   1 mas in X,Y), than the iauXys00a function.
+@item
+The present function is faster, but slightly less accurate (about
+@math{1} mas in @math{X}, @math{Y}), than the @code{iauXys00a} function.
 @end enumerate
 
 Called:
@@ -14116,7 +14205,7 @@ Classical NPB matrix, IAU 2000B.
 Extract CIP X,Y coordinates from NPB matrix.
 
 @item iauS00
-The CIO locator s, given X,Y, IAU 2000A.
+The CIO locator @math{s}, given X,Y, IAU 2000A.
 @end table
 
 Reference:
@@ -14125,27 +14214,29 @@ Reference:
 @item
 McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003), IERS
 Technical Note No. 32, BKG (2004).
+@end itemize
 @end deftypefun
 
 @c ------------------------------------------------------------
 
 @deftypefun void iauXys06a (double @vari{date}, double @varii{date}, double * @var{x}, double * @var{y}, double * @var{s})
 For a given TT date, compute the X,Y coordinates of the Celestial
-Intermediate Pole and the CIO locator s, using the IAU 2006
+Intermediate Pole and the CIO locator @math{s}, using the IAU 2006
 precession and IAU 2000A nutation models.
+
 Status:  support function.
 
 Given:
 
 @example
-   date1,date2  double  TT as a 2-part Julian Date (Note 1)
+date1,date2  double  TT as a 2-part Julian Date (Note 1)
 @end example
 
 Returned:
 
 @example
-   x,y          double  Celestial Intermediate Pole (Note 2)
-   s            double  the CIO locator s (Note 2)
+x,y          double  Celestial Intermediate Pole (Note 2)
+s            double  the CIO locator s (Note 2)
 @end example
 
 Notes:
@@ -14177,11 +14268,13 @@ The Celestial Intermediate Pole coordinates are the @var{x}, @var{y}
 components of the unit vector in the Geocentric Celestial Reference
 System.
 
-3) The CIO locator s (in radians) positions the Celestial
-   Intermediate Origin on the equator of the CIP.
+@item
+The CIO locator @math{s} (in radians) positions the Celestial Intermediate
+Origin on the equator of the CIP.
 
-4) Series-based solutions for generating X and Y are also available:
-   see Capitaine & Wallace (2006) and iauXy06.
+@item
+Series--based solutions for generating @math{X} and @math{Y} are also
+available: see Capitaine & Wallace (2006) and @code{iauXy06}.
 @end enumerate
 
 Called:
@@ -14191,10 +14284,10 @@ Called:
 Classical NPB matrix, IAU 2006/2000A.
 
 @item iauBpn2xy
-Extract CIP X,Y coordinates from NPB matrix.
+Extract CIP @math{X}, @math{Y} coordinates from NPB matrix.
 
 @item iauS06
-The CIO locator s, given X,Y, IAU 2006.
+The CIO locator @math{s}, given @math{X}, @math{Y}, IAU 2006.
 @end table
 
 References:
