@@ -2,12 +2,12 @@ dnl @configure_input@
 dnl
 
 AC_PREREQ([2.69])
-AC_INIT([SOFA under GNU Autotools],[0.1d4],
+AC_INIT([SOFA under GNU Autotools],[0.1d5],
   [marco.maggi-ipsu@poste.it],
   [atsofa],[http://github.com/marcomaggi/atsofa/])
 AC_CONFIG_SRCDIR([c/])
-AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_AUX_DIR([m4])
+AC_CONFIG_MACRO_DIR([autotools])
+AC_CONFIG_AUX_DIR([autotools])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
@@ -54,6 +54,7 @@ AC_PROG_CC_STDC
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
+AC_PROG_MKDIR_P
 
 dnl Checks for header files.
 AC_HEADER_STDC

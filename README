@@ -92,9 +92,11 @@ the top source directory of ATSOFA:
 
     $ sh autogen.sh
 
-we  should now  see  the executable  "configure"  script and  the
-"Makefile.in" file.   From now on  everything is the same  as for
-building from a proper release tarball.
+for this we  need to have installed the  GNU Autotools: Automake,
+Autoconf, Libtool.  We may need  to manually run "libtoolize" the
+first time.  We should now  see the executable "configure" script
+and the "Makefile.in"  file.  From now on everything  is the same
+as for building from a proper release tarball.
 
   The  Makefile  supports  the DESTDIR  environment  variable  to
 install files in a temporary  location, example: to see what will
