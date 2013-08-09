@@ -87,16 +87,24 @@ then do it:
     $ make install
 
   To build  the code  from a repository  checkout, we  must first
-install the GNU Autotools.  The  we run the following script from
+install the GNU Autotools.  Then we run the following script from
 the top source directory of ATSOFA:
 
+    $ cd atsofa
     $ sh autogen.sh
 
 for this we  need to have installed the  GNU Autotools: Automake,
-Autoconf, Libtool.  We may need  to manually run "libtoolize" the
-first time.  We should now  see the executable "configure" script
-and the "Makefile.in"  file.  From now on everything  is the same
-as for building from a proper release tarball.
+Autoconf, Libtool.  We should  now see the executable "configure"
+script and the "Makefile.in" file.  From now on everything is the
+same as for  building from a proper release tarball,  but we have
+to run the "configure" script enabling the maintainer mode:
+
+    $ mkdir build
+    $ cd build
+    $ ../configure --enable-maintainer-mode [options]
+    $ make
+    $ make check
+    $ make install
 
   The  Makefile  supports  the DESTDIR  environment  variable  to
 install files in a temporary  location, example: to see what will
@@ -169,14 +177,17 @@ The GNU Project software can be found here:
 
 		   <http://www.gnu.org/>
 
-  The latest version of this  package can be downloaded from
-Google Code:
-
-    <http://code.google.com/p/libtoolisations/downloads/list>
-
 development takes place at:
 
 	     <http://github.com/marcomaggi/atsofa/>
+
+and as backup at:
+
+	    <http://sourceforge.net/projects/atsofa/>
+
+the last revision of this package is available from:
+
+	 <http://sourceforge.net/projects/atsofa/files/>
 
 the documentation is available online:
 
