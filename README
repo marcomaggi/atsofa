@@ -96,12 +96,11 @@ the top source directory of ATSOFA:
 for this we  need to have installed the  GNU Autotools: Automake,
 Autoconf, Libtool.  We should  now see the executable "configure"
 script and the "Makefile.in" file.  From now on everything is the
-same as for  building from a proper release tarball,  but we have
-to run the "configure" script enabling the maintainer mode:
+same as for  building from a proper release tarball:
 
     $ mkdir build
     $ cd build
-    $ ../configure --enable-maintainer-mode [options]
+    $ ../configure [options]
     $ make
     $ make check
     $ make install

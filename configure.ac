@@ -14,7 +14,6 @@ AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([foreign dist-bzip2 no-dist-gzip])
 LT_PREREQ([2.4])
 LT_INIT
-AM_MAINTAINER_MODE
 
 dnl Options
 AC_MSG_CHECKING([whether to enable building the C library])
