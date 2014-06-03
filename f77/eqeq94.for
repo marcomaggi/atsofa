@@ -19,10 +19,10 @@
 *
 *  Notes:
 *
-*  1) The date DATE1+DATE2 is a Julian Date, apportioned in any
+*  1) The TDB date DATE1+DATE2 is a Julian Date, apportioned in any
 *     convenient way between the two arguments.  For example,
-*     JD(TDB)=2450123.7 could be expressed in any of these ways,
-*     among others:
+*     JD(TDB)=2450123.7 could be expressed in any of these ways, among
+*     others:
 *
 *            DATE1          DATE2
 *
@@ -43,9 +43,9 @@
 *        Greenwich apparent ST = GMST + equation of the equinoxes
 *
 *  Called:
+*     iau_ANPM     normalize angle into range +/- pi
 *     iau_NUT80    nutation, IAU 1980
 *     iau_OBL80    mean obliquity, IAU 1980
-*     iau_ANPM     normalize angle into range +/- pi
 *
 *  References:
 *
@@ -54,11 +54,11 @@
 *     Capitaine, N. & Gontier, A.-M., Astron. Astrophys., 275,
 *     645-650 (1993)
 *
-*  This revision:  2009 December 15
+*  This revision:  2013 August 31
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -108,7 +108,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

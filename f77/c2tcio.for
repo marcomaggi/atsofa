@@ -15,7 +15,7 @@
 *
 *  Given:
 *     RC2I     d(3,3)    celestial-to-intermediate matrix
-*     ERA        d       Earth rotation angle
+*     ERA        d       Earth rotation angle (radians)
 *     RPOM     d(3,3)    polar-motion matrix
 *
 *  Returned:
@@ -54,11 +54,11 @@
 *     McCarthy, D. D., Petit, G. (eds.), 2004, IERS Conventions (2003),
 *     IERS Technical Note No. 32, BKG
 *
-*  This revision:  2007 May 9
+*  This revision:  2013 August 24
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -79,7 +79,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

@@ -30,10 +30,13 @@
 *  2) JD cannot unambiguously represent UTC during a leap second unless
 *     special measures are taken.  The convention in the present routine
 *     is that the JD day represents UTC days whether the length is
-*     86399, 86400 or 86401 SI seconds.
+*     86399, 86400 or 86401 SI seconds.  In the 1960-1972 era there were
+*     smaller jumps (in either direction) each time the linear UTC(TAI)
+*     expression was changed, and these "mini-leaps" are also included
+*     in the SOFA convention.
 *
 *  3) The warning status "dubious year" flags UTCs that predate the
-*     introduction of the time scale and that are too far in the future
+*     introduction of the time scale or that are too far in the future
 *     to be trusted.  See iau_DAT for further details.
 *
 *  4) The routine iau_DTF2D converts from calendar date and time of day
@@ -56,11 +59,11 @@
 *     Explanatory Supplement to the Astronomical Almanac,
 *     P. Kenneth Seidelmann (ed), University Science Books (1992)
 *
-*  This revision:  2010 September 10
+*  This revision:  2013 July 26
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -74,7 +77,8 @@
 
       LOGICAL BIG1
       INTEGER IY, IM, ID, JS, IYT, IMT, IDT
-      DOUBLE PRECISION U1, U2, FD, DATS, FDT, DATST, DDAT, Z1, Z2, A2
+      DOUBLE PRECISION U1, U2, FD, DAT0, DAT12, W, DAT24, DLOD, DLEAP,
+     :                 Z1, Z2, A2
 
 * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -88,21 +92,31 @@
          U2 = UTC1
       END IF
 
-*  Get TAI-UTC now.
+*  Get TAI-UTC at 0h today.
       CALL iau_JD2CAL ( U1, U2, IY, IM, ID, FD, JS )
       IF ( JS.NE.0 ) GO TO 9
-      CALL iau_DAT ( IY, IM, ID, FD, DATS, JS )
+      CALL iau_DAT ( IY, IM, ID, 0D0, DAT0, JS )
       IF ( JS.LT.0 ) GO TO 9
 
-*  Get TAI-UTC tomorrow.
-      CALL iau_JD2CAL ( U1+1.5D0, U2-FD, IYT, IMT, IDT, FDT, JS )
+*  Get TAI-UTC at 12h today (to detect drift).
+      CALL iau_DAT ( IY, IM, ID, 0.5D0, DAT12, JS )
+      IF ( JS.LT.0 ) GO TO 9
+
+*  Get TAI-UTC at 0h tomorrow (to detect jumps).
+      CALL iau_JD2CAL ( U1+1.5D0, U2-FD, IYT, IMT, IDT, W, JS )
       IF ( JS.NE.0 ) GO TO 9
-      CALL iau_DAT ( IYT, IMT, IDT, FDT, DATST, JS )
+      CALL iau_DAT ( IYT, IMT, IDT, 0D0, DAT24, JS )
       IF ( JS.LT.0 ) GO TO 9
 
-*  If today ends in a leap second, scale the fraction into SI days.
-      DDAT = DATST - DATS
-      IF ( ABS(DDAT).GT.0.5D0 ) FD = FD + FD*DDAT/D2S
+*  Separate TAI-UTC change into per-day (DLOD) and any jump (DLEAP).
+      DLOD = 2D0 * ( DAT12 - DAT0 )
+      DLEAP = DAT24 - ( DAT0 + DLOD )
+
+*  Remove any scaling applied to spread leap into preceding day.
+      FD = FD * (D2S+DLEAP)/D2S
+
+*  Scale from (pre-1972) UTC seconds to SI seconds.
+      FD = FD * (D2S+DLOD)/D2S
 
 *  Today's calendar date to 2-part JD.
       CALL iau_CAL2JD ( IY, IM, ID, Z1, Z2, JS )
@@ -110,7 +124,7 @@
 
 *  Assemble the TAI result, preserving the UTC split and order.
       A2 = Z1 - U1
-      A2 = ( A2 + Z2 ) + ( FD + DATS/D2S )
+      A2 = ( A2 + Z2 ) + ( FD + DAT0/D2S )
       IF ( BIG1 ) THEN
          TAI1 = U1
          TAI2 = A2
@@ -121,14 +135,13 @@
 
 *  Status.
  9    CONTINUE
-      IF ( JS.NE.0 ) JS = -1
       J = JS
 
 *  Finished.
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

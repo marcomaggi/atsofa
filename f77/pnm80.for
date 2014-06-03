@@ -20,10 +20,10 @@
 *
 *  Notes:
 *
-*  1) The date DATE1+DATE2 is a Julian Date, apportioned in any
+*  1) The TDB date DATE1+DATE2 is a Julian Date, apportioned in any
 *     convenient way between the two arguments.  For example,
-*     JD(TDB)=2450123.7 could be expressed in any of these ways,
-*     among others:
+*     JD(TDB)=2450123.7 could be expressed in any of these ways, among
+*     others:
 *
 *            DATE1          DATE2
 *
@@ -56,11 +56,11 @@
 *     P. Kenneth Seidelmann (ed), University Science Books (1992),
 *     Section 3.3 (p145).
 *
-*  This revision:  2009 December 15
+*  This revision:  2012 September 5
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -85,7 +85,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

@@ -46,7 +46,7 @@
 *     handling.
 *
 *  5) The warning status "dubious year" flags UTCs that predate the
-*     introduction of the time scale and that are too far in the future
+*     introduction of the time scale or that are too far in the future
 *     to be trusted.  See iau_DAT for further details.
 *
 *  Called:
@@ -62,11 +62,11 @@
 *     Explanatory Supplement to the Astronomical Almanac,
 *     P. Kenneth Seidelmann (ed), University Science Books (1992)
 *
-*  This revision:  2011 May 14
+*  This revision:  2013 April 16
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -158,7 +158,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

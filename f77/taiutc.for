@@ -33,20 +33,21 @@
 *  2) JD cannot unambiguously represent UTC during a leap second unless
 *     special measures are taken.  The convention in the present routine
 *     is that the JD day represents UTC days whether the length is
-*     86399, 86400 or 86401 SI seconds.
+*     86399, 86400 or 86401 SI seconds.  In the 1960-1972 era there were
+*     smaller jumps (in either direction) each time the linear UTC(TAI)
+*     expression was changed, and these "mini-leaps" are also included
+*     in the SOFA convention.
 *
 *  3) The routine iau_D2DTF can be used to transform the UTC quasi-JD
 *     into calendar date and clock time, including UTC leap second
 *     handling.
 *
 *  4) The warning status "dubious year" flags UTCs that predate the
-*     introduction of the time scale and that are too far in the future
+*     introduction of the time scale or that are too far in the future
 *     to be trusted.  See iau_DAT for further details.
 *
 *  Called:
-*     iau_JD2CAL   JD to Gregorian calendar
-*     iau_DAT      delta(AT) = TAI-UTC
-*     iau_CAL2JD   Gregorian calendar to JD
+*     iau_UTCTAI   UTC to TAI
 *
 *  References:
 *
@@ -56,11 +57,11 @@
 *     Explanatory Supplement to the Astronomical Almanac,
 *     P. Kenneth Seidelmann (ed), University Science Books (1992)
 *
-*  This revision:  2010 May 14
+*  This revision:  2013 December 2
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -68,14 +69,9 @@
       DOUBLE PRECISION TAI1, TAI2, UTC1, UTC2
       INTEGER J
 
-*  Days to seconds
-      DOUBLE PRECISION D2S
-      PARAMETER ( D2S = 86400D0 )
-
       LOGICAL BIG1
-      INTEGER I, IY, IM, ID, JS, JW
-      DOUBLE PRECISION A1, A2, D1, DATS1, D2, FD, DDATS, DATS2, DATD,
-     :                 AS1, AS2, DA
+      INTEGER I, JS
+      DOUBLE PRECISION A1, A2, U1, U2, G1, G2
 
 * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -89,70 +85,41 @@
          A2 = TAI1
       END IF
 
-*  See if the TAI can possibly be in a leap-second day.
-      D1 = A1
-      DATS1 = 0D0
-      DO 1 I=-1,3
-         D2 = A2 + DBLE(I)
-         CALL iau_JD2CAL ( D1, D2, IY, IM, ID, FD, JS )
-         IF ( JS.NE.0 ) GO TO 9
-         CALL iau_DAT ( IY, IM, ID, 0D0, DATS2, JS )
+*  Initial guess for UTC.
+      U1 = A1
+      U2 = A2
+
+*  Iterate (though in most cases just once is enough).
+      DO I=1,3
+
+*     Guessed UTC to TAI.
+         CALL iau_UTCTAI ( U1, U2, G1, G2, JS )
          IF ( JS.LT.0 ) GO TO 9
-         IF ( I.EQ.-1 ) DATS1 = DATS2
-         DDATS = DATS2 - DATS1
-         DATD = DATS1 / D2S
-         IF ( ABS(DDATS).GE.0.5D0 ) THEN
 
-*        Yes.  Get TAI for the start of the UTC day that ends in a leap.
-            CALL iau_CAL2JD ( IY, IM, ID, D1, D2, JW )
-            IF ( JW.NE.0 ) THEN
-               JS = JW
-               GO TO 9
-            END IF
-            AS1 = D1
-            AS2 = D2 - 1D0 + DATD
+*     Adjust guessed UTC.
+         U2 = U2 + (A1-G1)
+         U2 = U2 + (A2-G2)
 
-*        Is the TAI after this point?
-            DA = A1 - AS1
-            DA = DA + ( A2 - AS2 )
-            IF ( DA.GT.0D0 ) THEN
-
-*           Yes:  fraction of the current UTC day that has elapsed.
-               FD = DA * D2S / ( D2S + DDATS )
-
-*           Ramp TAI-UTC to bring about SOFA's JD(UTC) convention.
-               DATD = DATD + DDATS*MIN(FD,1D0)/D2S
-            END IF
-
-*        Break.
-            GO TO 2
-         END IF
-         DATS1 = DATS2
- 1    CONTINUE
- 2    CONTINUE
-
-*  Subtract the (possibly adjusted) TAI-UTC from TAI to give UTC.
-      A2 = A2 - DATD
+      END DO
 
 *  Return the UTC result, preserving the TAI order.
       IF ( BIG1 ) THEN
-         UTC1 = A1
-         UTC2 = A2
+         UTC1 = U1
+         UTC2 = U2
       ELSE
-         UTC1 = A2
-         UTC2 = A1
+         UTC1 = U2
+         UTC2 = U1
       END IF
 
 *  Status.
  9    CONTINUE
-      IF ( JS.LT.0 ) JS = -1
       J = JS
 
 *  Finished.
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

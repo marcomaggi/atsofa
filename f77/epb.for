@@ -28,11 +28,11 @@
 *
 *     Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
 *
-*  This revision:  2009 December 15
+*  This revision:  2013 August 7
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -44,7 +44,7 @@
       DOUBLE PRECISION DJ00
       PARAMETER ( DJ00 = 2451545D0 )
 
-*  J2000.0 minus B1900.0 (2415019.81352) in Julian days
+*  J2000.0 minus B1900.0 (2415019.81352) in days
       DOUBLE PRECISION D1900
       PARAMETER ( D1900 = 36524.68648D0 )
 
@@ -60,7 +60,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

@@ -8,16 +8,16 @@
 *
 *  Each SOFA routine is at least called and a usually quite basic test
 *  is performed.  Successful completion is signalled by a confirming
-*  message.  Failure of a given function or group of functions results
+*  message.  Failure of a given routine or group of routines results
 *  in error messages.
 *
 *  All messages go to standard output.
 *
-*  This revision:  2010 September 7
+*  This revision:  2013 October 4
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *----------------------------------------------------------------------
 
@@ -30,12 +30,38 @@
 *  Preset the status to success.
       STATUS = .TRUE.
 
-*  Test all of the SOFA routines and functions.
+*  Test all of the SOFA subroutines and functions.
       CALL T_iau_A2AF ( STATUS )
       CALL T_iau_A2TF ( STATUS )
+      CALL T_iau_AB ( STATUS )
       CALL T_iau_AF2A ( STATUS )
       CALL T_iau_ANP ( STATUS )
       CALL T_iau_ANPM ( STATUS )
+      CALL T_iau_APCG ( STATUS )
+      CALL T_iau_APCG13 ( STATUS )
+      CALL T_iau_APCI ( STATUS )
+      CALL T_iau_APCI13 ( STATUS )
+      CALL T_iau_APCO ( STATUS )
+      CALL T_iau_APCO13 ( STATUS )
+      CALL T_iau_APCS ( STATUS )
+      CALL T_iau_APCS13 ( STATUS )
+      CALL T_iau_APER ( STATUS )
+      CALL T_iau_APER13 ( STATUS )
+      CALL T_iau_APIO ( STATUS )
+      CALL T_iau_APIO13 ( STATUS )
+      CALL T_iau_ATCI13 ( STATUS )
+      CALL T_iau_ATCIQ ( STATUS )
+      CALL T_iau_ATCIQN ( STATUS )
+      CALL T_iau_ATCIQZ ( STATUS )
+      CALL T_iau_ATCO13 ( STATUS )
+      CALL T_iau_ATIC13 ( STATUS )
+      CALL T_iau_ATICQ ( STATUS )
+      CALL T_iau_ATICQN ( STATUS )
+      CALL T_iau_ATIO13 ( STATUS )
+      CALL T_iau_ATIOQ ( STATUS )
+      CALL T_iau_ATOC13 ( STATUS )
+      CALL T_iau_ATOI13 ( STATUS )
+      CALL T_iau_ATOIQ ( STATUS )
       CALL T_iau_BI00 ( STATUS )
       CALL T_iau_BP00 ( STATUS )
       CALL T_iau_BP06 ( STATUS )
@@ -114,6 +140,9 @@
       CALL T_iau_IR ( STATUS )
       CALL T_iau_JD2CAL ( STATUS )
       CALL T_iau_JDCALF ( STATUS )
+      CALL T_iau_LD ( STATUS )
+      CALL T_iau_LDN ( STATUS )
+      CALL T_iau_LDSUN ( STATUS )
       CALL T_iau_NUM00A ( STATUS )
       CALL T_iau_NUM00B ( STATUS )
       CALL T_iau_NUM06A ( STATUS )
@@ -134,14 +163,16 @@
       CALL T_iau_PDP ( STATUS )
       CALL T_iau_PFW06 ( STATUS )
       CALL T_iau_PLAN94 ( STATUS )
+      CALL T_iau_PM ( STATUS )
       CALL T_iau_PMAT00 ( STATUS )
       CALL T_iau_PMAT06 ( STATUS )
       CALL T_iau_PMAT76 ( STATUS )
-      CALL T_iau_PM ( STATUS )
       CALL T_iau_PMP ( STATUS )
+      CALL T_iau_PMPX ( STATUS )
+      CALL T_iau_PMSAFE ( STATUS )
       CALL T_iau_PN ( STATUS )
       CALL T_iau_PN00 ( STATUS )
-      CALL T_iau_PN00A  ( STATUS )
+      CALL T_iau_PN00A ( STATUS )
       CALL T_iau_PN00B ( STATUS )
       CALL T_iau_PN06A ( STATUS )
       CALL T_iau_PN06 ( STATUS )
@@ -161,10 +192,12 @@
       CALL T_iau_PVMPV ( STATUS )
       CALL T_iau_PVPPV ( STATUS )
       CALL T_iau_PVSTAR ( STATUS )
+      CALL T_iau_PVTOB ( STATUS )
       CALL T_iau_PVU ( STATUS )
       CALL T_iau_PVUP ( STATUS )
       CALL T_iau_PVXPV ( STATUS )
       CALL T_iau_PXP ( STATUS )
+      CALL T_iau_REFCO ( STATUS )
       CALL T_iau_RM2V ( STATUS )
       CALL T_iau_RV2M ( STATUS )
       CALL T_iau_RX ( STATUS )
@@ -412,6 +445,49 @@
 
       END
 
+      SUBROUTINE T_iau_AB ( STATUS )
+*+
+*  - - - - - - - - -
+*   T _ i a u _ A B
+*  - - - - - - - - -
+*
+*  Test iau_AB routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_AB, VVD
+*
+*  This revision:  2013 September 24
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION PNAT(3), V(3), S, BM1, PPR(3)
+
+
+      PNAT(1) = -0.76321968546737951D0
+      PNAT(2) = -0.60869453983060384D0
+      PNAT(3) = -0.21676408580639883D0
+      V(1) =  2.1044018893653786D-5
+      V(2) = -8.9108923304429319D-5
+      V(3) = -3.8633714797716569D-5
+      S = 0.99980921395708788D0
+      BM1 = 0.99999999506209258D0
+
+      CALL iau_AB ( PNAT, V, S, BM1, PPR )
+
+      CALL VVD ( PPR(1), -0.7631631094219556269D0, 1D-12,
+     :           'iau_AB', '1', STATUS )
+      CALL VVD ( PPR(2), -0.6087553082505590832D0, 1D-12,
+     :           'iau_AB', '2', STATUS )
+      CALL VVD ( PPR(3), -0.2167926269368471279D0, 1D-12,
+     :           'iau_AB', '3', STATUS )
+
+      END
+
       SUBROUTINE T_iau_AF2A ( STATUS )
 *+
 *  - - - - - - - - - - -
@@ -497,6 +573,1635 @@
 
       CALL VVD ( iau_ANPM ( -4D0 ), 2.283185307179586477D0, 1D-12,
      :           'iau_ANPM', ' ', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_APCG ( STATUS )
+*+
+*  - - - - - - - - - - -
+*   T _ i a u _ A P C G
+*  - - - - - - - - - - -
+*
+*  Test iau_APCG routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCG, VVD
+*
+*  This revision:  2013 September 24
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION DATE1, DATE2, EBPV(3,2), EHP(3), ASTROM(30)
+
+      DATE1 = 2456165.5D0
+      DATE2 = 0.401182685D0
+      EBPV(1,1) =  0.901310875D0
+      EBPV(2,1) = -0.417402664D0
+      EBPV(3,1) = -0.180982288D0
+      EBPV(1,2) =  0.00742727954D0
+      EBPV(2,2) =  0.0140507459D0
+      EBPV(3,2) =  0.00609045792D0
+      EHP(1) =  0.903358544D0
+      EHP(2) = -0.415395237D0
+      EHP(3) = -0.180084014D0
+
+      CALL iau_APCG ( DATE1, DATE2, EBPV, EHP, ASTROM )
+
+      CALL VVD ( ASTROM(1), 12.65133794027378508D0, 1D-11,
+     :           'iau_APCG', '1', STATUS )
+      CALL VVD ( ASTROM(2), 0.901310875D0, 1D-12,
+     :           'iau_APCG', '2', STATUS )
+      CALL VVD ( ASTROM(3), -0.417402664D0, 1D-12,
+     :           'iau_APCG', '3', STATUS )
+      CALL VVD ( ASTROM(4), -0.180982288D0, 1D-12,
+     :           'iau_APCG', '4', STATUS )
+      CALL VVD ( ASTROM(5), 0.8940025429324143045D0, 1D-12,
+     :           'iau_APCG', '5', STATUS )
+      CALL VVD ( ASTROM(6), -0.4110930268679817955D0, 1D-12,
+     :           'iau_APCG', '6', STATUS )
+      CALL VVD ( ASTROM(7), -0.1782189004872870264D0, 1D-12,
+     :           'iau_APCG', '7', STATUS )
+      CALL VVD ( ASTROM(8), 1.010465295811013146D0, 1D-12,
+     :           'iau_APCG', '8', STATUS )
+      CALL VVD ( ASTROM(9), 0.4289638897813379954D-4, 1D-16,
+     :           'iau_APCG', '9', STATUS )
+      CALL VVD ( ASTROM(10), 0.8115034021720941898D-4, 1D-16,
+     :           'iau_APCG', '10', STATUS )
+      CALL VVD ( ASTROM(11), 0.3517555123437237778D-4, 1D-16,
+     :           'iau_APCG', '11', STATUS )
+      CALL VVD ( ASTROM(12), 0.9999999951686013336D0, 1D-12,
+     :           'iau_APCG', '12', STATUS )
+      CALL VVD ( ASTROM(13), 1D0, 0D0,
+     :           'iau_APCG', '13', STATUS )
+      CALL VVD ( ASTROM(14), 0D0, 0D0,
+     :           'iau_APCG', '14', STATUS )
+      CALL VVD ( ASTROM(15), 0D0, 0D0,
+     :           'iau_APCG', '15', STATUS )
+      CALL VVD ( ASTROM(16), 0D0, 0D0,
+     :           'iau_APCG', '16', STATUS )
+      CALL VVD ( ASTROM(17), 1D0, 0D0,
+     :           'iau_APCG', '17', STATUS )
+      CALL VVD ( ASTROM(18), 0D0, 0D0,
+     :           'iau_APCG', '18', STATUS )
+      CALL VVD ( ASTROM(19), 0D0, 0D0,
+     :           'iau_APCG', '19', STATUS )
+      CALL VVD ( ASTROM(20), 0D0, 0D0,
+     :           'iau_APCG', '20', STATUS )
+      CALL VVD ( ASTROM(21), 1D0, 0D0,
+     :           'iau_APCG', '21', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_APCG13 ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A P C G 1 3
+*  - - - - - - - - - - - - -
+*
+*  Test iau_APCG13 routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCG13, VVD
+*
+*  This revision:  2013 September 25
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION DATE1, DATE2, ASTROM(30)
+
+      DATE1 = 2456165.5D0
+      DATE2 = 0.401182685D0
+
+      CALL iau_APCG13 ( DATE1, DATE2, ASTROM )
+
+      CALL VVD ( ASTROM(1), 12.65133794027378508D0, 1D-11,
+     :           'iau_APCG13', '1', STATUS )
+      CALL VVD ( ASTROM(2), 0.9013108747340644755D0, 1D-12,
+     :           'iau_APCG13', '2', STATUS )
+      CALL VVD ( ASTROM(3), -0.4174026640406119957D0, 1D-12,
+     :           'iau_APCG13', '3', STATUS )
+      CALL VVD ( ASTROM(4), -0.1809822877867817771D0, 1D-12,
+     :           'iau_APCG13', '4', STATUS )
+      CALL VVD ( ASTROM(5), 0.8940025429255499549D0, 1D-12,
+     :           'iau_APCG13', '5', STATUS )
+      CALL VVD ( ASTROM(6), -0.4110930268331896318D0, 1D-12,
+     :           'iau_APCG13', '6', STATUS )
+      CALL VVD ( ASTROM(7), -0.1782189006019749850D0, 1D-12,
+     :           'iau_APCG13', '7', STATUS )
+      CALL VVD ( ASTROM(8), 1.010465295964664178D0, 1D-12,
+     :           'iau_APCG13', '8', STATUS )
+      CALL VVD ( ASTROM(9), 0.4289638897157027528D-4, 1D-16,
+     :           'iau_APCG13', '9', STATUS )
+      CALL VVD ( ASTROM(10), 0.8115034002544663526D-4, 1D-16,
+     :           'iau_APCG13', '10', STATUS )
+      CALL VVD ( ASTROM(11), 0.3517555122593144633D-4, 1D-16,
+     :           'iau_APCG13', '11', STATUS )
+      CALL VVD ( ASTROM(12), 0.9999999951686013498D0, 1D-12,
+     :           'iau_APCG13', '12', STATUS )
+      CALL VVD ( ASTROM(13), 1D0, 0D0,
+     :           'iau_APCG13', '13', STATUS )
+      CALL VVD ( ASTROM(14), 0D0, 0D0,
+     :           'iau_APCG13', '14', STATUS )
+      CALL VVD ( ASTROM(15), 0D0, 0D0,
+     :           'iau_APCG13', '15', STATUS )
+      CALL VVD ( ASTROM(16), 0D0, 0D0,
+     :           'iau_APCG13', '16', STATUS )
+      CALL VVD ( ASTROM(17), 1D0, 0D0,
+     :           'iau_APCG13', '17', STATUS )
+      CALL VVD ( ASTROM(18), 0D0, 0D0,
+     :           'iau_APCG13', '18', STATUS )
+      CALL VVD ( ASTROM(19), 0D0, 0D0,
+     :           'iau_APCG13', '19', STATUS )
+      CALL VVD ( ASTROM(20), 0D0, 0D0,
+     :           'iau_APCG13', '20', STATUS )
+      CALL VVD ( ASTROM(21), 1D0, 0D0,
+     :           'iau_APCG13', '21', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_APCI ( STATUS )
+*+
+*  - - - - - - - - - - -
+*   T _ i a u _ A P C I
+*  - - - - - - - - - - -
+*
+*  Test iau_APCI routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCI, VVD
+*
+*  This revision:  2013 October 1
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION DATE1, DATE2, EBPV(3,2), EHP(3), X, Y, S,
+     :                 ASTROM(30)
+
+      DATE1 = 2456165.5D0
+      DATE2 = 0.401182685D0
+      EBPV(1,1) =  0.901310875D0
+      EBPV(2,1) = -0.417402664D0
+      EBPV(3,1) = -0.180982288D0
+      EBPV(1,2) =  0.00742727954D0
+      EBPV(2,2) =  0.0140507459D0
+      EBPV(3,2) =  0.00609045792D0
+      EHP(1) =  0.903358544D0
+      EHP(2) = -0.415395237D0
+      EHP(3) = -0.180084014D0
+      X =  0.0013122272D0
+      Y = -2.92808623D-5
+      S =  3.05749468D-8
+
+      CALL iau_APCI ( DATE1, DATE2, EBPV, EHP, X, Y, S, ASTROM )
+
+      CALL VVD ( ASTROM(1), 12.65133794027378508D0, 1D-11,
+     :           'iau_APCI', '1', STATUS )
+      CALL VVD ( ASTROM(2), 0.901310875D0, 1D-12,
+     :           'iau_APCI', '2', STATUS )
+      CALL VVD ( ASTROM(3), -0.417402664D0, 1D-12,
+     :           'iau_APCI', '3', STATUS )
+      CALL VVD ( ASTROM(4), -0.180982288D0, 1D-12,
+     :           'iau_APCI', '4', STATUS )
+      CALL VVD ( ASTROM(5), 0.8940025429324143045D0, 1D-12,
+     :           'iau_APCI', '5', STATUS )
+      CALL VVD ( ASTROM(6), -0.4110930268679817955D0, 1D-12,
+     :           'iau_APCI', '6', STATUS )
+      CALL VVD ( ASTROM(7), -0.1782189004872870264D0, 1D-12,
+     :           'iau_APCI', '7', STATUS )
+      CALL VVD ( ASTROM(8), 1.010465295811013146D0, 1D-12,
+     :           'iau_APCI', '8', STATUS )
+      CALL VVD ( ASTROM(9), 0.4289638897813379954D-4, 1D-16,
+     :           'iau_APCI', '9', STATUS )
+      CALL VVD ( ASTROM(10), 0.8115034021720941898D-4, 1D-16,
+     :           'iau_APCI', '10', STATUS )
+      CALL VVD ( ASTROM(11), 0.3517555123437237778D-4, 1D-16,
+     :           'iau_APCI', '11', STATUS )
+      CALL VVD ( ASTROM(12), 0.9999999951686013336D0, 1D-12,
+     :           'iau_APCI', '12', STATUS )
+      CALL VVD ( ASTROM(13), 0.9999991390295159156D0, 1D-12,
+     :           'iau_APCI', '13', STATUS )
+      CALL VVD ( ASTROM(14), 0.4978650072505016932D-7, 1D-12,
+     :           'iau_APCI', '14', STATUS )
+      CALL VVD ( ASTROM(15), 0.1312227200000000000D-2, 1D-12,
+     :           'iau_APCI', '15', STATUS )
+      CALL VVD ( ASTROM(16), -0.1136336653771609630D-7, 1D-12,
+     :           'iau_APCI', '16', STATUS )
+      CALL VVD ( ASTROM(17), 0.9999999995713154868D0, 1D-12,
+     :           'iau_APCI', '17', STATUS )
+      CALL VVD ( ASTROM(18), -0.2928086230000000000D-4, 1D-12,
+     :           'iau_APCI', '18', STATUS )
+      CALL VVD ( ASTROM(19), -0.1312227200895260194D-2, 1D-12,
+     :           'iau_APCI', '19', STATUS )
+      CALL VVD ( ASTROM(20), 0.2928082217872315680D-4, 1D-12,
+     :           'iau_APCI', '20', STATUS )
+      CALL VVD ( ASTROM(21), 0.9999991386008323373D0, 1D-12,
+     :           'iau_APCI', '21', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_APCI13 ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A P C I 1 3
+*  - - - - - - - - - - - - -
+*
+*  Test iau_APCI13 routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCI13, VVD
+*
+*  This revision:  2013 October 1
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION DATE1, DATE2, ASTROM(30), EO
+
+      DATE1 = 2456165.5D0
+      DATE2 = 0.401182685D0
+
+      CALL iau_APCI13 ( DATE1, DATE2, ASTROM, EO )
+
+      CALL VVD ( ASTROM(1), 12.65133794027378508D0, 1D-11,
+     :           'iau_APCI13', '1', STATUS )
+      CALL VVD ( ASTROM(2), 0.9013108747340644755D0, 1D-12,
+     :           'iau_APCI13', '2', STATUS )
+      CALL VVD ( ASTROM(3), -0.4174026640406119957D0, 1D-12,
+     :           'iau_APCI13', '3', STATUS )
+      CALL VVD ( ASTROM(4), -0.1809822877867817771D0, 1D-12,
+     :           'iau_APCI13', '4', STATUS )
+      CALL VVD ( ASTROM(5), 0.8940025429255499549D0, 1D-12,
+     :           'iau_APCI13', '5', STATUS )
+      CALL VVD ( ASTROM(6), -0.4110930268331896318D0, 1D-12,
+     :           'iau_APCI13', '6', STATUS )
+      CALL VVD ( ASTROM(7), -0.1782189006019749850D0, 1D-12,
+     :           'iau_APCI13', '7', STATUS )
+      CALL VVD ( ASTROM(8), 1.010465295964664178D0, 1D-12,
+     :           'iau_APCI13', '8', STATUS )
+      CALL VVD ( ASTROM(9), 0.4289638897157027528D-4, 1D-16,
+     :           'iau_APCI13', '9', STATUS )
+      CALL VVD ( ASTROM(10), 0.8115034002544663526D-4, 1D-16,
+     :           'iau_APCI13', '10', STATUS )
+      CALL VVD ( ASTROM(11), 0.3517555122593144633D-4, 1D-16,
+     :           'iau_APCI13', '11', STATUS )
+      CALL VVD ( ASTROM(12), 0.9999999951686013498D0, 1D-12,
+     :           'iau_APCI13', '12', STATUS )
+      CALL VVD ( ASTROM(13), 0.9999992060376761710D0, 1D-12,
+     :           'iau_APCI13', '13', STATUS )
+      CALL VVD ( ASTROM(14), 0.4124244860106037157D-7, 1D-12,
+     :           'iau_APCI13', '14', STATUS )
+      CALL VVD ( ASTROM(15), 0.1260128571051709670D-2, 1D-12,
+     :           'iau_APCI13', '15', STATUS )
+      CALL VVD ( ASTROM(16), -0.1282291987222130690D-7, 1D-12,
+     :           'iau_APCI13', '16', STATUS )
+      CALL VVD ( ASTROM(17), 0.9999999997456835325D0, 1D-12,
+     :           'iau_APCI13', '17', STATUS )
+      CALL VVD ( ASTROM(18), -0.2255288829420524935D-4, 1D-12,
+     :           'iau_APCI13', '18', STATUS )
+      CALL VVD ( ASTROM(19), -0.1260128571661374559D-2, 1D-12,
+     :           'iau_APCI13', '19', STATUS )
+      CALL VVD ( ASTROM(20), 0.2255285422953395494D-4, 1D-12,
+     :           'iau_APCI13', '20', STATUS )
+      CALL VVD ( ASTROM(21), 0.9999992057833604343D0, 1D-12,
+     :           'iau_APCI13', '21', STATUS )
+      CALL VVD ( EO, -0.2900618712657375647D-2, 1D-12,
+     :           'iau_APCI13', 'EO', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_APCO ( STATUS )
+*+
+*  - - - - - - - - - - -
+*   T _ i a u _ A P C O
+*  - - - - - - - - - - -
+*
+*  Test iau_APCO routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCO, VVD
+*
+*  This revision:  2013 October 1
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+      DOUBLE PRECISION DATE1, DATE2, EBPV(3,2), EHP(3), X, Y, S,
+     :                 THETA, ELONG, PHI, HM, XP, YP, SP, REFA, REFB,
+     :                 ASTROM(30)
+
+
+      DATE1 = 2456384.5D0
+      DATE2 = 0.970031644D0
+      EBPV(1,1) = -0.974170438D0
+      EBPV(2,1) = -0.211520082D0
+      EBPV(3,1) = -0.0917583024D0
+      EBPV(1,2) = 0.00364365824D0
+      EBPV(2,2) = -0.0154287319D0
+      EBPV(3,2) = -0.00668922024D0
+      EHP(1) = -0.973458265D0
+      EHP(2) = -0.209215307D0
+      EHP(3) = -0.0906996477D0
+      X = 0.0013122272D0
+      Y = -2.92808623D-5
+      S = 3.05749468D-8
+      THETA = 3.14540971D0
+      ELONG = -0.527800806D0
+      PHI = -1.2345856D0
+      HM = 2738D0
+      XP = 2.47230737D-7
+      YP = 1.82640464D-6
+      SP = -3.01974337D-11
+      REFA  = 0.000201418779D0
+      REFB  = -2.36140831D-7
+
+      CALL iau_APCO ( DATE1, DATE2, EBPV, EHP, X, Y, S,
+     :                THETA, ELONG, PHI, HM, XP, YP, SP,
+     :                REFA, REFB, ASTROM )
+
+      CALL VVD ( ASTROM(1), 13.25248468622587269D0, 1D-11,
+     :           'iau_APCO', '1', STATUS )
+      CALL VVD ( ASTROM(2), -0.9741827110630897003D0, 1D-12,
+     :           'iau_APCO', '2', STATUS )
+      CALL VVD ( ASTROM(3), -0.2115130190135014340D0, 1D-12,
+     :           'iau_APCO', '3', STATUS )
+      CALL VVD ( ASTROM(4), -0.09179840186968295686D0, 1D-12,
+     :           'iau_APCO', '4', STATUS )
+      CALL VVD ( ASTROM(5), -0.9736425571689670428D0, 1D-12,
+     :           'iau_APCO', '5', STATUS )
+      CALL VVD ( ASTROM(6), -0.2092452125848862201D0, 1D-12,
+     :           'iau_APCO', '6', STATUS )
+      CALL VVD ( ASTROM(7), -0.09075578152261439954D0, 1D-12,
+     :           'iau_APCO', '7', STATUS )
+      CALL VVD ( ASTROM(8), 0.9998233241710617934D0, 1D-12,
+     :           'iau_APCO', '8', STATUS )
+      CALL VVD ( ASTROM(9), 0.2078704985147609823D-4, 1D-16,
+     :           'iau_APCO', '9', STATUS )
+      CALL VVD ( ASTROM(10), -0.8955360074407552709D-4, 1D-16,
+     :           'iau_APCO', '10', STATUS )
+      CALL VVD ( ASTROM(11), -0.3863338980073114703D-4, 1D-16,
+     :           'iau_APCO', '11', STATUS )
+      CALL VVD ( ASTROM(12), 0.9999999950277561600D0, 1D-12,
+     :           'iau_APCO', '12', STATUS )
+      CALL VVD ( ASTROM(13), 0.9999991390295159156D0, 1D-12,
+     :           'iau_APCO', '13', STATUS )
+      CALL VVD ( ASTROM(14), 0.4978650072505016932D-7, 1D-12,
+     :           'iau_APCO', '14', STATUS )
+      CALL VVD ( ASTROM(15), 0.1312227200000000000D-2, 1D-12,
+     :           'iau_APCO', '15', STATUS )
+      CALL VVD ( ASTROM(16), -0.1136336653771609630D-7, 1D-12,
+     :           'iau_APCO', '16', STATUS )
+      CALL VVD ( ASTROM(17), 0.9999999995713154868D0, 1D-12,
+     :           'iau_APCO', '17', STATUS )
+      CALL VVD ( ASTROM(18), -0.2928086230000000000D-4, 1D-12,
+     :           'iau_APCO', '18', STATUS )
+      CALL VVD ( ASTROM(19), -0.1312227200895260194D-2, 1D-12,
+     :           'iau_APCO', '19', STATUS )
+      CALL VVD ( ASTROM(20), 0.2928082217872315680D-4, 1D-12,
+     :           'iau_APCO', '20', STATUS )
+      CALL VVD ( ASTROM(21), 0.9999991386008323373D0, 1D-12,
+     :           'iau_APCO', '21', STATUS )
+      CALL VVD ( ASTROM(22), -0.5278008060301974337D0, 1D-12,
+     :           'iau_APCO', '22', STATUS )
+      CALL VVD ( ASTROM(23), 0.1133427418174939329D-5, 1D-17,
+     :           'iau_APCO', '23', STATUS )
+      CALL VVD ( ASTROM(24), 0.1453347595745898629D-5, 1D-17,
+     :           'iau_APCO', '24', STATUS )
+      CALL VVD ( ASTROM(25), -0.9440115679003211329D0, 1D-12,
+     :           'iau_APCO', '25', STATUS )
+      CALL VVD ( ASTROM(26), 0.3299123514971474711D0, 1D-12,
+     :           'iau_APCO', '26', STATUS )
+      CALL VVD ( ASTROM(27), 0D0, 0D0,
+     :           'iau_APCO', '27', STATUS )
+      CALL VVD ( ASTROM(28), 2.617608903969802566D0, 1D-12,
+     :           'iau_APCO', '28', STATUS )
+      CALL VVD ( ASTROM(29), 0.2014187790000000000D-3, 1D-15,
+     :           'iau_APCO', '29', STATUS )
+      CALL VVD ( ASTROM(30), -0.2361408310000000000D-6, 1D-18,
+     :           'iau_APCO', '30', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_APCO13 ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A P C O 1 3
+*  - - - - - - - - - - - - -
+*
+*  Test iau_APCO13 routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCO13, VIV, VVD
+*
+*  This revision:  2013 October 2
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION UTC1, UTC2, DUT1, ELONG, PHI, HM, XP, YP,
+     :                 PHPA, TC, RH, WL, ASTROM(30), EO
+      INTEGER J
+
+
+      UTC1 = 2456384.5D0
+      UTC2 = 0.969254051D0
+      DUT1 = 0.1550675D0
+      ELONG = -0.527800806D0
+      PHI = -1.2345856D0
+      HM = 2738D0
+      XP = 2.47230737D-7
+      YP = 1.82640464D-6
+      PHPA = 731D0
+      TC = 12.8D0
+      RH = 0.59D0
+      WL = 0.55D0
+
+      CALL iau_APCO13 ( UTC1, UTC2, DUT1, ELONG, PHI, HM, XP, YP,
+     :                  PHPA, TC, RH, WL, ASTROM, EO, J )
+
+      CALL VIV ( J, 0, 'iau_APCO13', 'J', STATUS )
+      CALL VVD ( ASTROM(1), 13.25248468622475727D0, 1D-11,
+     :           'iau_APCO13', '1', STATUS )
+      CALL VVD ( ASTROM(2), -0.9741827107321449445D0, 1D-12,
+     :           'iau_APCO13', '2', STATUS )
+      CALL VVD ( ASTROM(3), -0.2115130190489386190D0, 1D-12,
+     :           'iau_APCO13', '3', STATUS )
+      CALL VVD ( ASTROM(4), -0.09179840189515518726D0, 1D-12,
+     :           'iau_APCO13', '4', STATUS )
+      CALL VVD ( ASTROM(5), -0.9736425572586866640D0, 1D-12,
+     :           'iau_APCO13', '5', STATUS )
+      CALL VVD ( ASTROM(6), -0.2092452121602867431D0, 1D-12,
+     :           'iau_APCO13', '6', STATUS )
+      CALL VVD ( ASTROM(7), -0.09075578153903832650D0, 1D-12,
+     :           'iau_APCO13', '7', STATUS )
+      CALL VVD ( ASTROM(8), 0.9998233240914558422D0, 1D-12,
+     :           'iau_APCO13', '8', STATUS )
+      CALL VVD ( ASTROM(9), 0.2078704986751370303D-4, 1D-16,
+     :           'iau_APCO13', '9', STATUS )
+      CALL VVD ( ASTROM(10), -0.8955360100494469232D-4, 1D-16,
+     :           'iau_APCO13', '10', STATUS )
+      CALL VVD ( ASTROM(11), -0.3863338978840051024D-4, 1D-16,
+     :           'iau_APCO13', '11', STATUS )
+      CALL VVD ( ASTROM(12), 0.9999999950277561368D0, 1D-12,
+     :           'iau_APCO13', '12', STATUS )
+      CALL VVD ( ASTROM(13), 0.9999991390295147999D0, 1D-12,
+     :           'iau_APCO13', '13', STATUS )
+      CALL VVD ( ASTROM(14), 0.4978650075315529277D-7, 1D-12,
+     :           'iau_APCO13', '14', STATUS )
+      CALL VVD ( ASTROM(15), 0.001312227200850293372D0, 1D-12,
+     :           'iau_APCO13', '15', STATUS )
+      CALL VVD ( ASTROM(16), -0.1136336652812486604D-7, 1D-12,
+     :           'iau_APCO13', '16', STATUS )
+      CALL VVD ( ASTROM(17), 0.9999999995713154865D0, 1D-12,
+     :           'iau_APCO13', '17', STATUS )
+      CALL VVD ( ASTROM(18), -0.2928086230975367296D-4, 1D-12,
+     :           'iau_APCO13', '18', STATUS )
+      CALL VVD ( ASTROM(19), -0.001312227201745553566D0, 1D-12,
+     :           'iau_APCO13', '19', STATUS )
+      CALL VVD ( ASTROM(20), 0.2928082218847679162D-4, 1D-12,
+     :           'iau_APCO13', '20', STATUS )
+      CALL VVD ( ASTROM(21), 0.9999991386008312212D0, 1D-12,
+     :           'iau_APCO13', '21', STATUS )
+      CALL VVD ( ASTROM(22), -0.5278008060301974337D0, 1D-12,
+     :           'iau_APCO13', '22', STATUS )
+      CALL VVD ( ASTROM(23), 0.1133427418174939329D-5, 1D-17,
+     :           'iau_APCO13', '23', STATUS )
+      CALL VVD ( ASTROM(24), 0.1453347595745898629D-5, 1D-17,
+     :           'iau_APCO13', '24', STATUS )
+      CALL VVD ( ASTROM(25), -0.9440115679003211329D0, 1D-12,
+     :           'iau_APCO13', '25', STATUS )
+      CALL VVD ( ASTROM(26), 0.3299123514971474711D0, 1D-12,
+     :           'iau_APCO13', '26', STATUS )
+      CALL VVD ( ASTROM(27), 0D0, 0D0,
+     :           'iau_APCO13', '27', STATUS )
+      CALL VVD ( ASTROM(28), 2.617608909189066140D0, 1D-12,
+     :           'iau_APCO13', '28', STATUS )
+      CALL VVD ( ASTROM(29), 0.2014187785940396921D-3, 1D-15,
+     :           'iau_APCO13', '29', STATUS )
+      CALL VVD ( ASTROM(30), -0.2361408314943696227D-6, 1D-18,
+     :           'iau_APCO13', '30', STATUS )
+      CALL VVD ( EO, -0.003020548354802412839D0, 1D-14,
+     :           'iau_APCO13', 'EO', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_APCS ( STATUS )
+*+
+*  - - - - - - - - - - -
+*   T _ i a u _ A P C S
+*  - - - - - - - - - - -
+*
+*  Test iau_APCS routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCS, VVD
+*
+*  This revision:  2013 September 25
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION DATE1, DATE2, PV(3,2), EBPV(3,2), EHP(3),
+     :                 ASTROM(30)
+
+      DATE1 = 2456384.5D0
+      DATE2 = 0.970031644D0
+      PV(1,1) = -1836024.09D0
+      PV(2,1) = 1056607.72D0
+      PV(3,1) = -5998795.26D0
+      PV(1,2) = -77.0361767D0
+      PV(2,2) = -133.310856D0
+      PV(3,2) = 0.0971855934D0
+      EBPV(1,1) = -0.974170438D0
+      EBPV(2,1) = -0.211520082D0
+      EBPV(3,1) = -0.0917583024D0
+      EBPV(1,2) = 0.00364365824D0
+      EBPV(2,2) = -0.0154287319D0
+      EBPV(3,2) = -0.00668922024D0
+      EHP(1) = -0.973458265D0
+      EHP(2) = -0.209215307D0
+      EHP(3) = -0.0906996477D0
+
+      CALL iau_APCS ( DATE1, DATE2, PV, EBPV, EHP, ASTROM )
+
+      CALL VVD ( ASTROM(1), 13.25248468622587269D0, 1D-11,
+     :           'iau_APCS', '1', STATUS )
+      CALL VVD ( ASTROM(2), -0.9741827110630456169D0, 1D-12,
+     :           'iau_APCS', '2', STATUS )
+      CALL VVD ( ASTROM(3), -0.2115130190136085494D0, 1D-12,
+     :           'iau_APCS', '3', STATUS )
+      CALL VVD ( ASTROM(4), -0.09179840186973175487D0, 1D-12,
+     :           'iau_APCS', '4', STATUS )
+      CALL VVD ( ASTROM(5), -0.9736425571689386099D0, 1D-12,
+     :           'iau_APCS', '5', STATUS )
+      CALL VVD ( ASTROM(6), -0.2092452125849967195D0, 1D-12,
+     :           'iau_APCS', '6', STATUS )
+      CALL VVD ( ASTROM(7), -0.09075578152266466572D0, 1D-12,
+     :           'iau_APCS', '7', STATUS )
+      CALL VVD ( ASTROM(8), 0.9998233241710457140D0, 1D-12,
+     :           'iau_APCS', '8', STATUS )
+      CALL VVD ( ASTROM(9), 0.2078704985513566571D-4, 1D-16,
+     :           'iau_APCS', '9', STATUS )
+      CALL VVD ( ASTROM(10), -0.8955360074245006073D-4, 1D-16,
+     :           'iau_APCS', '10', STATUS )
+      CALL VVD ( ASTROM(11), -0.3863338980073572719D-4, 1D-16,
+     :           'iau_APCS', '11', STATUS )
+      CALL VVD ( ASTROM(12), 0.9999999950277561601D0, 1D-12,
+     :           'iau_APCS', '12', STATUS )
+      CALL VVD ( ASTROM(13), 1D0, 0D0,
+     :           'iau_APCS', '13', STATUS )
+      CALL VVD ( ASTROM(14), 0D0, 0D0,
+     :           'iau_APCS', '14', STATUS )
+      CALL VVD ( ASTROM(15), 0D0, 0D0,
+     :           'iau_APCS', '15', STATUS )
+      CALL VVD ( ASTROM(16), 0D0, 0D0,
+     :           'iau_APCS', '16', STATUS )
+      CALL VVD ( ASTROM(17), 1D0, 0D0,
+     :           'iau_APCS', '17', STATUS )
+      CALL VVD ( ASTROM(18), 0D0, 0D0,
+     :           'iau_APCS', '18', STATUS )
+      CALL VVD ( ASTROM(19), 0D0, 0D0,
+     :           'iau_APCS', '19', STATUS )
+      CALL VVD ( ASTROM(20), 0D0, 0D0,
+     :           'iau_APCS', '20', STATUS )
+      CALL VVD ( ASTROM(21), 1D0, 0D0,
+     :           'iau_APCS', '21', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_APCS13 ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A P C S 1 3
+*  - - - - - - - - - - - - -
+*
+*  Test iau_APCS13 routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCS13, VVD
+*
+*  This revision:  2013 September 25
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION DATE1, DATE2, PV(3,2), ASTROM(30)
+
+
+      DATE1 = 2456165.5D0
+      DATE2 = 0.401182685D0
+      PV(1,1) = -6241497.16D0
+      PV(2,1) = 401346.896D0
+      PV(3,1) = -1251136.04D0
+      PV(1,2) = -29.264597D0
+      PV(2,2) = -455.021831D0
+      PV(3,2) = 0.0266151194D0
+
+      CALL iau_APCS13 ( DATE1, DATE2, PV, ASTROM )
+
+      CALL VVD ( ASTROM(1), 12.65133794027378508D0, 1D-11,
+     :           'iau_APCS13', '1', STATUS )
+      CALL VVD ( ASTROM(2), 0.9012691529023298391D0, 1D-12,
+     :           'iau_APCS13', '2', STATUS )
+      CALL VVD ( ASTROM(3), -0.4173999812023068781D0, 1D-12,
+     :           'iau_APCS13', '3', STATUS )
+      CALL VVD ( ASTROM(4), -0.1809906511146821008D0, 1D-12,
+     :           'iau_APCS13', '4', STATUS )
+      CALL VVD ( ASTROM(5), 0.8939939101759726824D0, 1D-12,
+     :           'iau_APCS13', '5', STATUS )
+      CALL VVD ( ASTROM(6), -0.4111053891734599955D0, 1D-12,
+     :           'iau_APCS13', '6', STATUS )
+      CALL VVD ( ASTROM(7), -0.1782336880637689334D0, 1D-12,
+     :           'iau_APCS13', '7', STATUS )
+      CALL VVD ( ASTROM(8), 1.010428384373318379D0, 1D-12,
+     :           'iau_APCS13', '8', STATUS )
+      CALL VVD ( ASTROM(9), 0.4279877278327626511D-4, 1D-16,
+     :           'iau_APCS13', '9', STATUS )
+      CALL VVD ( ASTROM(10), 0.7963255057040027770D-4, 1D-16,
+     :           'iau_APCS13', '10', STATUS )
+      CALL VVD ( ASTROM(11), 0.3517564000441374759D-4, 1D-16,
+     :           'iau_APCS13', '11', STATUS )
+      CALL VVD ( ASTROM(12), 0.9999999952947981330D0, 1D-12,
+     :           'iau_APCS13', '12', STATUS )
+      CALL VVD ( ASTROM(13), 1D0, 0D0,
+     :           'iau_APCS13', '13', STATUS )
+      CALL VVD ( ASTROM(14), 0D0, 0D0,
+     :           'iau_APCS13', '14', STATUS )
+      CALL VVD ( ASTROM(15), 0D0, 0D0,
+     :           'iau_APCS13', '15', STATUS )
+      CALL VVD ( ASTROM(16), 0D0, 0D0,
+     :           'iau_APCS13', '16', STATUS )
+      CALL VVD ( ASTROM(17), 1D0, 0D0,
+     :           'iau_APCS13', '17', STATUS )
+      CALL VVD ( ASTROM(18), 0D0, 0D0,
+     :           'iau_APCS13', '18', STATUS )
+      CALL VVD ( ASTROM(19), 0D0, 0D0,
+     :           'iau_APCS13', '19', STATUS )
+      CALL VVD ( ASTROM(20), 0D0, 0D0,
+     :           'iau_APCS13', '20', STATUS )
+      CALL VVD ( ASTROM(21), 1D0, 0D0,
+     :           'iau_APCS13', '21', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_APER ( STATUS )
+*+
+*  - - - - - - - - - - -
+*   T _ i a u _ A P E R
+*  - - - - - - - - - - -
+*
+*  Test iau_APER routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APER, VVD
+*
+*  This revision:  2013 September 30
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION ASTROM(30), THETA
+
+
+      ASTROM(22) = 1.234D0
+      THETA = 5.678D0
+
+      CALL iau_APER ( THETA, ASTROM )
+
+      CALL VVD ( ASTROM(28), 6.912000000000000000D0, 1D-12,
+     :           'iau_APER', '1', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_APER13 ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A P E R 1 3
+*  - - - - - - - - - - - - -
+*
+*  Test iau_APER13 routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APER13, VVD
+*
+*  This revision:  2013 September 25
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION ASTROM(30), UT11, UT12
+
+
+      ASTROM(22) = 1.234D0
+      UT11 = 2456165.5D0
+      UT12 = 0.401182685D0
+
+      CALL iau_APER13 ( UT11, UT12, ASTROM )
+
+      CALL VVD ( ASTROM(28), 3.316236661789694933D0, 1D-12,
+     :           'iau_APER13', '1', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_APIO ( STATUS )
+*+
+*  - - - - - - - - - - -
+*   T _ i a u _ A P I O
+*  - - - - - - - - - - -
+*
+*  Test iau_APIO routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APIO, VVD
+*
+*  This revision:  2013 September 30
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+      DOUBLE PRECISION SP, THETA, ELONG, PHI, HM, XP, YP,
+     :                 REFA, REFB, ASTROM(30)
+
+
+      SP = -3.01974337D-11
+      THETA = 3.14540971D0
+      ELONG = -0.527800806D0
+      PHI = -1.2345856D0
+      HM = 2738D0
+      XP = 2.47230737D-7
+      YP = 1.82640464D-6
+      REFA  = 0.000201418779D0
+      REFB  = -2.36140831D-7
+
+      CALL iau_APIO ( SP, THETA, ELONG, PHI, HM, XP, YP,
+     :                REFA, REFB, ASTROM )
+
+      CALL VVD ( ASTROM(22), -0.5278008060301974337D0, 1D-12,
+     :           'iau_APIO', '22', STATUS )
+      CALL VVD ( ASTROM(23), 0.1133427418174939329D-5, 1D-17,
+     :           'iau_APIO', '23', STATUS )
+      CALL VVD ( ASTROM(24), 0.1453347595745898629D-5, 1D-17,
+     :           'iau_APIO', '24', STATUS )
+      CALL VVD ( ASTROM(25), -0.9440115679003211329D0, 1D-12,
+     :           'iau_APIO', '25', STATUS )
+      CALL VVD ( ASTROM(26), 0.3299123514971474711D0, 1D-12,
+     :           'iau_APIO', '26', STATUS )
+      CALL VVD ( ASTROM(27), 0.5135843661699913529D-6, 1D-12,
+     :           'iau_APIO', '27', STATUS )
+      CALL VVD ( ASTROM(28), 2.617608903969802566D0, 1D-12,
+     :           'iau_APIO', '28', STATUS )
+      CALL VVD ( ASTROM(29), 0.2014187790000000000D-3, 1D-15,
+     :           'iau_APIO', '29', STATUS )
+      CALL VVD ( ASTROM(30), -0.2361408310000000000D-6, 1D-18,
+     :           'iau_APIO', '30', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_APIO13 ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A P I O 1 3
+*  - - - - - - - - - - - - -
+*
+*  Test iau_APIO13 routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APIO13, VVD, VIV
+*
+*  This revision:  2013 October 2
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION UTC1, UTC2, DUT1, ELONG, PHI, HM, XP, YP,
+     :                 PHPA, TC, RH, WL, ASTROM(30)
+      INTEGER J
+
+
+      UTC1 = 2456384.5D0
+      UTC2 = 0.969254051D0
+      DUT1 = 0.1550675D0
+      ELONG = -0.527800806D0
+      PHI = -1.2345856D0
+      HM = 2738D0
+      XP = 2.47230737D-7
+      YP = 1.82640464D-6
+      PHPA = 731D0
+      TC = 12.8D0
+      RH = 0.59D0
+      WL = 0.55D0
+
+      CALL iau_APIO13 ( UTC1, UTC2, DUT1, ELONG, PHI, HM, XP, YP,
+     :                  PHPA, TC, RH, WL, ASTROM, J )
+
+      CALL VVD ( ASTROM(22), -0.5278008060301974337D0, 1D-12,
+     :           'iau_APIO13', '22', STATUS )
+      CALL VVD ( ASTROM(23), 0.1133427418174939329D-5, 1D-17,
+     :           'iau_APIO13', '23', STATUS )
+      CALL VVD ( ASTROM(24), 0.1453347595745898629D-5, 1D-17,
+     :           'iau_APIO13', '24', STATUS )
+      CALL VVD ( ASTROM(25), -0.9440115679003211329D0, 1D-12,
+     :           'iau_APIO13', '25', STATUS )
+      CALL VVD ( ASTROM(26), 0.3299123514971474711D0, 1D-12,
+     :           'iau_APIO13', '26', STATUS )
+      CALL VVD ( ASTROM(27), 0.5135843661699913529D-6, 1D-12,
+     :           'iau_APIO13', '27', STATUS )
+      CALL VVD ( ASTROM(28), 2.617608909189066140D0, 1D-12,
+     :           'iau_APIO13', '28', STATUS )
+      CALL VVD ( ASTROM(29), 0.2014187785940396921D-3, 1D-15,
+     :           'iau_APIO13', '29', STATUS )
+      CALL VVD ( ASTROM(30), -0.2361408314943696227D-6, 1D-18,
+     :           'iau_APIO13', '30', STATUS )
+      CALL VIV ( J, 0, 'iau_APIO13', 'J', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATCI13 ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A T C I 1 3
+*  - - - - - - - - - - - - -
+*
+*  Test iau_ATCI13 routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_ATCI13, VVD
+*
+*  This revision:  2013 September 30
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION RC, DC, PR, PD, PX, RV, DATE1, DATE2,
+     :                 RI, DI, EO
+
+
+      RC = 2.71D0
+      DC = 0.174D0
+      PR = 1D-5
+      PD = 5D-6
+      PX = 0.1D0
+      RV = 55D0
+      DATE1 = 2456165.5D0
+      DATE2 = 0.401182685D0
+
+      CALL iau_ATCI13 ( RC, DC, PR, PD, PX, RV, DATE1, DATE2,
+     :                  RI, DI, EO )
+
+      CALL VVD ( RI, 2.710121572969038991D0, 1D-12,
+     :           'iau_ATCI13', 'RI', STATUS )
+      CALL VVD ( DI, 0.1729371367218230438D0, 1D-12,
+     :           'iau_ATCI13', 'DI', STATUS )
+      CALL VVD ( EO, -0.002900618712657375647D0, 1D-14,
+     :           'iau_ATCI13', 'EO', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATCIQ ( STATUS )
+*+
+*  - - - - - - - - - - - -
+*   T _ i a u _ A T C I Q
+*  - - - - - - - - - - - -
+*
+*  Test iau_ATCIQ routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCI13, iau_ATCIQ, VVD
+*
+*  This revision:  2013 October 1
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION DATE1, DATE2, ASTROM(30), EO,
+     :                 RC, DC, PR, PD, PX, RV, RI, DI
+
+
+      DATE1 = 2456165.5D0
+      DATE2 = 0.401182685D0
+      CALL iau_APCI13 ( DATE1, DATE2, ASTROM, EO )
+      RC = 2.71D0
+      DC = 0.174D0
+      PR = 1D-5
+      PD = 5D-6
+      PX = 0.1D0
+      RV = 55D0
+
+      CALL iau_ATCIQ ( RC, DC, PR, PD, PX, RV, ASTROM, RI, DI )
+
+      CALL VVD ( RI, 2.710121572969038991D0, 1D-12,
+     :           'iau_ATCIQ', 'RI', STATUS )
+      CALL VVD ( DI, 0.1729371367218230438D0, 1D-12,
+     :           'iau_ATCIQ', 'DI', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATCIQN ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A T C I Q N
+*  - - - - - - - - - - - - -
+*
+*  Test iau_ATCIQN routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCI13, iau_ATCIQN, VVD
+*
+*  This revision:  2013 October 1
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION DATE1, DATE2, ASTROM(30), EO,
+     :                 RC, DC, PR, PD, PX, RV, B(8,3), RI, DI
+
+
+      DATE1 = 2456165.5D0
+      DATE2 = 0.401182685D0
+      CALL iau_APCI13 ( DATE1, DATE2, ASTROM, EO )
+      RC = 2.71D0
+      DC = 0.174D0
+      PR = 1D-5
+      PD = 5D-6
+      PX = 0.1D0
+      RV = 55D0
+      B(1,1) = 0.00028574D0
+      B(2,1) = 3D-10
+      B(3,1) = -7.81014427D0
+      B(4,1) = -5.60956681D0
+      B(5,1) = -1.98079819D0
+      B(6,1) = 0.0030723249D0
+      B(7,1) = -0.00406995477D0
+      B(8,1) = -0.00181335842D0
+      B(1,2) = 0.00095435D0
+      B(2,2) = 3D-9
+      B(3,2) = 0.738098796D0
+      B(4,2) = 4.63658692D0
+      B(5,2) = 1.9693136D0
+      B(6,2) = -0.00755816922D0
+      B(7,2) = 0.00126913722D0
+      B(8,2) = 0.000727999001D0
+      B(1,3) = 1D0
+      B(2,3) = 6D-6
+      B(3,3) = -0.000712174377D0
+      B(4,3) = -0.00230478303D0
+      B(5,3) = -0.00105865966D0
+      B(6,3) = 6.29235213D-6
+      B(7,3) = -3.30888387D-7
+      B(8,3) = -2.96486623D-7
+
+      CALL iau_ATCIQN ( RC, DC, PR, PD, PX, RV, ASTROM, 3, B, RI, DI )
+
+      CALL VVD ( RI, 2.710122008105325582D0, 1D-12,
+     :           'iau_ATCIQN', 'RI', STATUS )
+      CALL VVD ( DI, 0.1729371916491459122D0, 1D-12,
+     :           'iau_ATCIQN', 'DI', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATCIQZ ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A T C I Q Z
+*  - - - - - - - - - - - - -
+*
+*  Test iau_ATCIQZ routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCI13, iau_ATCIQZ, VVD
+*
+*  This revision:  2013 October 1
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION DATE1, DATE2, ASTROM(30), EO, RC, DC, RI, DI
+
+
+      DATE1 = 2456165.5D0
+      DATE2 = 0.401182685D0
+      CALL iau_APCI13 ( DATE1, DATE2, ASTROM, EO )
+      RC = 2.71D0
+      DC = 0.174D0
+
+      CALL iau_ATCIQZ ( RC, DC, ASTROM, RI, DI )
+
+      CALL VVD ( RI, 2.709994899247599271D0, 1D-12,
+     :           'iau_ATCIQZ', 'RI', STATUS )
+      CALL VVD ( DI, 0.1728740720983623469D0, 1D-12,
+     :           'iau_ATCIQZ', 'DI', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATCO13 ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A T C O 1 3
+*  - - - - - - - - - - - - -
+*
+*  Test iau_ATCO13 routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_ATCO13, VVD
+*
+*  This revision:  2013 October 2
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION RC, DC, PR, PD, PX, RV, UTC1, UTC2, DUT1,
+     :                 ELONG, PHI, HM, XP, YP, PHPA, TC, RH, WL,
+     :                 AOB, ZOB, HOB, DOB, ROB, EO
+      INTEGER J
+
+
+      RC = 2.71D0
+      DC = 0.174D0
+      PR = 1D-5
+      PD = 5D-6
+      PX = 0.1D0
+      RV = 55D0
+      UTC1 = 2456384.5D0
+      UTC2 = 0.969254051D0
+      DUT1 = 0.1550675D0
+      ELONG = -0.527800806D0
+      PHI = -1.2345856D0
+      HM = 2738D0
+      XP = 2.47230737D-7
+      YP = 1.82640464D-6
+      PHPA = 731D0
+      TC = 12.8D0
+      RH = 0.59D0
+      WL = 0.55D0
+
+      CALL iau_ATCO13 ( RC, DC, PR, PD, PX, RV,
+     :                  UTC1, UTC2, DUT1, ELONG, PHI, HM, XP, YP,
+     :                  PHPA, TC, RH, WL,
+     :                  AOB, ZOB, HOB, DOB, ROB, EO, J )
+
+      CALL VVD ( AOB, 0.09251774485358230653D0, 1D-12,
+     :           'iau_ATCO13', 'AOB', STATUS )
+      CALL VVD ( ZOB, 1.407661405256767021D0, 1D-12,
+     :           'iau_ATCO13', 'ZOB', STATUS )
+      CALL VVD ( HOB, -0.09265154431403157925D0, 1D-12,
+     :           'iau_ATCO13', 'HOB', STATUS )
+      CALL VVD ( DOB, 0.1716626560075591655D0, 1D-12,
+     :           'iau_ATCO13', 'DOB', STATUS )
+      CALL VVD ( ROB, 2.710260453503097719D0, 1D-12,
+     :           'iau_ATCO13', 'ROB', STATUS )
+      CALL VVD ( EO, -0.003020548354802412839D0, 1D-14,
+     :           'iau_ATCO13', 'EO', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATIC13 ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A T I C 1 3
+*  - - - - - - - - - - - - -
+*
+*  Test iau_ATIC13 routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_ATIC13, VVD
+*
+*  This revision:  2013 October 1
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION RI, DI, DATE1, DATE2, RC, DC, EO
+
+
+      RI = 2.710121572969038991D0
+      DI = 0.1729371367218230438D0
+      DATE1 = 2456165.5D0
+      DATE2 = 0.401182685D0
+
+      CALL iau_ATIC13 ( RI, DI, DATE1, DATE2, RC, DC, EO )
+
+      CALL VVD ( RC, 2.710126504531374930D0, 1D-12,
+     :           'iau_ATIC13', 'RC', STATUS )
+      CALL VVD ( DC, 0.1740632537628342320D0, 1D-12,
+     :           'iau_ATIC13', 'DC', STATUS )
+      CALL VVD ( EO, -0.002900618712657375647D0, 1D-14,
+     :           'iau_ATIC13', 'EO', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATICQ ( STATUS )
+*+
+*  - - - - - - - - - - - -
+*   T _ i a u _ A T I C Q
+*  - - - - - - - - - - - -
+*
+*  Test iau_ATICQ routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCI13, iau_ATICQ, VVD
+*
+*  This revision:  2013 October 1
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION DATE1, DATE2, ASTROM(30), EO, RI, DI, RC, DC
+
+
+      DATE1 = 2456165.5D0
+      DATE2 = 0.401182685D0
+      CALL iau_APCI13 ( DATE1, DATE2, ASTROM, EO )
+      RI = 2.710121572969038991D0
+      DI = 0.1729371367218230438D0
+
+      CALL iau_ATICQ ( RI, DI, ASTROM, RC, DC )
+
+      CALL VVD ( RC, 2.710126504531374930D0, 1D-12,
+     :           'iau_ATICQ', 'RC', STATUS )
+      CALL VVD ( DC, 0.1740632537628342320D0, 1D-12,
+     :           'iau_ATICQ', 'DC', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATICQN ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A T I C Q N
+*  - - - - - - - - - - - - -
+*
+*  Test iau_ATICQN routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APCI13, iau_ATICQN, VVD
+*
+*  This revision:  2013 October 3
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION DATE1, DATE2, ASTROM(30), EO, RI, DI, B(8,3),
+     :                 RC, DC
+
+
+      DATE1 = 2456165.5D0
+      DATE2 = 0.401182685D0
+      CALL iau_APCI13 ( DATE1, DATE2, ASTROM, EO )
+      RI = 2.709994899247599271D0
+      DI = 0.1728740720983623469D0
+      B(1,1) = 0.00028574D0
+      B(2,1) = 3D-10
+      B(3,1) = -7.81014427D0
+      B(4,1) = -5.60956681D0
+      B(5,1) = -1.98079819D0
+      B(6,1) = 0.0030723249D0
+      B(7,1) = -0.00406995477D0
+      B(8,1) = -0.00181335842D0
+      B(1,2) = 0.00095435D0
+      B(2,2) = 3D-9
+      B(3,2) = 0.738098796D0
+      B(4,2) = 4.63658692D0
+      B(5,2) = 1.9693136D0
+      B(6,2) = -0.00755816922D0
+      B(7,2) = 0.00126913722D0
+      B(8,2) = 0.000727999001D0
+      B(1,3) = 1D0
+      B(2,3) = 6D-6
+      B(3,3) = -0.000712174377D0
+      B(4,3) = -0.00230478303D0
+      B(5,3) = -0.00105865966D0
+      B(6,3) = 6.29235213D-6
+      B(7,3) = -3.30888387D-7
+      B(8,3) = -2.96486623D-7
+
+      CALL iau_ATICQN ( RI, DI, ASTROM, 3, B, RC, DC )
+
+      CALL VVD ( RC, 2.709999575032685412D0, 1D-12,
+     :           'iau_ATCIQN', 'RC', STATUS )
+      CALL VVD ( DC, 0.1739999656317778034D0, 1D-12,
+     :           'iau_ATCIQN', 'DC', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATIO13 ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A T I O 1 3
+*  - - - - - - - - - - - - -
+*
+*  Test iau_ATIO13 routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_ATIO13, VVD, VIV
+*
+*  This revision:  2013 October 2
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION RI, DI, UTC1, UTC2, DUT1, ELONG, PHI, HM, XP, YP,
+     :                 PHPA, TC, RH, WL, AOB, ZOB, HOB, DOB, ROB
+      INTEGER J
+
+
+      RI = 2.710121572969038991D0
+      DI = 0.1729371367218230438D0
+      UTC1 = 2456384.5D0
+      UTC2 = 0.969254051D0
+      DUT1 = 0.1550675D0
+      ELONG = -0.527800806D0
+      PHI = -1.2345856D0
+      HM = 2738D0
+      XP = 2.47230737D-7
+      YP = 1.82640464D-6
+      PHPA = 731D0
+      TC = 12.8D0
+      RH = 0.59D0
+      WL = 0.55D0
+
+      CALL iau_ATIO13 ( RI, DI, UTC1, UTC2, DUT1, ELONG, PHI, HM,
+     :                  XP, YP, PHPA, TC, RH, WL,
+     :                  AOB, ZOB, HOB, DOB, ROB, J )
+
+      CALL VVD ( AOB, 0.09233952224794989993D0, 1D-12,
+     :           'iau_ATIO13', 'AOB', STATUS )
+      CALL VVD ( ZOB, 1.407758704513722461D0, 1D-12,
+     :           'iau_ATIO13', 'ZOB', STATUS )
+      CALL VVD ( HOB, -0.09247619879782006106D0, 1D-12,
+     :           'iau_ATIO13', 'HOB', STATUS )
+      CALL VVD ( DOB, 0.1717653435758265198D0, 1D-12,
+     :           'iau_ATIO13', 'DOB', STATUS )
+      CALL VVD ( ROB, 2.710085107986886201D0, 1D-12,
+     :           'iau_ATIO13', 'ROB', STATUS )
+      CALL VIV ( J, 0, 'iau_ATIO13', 'J', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATIOQ ( STATUS )
+*+
+*  - - - - - - - - - - - -
+*   T _ i a u _ A T I O Q
+*  - - - - - - - - - - - -
+*
+*  Test iau_ATIOQ routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APIO13, iau_ATIOQ, VVD, VIV
+*
+*  This revision:  2013 October 2
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION UTC1, UTC2, DUT1, ELONG, PHI, HM, XP, YP,
+     :                 PHPA, TC, RH, WL, ASTROM(30), RI, DI,
+     :                 AOB, ZOB, HOB, DOB, ROB
+      INTEGER J
+
+
+      UTC1 = 2456384.5D0
+      UTC2 = 0.969254051D0
+      DUT1 = 0.1550675D0
+      ELONG = -0.527800806D0
+      PHI = -1.2345856D0
+      HM = 2738D0
+      XP = 2.47230737D-7
+      YP = 1.82640464D-6
+      PHPA = 731D0
+      TC = 12.8D0
+      RH = 0.59D0
+      WL = 0.55D0
+      CALL iau_APIO13 ( UTC1, UTC2, DUT1, ELONG, PHI, HM, XP, YP,
+     :                  PHPA, TC, RH, WL, ASTROM, J )
+      RI = 2.710121572969038991D0
+      DI = 0.1729371367218230438D0
+
+      CALL iau_ATIOQ ( RI, DI, ASTROM, AOB, ZOB, HOB, DOB, ROB )
+
+      CALL VVD ( AOB, 0.09233952224794989993D0, 1D-12,
+     :           'iau_ATIOQ', 'AOB', STATUS )
+      CALL VVD ( ZOB, 1.407758704513722461D0, 1D-12,
+     :           'iau_ATIOQ', 'ZOB', STATUS )
+      CALL VVD ( HOB, -0.09247619879782006106D0, 1D-12,
+     :           'iau_ATIOQ', 'HOB', STATUS )
+      CALL VVD ( DOB, 0.1717653435758265198D0, 1D-12,
+     :           'iau_ATIOQ', 'DOB', STATUS )
+      CALL VVD ( ROB, 2.710085107986886201D0, 1D-12,
+     :           'iau_ATIOQ', 'ROB', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATOC13 ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A T O C 1 3
+*  - - - - - - - - - - - - -
+*
+*  Test iau_ATOC13 routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_ATOC13, VVD, VIV
+*
+*  This revision:  2013 October 2
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      CHARACTER TYPE
+      DOUBLE PRECISION UTC1, UTC2, DUT1,
+     :                 ELONG, PHI, HM, XP, YP, PHPA, TC, RH, WL,
+     :                 OB1, OB2, RC, DC
+      INTEGER J
+
+
+      UTC1 = 2456384.5D0
+      UTC2 = 0.969254051D0
+      DUT1 = 0.1550675D0
+      ELONG = -0.527800806D0
+      PHI = -1.2345856D0
+      HM = 2738D0
+      XP = 2.47230737D-7
+      YP = 1.82640464D-6
+      PHPA = 731D0
+      TC = 12.8D0
+      RH = 0.59D0
+      WL = 0.55D0
+
+      TYPE = 'R'
+      OB1 = 2.710085107986886201D0
+      OB2 = 0.1717653435758265198D0
+      CALL iau_ATOC13 ( TYPE, OB1, OB2, UTC1, UTC2, DUT1,
+     :                  ELONG, PHI, HM, XP, YP, PHPA, TC, RH, WL,
+     :                  RC, DC, J )
+      CALL VVD ( RC, 2.709956744661000609D0, 1D-12,
+     :           'iau_ATOC13', 'R/RC', STATUS )
+      CALL VVD ( DC, 0.1741696500895398562D0, 1D-12,
+     :           'iau_ATOC13', 'R/DC', STATUS )
+      CALL VIV ( J, 0, 'iau_ATOC13', 'R/J', STATUS )
+
+      TYPE = 'H'
+      OB1 = -0.09247619879782006106D0
+      OB2 = 0.1717653435758265198D0
+      CALL iau_ATOC13 ( TYPE, OB1, OB2, UTC1, UTC2, DUT1,
+     :                  ELONG, PHI, HM, XP, YP, PHPA, TC, RH, WL,
+     :                  RC, DC, J )
+      CALL VVD ( RC, 2.709956744661000609D0, 1D-12,
+     :           'iau_ATOC13', 'H/RC', STATUS )
+      CALL VVD ( DC, 0.1741696500895398562D0, 1D-12,
+     :           'iau_ATOC13', 'H/DC', STATUS )
+      CALL VIV ( J, 0, 'iau_ATOC13', 'H/J', STATUS )
+
+      TYPE = 'A'
+      OB1 = 0.09233952224794989993D0
+      OB2 = 1.407758704513722461D0
+      CALL iau_ATOC13 ( TYPE, OB1, OB2, UTC1, UTC2, DUT1,
+     :                  ELONG, PHI, HM, XP, YP, PHPA, TC, RH, WL,
+     :                  RC, DC, J )
+      CALL VVD ( RC, 2.709956744661000609D0, 1D-12,
+     :           'iau_ATOC13', 'A/RC', STATUS )
+      CALL VVD ( DC, 0.1741696500895398565D0, 1D-12,
+     :           'iau_ATOC13', 'A/DC', STATUS )
+      CALL VIV ( J, 0, 'iau_ATOC13', 'A/J', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATOI13 ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ A T O I 1 3
+*  - - - - - - - - - - - - -
+*
+*  Test iau_ATOI13 routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_ATOI13, VVD, VIV
+*
+*  This revision:  2013 October 2
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      CHARACTER TYPE
+      DOUBLE PRECISION UTC1, UTC2, DUT1,
+     :                 ELONG, PHI, HM, XP, YP, PHPA, TC, RH, WL,
+     :                 OB1, OB2, RI, DI
+      INTEGER J
+
+
+      UTC1 = 2456384.5D0
+      UTC2 = 0.969254051D0
+      DUT1 = 0.1550675D0
+      ELONG = -0.527800806D0
+      PHI = -1.2345856D0
+      HM = 2738D0
+      XP = 2.47230737D-7
+      YP = 1.82640464D-6
+      PHPA = 731D0
+      TC = 12.8D0
+      RH = 0.59D0
+      WL = 0.55D0
+
+      TYPE = 'R'
+      OB1 = 2.710085107986886201D0
+      OB2 = 0.1717653435758265198D0
+      CALL iau_ATOI13 ( TYPE, OB1, OB2, UTC1, UTC2, DUT1,
+     :                  ELONG, PHI, HM, XP, YP, PHPA, TC, RH, WL,
+     :                  RI, DI, J )
+      CALL VVD ( RI, 2.710121574449135955D0, 1D-12,
+     :           'iau_ATOI13', 'R/RI', STATUS )
+      CALL VVD ( DI, 0.1729371839114567725D0, 1D-12,
+     :           'iau_ATOI13', 'R/DI', STATUS )
+      CALL VIV ( J, 0, 'iau_ATOI13', 'R/J', STATUS )
+
+      TYPE = 'H'
+      OB1 = -0.09247619879782006106D0
+      OB2 = 0.1717653435758265198D0
+      CALL iau_ATOI13 ( TYPE, OB1, OB2, UTC1, UTC2, DUT1,
+     :                  ELONG, PHI, HM, XP, YP, PHPA, TC, RH, WL,
+     :                  RI, DI, J )
+      CALL VVD ( RI, 2.710121574449135955D0, 1D-12,
+     :           'iau_ATOI13', 'H/RI', STATUS )
+      CALL VVD ( DI, 0.1729371839114567725D0, 1D-12,
+     :           'iau_ATOI13', 'H/DI', STATUS )
+      CALL VIV ( J, 0, 'iau_ATOI13', 'H/J', STATUS )
+
+      TYPE = 'A'
+      OB1 = 0.09233952224794989993D0
+      OB2 = 1.407758704513722461D0
+      CALL iau_ATOI13 ( TYPE, OB1, OB2, UTC1, UTC2, DUT1,
+     :                  ELONG, PHI, HM, XP, YP, PHPA, TC, RH, WL,
+     :                  RI, DI, J )
+      CALL VVD ( RI, 2.710121574449135955D0, 1D-12,
+     :           'iau_ATOI13', 'A/RI', STATUS )
+      CALL VVD ( DI, 0.1729371839114567728D0, 1D-12,
+     :           'iau_ATOI13', 'A/DI', STATUS )
+      CALL VIV ( J, 0, 'iau_ATOI13', 'A/J', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_ATOIQ ( STATUS )
+*+
+*  - - - - - - - - - - - -
+*   T _ i a u _ A T O I Q
+*  - - - - - - - - - - - -
+*
+*  Test iau_ATOIQ routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_APIO13, iau_ATOIQ, VVD
+*
+*  This revision:  2013 October 2
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      CHARACTER TYPE
+      DOUBLE PRECISION UTC1, UTC2, DUT1, ELONG, PHI, HM, XP, YP,
+     :                 PHPA, TC, RH, WL, ASTROM(30),
+     :                 OB1, OB2, RI, DI
+      INTEGER J
+
+
+      UTC1 = 2456384.5D0
+      UTC2 = 0.969254051D0
+      DUT1 = 0.1550675D0
+      ELONG = -0.527800806D0
+      PHI = -1.2345856D0
+      HM = 2738D0
+      XP = 2.47230737D-7
+      YP = 1.82640464D-6
+      PHPA = 731D0
+      TC = 12.8D0
+      RH = 0.59D0
+      WL = 0.55D0
+      CALL iau_APIO13 ( UTC1, UTC2, DUT1, ELONG, PHI, HM, XP, YP,
+     :                  PHPA, TC, RH, WL, ASTROM, J )
+
+      TYPE = 'R'
+      OB1 = 2.710085107986886201D0
+      OB2 = 0.1717653435758265198D0
+      CALL iau_ATOIQ ( TYPE, OB1, OB2, ASTROM, RI, DI )
+      CALL VVD ( RI, 2.710121574449135955D0, 1D-12,
+     :           'iau_ATOIQ', 'R/RI', STATUS )
+      CALL VVD ( DI, 0.1729371839114567725D0, 1D-12,
+     :           'iau_ATOIQ', 'R/DI', STATUS )
+
+      TYPE = 'H'
+      OB1 = -0.09247619879782006106D0
+      OB2 = 0.1717653435758265198D0
+      CALL iau_ATOIQ ( TYPE, OB1, OB2, ASTROM, RI, DI )
+      CALL VVD ( RI, 2.710121574449135955D0, 1D-12,
+     :           'iau_ATOIQ', 'H/RI', STATUS )
+      CALL VVD ( DI, 0.1729371839114567725D0, 1D-12,
+     :           'iau_ATOIQ', 'H/DI', STATUS )
+
+      TYPE = 'A'
+      OB1 = 0.09233952224794989993D0
+      OB2 = 1.407758704513722461D0
+      CALL iau_ATOIQ ( TYPE, OB1, OB2, ASTROM, RI, DI )
+      CALL VVD ( RI, 2.710121574449135955D0, 1D-12,
+     :           'iau_ATOIQ', 'A/RI', STATUS )
+      CALL VVD ( DI, 0.1729371839114567728D0, 1D-12,
+     :           'iau_ATOIQ', 'A/DI', STATUS )
 
       END
 
@@ -1985,9 +3690,9 @@
 *  Returned:
 *     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
 *
-*  Called:  iau_EFORM, VVD, VIV
+*  Called:  iau_EFORM, VIV, VVD
 *
-*  This revision:  2010 January 26
+*  This revision:  2013 September 25
 *-
 
       IMPLICIT NONE
@@ -3039,9 +4744,9 @@
 *  Returned:
 *     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
 *
-*  Called:  iau_GC2GDE, VVD, VIV
+*  Called:  iau_GC2GDE, VIV, VVD
 *
-*  This revision:  2009 November 8
+*  This revision:  2013 Septmber 25
 *-
 
       IMPLICIT NONE
@@ -3077,9 +4782,9 @@
 *  Returned:
 *     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
 *
-*  Called:  iau_GD2GC, VVD, VIV
+*  Called:  iau_GD2GC, VIV, VVD
 *
-*  This revision:  2010 January 26
+*  This revision:  2013 September 25
 *-
 
       IMPLICIT NONE
@@ -3142,9 +4847,9 @@
 *  Returned:
 *     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
 *
-*  Called:  iau_GD2GCE, VVD, VIV
+*  Called:  iau_GD2GCE, VIV, VVD
 *
-*  This revision:  2009 November 6
+*  This revision:  2013 September 25
 *-
 
       IMPLICIT NONE
@@ -3630,6 +5335,162 @@
       CALL VIV ( IYDMF(3), 10, 'iau_JDCALF', 'D', STATUS )
       CALL VIV ( IYDMF(4), 9999, 'iau_JDCALF', 'F', STATUS )
       CALL VIV ( J, 0, 'iau_JDCALF', 'J', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_LD ( STATUS )
+*+
+*  - - - - - - - - -
+*   T _ i a u _ L D
+*  - - - - - - - - -
+*
+*  Test iau_LD routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_LD, VVD
+*
+*  This revision:  2013 September 24
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION BM, P(3), Q(3), E(3), EM, DLIM, P1(3)
+
+
+      BM = 0.00028574D0
+      P(1) = -0.763276255D0
+      P(2) = -0.608633767D0
+      P(3) = -0.216735543D0
+      Q(1) = -0.763276255D0
+      Q(2) = -0.608633767D0
+      Q(3) = -0.216735543D0
+      E(1) = 0.76700421D0
+      E(2) = 0.605629598D0
+      E(3) = 0.211937094D0
+      EM = 8.91276983D0
+      DLIM = 3D-10
+
+      CALL iau_LD ( BM, P, Q, E, EM, DLIM, P1 )
+
+      CALL VVD ( P1(1), -0.7632762548968159627D0, 1D-12,
+     :           'iau_LD', '1', STATUS )
+      CALL VVD ( P1(2), -0.6086337670823762701D0, 1D-12,
+     :           'iau_LD', '2', STATUS )
+      CALL VVD ( P1(3), -0.2167355431320546947D0, 1D-12,
+     :           'iau_LD', '3', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_LDN ( STATUS )
+*+
+*  - - - - - - - - - -
+*   T _ i a u _ L D N
+*  - - - - - - - - - -
+*
+*  Test iau_LDN routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_LDN, VVD
+*
+*  This revision:  2013 September 24
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      INTEGER N
+      DOUBLE PRECISION B(8,3), OB(3), SC(3), SN(3)
+
+
+      N = 3
+      B(1,1) =  0.00028574D0
+      B(2,1) =  3D-10
+      B(3,1) = -7.81014427D0
+      B(4,1) = -5.60956681D0
+      B(5,1) = -1.98079819D0
+      B(6,1) =  0.0030723249D0
+      B(7,1) = -0.00406995477D0
+      B(8,1) = -0.00181335842D0
+      B(1,2) =  0.00095435D0
+      B(2,2) =  3D-9
+      B(3,2) =  0.738098796D0
+      B(4,2) =  4.63658692D0
+      B(5,2) =  1.9693136D0
+      B(6,2) = -0.00755816922D0
+      B(7,2) =  0.00126913722D0
+      B(8,2) =  0.000727999001D0
+      B(1,3) =  1D0
+      B(2,3) =  6D-6
+      B(3,3) = -0.000712174377D0
+      B(4,3) = -0.00230478303D0
+      B(5,3) = -0.00105865966D0
+      B(6,3) =  6.29235213D-6
+      B(7,3) = -3.30888387D-7
+      B(8,3) = -2.96486623D-7
+      OB(1) =  -0.974170437D0
+      OB(2) =  -0.2115201D0
+      OB(3) =  -0.0917583114D0
+      SC(1) =  -0.763276255D0
+      SC(2) =  -0.608633767D0
+      SC(3) =  -0.216735543D0
+
+      CALL iau_LDN ( N, B, OB, SC, SN )
+
+      CALL VVD ( SN(1), -0.7632762579693333866D0, 1D-12,
+     :           'iau_LDN', '1', STATUS )
+      CALL VVD ( SN(2), -0.6086337636093002660D0, 1D-12,
+     :           'iau_LDN', '2', STATUS )
+      CALL VVD ( SN(3), -0.2167355420646328159D0, 1D-12,
+     :           'iau_LDN', '3', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_LDSUN ( STATUS )
+*+
+*  - - - - - - - - - - - -
+*   T _ i a u _ L D S U N
+*  - - - - - - - - - - - -
+*
+*  Test iau_LDSUN routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_LDSUN, VVD
+*
+*  This revision:  2013 September 24
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION P(3), E(3), EM, P1(3)
+
+
+      P(1) = -0.763276255D0
+      P(2) = -0.608633767D0
+      P(3) = -0.216735543D0
+      E(1) = -0.973644023D0
+      E(2) = -0.20925523D0
+      E(3) = -0.0907169552D0
+      EM = 0.999809214D0
+
+      CALL iau_LDSUN ( P, E, EM, P1 )
+
+      CALL VVD ( P1(1), -0.7632762580731413169D0, 1D-12,
+     :           'iau_LDSUN', '1', STATUS )
+      CALL VVD ( P1(2), -0.6086337635262647900D0, 1D-12,
+     :           'iau_LDSUN', '2', STATUS )
+      CALL VVD ( P1(3), -0.2167355419322321302D0, 1D-12,
+     :           'iau_LDSUN', '3', STATUS )
 
       END
 
@@ -4667,6 +6528,108 @@
 
       CALL VVD ( AMB(1) + AMB(2) + AMB(3), -1D0, 1D-12,
      :           'iau_PMP', ' ', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_PMPX ( STATUS )
+*+
+*  - - - - - - - - - - -
+*   T _ i a u _ P M P X
+*  - - - - - - - - - - -
+*
+*  Test iau_PMPX routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_PMPX, VVD
+*
+*  This revision:  2013 September 24
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION RC, DC, PR, PD, PX, RV, PMT, POB(3), PCO(3)
+
+
+      RC = 1.234D0
+      DC = 0.789D0
+      PR = 1D-5
+      PD = -2D-5
+      PX = 1D-2
+      RV = 10D0
+      PMT = 8.75D0
+      POB(1) = 0.9D0
+      POB(2) = 0.4D0
+      POB(3) = 0.1D0
+
+      CALL iau_PMPX ( RC, DC, PR, PD, PX, RV, PMT, POB, PCO )
+
+      CALL VVD ( PCO(1), 0.2328137623960308440D0, 1D-12,
+     :           'iau_PMPX', '1', STATUS )
+      CALL VVD ( PCO(2), 0.6651097085397855317D0, 1D-12,
+     :           'iau_PMPX', '2', STATUS )
+      CALL VVD ( PCO(3), 0.7095257765896359847D0, 1D-12,
+     :           'iau_PMPX', '3', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_PMSAFE ( STATUS )
+*+
+*  - - - - - - - - - - - - -
+*   T _ i a u _ P M S A F E
+*  - - - - - - - - - - - - -
+*
+*  Test iau_PMSAFE routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_PMSAFE, VVD, VIV
+*
+*  This revision:  2013 October 1
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      INTEGER J
+      DOUBLE PRECISION RA1, DEC1, PMR1, PMD1, PX1, RV1,
+     :                 EP1A, EP1B, EP2A, EP2B,
+     :                 RA2, DEC2, PMR2, PMD2, PX2, RV2
+
+
+      RA1 = 1.234D0
+      DEC1 = 0.789D0
+      PMR1 = 1D-5
+      PMD1 = -2D-5
+      PX1 = 1D-2
+      RV1 = 10D0
+      EP1A = 2400000.5D0
+      EP1B = 48348.5625D0
+      EP2A = 2400000.5D0
+      EP2B = 51544.5D0
+
+      CALL iau_PMSAFE ( RA1, DEC1, PMR1, PMD1, PX1, RV1,
+     :                  EP1A, EP1B, EP2A, EP2B,
+     :                  RA2, DEC2, PMR2, PMD2, PX2, RV2, J )
+
+      CALL VVD ( RA2, 1.234087484501017061D0, 1D-12,
+     :           'iau_PMSAFE', 'RA2', STATUS )
+      CALL VVD ( DEC2, 0.7888249982450468574D0, 1D-12,
+     :           'iau_PMSAFE', 'DEC2', STATUS )
+      CALL VVD ( PMR2, 0.9996457663586073988D-5, 1D-12,
+     :           'iau_PMSAFE', 'PMR2', STATUS )
+      CALL VVD ( PMD2, -0.2000040085106737816D-4, 1D-16,
+     :           'iau_PMSAFE', 'PMD2', STATUS )
+      CALL VVD ( PX2, 0.9999997295356765185D-2, 1D-12,
+     :           'iau_PMSAFE', 'PX2', STATUS )
+      CALL VVD ( RV2, 10.38468380113917014D0, 1D-10,
+     :           'iau_PMSAFE', 'RV2', STATUS )
+      CALL VIV ( J, 0, 'iau_PMSAFE', 'J', STATUS )
 
       END
 
@@ -6045,6 +8008,53 @@
 
       END
 
+      SUBROUTINE T_iau_PVTOB ( STATUS )
+*+
+*  - - - - - - - - - - - -
+*   T _ i a u _ P V T O B
+*  - - - - - - - - - - - -
+*
+*  Test iau_PVTOB routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_PVTOB, VVD
+*
+*  This revision:  2013 September 24
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION ELONG, PHI, HM, XP, YP, SP, THETA, PV(3,2)
+
+      ELONG = 2D0
+      PHI = 0.5D0
+      HM = 3D3
+      XP = 1D-6
+      YP = -0.5D-6
+      SP = 1D-8
+      THETA = 5D0
+
+      CALL iau_PVTOB ( ELONG, PHI, HM, XP, YP, SP, THETA, PV )
+
+      CALL VVD ( PV(1,1), 4225081.367071159207D0, 1D-5,
+     :           'iau_PVTOB', 'P(1)', STATUS )
+      CALL VVD ( PV(2,1), 3681943.215856198144D0, 1D-5,
+     :           'iau_PVTOB', 'P(2)', STATUS )
+      CALL VVD ( PV(3,1), 3041149.399241260785D0, 1D-5,
+     :           'iau_PVTOB', 'P(3)', STATUS )
+      CALL VVD ( PV(1,2), -268.4915389365998787D0, 1D-9,
+     :           'iau_PVTOB', 'V(1)', STATUS )
+      CALL VVD ( PV(2,2), 308.0977983288903123D0, 1D-9,
+     :           'iau_PVTOB', 'V(2)', STATUS )
+      CALL VVD ( PV(3,2), 0D0, 0D0,
+     :           'iau_PVTOB', 'V(3)', STATUS )
+
+      END
+
       SUBROUTINE T_iau_PVU( STATUS )
 *+
 *  - - - - - - - - - -
@@ -6221,6 +8231,43 @@
       CALL VVD ( AXB(1), -1D0, 1D-12, 'iau_PXP', '1', STATUS )
       CALL VVD ( AXB(2), -5D0, 1D-12, 'iau_PXP', '2', STATUS )
       CALL VVD ( AXB(3), 4D0, 1D-12, 'iau_PXP', '3', STATUS )
+
+      END
+
+      SUBROUTINE T_iau_REFCO ( STATUS )
+*+
+*  - - - - - - - - - - - -
+*   T _ i a u _ R E F C O
+*  - - - - - - - - - - - -
+*
+*  Test iau_REFCO routine.
+*
+*  Returned:
+*     STATUS    LOGICAL     .TRUE. = success, .FALSE. = fail
+*
+*  Called:  iau_REFCO, VVD
+*
+*  This revision:  2013 September 24
+*-
+
+      IMPLICIT NONE
+
+      LOGICAL STATUS
+
+      DOUBLE PRECISION PHPA, TC, RH, WL, REFA, REFB
+
+
+      PHPA = 800D0
+      TC = 10D0
+      RH = 0.9D0
+      WL = 0.4D0
+
+      CALL iau_REFCO ( PHPA, TC, RH, WL, REFA, REFB )
+
+      CALL VVD ( REFA, 0.2264949956241415009D-3, 1D-15,
+     :           'iau_REFCO', 'REFA', STATUS )
+      CALL VVD ( REFB, -0.2598658261729343970D-6, 1D-18,
+     :           'iau_REFCO', 'REFB', STATUS )
 
       END
 
@@ -8262,7 +10309,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

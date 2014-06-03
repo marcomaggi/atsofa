@@ -87,11 +87,11 @@
 *
 *     Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981
 *
-*  This revision:  2009 December 15
+*  This revision:  2013 December 2
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -104,14 +104,6 @@
 *  Arcseconds to radians
       DOUBLE PRECISION DAS2R
       PARAMETER ( DAS2R = 4.848136811095359935899141D-6 )
-
-*  Microarcseconds to radians
-      DOUBLE PRECISION UAS2R
-      PARAMETER ( UAS2R = DAS2R*1D-6 )
-
-*  2Pi.
-      DOUBLE PRECISION D2PI
-      PARAMETER ( D2PI = 6.283185307179586476925287D0 )
 
 *  Reference epoch (J2000.0), JD
       DOUBLE PRECISION DJ00
@@ -2562,7 +2554,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

@@ -61,11 +61,11 @@
 *
 *     Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981
 *
-*  This revision:  2007 May 11
+*  This revision:  2013 May 14
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -79,7 +79,7 @@
 
 * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-*  Form the bias-precession-nutation matrix, IAU 2000A.
+*  Form the bias-precession-nutation matrix, IAU 2006/2000A.
       CALL iau_PNM06A ( DATE1, DATE2, RBPN )
 
 *  Extract X,Y.
@@ -92,7 +92,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

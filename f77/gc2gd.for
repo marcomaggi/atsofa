@@ -17,7 +17,7 @@
 *     XYZ       d(3)  geocentric vector (Note 2)
 *
 *  Returned:
-*     ELONG     d     longitude (radians, east +ve)
+*     ELONG     d     longitude (radians, east +ve, Note 3)
 *     PHI       d     latitude (geodetic, radians, Note 3)
 *     HEIGHT    d     height above ellipsoid (geodetic, Notes 2,3)
 *     J         i     status:  0 = OK
@@ -42,7 +42,7 @@
 *
 *  3) An error status J=-1 means that the identifier N is illegal.  An
 *     error status J=-2 is theoretically impossible.  In all error
-*     cases, PHI and HEIGHT are both set to -1D9.
+*     cases, all three results are set to -1D9.
 *
 *  4) The inverse transformation is performed in the routine iau_GD2GC.
 *
@@ -50,11 +50,11 @@
 *     iau_EFORM    Earth reference ellipsoids
 *     iau_GC2GDE   geocentric to geodetic transformation, general
 *
-*  This revision:  2010 January 18
+*  This revision:  2013 September 1
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -80,6 +80,7 @@
 
 *  Deal with any errors.
       IF ( J.LT.0 ) THEN
+         ELONG = -1D9
          PHI = -1D9
          HEIGHT = -1D9
       END IF
@@ -88,7 +89,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

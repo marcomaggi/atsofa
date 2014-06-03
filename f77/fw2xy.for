@@ -18,7 +18,7 @@
 *     EPS        d      F-W angle epsilon (radians)
 *
 *  Returned:
-*     X,Y        d      CIP X,Y ("radians")
+*     X,Y        d      CIP unit vector X,Y
 *
 *  Notes:
 *
@@ -41,7 +41,8 @@
 *
 *        NxPxB = R_1(-EPSA).R_3(-PSI).R_1(PHIB).R_3(GAMB)
 *
-*     X,Y are elements (3,1) and (3,2) of the matrix.
+*     The returned values x,y are elements (3,1) and (3,2) of the
+*     matrix.  Near J2000.0, they are essentially angles in radians.
 *
 *  Called:
 *     iau_FW2M     F-W angles to r-matrix
@@ -51,11 +52,11 @@
 *
 *     Hilton, J. et al., 2006, Celest.Mech.Dyn.Astron. 94, 351
 *
-*  This revision:   2009 December 15
+*  This revision:   2013 September 2
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -77,7 +78,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

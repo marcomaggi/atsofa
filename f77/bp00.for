@@ -59,6 +59,7 @@
 *     iau_RY       rotate around Y-axis
 *     iau_RZ       rotate around Z-axis
 *     iau_RXR      product of two r-matrices
+*     iau_CR       copy r-matrix
 *
 *  Reference:
 *
@@ -70,11 +71,11 @@
 *     n.b. The celestial ephemeris origin (CEO) was renamed "celestial
 *          intermediate origin" (CIO) by IAU 2006 Resolution 2.
 *
-*  This revision:  2010 January 18
+*  This revision:  2013 August 21
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -98,8 +99,8 @@
       DOUBLE PRECISION EPS0
       PARAMETER ( EPS0 = 84381.448D0 * DAS2R )
 
-      DOUBLE PRECISION T, DPSIBI, DEPSBI, DRA0,
-     :                 PSIA77, OMA77, CHIA, DPSIPR, DEPSPR, PSIA, OMA
+      DOUBLE PRECISION T, DPSIBI, DEPSBI, DRA0, PSIA77, OMA77, CHIA,
+     :                 DPSIPR, DEPSPR, PSIA, OMA, RBW(3,3)
 
 * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -126,10 +127,11 @@
       OMA  = OMA77  + DEPSPR
 
 *  Frame bias matrix: GCRS to J2000.0.
-      CALL iau_IR ( RB )
-      CALL iau_RZ ( DRA0, RB )
-      CALL iau_RY ( DPSIBI*SIN(EPS0), RB )
-      CALL iau_RX ( -DEPSBI, RB )
+      CALL iau_IR ( RBW )
+      CALL iau_RZ ( DRA0, RBW )
+      CALL iau_RY ( DPSIBI*SIN(EPS0), RBW )
+      CALL iau_RX ( -DEPSBI, RBW )
+      CALL iau_CR ( RBW, RB )
 
 *  Precession matrix: J2000.0 to mean of date.
       CALL iau_IR ( RP )
@@ -139,13 +141,13 @@
       CALL iau_RZ ( CHIA, RP )
 
 *  Bias-precession matrix: GCRS to mean of date.
-      CALL iau_RXR ( RP, RB, RBP )
+      CALL iau_RXR ( RP, RBW, RBP )
 
 *  Finished.
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

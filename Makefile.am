@@ -21,6 +21,20 @@ AM_MAKEINFOFLAGS	= --no-split
 info_TEXINFOS		= doc/iausofa.texi
 doc_iausofa_TEXINFOS	= doc/macros.texi
 
+EXTRA_DIST		+=	\
+	doc/board.lis		doc/board.pdf			\
+	doc/changes.lis		doc/changes.pdf			\
+	doc/consts.lis		doc/consts.pdf			\
+	doc/contents.lis	doc/contents.pdf		\
+	doc/copyr.lis		doc/copyr.pdf			\
+	doc/intro.lis		doc/intro.pdf			\
+	doc/manual.lis		doc/manual.pdf			\
+	doc/sofa_ast_c.pdf	doc/sofa_ast_summary.pdf	\
+	doc/sofa_lib.lis	doc/sofa_lib.pdf		\
+	doc/sofa_pn.pdf		doc/sofa_ts_c.pdf		\
+	doc/sofa_vml.lis	doc/sofa_vml.pdf		\
+	doc/title.lis		doc/title.pdf
+
 ## --------------------------------------------------------------------
 
 check_PROGRAMS		=

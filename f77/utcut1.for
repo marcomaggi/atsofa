@@ -18,7 +18,7 @@
 *
 *  Returned:
 *     UT11,UT12    d      UT1 as a 2-part Julian Date (Note 6)
-*     J            i      status: +1 = dubious year (Note 7)
+*     J            i      status: +1 = dubious year (Note 3)
 *                                  0 = OK
 *                                 -1 = unacceptable date
 *
@@ -34,7 +34,7 @@
 *     86399, 86400 or 86401 SI seconds.
 *
 *  3) The warning status "dubious year" flags UTCs that predate the
-*     introduction of the time scale and that are too far in the future
+*     introduction of the time scale or that are too far in the future
 *     to be trusted.  See iau_DAT for further details.
 *
 *  4) The routine iau_DTF2D converts from calendar date and time of day
@@ -42,16 +42,12 @@
 *     leap-second-ambiguity convention described above.
 *
 *  5) Delta UT1 can be obtained from tabulations provided by the
-*     International Earth Rotation and Reference Systems Service.  It
-*     It is the caller's responsibility to supply a DUT argument
+*     International Earth Rotation and Reference Systems Service.
+*     It is the caller's responsibility to supply a DUT1 argument
 *     containing the UT1-UTC value that matches the given UTC.
 *
 *  6) The returned UT11,UT12 are such that their sum is the UT1 Julian
 *     Date.
-*
-*  7) The warning status "dubious year" flags UTCs that predate the
-*     introduction of the time scale and that are too far in the future
-*     to be trusted.  See iau_DAT for further details.
 *
 *  References:
 *
@@ -67,11 +63,11 @@
 *     iau_UTCTAI   UTC to TAI
 *     iau_TAIUT1   TAI to UT1
 *
-*  This revision:  2010 April 16
+*  This revision:  2013 August 12
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -109,7 +105,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

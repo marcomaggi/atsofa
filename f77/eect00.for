@@ -92,21 +92,17 @@
 *     McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003),
 *     IERS Technical Note No. 32, BKG (2004)
 *
-*  This revision:  2009 December 15
+*  This revision:  2013 December 2
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
       IMPLICIT NONE
 
       DOUBLE PRECISION DATE1, DATE2
-
-*  2Pi
-      DOUBLE PRECISION D2PI
-      PARAMETER ( D2PI = 6.283185307179586476925287D0 )
 
 *  Arcseconds to radians
       DOUBLE PRECISION DAS2R
@@ -290,7 +286,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

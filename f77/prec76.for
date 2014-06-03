@@ -1,4 +1,5 @@
-      SUBROUTINE iau_PREC76 ( EP01, EP02, EP11, EP12, ZETA, Z, THETA )
+      SUBROUTINE iau_PREC76 ( DATE01, DATE02, DATE11, DATE12,
+     :                        ZETA, Z, THETA )
 *+
 *  - - - - - - - - - - -
 *   i a u _ P R E C 7 6
@@ -7,7 +8,7 @@
 *  IAU 1976 precession model.
 *
 *  This routine forms the three Euler angles which implement general
-*  precession between two epochs, using the IAU 1976 model (as for
+*  precession between two dates, using the IAU 1976 model (as for
 *  the FK5 catalog).
 *
 *  This routine is part of the International Astronomical Union's
@@ -16,22 +17,22 @@
 *  Status:  canonical model.
 *
 *  Given:
-*     EP01,EP02   d      TDB starting epoch (Note 1)
-*     EP11,EP12   d      TDB ending epoch (Note 1)
+*     DATE01,DATE02  d   TDB starting date (Note 1)
+*     DATE11,DATE12  d   TDB ending date (Note 1)
 *
 *  Returned:
-*     ZETA        d      1st rotation: radians clockwise around z
-*     Z           d      3rd rotation: radians clockwise around z
-*     THETA       d      2nd rotation: radians counterclockwise around y
+*     ZETA           d   1st rotation: radians clockwise around z
+*     Z              d   3rd rotation: radians clockwise around z
+*     THETA          d   2nd rotation: radians counterclockwise around y
 *
 *  Notes:
 *
-*  1) The epochs EP01+EP02 and EP11+EP12 are Julian Dates, apportioned
-*     in any convenient way between the arguments EPn1 and EPn2.  For
-*     example, JD(TDB)=2450123.7 could be expressed in any of these
-*     ways, among others:
+*  1) The dates DATE01+DATE02 and DATE11+DATE12 are Julian Dates,
+*     apportioned in any convenient way between the arguments DATEn1 and
+*     DATEn2.  For example, JD(TDB)=2450123.7 could be expressed in any
+*     of these ways, among others:
 *
-*             EPn1          EPn2
+*           DATEn1         DATEn2
 *
 *         2450123.7D0        0D0        (JD method)
 *          2451545D0      -1421.3D0     (J2000 method)
@@ -44,7 +45,7 @@
 *     argument is handled internally and will deliver the optimum
 *     optimum resolution.  The MJD method and the date & time methods
 *     are both good compromises between resolution and convenience.
-*     The two epochs may be expressed using different methods, but at
+*     The two dates may be expressed using different methods, but at
 *     the risk of losing some resolution.
 *
 *  2) The accumulated precession angles zeta, z, theta are expressed
@@ -66,17 +67,17 @@
 *     Lieske, J.H., 1979, Astron.Astrophys. 73, 282.
 *      equations (6) & (7), p283.
 *
-*  This revision:  2009 December 15
+*  This revision:  2013 November 19
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
       IMPLICIT NONE
 
-      DOUBLE PRECISION EP01, EP02, EP11, EP12, ZETA, Z, THETA
+      DOUBLE PRECISION DATE01, DATE02, DATE11, DATE12, ZETA, Z, THETA
 
 *  Arcseconds to radians
       DOUBLE PRECISION DAS2R
@@ -94,11 +95,11 @@
 
 * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-*  Interval between fundamental epoch J2000.0 and beginning epoch (JC).
-      T0 = ( ( EP01-DJ00 ) + EP02 ) / DJC
+*  Interval between fundamental epoch J2000.0 and start date (JC).
+      T0 = ( ( DATE01-DJ00 ) + DATE02 ) / DJC
 
 *  Interval over which precession required (JC).
-      T = ( ( EP11-EP01 ) + ( EP12-EP02 ) ) / DJC
+      T = ( ( DATE11-DATE01 ) + ( DATE12-DATE02 ) ) / DJC
 
 *  Euler angles.
       TAS2R = T * DAS2R
@@ -125,7 +126,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

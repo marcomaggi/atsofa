@@ -13,28 +13,28 @@
 *  Status:  support routine.
 *
 *  Given:
-*     DATE1    d         TDB date part A (Note 1)
-*     DATE2    d         TDB date part B (Note 1)
+*     DATE1    d        TDB date part A (Note 1)
+*     DATE2    d        TDB date part B (Note 1)
 *
 *  Returned:
-*     PVH      d(3,2)    heliocentric Earth position/velocity (AU,AU/day)
-*     PVB      d(3,2)    barycentric Earth position/velocity (AU,AU/day)
-*     JSTAT    i         status: 0 = OK
-*                               +1 = warning: date outside 1900-2100 AD
+*     PVH      d(3,2)   heliocentric Earth position/velocity (AU,AU/day)
+*     PVB      d(3,2)   barycentric Earth position/velocity (AU,AU/day)
+*     JSTAT    i        status: 0 = OK
+*                              +1 = warning: date outside 1900-2100 AD
 *
 *  Notes:
 *
-*  1) The epoch EPOCH1+EPOCH2 is a Julian Date, apportioned in
-*     any convenient way between the two arguments.  For example,
-*     JD(TDB)=2450123.7 could be expressed in any of these ways,
-*     among others:
+*  1) The TDB date DATE1+DATE2 is a Julian Date, apportioned in any
+*     convenient way between the two arguments.  For example,
+*     JD(TDB)=2450123.7 could be expressed in any of these ways, among
+*     others:
 *
-*              EPOCH1        EPOCH2
+*            DATE1          DATE2
 *
-*           2450123.7D0        0D0        (JD method)
-*            2451545D0      -1421.3D0     (J2000 method)
-*           2400000.5D0     50123.2D0     (MJD method)
-*           2450123.5D0       0.2D0       (date & time method)
+*         2450123.7D0        0D0        (JD method)
+*          2451545D0      -1421.3D0     (J2000 method)
+*         2400000.5D0     50123.2D0     (MJD method)
+*         2450123.5D0       0.2D0       (date & time method)
 *
 *     The JD method is the most natural and convenient to use in
 *     cases where the loss of several decimal digits of resolution
@@ -90,11 +90,11 @@
 *     1000 and 3000 a factor of 60.  The velocity accuracy falls off at
 *     about half that rate.
 *
-*  This revision:  2009 December 15
+*  This revision:  2012 September 5
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -2526,7 +2526,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

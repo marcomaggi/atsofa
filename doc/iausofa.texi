@@ -47,7 +47,22 @@
 @copying
 This document describes version @value{VERSION} of @value{PACKAGE}, the
 International Astronomical Union's @sofa{} Collection of libraries
-repackaged using the @gnu{} Autotools.
+repackaged using the @gnu{} Autotools.  The last time the maintainer
+bothered to update this paragraph he had updated the distribution to:
+
+@itemize
+@item
+The source code of @sofa{} libraries version: @samp{SOFA-Issue:
+2013-12-02}.
+
+@item
+The original documentation of @sofa{} libraries version:
+@samp{SOFA-Issue: 2013-12-02}.
+
+@item
+The reformatted Texinfo documentation of @sofa{} libraries version:
+@samp{SOFA-Issue: 2012-03-01}.
+@end itemize
 
 @value{PACKAGE} is neither distributed, nor supported, nor endorsed by
 the International Astronomical Union.  Any use of this pacakge should
@@ -55,26 +70,6 @@ comply with @sofa{}'s license and terms of use.  Especially, but not
 exclusively, any published work or commercial products which includes
 results achieved by using @value{PACKAGE} shall acknowledge that the
 @sofa{} software was used in obtaining those results.
-
-The package is distributed under the terms of the International
-Astronomical Union's @sofa{} license and its development takes place at:
-
-@center @url{http://github.com/marcomaggi/@value{PACKAGE_NICKNAME}}
-
-@noindent
-and as backup at:
-
-@center @url{http://sourceforge.net/projects/@value{PACKAGE_NICKNAME}}
-
-@noindent
-proper release tarballs are available from:
-
-@center @url{http://sourceforge.net/projects/atsofa/files/}
-
-@noindent
-the International Astronomical Union's @sofa{} project home page is at:
-
-@center @url{http://www.iausofa.org/}
 
 @noindent
 Copyright @copyright{} International Astronomical Union Standards of
@@ -14869,6 +14864,25 @@ Astronomical Union Standards of Fundamental Astronomy
 @appendix Bibliography and references
 
 
+The package is distributed under the terms of the International
+Astronomical Union's @sofa{} license and its development takes place at:
+
+@center @url{http://github.com/marcomaggi/@value{PACKAGE_NICKNAME}}
+
+@noindent
+and as backup at:
+
+@center @url{http://sourceforge.net/projects/@value{PACKAGE_NICKNAME}}
+
+@noindent
+proper release tarballs are available from:
+
+@center @url{http://sourceforge.net/projects/@value{PACKAGE_NICKNAME}/files/}
+
+@noindent
+the International Astronomical Union's @sofa{} project home page is at:
+
+@center @url{http://www.iausofa.org/}
 
 @c page
 @node concept index

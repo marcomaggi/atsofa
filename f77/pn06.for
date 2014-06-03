@@ -72,8 +72,8 @@
 *     (CIP/equinox).  It is the product RN x RBP, applying frame bias,
 *     precession and nutation in that order.
 *
-*  9) The X,Y,Z coordinates of the IAU 2006/2000A Celestial Intermediate
-*     Pole are elements (3,1-3) of the matrix RBPN.
+*  9) The X,Y,Z coordinates of the Celestial Intermediate Pole are
+*     elements (3,1-3) of the matrix RBPN.
 *
 *  Called:
 *     iau_PFW06    bias-precession F-W angles, IAU 2006
@@ -87,11 +87,11 @@
 *
 *     Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981
 *
-*  This revision:  2009 December 15
+*  This revision:  2013 November 14
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -143,7 +143,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

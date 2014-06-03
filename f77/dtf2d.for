@@ -49,7 +49,10 @@
 *  4) JD cannot unambiguously represent UTC during a leap second unless
 *     special measures are taken.  The SOFA internal convention is that
 *     the quasi-JD day represents UTC days whether the length is 86399,
-*     86400 or 86401 SI seconds.
+*     86400 or 86401 SI seconds.  In the 1960-1972 era there were
+*     smaller jumps (in either direction) each time the linear UTC(TAI)
+*     expression was changed, and these "mini-leaps" are also included
+*     in the SOFA convention.
 *
 *  5) The warning status "time is after end of day" usually means that
 *     the SEC argument is greater than 60D0.  However, in a day ending
@@ -57,7 +60,7 @@
 *     a negative leap second).
 *
 *  6) The warning status "dubious year" flags UTCs that predate the
-*     introduction of the time scale and that are too far in the future
+*     introduction of the time scale or that are too far in the future
 *     to be trusted.  See iau_DAT for further details.
 *
 *  7) Only in the case of continuous and regular time scales (TAI, TT,
@@ -72,11 +75,11 @@
 *     iau_DAT      delta(AT) = TAI-UTC
 *     iau_JD2CAL   JD to Gregorian calendar
 *
-*  This revision:  2011 April 11
+*  This revision:  2013 July 26
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -91,7 +94,8 @@
       PARAMETER ( D2S = 86400D0 )
 
       INTEGER JS, IY2, IM2, ID2
-      DOUBLE PRECISION DJ, W, DAY, SECLIM, DAT1, DAT2, DDT, TIME
+      DOUBLE PRECISION DJ, W, DAY, SECLIM, DAT0, DAT12, DAT24,
+     :                 DLEAP, TIME
 
 * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -107,24 +111,28 @@
 *  Deal with the UTC leap second case.
       IF ( SCALE.EQ.'UTC' ) THEN
 
-*     TAI-UTC today.
-         CALL iau_DAT ( IY, IM, ID, 0D0, DAT1, JS )
+*     TAI-UTC at 0h today.
+         CALL iau_DAT ( IY, IM, ID, 0D0, DAT0, JS )
          IF ( JS.LT.0 ) GO TO 9
 
-*     TAI-UTC tomorrow.
-         CALL iau_JD2CAL ( DJ, 1D0, IY2, IM2, ID2, W, JS )
+*     TAI-UTC at 12h today (to detect drift).
+         CALL iau_DAT ( IY, IM, ID, 0.5D0, DAT12, JS )
+         IF ( JS.LT.0 ) GO TO 9
+
+*     TAI-UTC at 0h tomorrow (to detect jumps).
+         CALL iau_JD2CAL ( DJ, 1.5D0, IY2, IM2, ID2, W, JS )
          IF ( JS.NE.0 ) GO TO 9
-         CALL iau_DAT ( IY2, IM2, ID2, 0D0, DAT2, JS )
+         CALL iau_DAT ( IY2, IM2, ID2, 0D0, DAT24, JS )
          IF ( JS.LT.0 ) GO TO 9
 
-*     The change in TAI-UTC (seconds).
-         DDT = DAT2 - DAT1
+*     Any sudden change in TAI-UTC between today and tomorrow.
+         DLEAP = DAT24 - ( 2D0 * DAT12 - DAT0 )
 
 *     If leap second day, correct the day and final minute lengths.
-         IF ( ABS(DDT).GT.0.5D0 ) THEN
-            DAY = DAY + DDT
-            IF ( IHR.EQ.23 .AND. IMN.EQ.59 ) SECLIM = SECLIM + DDT
-         END IF
+         DAY = DAY + DLEAP
+         IF ( IHR.EQ.23 .AND. IMN.EQ.59 ) SECLIM = SECLIM + DLEAP
+
+*     End of UTC-specific actions.
       END IF
 
 *  Validate the time.
@@ -160,7 +168,7 @@
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

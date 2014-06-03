@@ -54,10 +54,13 @@
 *  4) JD cannot unambiguously represent UTC during a leap second unless
 *     special measures are taken.  The SOFA internal convention is that
 *     the quasi-JD day represents UTC days whether the length is 86399,
-*     86400 or 86401 SI seconds.
+*     86400 or 86401 SI seconds.  In the 1960-1972 era there were
+*     smaller jumps (in either direction) each time the linear UTC(TAI)
+*     expression was changed, and these "mini-leaps" are also included
+*     in the SOFA convention.
 *
 *  5) The warning status "dubious year" flags UTCs that predate the
-*     introduction of the time scale and that are too far in the future
+*     introduction of the time scale or that are too far in the future
 *     to be trusted.  See iau_DAT for further details.
 *
 *  6) For calendar conventions and limitations, see iau_CAL2JD.
@@ -67,11 +70,11 @@
 *     iau_D2TF     decompose days to hms
 *     iau_DAT      delta(AT) = TAI-UTC
 *
-*  This revision:  2010 July 26
+*  This revision:  2014 February 15
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -88,7 +91,7 @@
       LOGICAL LEAP
       CHARACTER S
       INTEGER IY1, IM1, ID1, JS, IY2, IM2, ID2, IHMSF1(4), I
-      DOUBLE PRECISION A1, B1, FD, DAT1, W, DAT2, DDT
+      DOUBLE PRECISION A1, B1, FD, DAT0, DAT12, W, DAT24, DLEAP
 
 * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -104,52 +107,80 @@
       LEAP = .FALSE.
       IF ( SCALE.EQ.'UTC' ) THEN
 
-*     TAI-UTC today.
-         CALL iau_DAT ( IY1, IM1, ID1, FD, DAT1, JS )
+*     TAI-UTC at 0h today.
+         CALL iau_DAT ( IY1, IM1, ID1, 0D0, DAT0, JS )
          IF ( JS.LT.0 ) GO TO 9
 
-*     TAI-UTC tomorrow (at noon, to avoid rounding effects).
+*     TAI-UTC at 12h today (to detect drift).
+         CALL iau_DAT ( IY1, IM1, ID1, 0.5D0, DAT12, JS )
+         IF ( JS.LT.0 ) GO TO 9
+
+*     TAI-UTC at 0h tomorrow (to detect jumps).
          CALL iau_JD2CAL ( A1+1.5D0, B1-FD, IY2, IM2, ID2, W, JS )
-         CALL iau_DAT ( IY2, IM2, ID2, 0D0, DAT2, JS )
+         IF ( JS.NE.0 ) GO TO 9
+         CALL iau_DAT ( IY2, IM2, ID2, 0D0, DAT24, JS )
          IF ( JS.LT.0 ) GO TO 9
 
-*     The change in TAI-UTC (seconds).
-         DDT = DAT2 - DAT1
+*     Any sudden change in TAI-UTC (seconds).
+         DLEAP = DAT24 - ( 2D0 * DAT12 - DAT0 )
 
 *     If leap second day, scale the fraction of a day into SI.
-         LEAP = ABS(DDT).GT.0.5D0
-         IF ( LEAP ) FD = FD + FD*DDT/D2S
+         LEAP = DLEAP.NE.0D0
+         IF ( LEAP ) FD = FD + FD*DLEAP/D2S
+
       END IF
 
 *  Provisional time of day.
       CALL iau_D2TF ( NDP, FD, S, IHMSF1 )
 
-*  Is this a leap second day?
-      IF ( .NOT.LEAP ) THEN
+*  Has the (rounded) time gone past 24h?
+      IF ( IHMSF1(1).GT.23 ) THEN
 
-*     No.  Has the time rounded up to 24h?
-         IF ( IHMSF1(1).GT.23 ) THEN
+*     Yes.  We probably need tomorrow's calendar date.
+         CALL iau_JD2CAL ( A1+1.5D0, B1-FD, IY2, IM2, ID2, W, JS )
+         IF ( JS.LT.0 ) GO TO 9
 
-*        Yes.  We will need tomorrow's calendar date.
-            CALL iau_JD2CAL ( A1+1.5D0, B1-FD, IY2, IM2, ID2, W, JS )
+*     Is today a leap second day?
+         IF ( .NOT. LEAP ) THEN
 
-*        Use 0h tomorrow.
+*        No.  Use 0h tomorrow.
             IY1 = IY2
             IM1 = IM2
             ID1 = ID2
-            DO 1 I=1,4
-               IHMSF1(I) = 0
- 1          CONTINUE
-         END IF
-      ELSE
+            IHMSF1(1) = 0
+            IHMSF1(2) = 0
+            IHMSF1(3) = 0
 
-*     This is a leap second day.  Has the time reached or passed 24h?
-         IF ( IHMSF1(1).GT.23 ) THEN
+         ELSE
 
-*        Yes.  Use 23 59 60...
-            IHMSF1(1) = 23
-            IHMSF1(2) = 59
-            IHMSF1(3) = 60
+*        Yes.  Are we past the leap second itself?
+            IF ( IHMSF1(3).GT.0 ) THEN
+
+*           Yes.  Use tomorrow but allow for the leap second.
+               IY1 = IY2
+               IM1 = IM2
+               ID1 = ID2
+               IHMSF1(1) = 0
+               IHMSF1(2) = 0
+               IHMSF1(3) = 0
+
+            ELSE
+
+*           No.  Use 23 59 60... today.
+               IHMSF1(1) = 23
+               IHMSF1(2) = 59
+               IHMSF1(3) = 60
+            END IF
+
+*        If rounding to 10s or coarser always go up to new day.
+            IF ( NDP.LT.0 .AND. IHMSF1(3).EQ.60 ) THEN
+               IY1 = IY2
+               IM1 = IM2
+               ID1 = ID2
+               IHMSF1(1) = 0
+               IHMSF1(2) = 0
+               IHMSF1(3) = 0
+            END IF
          END IF
       END IF
 
@@ -163,14 +194,13 @@
 
 *  Status.
  9    CONTINUE
-      IF ( JS.LT.0 ) JS = -1
       J = JS
 
 *  Finished.
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

@@ -62,11 +62,11 @@
 *
 *     Wallace, P.T. & Capitaine, N., 2006, Astron.Astrophys. 459, 981
 *
-*  This revision:  2009 December 15
+*  This revision:  2013 August 21
 *
-*  SOFA release 2012-03-01
+*  SOFA release 2013-12-02
 *
-*  Copyright (C) 2012 IAU SOFA Board.  See notes at end.
+*  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
 *
 *-----------------------------------------------------------------------
 
@@ -82,7 +82,7 @@
       DOUBLE PRECISION DJM00
       PARAMETER ( DJM00 = 51544.5D0 )
 
-      DOUBLE PRECISION GAMB, PHIB, PSIB, EPSA, RBT(3,3)
+      DOUBLE PRECISION GAMB, PHIB, PSIB, EPSA, RBPW(3,3), RBT(3,3)
 
 * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -90,18 +90,21 @@
       CALL iau_PFW06 ( DJM0, DJM00, GAMB, PHIB, PSIB, EPSA )
       CALL iau_FW2M ( GAMB, PHIB, PSIB, EPSA, RB )
 
-*  PxB matrix.
-      CALL iau_PMAT06 ( DATE1, DATE2, RBP )
+*  PxB matrix (temporary).
+      CALL iau_PMAT06 ( DATE1, DATE2, RBPW )
 
 *  P matrix.
       CALL iau_TR ( RB, RBT )
-      CALL iau_RXR ( RBP, RBT, RP )
+      CALL iau_RXR ( RBPW, RBT, RP )
+
+*  PxB matrix.
+      CALL iau_CR ( RBPW, RBP )
 
 *  Finished.
 
 *+----------------------------------------------------------------------
 *
-*  Copyright (C) 2012
+*  Copyright (C) 2013
 *  Standards Of Fundamental Astronomy Board
 *  of the International Astronomical Union.
 *

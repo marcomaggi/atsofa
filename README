@@ -52,7 +52,14 @@ achieved by  using ATSOFA shall  acknowledge that the SOFA  software was
 used in obtaining those results.
 
   *NOTE* The last time the  maintainer bothered to update this paragraph
-he had included the SOFA libraries version: "SOFA-Issue: 2012-03-01".
+he had updated the distribution to:
+
+* The libraries source code version: "SOFA-Issue: 2013-12-02".
+
+* The original documentation version: "SOFA-Issue: 2013-12-02".
+
+* The   reformatted   Texinfo    documentation   version:   "SOFA-Issue:
+  2012-03-01".
 
   *NOTE* The maintainer  supports only the GNU  infrastructure and tests
 only on a GNU+Linux system.
