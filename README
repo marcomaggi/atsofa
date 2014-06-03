@@ -19,11 +19,11 @@ Topics
 1. Introduction
 ---------------
 
-The International  Astronomical Union's SOFA  Collection consists
-of two libraries  of routines, one coded in Fortran  77 the other
-in  ANSI C.   There  is  a suite  of  vector/matrix routines  and
-various utilities  that underpin the astronomy  algorithms, which
-include routines for the following:
+The International  Astronomical Union's SOFA Collection  consists of two
+libraries of  routines, one  coded in  Fortran 77 the  other in  ANSI C.
+There is  a suite of  vector/matrix routines and various  utilities that
+underpin  the  astronomy  algorithms,  which include  routines  for  the
+following:
 
 * Calendars
 
@@ -41,22 +41,21 @@ include routines for the following:
 
 * Star catalogue conversion
 
-  This  package makes  use of  the  GNU Autotools  to allow  easy
-distribution and installation of SOFA.
+  This package makes use of the GNU Autotools to allow easy distribution
+and installation of SOFA.
 
-  ATSOFA is  neither distributed,  supported nor endorsed  by the
-International Astronomical Union.  Any use of this pacakge should
-comply with SOFA's license and terms of use.  Especially, but not
-exclusively,  any published  work  or  commercial products  which
-includes results achieved by  using ATSOFA shall acknowledge that
-the SOFA software was used in obtaining those results.
+  ATSOFA  is   neither  distributed,  supported  nor   endorsed  by  the
+International Astronomical Union.  Any use of this pacakge should comply
+with SOFA's license and terms  of use.  Especially, but not exclusively,
+any  published  work  or  commercial  products  which  includes  results
+achieved by  using ATSOFA shall  acknowledge that the SOFA  software was
+used in obtaining those results.
 
-  *NOTE* The  last time  the maintainer  bothered to  update this
-paragraph   he  had   included   the   SOFA  libraries   version:
-"SOFA-Issue: 2012-03-01".
+  *NOTE* The last time the  maintainer bothered to update this paragraph
+he had included the SOFA libraries version: "SOFA-Issue: 2012-03-01".
 
-  *NOTE* The maintainer supports  only the GNU infrastructure and
-tests only on a GNU+Linux system.
+  *NOTE* The maintainer  supports only the GNU  infrastructure and tests
+only on a GNU+Linux system.
 
 
 2. License
@@ -68,10 +67,9 @@ See the COPYING file included in the distribution.
 3. Install
 ----------
 
-If we have  a proper release tarball, we unpack  the archive then
-do:
+To install from a proper release tarbal, we unpack the archive then do:
 
-    $ cd atsofa
+    $ cd atsofa-0.2.0
     $ mkdir build
     $ cd build
 
@@ -86,34 +84,37 @@ then do it:
     $ make check
     $ make install
 
-  To build  the code  from a repository  checkout, we  must first
-install the GNU Autotools.  Then we run the following script from
-the top source directory of ATSOFA:
+  From  a repository  checkout or  snapshot  (the ones  from the  Github
+site): we  must install the  GNU Autotools (GNU Automake,  GNU Autoconf,
+GNU Libtool),  then we must first  run the script "autogen.sh"  from the
+top source directory, to generate the needed files:
 
     $ cd atsofa
     $ sh autogen.sh
 
-for this we  need to have installed the  GNU Autotools: Automake,
-Autoconf, Libtool.  We should  now see the executable "configure"
-script and the "Makefile.in" file.  From now on everything is the
-same as for  building from a proper release tarball:
+we  should   now  see   the  executable   "configure"  script   and  the
+"Makefile.in" file.  From now on everything  is the same as for building
+from a proper release tarball, but we have to run the "configure" script
+enabling the maintainer mode:
 
-    $ mkdir build
-    $ cd build
-    $ ../configure [options]
+    $ ../configure --enable-maintainer-mode [options]
     $ make
     $ make check
     $ make install
 
-  The  Makefile  supports  the DESTDIR  environment  variable  to
-install files in a temporary  location, example: to see what will
-happen:
+  The  Makefile supports  the  DESTDIR environment  variable to  install
+files in a temporary location, example: to see what will happen:
 
-    $ make -n install DESTDIR=/tmp/marco/atsofa
+    $ make -n install DESTDIR=/tmp/atsofa
 
 to really do it:
 
-    $ make install DESTDIR=/tmp/marco/atsofa
+    $ make install DESTDIR=/tmp/atsofa
+
+  After the installation it is  possible to verify the installed library
+against the test suite with:
+
+    $ make installcheck
 
 
 4. Usage
@@ -125,48 +126,48 @@ Read the original documentation of SOFA.
 5. How to
 ---------
 
-Here is an overview of how  to repackage SOFA.  The original SOFA
-libraries come in 2 archives, one  for the C language version and
-one for the Fortran language.
+Here  is an  overview  of  how to  repackage  SOFA.   The original  SOFA
+libraries come in 2 archives, one for the C language version and one for
+the Fortran language.
 
-* Both archives  have a "doc" subdirectory  holding documentation
-  file.  Take one  of these directories and copy  the contents in
-  the "doc" subdirectory of ATSOFA.
+* Both archives  have a "doc" subdirectory  holding documentation files.
+  Take  one of  these directories  and copy  the contents  in the  "doc"
+  subdirectory of ATSOFA.
 
-* C source  files (both  .c and  .h) go  unchanged under  the "c"
-  subdirectory  of ATSOFA,  with  the  exception of  "t_sofa_c.c"
-  which is the test file and goes under "test-c".
+* C  source  files  (both  .c  and   .h)  go  unchanged  under  the  "c"
+  subdirectory of  ATSOFA, with the  exception of "t_sofa_c.c"  which is
+  the test file and goes under "test-c".
 
-* Fortran source files go  unchanged under the "f77" subdirectory
-  of ATSOFA,  with the exception  of "t_sofa_f.for" which  is the
-  test file and goes under "test-f77".
+* Fortran  source files  go unchanged  under the  "f77" subdirectory  of
+  ATSOFA, with  the exception of  "t_sofa_f.for" which is the  test file
+  and goes under "test-f77".
 
-* C source files must be explicitly listed in "c/Makefile.am", as
-  is already shown.
+* C source  files must  be explicitly listed  in "c/Makefile.am",  as is
+  already shown.
 
-* Fortran   source   files   must   be   explicitly   listed   in
-  "f77/Makefile.am", as is already shown.
+* Fortran source  files must be explicitly  listed in "f77/Makefile.am",
+  as is already shown.
 
 
 A. Credits
 ----------
 
-Software  Routines from  the  IAU SOFA  Collection are  included.
-Copyright  (C)  International  Astronomical  Union  Standards  of
-Fundamental Astronomy (http://www.iausofa.org).
+Software Routines from the IAU  SOFA Collection are included.  Copyright
+(C) International Astronomical Union  Standards of Fundamental Astronomy
+(http://www.iausofa.org).
 
-  Packaging with  the GNU Autotools  is by Marco Maggi.   If this
-package exists it's because of  the great GNU software tools that
-he uses all the time.
+  Packaging with the  GNU Autotools is by Marco Maggi.   If this package
+exists it's because of the great GNU software tools that he uses all the
+time.
 
 
 B. Bugs
 -------
 
-Bug  reports are  appreciated,  register them  at the  Issue
-tracker at Github:
+Bug  reports are  appreciated, register  them  at the  Issue tracker  at
+Github:
 
-	  <http://github.com/marcomaggi/atsofa/issues>
+	      <http://github.com/marcomaggi/atsofa/issues>
 
 
 C. Resources
@@ -174,32 +175,33 @@ C. Resources
 
 The GNU Project software can be found here:
 
-		   <http://www.gnu.org/>
+			 <http://www.gnu.org/>
 
 development takes place at:
 
-	     <http://github.com/marcomaggi/atsofa/>
+		 <http://github.com/marcomaggi/atsofa/>
 
 and as backup at:
 
-	    <http://sourceforge.net/projects/atsofa/>
+	       <http://sourceforge.net/projects/atsofa/>
 
 the last revision of this package is available from:
 
-	 <http://sourceforge.net/projects/atsofa/files/>
+	    <http://sourceforge.net/projects/atsofa/files/>
 
 the documentation is available online:
 
-	<http://marcomaggi.github.com/docs/iausofa.html>
+	    <http://marcomaggi.github.com/docs/iausofa.html>
 
-  The  SOFA libraries  along  with  documentation and  other
-goodies can be found at:
+  The SOFA libraries  along with documentation and other  goodies can be
+found at:
 
-		    <http://www.iausofa.org/>
+		       <http://www.iausofa.org/>
 
 
 ### end of file
 # Local Variables:
+# coding: utf-8-unix
 # mode: text
-# fill-column: 65
+# fill-column: 72
 # End:

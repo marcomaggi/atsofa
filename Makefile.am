@@ -46,4 +46,9 @@ tests_f77_cal2jd_LDADD		= f77/libsofaf.la
 tests_f77_t_sofa_f_SOURCES	= tests-f77/t_sofa_f.for
 tests_f77_t_sofa_f_LDADD	= f77/libsofaf.la
 
+## --------------------------------------------------------------------
+
+installcheck-local: $(TESTS)
+	@for f in $(TESTS); do $(builddir)/$$f; done
+
 ### end of file
