@@ -1,0 +1,17 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+includedir=@includedir@
+libdir=@libdir@
+
+## ------------------------------------------------------------
+
+Name: @PACKAGE_NAME@
+Description: Standards of Fundamental Astronomy (SOFA)
+Version: @MY_PKG_CONFIG_VERSION@
+Libs: -L${libdir} -lsofac
+Cflags: -I${includedir}
+
+### end of file
+# Local Variables:
+# mode: script
+# End:
