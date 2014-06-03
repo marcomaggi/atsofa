@@ -11,6 +11,7 @@ else libdir=${prefix}/lib
 fi
 
 ../configure \
+    --enable-maintainer-mode			\
     --config-cache                              \
     --cache-file=../config.cache                \
     --disable-static --enable-shared            \

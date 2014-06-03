@@ -11,7 +11,7 @@ AC_CONFIG_AUX_DIR([meta/autotools])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE([foreign dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([foreign dist-bzip2 no-dist-gzip subdir-objects])
 AM_MAINTAINER_MODE
 
 AM_PROG_AR
@@ -82,9 +82,6 @@ AC_CHECK_LIB([m],[sin])
 AC_CONFIG_FILES([Makefile]
   [c/Makefile]
   [f77/Makefile]
-  [tests-c/Makefile]
-  [tests-f77/Makefile]
-  [doc/Makefile]
   [meta/sofac.pc]
   [meta/sofaf.pc])
 AC_OUTPUT
