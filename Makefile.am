@@ -19,7 +19,7 @@ nodist_pkgconfig_DATA	= meta/sofaf.pc meta/sofac.pc
 AM_MAKEINFOFLAGS	= --no-split
 
 info_TEXINFOS		= doc/iausofa.texi
-iausofa_TEXINFOS	= doc/macros.texi
+doc_iausofa_TEXINFOS	= doc/macros.texi
 
 ## --------------------------------------------------------------------
 

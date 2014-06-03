@@ -1,11 +1,15 @@
 ## Process this file with automake to produce Makefile.in
 
-AM_FFLAGS = -Wall
+AM_FFLAGS		= -Wall
+
+sofaf_CURRENT		= @sofaf_VERSION_INTERFACE_CURRENT@
+sofaf_REVISION		= @sofaf_VERSION_INTERFACE_REVISION@
+sofaf_AGE		= @sofaf_VERSION_INTERFACE_AGE@
 
 if WANT_FLIB
 lib_LTLIBRARIES		= libsofaf.la
 endif
-libsofaf_la_LDFLAGS	= -version-info 1:0:0
+libsofaf_la_LDFLAGS	= -version-info $(sofaf_CURRENT):$(sofaf_REVISION):$(sofaf_AGE)
 libsofaf_la_SOURCES	= \
 	a2af.for	a2tf.for	af2a.for	\
 	anp.for		anpm.for	bi00.for	\
