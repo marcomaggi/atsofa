@@ -14872,12 +14872,12 @@ Astronomical Union's @sofa{} license and its development takes place at:
 @noindent
 and as backup at:
 
-@center @url{http://sourceforge.net/projects/@value{PACKAGE_NICKNAME}}
+@center @url{https://bitbucket.org/marcomaggi/@value{PACKAGE_NICKNAME}/}
 
 @noindent
 proper release tarballs are available from:
 
-@center @url{http://sourceforge.net/projects/@value{PACKAGE_NICKNAME}/files/}
+@center @url{https://bitbucket.org/marcomaggi/@value{PACKAGE_NICKNAME}/downloads}
 
 @noindent
 the International Astronomical Union's @sofa{} project home page is at:

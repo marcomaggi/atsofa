@@ -2,7 +2,7 @@ dnl @configure_input@
 dnl
 
 AC_PREREQ([2.69])
-AC_INIT([SOFA under GNU Autotools],[0.2d0],
+AC_INIT([SOFA under GNU Autotools],[0.2d1],
   [marco.maggi-ipsu@poste.it],
   [atsofa],[http://github.com/marcomaggi/atsofa/])
 AC_CONFIG_SRCDIR([c/])
